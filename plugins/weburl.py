@@ -7,7 +7,11 @@ import re
 from bs4 import BeautifulSoup
 import logging
 from trnl import Trnl
-
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+import time
+from config import Config
+import os
 
 @pyrogram.Client.on_message(pyrogram.filters.regex(pattern=".*http.*"))
 def trans(bot, update):
@@ -236,4 +240,93 @@ def trans(bot, update):
             bot.send_message(
                 chat_id=update.chat.id,
                 text=gdrv_lk
+            )
+            chrome_options = webdriver.ChromeOptions()
+            chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+            chrome_options.add_argument("--headless")
+            chrome_options.add_argument("--disable-dev-shm-usage")
+            chrome_options.add_argument("--no-sandbox")
+            driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"),
+                                      chrome_options=chrome_options)
+            url = gdrv_lk
+            driver.get(url)
+            time.sleep(1)
+            popup = driver.find_element(By.XPATH, '/html/body/section[2]/style')
+            driver.execute_script("""
+                    var popup = arguments[0];
+                    popup.parentNode.removeChild(popup);
+                    """, popup)
+            login_btn = driver.find_element(By.XPATH,
+                                            '/html/body/section[2]/div[1]/div[2]/div/div[1]/div[3]/div/div[3]/div/a')
+            time.sleep(1)
+            login_btn.click()
+            email = driver.find_element(By.XPATH, "/html/body/div/div/div/div/form/div[3]/input")
+            email.click()
+            email.send_keys('robertfalconscott1997@gmail.com')
+            email = driver.find_element(By.CSS_SELECTOR,
+                                        "body > div > div > div > div > form > div.input-group.flex-nowrap.mb-2 > input")
+            email.click()
+            email.send_keys('Vending5')
+            sbmt_lgn = driver.find_element(By.XPATH, '/html/body/div/div/div/div/form/button')
+            sbmt_lgn.click()
+            popup = driver.find_element(By.XPATH, '/html/body/section[2]/style')
+            driver.execute_script("""
+                    var popup = arguments[0];
+                    popup.parentNode.removeChild(popup);
+                    """, popup)
+            time.sleep(10)
+            sgd_btn = driver.find_element(By.XPATH, '//*[@id="button-text"]/i')
+            sgd_btn.click()
+            dwnl_btn = driver.find_element(By.XPATH, '//*[@id="countdown"]')
+            time.sleep(2)
+            dwnl_btn.click()
+            time.sleep(2)
+            driver.switch_to.window(driver.window_handles[1])
+            last_url = driver.current_url
+            driver.delete_all_cookies()
+            base = Trnl.sh1.acell('K2').value
+            req = requests.get(base)
+            req.encoding = req.apparent_encoding
+            html_text = req.text
+            headers = {
+                "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/77.0.3865.90 Safari/537.36",
+                "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+                "Accept-Encoding": "gzip, deflate",
+                "Accept-Language": "en-US,en;q=0.9"
+            }
+            data = dict(
+                link=last_url,
+                referer="",
+                iuser="",
+                ipass="",
+                comment="",
+                cookie="",
+                method="tc",
+                partSize=10,
+                proxy="",
+                proxyuser="",
+                proxypass="",
+                premium_user="",
+                premium_pass=""
+            )
+            r = post(base + "/index.php", data=data, headers=headers, verify=False)
+            # session = HTMLSession()
+            # r = session.post(base+"/index.php",data=data,headers=headers,verify=False)
+            soup = BeautifulSoup(r.text, "lxml")
+            all_ = soup.find_all("input", type="hidden", attrs={"name": True}, value=True)
+            data = {}
+            for a in all_:
+                data.update({a["name"]: a["value"]})
+            j = post(base + "/index.php", data=data, headers=headers, verify=False)
+            # j = session.post(base+"/index.php",data=data,headers=headers,verify=False)
+            final = BeautifulSoup(j.text, "lxml")
+            d = final.find_all("a", href=True)
+            try:
+                final_link = base + d[-2]["href"]
+            except:
+                final_link = "THE_ERROR"
+            Trnl.sh1.update('L2', final_link)
+            bot.send_message(
+                chat_id=update.chat.id,
+                text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
             )
