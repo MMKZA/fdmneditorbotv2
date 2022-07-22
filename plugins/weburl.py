@@ -184,6 +184,8 @@ def trans(bot, update):
             for i in chss_lst:
                 chss_lst[i] = url_lst[i] + " | " + qlt_lst[i] + " | " + szs_lst[i]
             cnmm_lst = list(filter(lambda x: "https://yoteshinportal.cc/" in x, chss_lst))
+            gb_lst = ['GB', 'Gb', 'gb' 'gB']
+            mb_lst = ['MB', 'Mb', 'mb' 'mB']
             for a in qlt_lst:
                 if "1080" in a:
                     kwd_1080 = list(filter(lambda x: "1080" in x, qlt_lst))[0]
@@ -191,10 +193,14 @@ def trans(bot, update):
                     spl_1080 = " | " + kwd_1080 + " | "
                     lk_1080 = re.search("(?P<url>https?://[^\s]+)", cnmm_1080[0]).group("url")
                     szstr_1080 = (cnmm_1080[0].split(spl_1080))[1]
-                    if "GB" in szstr_1080:
-                        sz_1080 = float(szstr_1080.replace("GB", "").strip())
-                    if "MB" in szstr_1080:
-                        sz_1080 = "{:.2f}".format(float(szstr_1080.replace("MB", "").strip()) / 1024)
+                    szspl_1080 = re.findall('(\d+|[A-Za-z]+)', szstr_1080)
+                    szunt_1080 = szspl_1080[len(szspl_1080) - 1]
+                    for a in gb_lst:
+                        if szunt_1080 in a:
+                            sz_1080 = float(szstr_1080.replace(szunt_1080, "").strip())
+                    for a in mb_lst:
+                        if szunt_1080 in a:
+                            sz_1080 = "{:.2f}".format(float(szstr_1080.replace(szunt_1080, "").strip()) / 1024)
             for a in qlt_lst:
                 if "720" in a:
                     kwd_720 = list(filter(lambda x: "720" in x, qlt_lst))[0]
@@ -202,11 +208,15 @@ def trans(bot, update):
                     spl_720 = " | " + kwd_720 + " | "
                     lk_720 = re.search("(?P<url>https?://[^\s]+)", cnmm_720[0]).group("url")
                     szstr_720 = (cnmm_720[0].split(spl_720))[1]
-                    if "GB" in szstr_720:
-                        sz_720 = float((cnmm_720[0].split(spl_720))[1].replace("GB", "").strip())
-                    if "MB" in szstr_720:
-                        sz_720 = "{:.2f}".format(
-                            float((cnmm_720[0].split(spl_720))[1].replace("MB", "").strip()) / 1024)
+                    szspl_720 = re.findall('(\d+|[A-Za-z]+)', szstr_720)
+                    szunt_720 = szspl_720[len(szspl_720) - 1]
+                    for a in gb_lst:
+                        if szunt_720 in a:
+                            sz_720 = float((cnmm_720[0].split(spl_720))[1].replace(szunt_720, "").strip())
+                    for a in mb_lst:
+                        if szunt_720 in a:
+                            sz_720 = "{:.2f}".format(
+                                float((cnmm_720[0].split(spl_720))[1].replace(szunt_720, "").strip()) / 1024)
             for a in qlt_lst:
                 if "480" in a:
                     kwd_480 = list(filter(lambda x: "480" in x, qlt_lst))[0]
@@ -214,17 +224,24 @@ def trans(bot, update):
                     spl_480 = " | " + kwd_480 + " | "
                     lk_480 = re.search("(?P<url>https?://[^\s]+)", cnmm_480[0]).group("url")
                     szstr_480 = (cnmm_480[0].split(spl_480))[1]
-                    if "GB" in szstr_480:
-                        sz_480 = float(szstr_480.replace("GB", "").strip())
-                    if "MB" in szstr_480:
-                        sz_480 = "{:.2f}".format(float(szstr_480.replace("MB", "").strip()) / 1024)
-            arr = list(range(0, len(szs_lst)))
-            a = list(range(0, len(szs_lst)))
-            for i in a:
-                if "GB" in szs_lst[i]:
-                    arr[i] = float(szs_lst[i].replace("GB", "").strip())
-                if "MB" in szs_lst[i]:
-                    arr[i] = float("{:.2f}".format(float(szs_lst[i].replace("MB", "").strip()) / 1024))
+                    szspl_480 = re.findall('(\d+|[A-Za-z]+)', szstr_480)
+                    szunt_480 = szspl_480[len(szspl_480) - 1]
+                    for a in gb_lst:
+                        if szunt_480 in a:
+                            sz_480 = float(szstr_480.replace(szunt_480, "").strip())
+                    for a in mb_lst:
+                        if szunt_480 in a:
+                            sz_480 = "{:.2f}".format(float(szstr_480.replace(szunt_480, "").strip()) / 1024)
+            arr = list(range(1, len(szs_lst)))
+            a = list(range(1, len(szs_lst)))
+            for x in gb_lst:
+                for i in a:
+                    if x == szs_lst[i]:
+                        arr[i] = float(szs_lst[i].replace(x, "").strip())
+            for x in mb_lst:
+                for i in a:
+                    if x == szs_lst[i]:
+                        arr[i] = float("{:.2f}".format(float(szs_lst[i].replace(x, "").strip()) / 1024))
             indices = [v for i, v in enumerate(arr) if v < 2]
             max_sz = max(indices)
             for a in cnmm_lst:
