@@ -61,7 +61,7 @@ async def youtube_dl_call_back(bot, update):
             revoke=True
         )
         return False
-    youtube_dl_url = Trnl.sh1.acell('L2').value
+    youtube_dl_url = Trnl.sh1.acell('L3').value
     #youtube_dl_url = update.message.reply_to_message.text
     custom_file_name = str(response_json.get("title")) + \
         "_" + youtube_dl_format + "." + youtube_dl_ext
@@ -313,10 +313,10 @@ async def youtube_dl_call_back(bot, update):
                 clip.save_frame(tmp_directory_for_each_user + "/" + "thbnl.jpg", t = screen_time)
                 V_WIDTH = clip.w
                 V_HEIGHT = clip.h
-                if "update" in str(Trnl.sh1.acell('J2').value):
+                if "update" in str(Trnl.sh1.acell('J3').value):
                     chnl_id = update.message.chat.id
                 else:
-                    chnl_id=int(Trnl.sh1.acell('J2').value)
+                    chnl_id=int(Trnl.sh1.acell('J3').value)
                 vdf_msg = await bot.send_video(
                     #chat_id=update.message.chat.id,
                     chat_id=chnl_id,
@@ -342,7 +342,7 @@ async def youtube_dl_call_back(bot, update):
                         #from_chat_id=update.message.chat.id,
                         #message_ids=vd_msg.message_id
                     #)
-                Trnl.sh1.update('H2',vdf_msg.message_id)
+                Trnl.sh1.update('H3',vdf_msg.message_id)
             else:
                 logger.info("Did this happen? :\\")
             end_two = datetime.now()
