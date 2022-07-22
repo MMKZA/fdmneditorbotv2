@@ -24,7 +24,7 @@ from trnl import Trnl
 @pyrogram.Client.on_message(pyrogram.filters.command(["scpt"]))
 async def script_call_back(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        script_url = Trnl.sh1.acell('M2').value
+        script_url = Trnl.sh1.acell('M3').value
         req = requests.get(script_url)
         # override encoding by real educated guess as provided by chardet
         req.encoding = req.apparent_encoding
@@ -121,8 +121,8 @@ async def script_call_back(bot, update):
         scpt_id = scpt_msg.message_id
         vtext_lk = "https://t.me/fdmnscripts/" + str(scpt_id)
         vtext_hplk = '<a href="' + vtext_lk + '">👉 ဇာတ်ညွှန်းဖတ်ရန် နှိပ်ပါ 📜</a>'
-        chnl_lk = str(Trnl.sh1.acell('I2').value)
-        vd_lk = chnl_lk + str(Trnl.sh1.acell('H2').value)
+        chnl_lk = str(Trnl.sh1.acell('I3').value)
+        vd_lk = chnl_lk + str(Trnl.sh1.acell('H3').value)
         vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
         mchnl_msg = await bot.send_photo(
             "@fdmnchannel",
@@ -168,31 +168,31 @@ def chnl_call_back(bot, CallbackQuery):
     if CallbackQuery.data == str("opt0"):
         chnl_id = "update.message.chat.id"
         CallbackQuery.edit_message_text("ပို့မည့် Channel | FDMN Editor Bot")
-        Trnl.sh1.update('J2', chnl_id)
+        Trnl.sh1.update('J3', chnl_id)
     if CallbackQuery.data == str("opt1"):
         chnl_id = int("-1001785695486")
         chnl_lk = "https://t.me/c/1785695486/"
         CallbackQuery.edit_message_text("ပို့မည့် Channel | ဇာတ်လမ်းစုံ")
-        Trnl.sh1.update('I2', chnl_lk)
-        Trnl.sh1.update('J2', chnl_id)
+        Trnl.sh1.update('I3', chnl_lk)
+        Trnl.sh1.update('J3', chnl_id)
     elif CallbackQuery.data == str("opt2"):
         chnl_id = int("-1001718578294")
         chnl_lk = "https://t.me/c/1718578294/"
         CallbackQuery.edit_message_text("ပို့မည့် Channel | Tollywood/Bollywood ဇာတ်လမ်းများ")
-        Trnl.sh1.update('I2', chnl_lk)
-        Trnl.sh1.update('J2', chnl_id)
+        Trnl.sh1.update('I3', chnl_lk)
+        Trnl.sh1.update('J3', chnl_id)
     elif CallbackQuery.data == str("opt3"):
         chnl_id = int("-1001389311243")
         chnl_lk = "https://t.me/c/1389311243/"
         CallbackQuery.edit_message_text("ပို့မည့် Channel | ကာတွန်းဇာတ်လမ်းများ")
-        Trnl.sh1.update('I2', chnl_lk)
-        Trnl.sh1.update('J2', chnl_id)
+        Trnl.sh1.update('I3', chnl_lk)
+        Trnl.sh1.update('J3', chnl_id)
     elif CallbackQuery.data == str("opt4"):
         chnl_id = int("-1001750623132")
         chnl_lk = "https://t.me/c/1750623132/"
         CallbackQuery.edit_message_text("ပို့မည့် Channel | 18+ ဇာတ်ကားများ")
-        Trnl.sh1.update('I2', chnl_lk)
-        Trnl.sh1.update('J2', chnl_id)
+        Trnl.sh1.update('I3', chnl_lk)
+        Trnl.sh1.update('J3', chnl_id)
     elif CallbackQuery.data == str("ot1"):
         trnl_lk = "https://eu-frankfurt.rapidleech.gq"
         CallbackQuery.edit_message_text("Transloader Site | https://eu-frankfurt.rapidleech.gq")
