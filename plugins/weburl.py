@@ -201,6 +201,7 @@ def trans(bot, update):
                     for a in mb_lst:
                         if szunt_1080 in a:
                             sz_1080 = "{:.2f}".format(float(szstr_1080.replace(szunt_1080, "").strip()) / 1024)
+
             for a in qlt_lst:
                 if "720" in a:
                     kwd_720 = list(filter(lambda x: "720" in x, qlt_lst))[0]
@@ -217,6 +218,7 @@ def trans(bot, update):
                         if szunt_720 in a:
                             sz_720 = "{:.2f}".format(
                                 float((cnmm_720[0].split(spl_720))[1].replace(szunt_720, "").strip()) / 1024)
+
             for a in qlt_lst:
                 if "480" in a:
                     kwd_480 = list(filter(lambda x: "480" in x, qlt_lst))[0]
@@ -236,12 +238,12 @@ def trans(bot, update):
             a = list(range(1, len(szs_lst)))
             for x in gb_lst:
                 for i in a:
-                    if x == szs_lst[i]:
-                        arr[i] = float(szs_lst[i].replace(x, "").strip())
+                    if x in szs_lst[i]:
+                        arr[i - 1] = float(szs_lst[i].replace(x, "").strip())
             for x in mb_lst:
                 for i in a:
-                    if x == szs_lst[i]:
-                        arr[i] = float("{:.2f}".format(float(szs_lst[i].replace(x, "").strip()) / 1024))
+                    if x in szs_lst[i]:
+                        arr[i - 1] = float("{:.2f}".format(float(szs_lst[i].replace(x, "").strip()) / 1024))
             indices = [v for i, v in enumerate(arr) if v < 2]
             max_sz = max(indices)
             for a in cnmm_lst:
