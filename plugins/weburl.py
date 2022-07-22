@@ -17,7 +17,7 @@ import os
 def trans(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         web_url = update.text
-        Trnl.sh1.update('M2',web_url)
+        Trnl.sh1.update('M3',web_url)
         if "https://goldchannel.net/movies/" in web_url:
             web_req = requests.get(web_url)
             # override encoding by real educated guess as provided by chardet
@@ -152,7 +152,7 @@ def trans(bot, update):
                 final_link = base + d[-2]["href"]
             except:
                 final_link = "THE_ERROR"
-            Trnl.sh1.update('L2', final_link)
+            Trnl.sh1.update('L3', final_link)
             bot.send_message(
                 chat_id=update.chat.id,
                 text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
@@ -325,7 +325,7 @@ def trans(bot, update):
                 final_link = base + d[-2]["href"]
             except:
                 final_link = "THE_ERROR"
-            Trnl.sh1.update('L2', final_link)
+            Trnl.sh1.update('L3', final_link)
             bot.send_message(
                 chat_id=update.chat.id,
                 text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
