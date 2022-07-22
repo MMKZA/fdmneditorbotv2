@@ -48,4 +48,4 @@ URL | filename | username | password"""
     UNZIP_SUPPORTED_EXTENSIONS = ("zip", "rar")
     EXTRACT_ZIP_ERRS_OCCURED = "Sorry. Errors occurred while processing compressed file. Please check everything again twice, and if the issue persists, report this to <a href='https://t.me/fdmnchat</a>"
     EXTRACT_ZIP_STEP_TWO = "Select file_name to upload from the below options."
-    CHNL_JOIN = "⚠️⚠️⚠️'အသိပေးချက်'⚠️⚠️⚠️\nဇာတ်ကားတွေကို Private Channel မှာ တင်ထားလို့ အရင်ဆုံး Join ဖို့လိုအပ်ပါတယ်။\nလမ်းညွှန်ချက်ကို Pinned Message မှာ ဖတ်ရှုပါ။\nအခမဲ့ ဖြစ်ပါတယ်။\n\nဇာတ်ကားကြည့်ရန် 🍿 "
+    CHNL_JOIN = "⚠️⚠️⚠️'အသိပေးချက်'⚠️⚠️⚠️\nအသစ်ရောက်လာတဲ့သူတွေက 'ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ' ကနေ Video ကိုတန်းကြည့်လို့ မရသေးပါဘူး။ Video ဖိုင်တွေကို Private Channel တွေမှာပဲ သီးသန့်စုစည်းပြီးတင်ထားတဲ့အတွက် အရင်ဆုံး Join ဖို့လိုအပ်ပါတယ်။\nတစ်ကြိမ်လုပ်ဆောင်ပြီးသွားရင် 'ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ' ကနေတန်းကြည့်နိုင်ပါပြီ။\nPrivate Channel တွေကို 'Welcome to FDMN' ဆိုတဲ့ Bot ကနေ ဝင်ကြေးအခမဲ့ လွယ်ကူစွာ Join နိုင်ပါတယ်။\n👉<a href='https://t.me/fdmnchannel/227'>Pinned Message</a>👈 ကလမ်းညွှန်ချက်အတိုင်း လုပ်ဆောင်ပါ။"
