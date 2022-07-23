@@ -1,7 +1,7 @@
 import requests
 import json
 
-async def ytsn_lgn(eml, pswd):
+def ytsn_lgn(eml, pswd):
     url_login = 'https://yoteshinportal.cc/login'
     r = requests.session()
     headers = {
