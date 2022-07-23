@@ -1,6 +1,6 @@
 class Translation(object):
-    START_TEXT = """HI♥ {},
-꧁༒༺ I AM CONTENT EDITOR FOR FILM DAY ༻༒꧂
+    START_TEXT = """မင်္ဂလာပါ ♥ {},
+꧁༒༺ FDMN Channel မှ ကြိုဆိုပါတယ် ༻༒꧂
 /help ꜰᴏʀ ᴍᴏʀᴇ ᴅᴇᴛᴀɪʟꜱ!"""
     FORMAT_SELECTION = "Select the desired format: <a href='{}'>file size might be approximate</a> \nIf you want to set custom thumbnail, send photo before or quickly after tapping on any of the below buttons.\nYou can use /deletethumbnail to delete the auto-generated thumbnail."
     SET_CUSTOM_USERNAME_PASSWORD = """If you want to download premium videos, provide in the following format:
@@ -21,15 +21,15 @@ URL | filename | username | password"""
 3. Select the button.
    SVideo - Give File as video with Thumbnail
    SFile  - Give File (video) as file with Thumbnail
-   Tansloader Site => t.me/transload"""
-    REPLY_TO_DOC_GET_LINK = "Reply to a Telegram media to get High Speed Direct Download Link"
-    REPLY_TO_DOC_FOR_C2V = "Reply to a Telegram media to convert"
    Video  - Give File as video without Thumbnail
    File   - Give File without Thumbnail
    
    Channel  => t.me/fdmnchannel
    Group    => t.me/fdmnchat
    Transloader Bot => @GTransLoaderbot
+   Tansloader Site => t.me/transload"""
+    REPLY_TO_DOC_GET_LINK = "Reply to a Telegram media to get High Speed Direct Download Link"
+    REPLY_TO_DOC_FOR_C2V = "Reply to a Telegram media to convert"
     REPLY_TO_MEDIA_ALBUM_TO_GEN_THUMB = "Reply /genthumbnail to a media album, to generate custom thumbnail"
     ERR_ONLY_TWO_MEDIA_IN_ALBUM = "Media Album should contain only two photos. Please re-send the media album, and then try again, or send only two photos in an album."
     CANCEL_STR = "Process Cancelled"
