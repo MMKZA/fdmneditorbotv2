@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 import re
 from plugins.ytsn_lgn import ytsn_lgn
 
-async def ytsn_dllk(ytsn_lk):
+def ytsn_dllk(ytsn_lk):
     acc_id = Trnl.sh1.acell('N2').value
     if "robert" in acc_id:
         eml = 'robertfalconscott1997@gmail.com'
