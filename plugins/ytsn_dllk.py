@@ -1,6 +1,8 @@
 import requests
 import json
 from trnl import Trnl
+from bs4 import BeautifulSoup
+import re
 from plugins.ytsn_lgn import ytsn_lgn
 
 async def ytsn_dllk(ytsn_lk):
@@ -14,6 +16,13 @@ async def ytsn_dllk(ytsn_lk):
     pswd = 'Vending5'
     session = await ytsn_lgn(eml,pswd)
     sv_url = 'https://yoteshinportal.cc/api/save'
+    get = session.get(ytsn_lk)
+    soup = BeautifulSoup(get.content,'lxml')
+    id_loc = soup.find_all('a', {'class':"butt text-decoration-none disabled"})
+    for x in id_loc:
+        if re.match('app.saveToGoogleDrive',x['onclick']):
+            id_flt = x['onclick']
+            vd_id = re.findall("'(\w+)'",id_flt)
     headers1 = {
         'accept': '*/*',
         'accept-encoding': 'utf-8',
@@ -32,7 +41,7 @@ async def ytsn_dllk(ytsn_lk):
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36 Edg/103.0.1264.62',
         'x-requested-with': 'XMLHttpRequest'
     }
-    payload1 = {"key":"IcNF-SOBX"}
+    payload1 = {"key":vd_id}
     req = session.post(sv_url,headers=headers1,json=payload1)
     info = req.content
     fileid = json.loads(info)['fileId']
