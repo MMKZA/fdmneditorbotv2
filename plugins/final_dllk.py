@@ -16,10 +16,10 @@ async def trans(bot, update):
         Trnl.sh1.update('M3',web_url)
         if "https://goldchannel.net/movies/" in web_url:
             gdrv_lk = await gldchnl(web_url)
-            await bot.send_message(
-                chat_id=update.chat.id,
-                text=gdrv_lk
-            )
+            #await bot.send_message(
+                #chat_id=update.chat.id,
+                #text=gdrv_lk
+            #)
             base = Trnl.sh1.acell('K2').value
             final_link = transloader(base,gdrv_lk)
             Trnl.sh1.update('L3', final_link)
@@ -30,10 +30,10 @@ async def trans(bot, update):
         if "https://channelmyanmar.org/" in web_url:
             ytsn_lk = await cnmm(web_url)
             gdrv_lk = await ytsn_dllk(ytsn_lk)
-            await bot.send_message(
-                chat_id=update.chat.id,
-                text=gdrv_lk
-            )
+            #await bot.send_message(
+                #chat_id=update.chat.id,
+                #text=gdrv_lk
+            #)
             base = Trnl.sh1.acell('K2').value
             final_link = await transloader(base,gdrv_lk)
             Trnl.sh1.update('L3', final_link)
