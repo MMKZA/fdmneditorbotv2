@@ -40,7 +40,7 @@ def trans(bot, update):
                 #text=gdrv_lk
             #)
             base = Trnl.sh1.acell('K2').value
-            final_link = await transloader(base,gdrv_lk)
+            final_link = transloader(base,gdrv_lk)
             Trnl.sh1.update('L3', final_link)
             bot.send_message(
                 chat_id=update.chat.id,
