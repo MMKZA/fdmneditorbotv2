@@ -121,7 +121,7 @@ async def script_call_back(bot, update):
         scpt_id = scpt_msg.message_id
         vtext_lk = "https://t.me/fdmnscripts/" + str(scpt_id)
         vtext_hplk = '<a href="' + vtext_lk + '">👉 ဇာတ်ညွှန်းဖတ်ရန် နှိပ်ပါ 📜</a>'
-        chnl_lk = str(Trnl.sh1.acell('I3').value)
+        chnl_lk = str(Trnl.sh1.acell('I2').value)
         vd_lk = chnl_lk + str(Trnl.sh1.acell('H3').value)
         vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
         invt_lst = [
