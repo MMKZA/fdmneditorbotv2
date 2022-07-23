@@ -20,5 +20,3 @@ gspread
 oauth2client
 urllib3
 lxml
-selenium
-heroku
