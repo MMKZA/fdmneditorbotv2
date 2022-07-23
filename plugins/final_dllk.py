@@ -29,7 +29,12 @@ def trans(bot, update):
             )
         if "https://channelmyanmar.org/" in web_url:
             ytsn_lk = cnmm(web_url)
-            gdrv_lk = ytsn_dllk(ytsn_lk)
+            gdrv_retrn = ytsn_dllk(ytsn_lk)
+            if "error" in gdrv_retrn:
+                gdrvclean(gdrv_retrn)
+                gdrv_lk = ytsn_dllk(ytsn_lk)
+            else:
+                gdrv_lk = gdrv_retrn
             #await bot.send_message(
                 #chat_id=update.chat.id,
                 #text=gdrv_lk
