@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-async def cnmm(web_url):
+def cnmm(web_url):
     web_req = requests.get(web_url)
     web_req.encoding = web_req.apparent_encoding
     web_html = web_req.text
