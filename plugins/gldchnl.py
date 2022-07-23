@@ -2,7 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 
-async def gldchnl(gld_url):
+def gldchnl(gld_url):
     web_req = requests.get(gld_url)
     web_req.encoding = web_req.apparent_encoding
     web_html = web_req.text
