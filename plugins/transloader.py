@@ -6,7 +6,7 @@ import requests
 from bs4 import BeautifulSoup
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-async def transloader(base, last_url):
+def transloader(base, last_url):
     req = requests.get(base)
     req.encoding = req.apparent_encoding
     html_text = req.text
