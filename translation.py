@@ -21,15 +21,15 @@ URL | filename | username | password"""
 3. Select the button.
    SVideo - Give File as video with Thumbnail
    SFile  - Give File (video) as file with Thumbnail
+   Tansloader Site => t.me/transload"""
+    REPLY_TO_DOC_GET_LINK = "Reply to a Telegram media to get High Speed Direct Download Link"
+    REPLY_TO_DOC_FOR_C2V = "Reply to a Telegram media to convert"
    Video  - Give File as video without Thumbnail
    File   - Give File without Thumbnail
    
    Channel  => t.me/fdmnchannel
    Group    => t.me/fdmnchat
    Transloader Bot => @GTransLoaderbot
-   Tansloader Site => t.me/transload"""
-    REPLY_TO_DOC_GET_LINK = "Reply to a Telegram media to get High Speed Direct Download Link"
-    REPLY_TO_DOC_FOR_C2V = "Reply to a Telegram media to convert"
     REPLY_TO_MEDIA_ALBUM_TO_GEN_THUMB = "Reply /genthumbnail to a media album, to generate custom thumbnail"
     ERR_ONLY_TWO_MEDIA_IN_ALBUM = "Media Album should contain only two photos. Please re-send the media album, and then try again, or send only two photos in an album."
     CANCEL_STR = "Process Cancelled"
@@ -48,4 +48,4 @@ URL | filename | username | password"""
     UNZIP_SUPPORTED_EXTENSIONS = ("zip", "rar")
     EXTRACT_ZIP_ERRS_OCCURED = "Sorry. Errors occurred while processing compressed file. Please check everything again twice, and if the issue persists, report this to <a href='https://t.me/fdmnchat</a>"
     EXTRACT_ZIP_STEP_TWO = "Select file_name to upload from the below options."
-    CHNL_JOIN = "⚠️⚠️⚠️'အသိပေးချက်'⚠️⚠️⚠️\nအသစ်ရောက်လာတဲ့သူတွေက 'ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ' ကနေ Video ကိုတန်းကြည့်လို့ မရသေးပါဘူး။ Video ဖိုင်တွေကို Private Channel တွေမှာပဲ သီးသန့်စုစည်းပြီးတင်ထားတဲ့အတွက် အရင်ဆုံး Join ဖို့လိုအပ်ပါတယ်။\nတစ်ကြိမ်လုပ်ဆောင်ပြီးသွားရင် 'ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ' ကနေတန်းကြည့်နိုင်ပါပြီ။\nPrivate Channel တွေကို 'Welcome to FDMN' ဆိုတဲ့ Bot ကနေ ဝင်ကြေးအခမဲ့ လွယ်ကူစွာ Join နိုင်ပါတယ်။\n👉<a href='https://t.me/fdmnchannel/227'>Pinned Message</a>👈 ကလမ်းညွှန်ချက်အတိုင်း လုပ်ဆောင်ပါ။"
+    CHNL_JOIN = "⚠️⚠️⚠️'အသိပေးချက်'⚠️⚠️⚠️\nအသစ်ရောက်လာတဲ့သူတွေက 'ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ' ကို မနှိပ်ခင် 'Channel Join' ရန် နှိပ်ပါ' ကို အရင်နှိပ်ပြီး Private Channel ပေါ်လာရင် Join Channel ကိုနှိပ်ပါ။\nတစ်ကြိမ်လုပ်ဆောင်ပြီးသွားရင် 'ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ' ကနေတန်းကြည့်နိုင်ပါပြီ။\nPrivate Channel တစ်ခုထက်မကရှိတာမို့ သေချာအောင် Join Channel အရင်လုပ်စေချင်ပါတယ်။\nဇာတ်လမ်းအသစ်ကို Facebook Newfeeds ကနေစောင့်ကြည့်နိုင်ဖို့ 👉<a href='https://t.me/fdmnchannel/227'>FDMN Facebook Page</a>👈 ကို Like-Follow-Share လေးလုပ်ထားနိုင်ပါတယ်။"
