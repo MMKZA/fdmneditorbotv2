@@ -313,10 +313,10 @@ async def youtube_dl_call_back(bot, update):
                 clip.save_frame(tmp_directory_for_each_user + "/" + "thbnl.jpg", t = screen_time)
                 V_WIDTH = clip.w
                 V_HEIGHT = clip.h
-                if "update" in str(Trnl.sh1.acell('J3').value):
+                if "update" in str(Trnl.sh1.acell('J2').value):
                     chnl_id = update.message.chat.id
                 else:
-                    chnl_id=int(Trnl.sh1.acell('J3').value)
+                    chnl_id=int(Trnl.sh1.acell('J2').value)
                 vdf_msg = await bot.send_video(
                     #chat_id=update.message.chat.id,
                     chat_id=chnl_id,
