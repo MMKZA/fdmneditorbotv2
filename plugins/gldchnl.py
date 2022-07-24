@@ -4,6 +4,10 @@ import re
 from trnl import Trnl
 
 def gldchnl(gld_url):
+    web_req = requests.get(gld_url)
+    web_req.encoding = web_req.apparent_encoding
+    web_html = web_req.text
+    soup = BeautifulSoup(web_html, 'html.parser')
     urls_lst = []
     for a in soup.find_all('a', href=True):
         urls_lst.append(a['href'])
