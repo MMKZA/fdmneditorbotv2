@@ -44,7 +44,7 @@ def cnmm(web_url):
             szunt_1080 = szspl_1080[len(szspl_1080) - 1]
             for a in gb_lst:
                 if szunt_1080 in a:
-                    sz_1080 = float(szstr_1080.replace(szunt_1080, "").strip())
+                    sz_1080 = "{:.2f}".format(float(szstr_1080.replace(szunt_1080, "").strip()))
             for a in mb_lst:
                 if szunt_1080 in a:
                     sz_1080 = "{:.2f}".format(float(szstr_1080.replace(szunt_1080, "").strip()) / 1024)
