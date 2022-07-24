@@ -93,12 +93,13 @@ def cnmm(web_url):
     for x in gb_lst:
         for i in a:
             if x in szs_lst[i]:
-                arr[i - 1] = "{:.2f}".format(float(szs_lst[i].replace(x, "").strip()))
+                arr[i - 1] = float("{:.2f}".format(float(szs_lst[i].replace(x, "").strip())))
     for x in mb_lst:
         for i in a:
             if x in szs_lst[i]:
-                arr[i - 1] = "{:.2f}".format(float(szs_lst[i].replace(x, "").strip()) / 1024)
-    indices = [v for i, v in enumerate(arr) if v < 2]
+                arr[i - 1] = float("{:.2f}".format(float(szs_lst[i].replace(x, "").strip()) / 1024))
+    indices = [v for i, v in enumerate(arr) if v < float(2)]
+    print(sz_1080)
     max_sz = "{:.2f}".format(max(indices))
     max_qlt = sz_qlt[max_sz]
     Trnl.sh1.update('H3', max_qlt)
