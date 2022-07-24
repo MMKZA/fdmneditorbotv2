@@ -4,6 +4,7 @@
 
 # the logging things
 import logging
+
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -30,6 +31,7 @@ else:
 from translation import Translation
 
 import pyrogram
+
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 from pyrogram.types import InputMediaPhoto
@@ -43,14 +45,16 @@ from hachoir.parser import createParser
 from PIL import Image
 from helper_funcs.help_Nekmo_ffmpeg import generate_screen_shots
 from trnl import Trnl
+
+
 async def youtube_dl_call_back(bot, update):
     cb_data = update.data
     # youtube_dl extractors
     tg_send_type, youtube_dl_format, youtube_dl_ext = cb_data.split("|")
     thumb_image_path = Config.DOWNLOAD_LOCATION + \
-        "/" + str(update.from_user.id) + ".jpg"
+                       "/" + str(update.from_user.id) + ".jpg"
     save_ytdl_json_path = Config.DOWNLOAD_LOCATION + \
-        "/" + str(update.from_user.id) + ".json"
+                          "/" + str(update.from_user.id) + ".json"
     try:
         with open(save_ytdl_json_path, "r", encoding="utf8") as f:
             response_json = json.load(f)
@@ -62,9 +66,9 @@ async def youtube_dl_call_back(bot, update):
         )
         return False
     youtube_dl_url = Trnl.sh1.acell('L3').value
-    #youtube_dl_url = update.message.reply_to_message.text
+    # youtube_dl_url = update.message.reply_to_message.text
     custom_file_name = str(response_json.get("title")) + \
-        "_" + youtube_dl_format + "." + youtube_dl_ext
+                       "_" + youtube_dl_format + "." + youtube_dl_ext
     youtube_dl_username = None
     youtube_dl_password = None
     if "|" in youtube_dl_url:
@@ -184,14 +188,14 @@ async def youtube_dl_call_back(bot, update):
         # logger.info(t_response)
         os.remove(save_ytdl_json_path)
         end_one = datetime.now()
-        time_taken_for_download = (end_one -start).seconds
+        time_taken_for_download = (end_one - start).seconds
         file_size = Config.TG_MAX_FILE_SIZE + 1
         try:
             file_size = os.stat(download_directory).st_size
         except FileNotFoundError as exc:
-            #download_directory = os.path.splitext(download_directory)[0]
-            #custom_file_name = str(response_json.get("title")) + \
-            #"." + youtube_dl_ext
+            # download_directory = os.path.splitext(download_directory)[0]
+            # custom_file_name = str(response_json.get("title")) + \
+            # "." + youtube_dl_ext
             download_directory = os.path.splitext(download_directory)[0] + "." + "mp4"
             # https://stackoverflow.com/a/678242/4723940
             file_size = os.stat(download_directory).st_size
@@ -203,15 +207,15 @@ async def youtube_dl_call_back(bot, update):
             )
         else:
             is_w_f = False
-            #images = await generate_screen_shots(
-                #download_directory,
-                #tmp_directory_for_each_user,
-                #is_w_f,
-                #Config.DEF_WATER_MARK_FILE,
-                #300,
-                #9
-            #)
-            #logger.info(images)
+            # images = await generate_screen_shots(
+            # download_directory,
+            # tmp_directory_for_each_user,
+            # is_w_f,
+            # Config.DEF_WATER_MARK_FILE,
+            # 300,
+            # 9
+            # )
+            # logger.info(images)
             await bot.edit_message_text(
                 text=Translation.UPLOAD_START,
                 chat_id=update.message.chat.id,
@@ -252,7 +256,7 @@ async def youtube_dl_call_back(bot, update):
                     img.resize((90, height))
                 img.save(thumb_image_path, "JPEG")
                 # https://pillow.readthedocs.io/en/3.1.x/reference/Image.html#create-thumbnails
-                
+
             else:
                 thumb_image_path = None
             start_time = time.time()
@@ -309,19 +313,21 @@ async def youtube_dl_call_back(bot, update):
                 )
             elif tg_send_type == "video":
                 clip = VideoFileClip(download_directory)
-                screen_time = random.randint(120,600)
-                clip.save_frame(tmp_directory_for_each_user + "/" + "thbnl.jpg", t = screen_time)
+                screen_time = random.randint(120, 600)
+                clip.save_frame(tmp_directory_for_each_user + "/" + "thbnl.jpg", t=screen_time)
                 V_WIDTH = clip.w
                 V_HEIGHT = clip.h
                 if "update" in str(Trnl.sh1.acell('J2').value):
                     chnl_id = update.message.chat.id
                 else:
-                    chnl_id=int(Trnl.sh1.acell('J2').value)
+                    chnl_id = int(Trnl.sh1.acell('J2').value)
+                vcap = Trnl.sh1.acell('D2').value
+                vd_name = vcap + " | " + Trnl.sh1.acell('H3').value
                 vdf_msg = await bot.send_video(
-                    #chat_id=update.message.chat.id,
+                    # chat_id=update.message.chat.id,
                     chat_id=chnl_id,
                     video=download_directory,
-                    caption=description,
+                    caption=vd_name,
                     parse_mode="HTML",
                     duration=duration,
                     width=V_WIDTH,
@@ -329,54 +335,53 @@ async def youtube_dl_call_back(bot, update):
                     supports_streaming=True,
                     # reply_markup=reply_markup,
                     thumb=tmp_directory_for_each_user + "/" + "thbnl.jpg",
-                    #reply_to_message_id=update.message.reply_to_message.message_id,
+                    # reply_to_message_id=update.message.reply_to_message.message_id,
                     progress=progress_for_pyrogram,
                     progress_args=(
-                    Translation.UPLOAD_START,
+                        Translation.UPLOAD_START,
                         update.message,
                         start_time
                     )
                 )
-                    #vdf_msg = await bot.forward_messages(
-                        #chat_id=int("-1001785695486"),
-                        #from_chat_id=update.message.chat.id,
-                        #message_ids=vd_msg.message_id
-                    #)
-                Trnl.sh1.update('H3',vdf_msg.message_id)
+                # vdf_msg = await bot.forward_messages(
+                # chat_id=int("-1001785695486"),
+                # from_chat_id=update.message.chat.id,
+                # message_ids=vd_msg.message_id
+                # )
             else:
                 logger.info("Did this happen? :\\")
             end_two = datetime.now()
             time_taken_for_upload = (end_two - end_one).seconds
-            
-            #media_album_p = []
-            #if images is not None:
-                #i = 0
-                #caption = "@Film_Day_Bot"
-                #if is_w_f:
-                    #caption = "@Film_Day_Bot"
-                #for image in images:
-                    #if os.path.exists(str(image)):
-                        #if i == 0:
-                            #media_album_p.append(
-                                #InputMediaPhoto(
-                                    #media=image,
-                                    #caption=caption,
-                                    #parse_mode="html"
-                                #)
-                            #)
-                        #else:
-                            #media_album_p.append(
-                                #InputMediaPhoto(
-                                    #media=image
-                                #)
-                            #)
-                        #i = i + 1
-            #await bot.send_media_group(
-                #chat_id=update.message.chat.id,
-                #disable_notification=True,
-                #reply_to_message_id=update.message.message_id,
-                #media=media_album_p
-            #)
+
+            # media_album_p = []
+            # if images is not None:
+            # i = 0
+            # caption = "@Film_Day_Bot"
+            # if is_w_f:
+            # caption = "@Film_Day_Bot"
+            # for image in images:
+            # if os.path.exists(str(image)):
+            # if i == 0:
+            # media_album_p.append(
+            # InputMediaPhoto(
+            # media=image,
+            # caption=caption,
+            # parse_mode="html"
+            # )
+            # )
+            # else:
+            # media_album_p.append(
+            # InputMediaPhoto(
+            # media=image
+            # )
+            # )
+            # i = i + 1
+            # await bot.send_media_group(
+            # chat_id=update.message.chat.id,
+            # disable_notification=True,
+            # reply_to_message_id=update.message.message_id,
+            # media=media_album_p
+            # )
             #
             try:
                 shutil.rmtree(tmp_directory_for_each_user)
@@ -384,8 +389,53 @@ async def youtube_dl_call_back(bot, update):
             except:
                 pass
             await bot.edit_message_text(
-                text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS.format(time_taken_for_download, time_taken_for_upload),
-                    chat_id=update.message.chat.id,
-                    message_id=update.message.message_id,
-                    disable_web_page_preview=True
-                )
+                text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS.format(time_taken_for_download,
+                                                                            time_taken_for_upload),
+                chat_id=update.message.chat.id,
+                message_id=update.message.message_id,
+                disable_web_page_preview=True
+            )
+            script_url = Trnl.sh1.acell('M3').value
+            msg_trm = Trnl.sh1.acell('O3').value
+            scpt_msg = await bot.send_message(
+                chat_id="@fdmnscripts",
+                text=msg_trm,
+            )
+            scpt_id = scpt_msg.message_id
+            vtext_lk = "https://t.me/fdmnscripts/" + str(scpt_id)
+            vtext_hplk = '<a href="' + vtext_lk + '">👉 ဇာတ်ညွှန်းဖတ်ရန် နှိပ်ပါ 📜</a>'
+            chnl_lk = str(Trnl.sh1.acell('I2').value)
+            vd_lk = chnl_lk + vdf_msg.message_id
+            vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
+            invt_lst = [
+                "https://t.me/+RqwAss5VI6M0N2Rl",
+                "https://t.me/+Hlpn-6_fi8c1OWI1",
+                "https://t.me/+fYTgNiUsRaJlY2Y1",
+                "https://t.me/+rg5dEnd2JgFiMTll"
+            ]
+            id_lst = [
+                "-1001785695486",
+                "-1001718578294",
+                "-1001389311243",
+                "-1001750623132"
+            ]
+            if Trnl.sh1.acell('J2').value == id_lst[0]:
+                invt_lk = invt_lst[0]
+            if Trnl.sh1.acell('J2').value == id_lst[1]:
+                invt_lk = invt_lst[1]
+            if Trnl.sh1.acell('J2').value == id_lst[2]:
+                invt_lk = invt_lst[2]
+            if Trnl.sh1.acell('J2').value == id_lst[3]:
+                invt_lk = invt_lst[3]
+            chnl_hplk = '<a href="' + invt_lk + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
+            mchnl_msg = await bot.send_photo(
+                "@fdmnchannel",
+                phto_url,
+                "🎞️\n" + vcap + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN,
+                'html'
+            )
+            Trnl.sh1.update('G2', mchnl_msg.message_id)
+            await bot.send_message(
+                chat_id=update.chat.id,
+                text="Post တင်လိုက်သော ဇာတ်လမ်း 👇\n" + script_url
+            )
