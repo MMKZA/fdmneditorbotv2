@@ -323,7 +323,7 @@ async def youtube_dl_call_back(bot, update):
                     chnl_id = int(Trnl.sh1.acell('J2').value)
                 vcap = Trnl.sh1.acell('D2').value
                 vd_name = vcap + " | " + Trnl.sh1.acell('H3').value
-                vdf_msg = await bot.send_video(
+                vdf_msg = bot.send_video(
                     # chat_id=update.message.chat.id,
                     chat_id=chnl_id,
                     video=download_directory,
@@ -397,7 +397,7 @@ async def youtube_dl_call_back(bot, update):
             )
             script_url = Trnl.sh1.acell('M3').value
             msg_trm = Trnl.sh1.acell('O3').value
-            scpt_msg = await bot.send_message(
+            scpt_msg = bot.send_message(
                 chat_id="@fdmnscripts",
                 text=msg_trm,
             )
@@ -429,14 +429,14 @@ async def youtube_dl_call_back(bot, update):
                 invt_lk = invt_lst[3]
             chnl_hplk = '<a href="' + invt_lk + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
             phto_url = Trnl.sh1.acell('C2').value
-            mchnl_msg = await bot.send_photo(
+            mchnl_msg = bot.send_photo(
                 "@fdmnchannel",
                 phto_url,
                 "🎞️\n" + vcap + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN,
                 'html'
             )
             Trnl.sh1.update('G2', mchnl_msg.message_id)
-            await bot.send_message(
+            bot.send_message(
                 chat_id=update.chat.id,
                 text="Post တင်လိုက်သော ဇာတ်လမ်း 👇\n" + script_url
             )
