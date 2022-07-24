@@ -20,10 +20,11 @@ def trans(bot, update):
         func_scpt(web_url)
         if "https://goldchannel.net/movies/" in web_url:
             gdrv_lk = gldchnl(web_url)
-            #await bot.send_message(
-                #chat_id=update.chat.id,
-                #text=gdrv_lk
-            #)
+            avlb_lk = Trnl.sh2.acell('Q2').value
+            await bot.send_message(
+                chat_id=update.chat.id,
+                text="ရရှိနိုင်သော links များ👇\n" + avlb_lk
+            )
             base = Trnl.sh1.acell('K2').value
             final_link = transloader(base,gdrv_lk)
             Trnl.sh2.update('L2', final_link)
@@ -33,6 +34,11 @@ def trans(bot, update):
             )
         if "https://channelmyanmar.org/" in web_url:
             ytsn_lk = cnmm(web_url)
+            avlb_lk = Trnl.sh2.acell('Q2').value
+            await bot.send_message(
+                chat_id=update.chat.id,
+                text="ရရှိနိုင်သော links များ👇\n" + avlb_lk
+            )
             gdrv_retrn = ytsn_dllk(ytsn_lk)
             if "error" in gdrv_retrn:
                 gdrvclean(gdrv_retrn)
