@@ -16,7 +16,7 @@ import time
 def trans(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         web_url = update.text
-        Trnl.sh1.update('M2',web_url)
+        Trnl.sh2.update('M2',web_url)
         func_scpt(web_url)
         if "https://goldchannel.net/movies/" in web_url:
             gdrv_lk = gldchnl(web_url)
