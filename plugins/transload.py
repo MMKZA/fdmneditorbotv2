@@ -11,15 +11,10 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 from trnl import Trnl
-@pyrogram.Client.on_message(pyrogram.filters.regex(pattern=r"\Bttps://drive.google.com"))
+@pyrogram.Client.on_message(pyrogram.filters.command("tran"))
 def trans(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        if "Download Now" in update.text:
-            start = "https"
-            lk = start + (update.text.split(start))[1]
-        else:
-            lk = update.text
-        logger.info(lk)
+        lk = update.text.split(" ", 1)
         base = Trnl.sh1.acell('K2').value
         req = requests.get(base)
         req.encoding = req.apparent_encoding
