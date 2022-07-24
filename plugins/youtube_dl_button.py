@@ -405,7 +405,7 @@ async def youtube_dl_call_back(bot, update):
             vtext_lk = "https://t.me/fdmnscripts/" + str(scpt_id)
             vtext_hplk = '<a href="' + vtext_lk + '">👉 ဇာတ်ညွှန်းဖတ်ရန် နှိပ်ပါ 📜</a>'
             chnl_lk = str(Trnl.sh1.acell('I2').value)
-            vd_lk = chnl_lk + vdf_msg.message_id
+            vd_lk = chnl_lk + str(vdf_msg.message_id)
             vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
             invt_lst = [
                 "https://t.me/+RqwAss5VI6M0N2Rl",
