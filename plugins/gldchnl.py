@@ -4,10 +4,6 @@ import re
 from trnl import Trnl
 
 def gldchnl(gld_url):
-    web_req = requests.get(gld_url)
-    web_req.encoding = web_req.apparent_encoding
-    web_html = web_req.text
-    soup = BeautifulSoup(web_html, 'html.parser')
     urls_lst = []
     for a in soup.find_all('a', href=True):
         urls_lst.append(a['href'])
@@ -67,20 +63,20 @@ def gldchnl(gld_url):
     qlt1080 = ['G Drive FHD 1080p', 'Mega FHD 1080p']
     qlt720 = ['G Drive HD 720p', 'Mega HD 720p']
     qlt480 = ['G Drive SD 4880p', 'Mega SD 480p']
-    qlt_sz = {}
+    sz_qlt = {}
 
     for m in qlt1080:
         for y in qlt_lst:
             if m in y:
-                qlt_sz.update({y: size1080})
+                sz_qlt.update({size1080: y})
     for m in qlt720:
         for y in qlt_lst:
             if m in y:
-                qlt_sz.update({y: size720})
+                sz_qlt.update({size720: y})
     for m in qlt480:
         for y in qlt_lst:
             if m in y:
-                qlt_sz.update({y: size480})
+                sz_qlt.update({size480: y})
     sz_url = {};
 
     for m in qlt1080:
@@ -97,8 +93,14 @@ def gldchnl(gld_url):
                 sz_url.update({size480: qlt_url[m]})
     indices = [v for i, v in enumerate(sz_lst) if v < float(2)]
     max_sz = max(indices)
-    gdrv_lk = sz_url[max_sz]
-    gdrv_req = requests.get(gdrv_lk)
+    qlt_kw = ['G Drive ', 'Mega ']
+    max_qlt = sz_qlt[max_sz]
+    for p in qlt_kw:
+        if p in max_qlt:
+            max_qlt = max_qlt.replace(p, "")
+    Trnl.sh2.update('H2',max_qlt)
+    max_lk = sz_url[max_sz]
+    gdrv_req = requests.get(max_lk)
     gdrv_req.encoding = gdrv_req.apparent_encoding
     gdrv_html = gdrv_req.text
     soup = BeautifulSoup(gdrv_html, 'html.parser')
