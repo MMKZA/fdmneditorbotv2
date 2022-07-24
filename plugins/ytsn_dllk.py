@@ -7,7 +7,7 @@ from plugins.ytsn_lgn import ytsn_lgn
 from trnl import Trnl
 
 def ytsn_dllk(ytsn_lk):
-    acc_id = Trnl.sh2.acell('N2').value
+    acc_id = Trnl.sh1.acell('N2').value
     if "robert" in acc_id:
         eml = 'robertfalconscott1997@gmail.com'
     if "tharphyo" in acc_id:
