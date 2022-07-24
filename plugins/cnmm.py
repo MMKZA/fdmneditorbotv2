@@ -99,7 +99,6 @@ def cnmm(web_url):
             if x in szs_lst[i]:
                 arr[i - 1] = float("{:.2f}".format(float(szs_lst[i].replace(x, "").strip()) / 1024))
     indices = [v for i, v in enumerate(arr) if v < float(2)]
-    print(sz_1080)
     max_sz = "{:.2f}".format(max(indices))
     max_qlt = sz_qlt[max_sz]
     Trnl.sh2.update('H2', max_qlt)
