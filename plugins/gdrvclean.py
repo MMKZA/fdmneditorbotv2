@@ -1,7 +1,6 @@
 from google.oauth2.credentials import Credentials
 from googleapiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
-from trnl import Trnl
 import json
 
 def gdrvclean(status):
