@@ -21,6 +21,7 @@ from trnl import Trnl
 async def script_call_back(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         script_url = Trnl.sh1.acell('M3').value
+        phto_url = Trnl.sh1.acell('C2').value
         msg_trm = Trnl.sh1.acell('O3').value
         vcap = Trnl.sh1.acell('D2').value
         scpt_msg = await bot.send_message(
@@ -31,7 +32,7 @@ async def script_call_back(bot, update):
         vtext_lk = "https://t.me/fdmnscripts/" + str(scpt_id)
         vtext_hplk = '<a href="' + vtext_lk + '">👉 ဇာတ်ညွှန်းဖတ်ရန် နှိပ်ပါ 📜</a>'
         chnl_lk = str(Trnl.sh1.acell('I2').value)
-        vd_lk = chnl_lk + str(Trnl.sh1.acell('H3').value)
+        vd_lk = chnl_lk + str(Trnl.sh1.acell('P3').value)
         vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
         invt_lst = [
             "https://t.me/+RqwAss5VI6M0N2Rl",
