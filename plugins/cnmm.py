@@ -62,7 +62,7 @@ def cnmm(web_url):
             szunt_720 = szspl_720[len(szspl_720) - 1]
             for a in gb_lst:
                 if szunt_720 in a:
-                    sz_720 = float((cnmm_720[0].split(spl_720))[1].replace(szunt_720, "").strip())
+                    sz_720 = "{:.2f}".format(float((cnmm_720[0].split(spl_720))[1].replace(szunt_720, "").strip()))
             for a in mb_lst:
                 if szunt_720 in a:
                     sz_720 = "{:.2f}".format(
@@ -81,7 +81,7 @@ def cnmm(web_url):
             szunt_480 = szspl_480[len(szspl_480) - 1]
             for a in gb_lst:
                 if szunt_480 in a:
-                    sz_480 = float(szstr_480.replace(szunt_480, "").strip())
+                    sz_480 = "{:.2f}".format(float(szstr_480.replace(szunt_480, "").strip()))
             for a in mb_lst:
                 if szunt_480 in a:
                     sz_480 = "{:.2f}".format(float(szstr_480.replace(szunt_480, "").strip()) / 1024)
@@ -93,11 +93,11 @@ def cnmm(web_url):
     for x in gb_lst:
         for i in a:
             if x in szs_lst[i]:
-                arr[i - 1] = float(szs_lst[i].replace(x, "").strip())
+                arr[i - 1] = "{:.2f}".format(float(szs_lst[i].replace(x, "").strip()))
     for x in mb_lst:
         for i in a:
             if x in szs_lst[i]:
-                arr[i - 1] = float("{:.2f}".format(float(szs_lst[i].replace(x, "").strip()) / 1024))
+                arr[i - 1] = "{:.2f}".format(float(szs_lst[i].replace(x, "").strip()) / 1024)
     indices = [v for i, v in enumerate(arr) if v < 2]
     max_sz = "{:.2f}".format(max(indices))
     max_qlt = sz_qlt[max_sz]
