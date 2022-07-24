@@ -102,6 +102,6 @@ def cnmm(web_url):
     print(sz_1080)
     max_sz = "{:.2f}".format(max(indices))
     max_qlt = sz_qlt[max_sz]
-    Trnl.sh1.update('H3', max_qlt)
+    Trnl.sh2.update('H2', max_qlt)
     ytsn_lk = sz_lks[max_sz]
     return ytsn_lk
