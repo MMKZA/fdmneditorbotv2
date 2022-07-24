@@ -20,7 +20,7 @@ from trnl import Trnl
 @pyrogram.Client.on_message(pyrogram.filters.command(["scpt"]))
 async def script_call_back(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        script_url = Trnl.sh1.acell('M2').value
+        script_url = Trnl.sh2.acell('M2').value
         phto_url = Trnl.sh2.acell('C2').value
         msg_trm = Trnl.sh2.acell('O2').value
         vcap = Trnl.sh2.acell('D2').value
