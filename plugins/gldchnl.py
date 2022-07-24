@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+from trnl import Trnl
 
 def gldchnl(gld_url):
     web_req = requests.get(gld_url)
@@ -29,7 +30,7 @@ def gldchnl(gld_url):
             if "Myanmar" in size1080:
                 size1080 = "{:.2f}".format(float((table.split(sttrm1080))[1].split(entrmMB)[0]) / 1024)
             else:
-                size1080 = float(size1080)
+                size1080 = "{:.2f}".format(float(size1080))
             sz_lst.append(float(size1080))
     if sttrm720 in table:
         if entrmGB in table:
@@ -37,7 +38,7 @@ def gldchnl(gld_url):
             if "Myanmar" in size720:
                 size720 = "{:.2f}".format(float((table.split(sttrm720))[1].split(entrmMB)[0]) / 1024)
             else:
-                size720 = float(size720)
+                size720 = "{:.2f}".format(float(size720))
             sz_lst.append(float(size720))
     if sttrm480 in table:
         size480 = "{:.2f}".format(float((table.split(sttrm480))[1].split(entrmMB)[0]) / 1024)
@@ -58,29 +59,30 @@ def gldchnl(gld_url):
     gdrv_720 = ''
     gdrv_480 = ''
     gld_lk = ''
+    sz_qlt = {}
+    sz_lks = {}
     for a in chss_lst:
         if "G Drive FHD 1080p" in a:
             gdrv_1080 = list(filter(lambda x: "G Drive FHD 1080p" in x, chss_lst))
             lk_1080 = re.search("(?P<url>https?://[^\s]+)", gdrv_1080[0]).group("url")
+            sz_qlt.update({size1080:"G Drive FHD 1080p".replace("G Drive ","")})
+            sz_lks.update({size1080:lk_1080})
         if "G Drive HD 720p" in a:
             gdrv_720 = list(filter(lambda x: "G Drive HD 720p" in x, chss_lst))
             lk_720 = re.search("(?P<url>https?://[^\s]+)", gdrv_720[0]).group("url")
+            sz_qlt.update({size720:"G Drive HD 720p".replace("G Drive ","")})
+            sz_qlt.update({size720:lk_720})
         if "G Drive SD 480p" in a:
             gdrv_480 = list(filter(lambda x: "G Drive SD 480p" in x, chss_lst))
             lk_480 = re.search("(?P<url>https?://[^\s]+)", gdrv_480[0]).group("url")
+            sz_qlt.update({size480:"G Drive SD 480p".replace("G Drive ","")})
+            sz_qlt.update({size480:lk_480})
     indices = [v for i, v in enumerate(sz_lst) if v < 2]
-    max_sz = max(indices)
-    for a in chss_lst:
-        if "G Drive FHD 1080p" in a:
-            if max_sz == float(size1080):
-                gld_lk = lk_1080
-        if "G Drive HD 720p" in a:
-            if max_sz == float(size720):
-                gld_lk = lk_720
-        if "G Drive SD 480p" in a:
-            if max_sz == float(size480):
-                gld_lk = lk_480
-    gld_req = requests.get(gld_lk)
+    max_sz = "{:.2f}".format(max(indices))
+    max_qlt = sz_qlt[max_sz]
+    Trnl.sh1.update('H3', max_qlt)
+    max_lk = sz_lks[max_sz]
+    gld_req = requests.get(max_lk)
     gld_req.encoding = gld_req.apparent_encoding
     gld_html = gld_req.text
     soup = BeautifulSoup(gld_html, 'html.parser')
