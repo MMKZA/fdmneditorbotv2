@@ -74,10 +74,10 @@ def func_scpt(script_url):
                 phto_url = vlink
     else:
         phto_url = vlink
-    vd_qlt = Trnl.sh1.acell('H3').value
-    Trnl.sh1.update('A2', vcap + " | " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext)
-    Trnl.sh1.update('C2', phto_url)
-    Trnl.sh1.update('D2', vcap)
+    vd_qlt = Trnl.sh2.acell('H2').value
+    Trnl.sh2.update('A2', vcap + " | " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext)
+    Trnl.sh2.update('C2', phto_url)
+    Trnl.sh2.update('D2', vcap)
     vcap_hsh = ''.join(e for e in vcap if e.isalnum())
     if 'ChannelMyanmar' in vcap_hsh:
         vcap_hsh = vcap_hsh.replace('ChannelMyanmar', '')
@@ -85,12 +85,12 @@ def func_scpt(script_url):
         vcap_hsh = vcap_hsh.replace('GoldChannelMovies', '')
     else:
         vcap_hsh = vcap_hsh
-    Trnl.sh1.update('E2', vcap_hsh)
+    Trnl.sh2.update('E2', vcap_hsh)
     if "goldchannel" in script_url:
         credit = 'Gold Channel Movies'
     elif "channelmyanmar" in script_url:
         credit = 'Channel Myanmar'
-    Trnl.sh1.update('F2', credit)
+    Trnl.sh2.update('F2', credit)
     msg_whl = phto_url + "\n\n" + vcap + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext
     msg_trm = msg_whl[0:4095]
-    Trnl.sh1.update('O3', msg_trm)
+    Trnl.sh2.update('O2', msg_trm)
