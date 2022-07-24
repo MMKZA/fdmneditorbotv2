@@ -54,7 +54,8 @@ def cnmm(web_url):
                 max_qlt = m.split("|", 3)[1]
     prr_cnmm = cnmm_lst[0]
     max_lk = prr_cnmm.split("|", 3)[0]
-    Trnl.sh2.update('Q2', cnmm_lst)
+    avlb_lk = '\n'.join([str(lk) for lk in cnmm_lst])
+    Trnl.sh2.update('Q2', avlb_lk)
     Trnl.sh2.update('H2', max_qlt)
     ytsn_lk = max_lk
     return ytsn_lk
