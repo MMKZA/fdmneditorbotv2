@@ -117,6 +117,7 @@ def gldchnl(gld_url):
         for k in startswith_lst:
             if k in h:
                 dllk_lst.append([x for x in href_lst if x.startswith(k)][0])
-    Trnl.sh2.update('Q2', dllk_lst)
+    avlb_lk = '\n'.join([str(lk) for lk in dllk_lst])
+    Trnl.sh2.update('Q2', avlb_lk)
     dllk = dllk_lst[0]
     return dllk
