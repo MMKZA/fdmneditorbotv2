@@ -20,7 +20,7 @@ def trans(bot, update):
         else:
             lk = update.text
         logger.info(lk)
-        base = Trnl.sh1.acell('K2').value
+        base = Trnl.sh2.acell('K2').value
         req = requests.get(base)
         req.encoding = req.apparent_encoding
         html_text = req.text
@@ -61,7 +61,7 @@ def trans(bot, update):
             final_link = base+d[-2]["href"]
         except:
             final_link = "THE_ERROR"
-        Trnl.sh1.update('L3',final_link)
+        Trnl.sh2.update('L2',final_link)
         bot.send_message(
             chat_id=update.chat.id,
             text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
