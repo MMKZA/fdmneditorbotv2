@@ -428,6 +428,7 @@ async def youtube_dl_call_back(bot, update):
             if Trnl.sh1.acell('J2').value == id_lst[3]:
                 invt_lk = invt_lst[3]
             chnl_hplk = '<a href="' + invt_lk + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
+            phto_url = Trnl.sh1.acell('C2').value
             mchnl_msg = await bot.send_photo(
                 "@fdmnchannel",
                 phto_url,
