@@ -5,15 +5,19 @@ from plugins.cnmm import cnmm
 import logging
 from trnl import Trnl
 from plugins.ytsn_dllk import ytsn_dllk
+from plugins.gdrvclean import gdrvclean
 from plugins.transloader import transloader
+from plugins.func_scpt import func_scpt
 import os
 import re
+import time
 
 @pyrogram.Client.on_message(pyrogram.filters.regex(pattern=".*http.*"))
 def trans(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         web_url = update.text
         Trnl.sh1.update('M3',web_url)
+        func_scpt(web_url)
         if "https://goldchannel.net/movies/" in web_url:
             gdrv_lk = gldchnl(web_url)
             #await bot.send_message(
