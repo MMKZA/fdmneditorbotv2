@@ -17,90 +17,44 @@ def cnmm(web_url):
     soup = BeautifulSoup(url_cmb, 'html.parser')
     for a in soup.find_all('a', href=True):
         url_lst.append(a['href'])
+    del url_lst[0]
     qlt_lst = []
     for a in soup.find_all('span', {'class': 'd'}):
         qlt_lst.append(a.text)
-    szs_lst = []
+    del qlt_lst[0]
+    sz_lst = []
     for a in soup.find_all('span', {'class': 'c'}):
-        szs_lst.append(a.text)
-    sz_lst = list(range(0, len(szs_lst)))
-    a = list(range(1, len(szs_lst)))
-    chss_lst = list(range(0, len(szs_lst)))
-    for i in chss_lst:
-        chss_lst[i] = url_lst[i] + " | " + qlt_lst[i] + " | " + szs_lst[i]
-    cnmm_lst = list(filter(lambda x: "https://yoteshinportal.cc/" in x, chss_lst))
+        sz_lst.append(a.text)
+    del sz_lst[0]
     gb_lst = ['GB', 'Gb', 'gb' 'gB']
     mb_lst = ['MB', 'Mb', 'mb' 'mB']
-    sz_qlt = {}
-    sz_lks = {}
-    for k in qlt_lst:
-        if "1080" in k:
-            kwd_1080 = list(filter(lambda x: "1080" in x, qlt_lst))[0]
-            cnmm_1080 = list(filter(lambda x: kwd_1080 in x, cnmm_lst))
-            spl_1080 = " | " + kwd_1080 + " | "
-            lk_1080 = re.search("(?P<url>https?://[^\s]+)", cnmm_1080[0]).group("url")
-            szstr_1080 = (cnmm_1080[0].split(spl_1080))[1]
-            szspl_1080 = re.findall('(\d+|[A-Za-z]+)', szstr_1080)
-            szunt_1080 = szspl_1080[len(szspl_1080) - 1]
-            for a in gb_lst:
-                if szunt_1080 in a:
-                    sz_1080 = "{:.2f}".format(float(szstr_1080.replace(szunt_1080, "").strip()))
-            for a in mb_lst:
-                if szunt_1080 in a:
-                    sz_1080 = "{:.2f}".format(float(szstr_1080.replace(szunt_1080, "").strip()) / 1024)
-            sz_qlt.update({sz_1080: k})
-            sz_lks.update({sz_1080: lk_1080})
-
-    for k in qlt_lst:
-        if "720" in k:
-            kwd_720 = list(filter(lambda x: "720" in x, qlt_lst))[0]
-            cnmm_720 = list(filter(lambda x: kwd_720 in x, cnmm_lst))
-            spl_720 = " | " + kwd_720 + " | "
-            lk_720 = re.search("(?P<url>https?://[^\s]+)", cnmm_720[0]).group("url")
-            szstr_720 = (cnmm_720[0].split(spl_720))[1]
-            szspl_720 = re.findall('(\d+|[A-Za-z]+)', szstr_720)
-            szunt_720 = szspl_720[len(szspl_720) - 1]
-            for a in gb_lst:
-                if szunt_720 in a:
-                    sz_720 = "{:.2f}".format(float((cnmm_720[0].split(spl_720))[1].replace(szunt_720, "").strip()))
-            for a in mb_lst:
-                if szunt_720 in a:
-                    sz_720 = "{:.2f}".format(
-                        float((cnmm_720[0].split(spl_720))[1].replace(szunt_720, "").strip()) / 1024)
-            sz_qlt.update({sz_720: k})
-            sz_lks.update({sz_720: lk_720})
-
-    for k in qlt_lst:
-        if "480" in k:
-            kwd_480 = list(filter(lambda x: "480" in x, qlt_lst))[0]
-            cnmm_480 = list(filter(lambda x: kwd_480 in x, cnmm_lst))
-            spl_480 = " | " + kwd_480 + " | "
-            lk_480 = re.search("(?P<url>https?://[^\s]+)", cnmm_480[0]).group("url")
-            szstr_480 = (cnmm_480[0].split(spl_480))[1]
-            szspl_480 = re.findall('(\d+|[A-Za-z]+)', szstr_480)
-            szunt_480 = szspl_480[len(szspl_480) - 1]
-            for a in gb_lst:
-                if szunt_480 in a:
-                    sz_480 = "{:.2f}".format(float(szstr_480.replace(szunt_480, "").strip()))
-            for a in mb_lst:
-                if szunt_480 in a:
-                    sz_480 = "{:.2f}".format(float(szstr_480.replace(szunt_480, "").strip()) / 1024)
-            sz_qlt.update({sz_480: k})
-            sz_lks.update({sz_480: lk_480})
-
-    arr = list(range(1, len(szs_lst)))
-    a = list(range(1, len(szs_lst)))
-    for x in gb_lst:
-        for i in a:
-            if x in szs_lst[i]:
-                arr[i - 1] = float("{:.2f}".format(float(szs_lst[i].replace(x, "").strip())))
-    for x in mb_lst:
-        for i in a:
-            if x in szs_lst[i]:
-                arr[i - 1] = float("{:.2f}".format(float(szs_lst[i].replace(x, "").strip()) / 1024))
-    indices = [v for i, v in enumerate(arr) if v < float(2)]
-    max_sz = "{:.2f}".format(max(indices))
-    max_qlt = sz_qlt[max_sz]
+    szgb_lst = []
+    for v in sz_lst:
+        szspl = re.findall('(\d+|[A-Za-z]+)', v)
+        szunt = szspl[len(szspl) - 1]
+        for g in gb_lst:
+            if szunt in g:
+                szgb_lst.append(float("{:.2f}".format(float(v.replace(szunt, "").strip()))))
+        for m in mb_lst:
+            if szunt in m:
+                szgb_lst.append(float("{:.2f}".format(float(v.replace(szunt, "").strip()) / 1024)))
+    all_lst = list(range(0, len(szgb_lst)))
+    for i in all_lst:
+        all_lst[i] = ("{}|{}|{}".format(url_lst[i], qlt_lst[i], str(szgb_lst[i]) + "GB"))
+    indices = [v for i, v in enumerate(szgb_lst) if v < 2]
+    max_sz = float("{:.2f}".format(max(indices)))
+    max_lst = list(filter(lambda x: str(max_sz) + "GB" in x, all_lst))
+    cnmm_lst = []
+    max_qlt = ''
+    kwd_st = ['https://yoteshinportal.cc/', 'https://mega.nz/file/']
+    for k in kwd_st:
+        for m in max_lst:
+            if k in m:
+                cnmm_lst.append(m.split("|", 3)[0])
+                max_qlt = m.split("|", 3)[1]
+    prr_cnmm = cnmm_lst[0]
+    max_lk = prr_cnmm.split("|", 3)[0]
+    Trnl.sh2.update('Q2', cnmm_lst)
     Trnl.sh2.update('H2', max_qlt)
-    ytsn_lk = sz_lks[max_sz]
+    ytsn_lk = max_lk
     return ytsn_lk
