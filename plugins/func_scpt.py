@@ -74,7 +74,7 @@ def func_scpt(script_url):
                 phto_url = vlink
     else:
         phto_url = vlink
-    vd_qlt = Trnl.sh1.acell('H2').value
+    vd_qlt = Trnl.sh1.acell('H3').value
     Trnl.sh1.update('A2', vcap + " | " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext)
     Trnl.sh1.update('C2', phto_url)
     Trnl.sh1.update('D2', vcap)
