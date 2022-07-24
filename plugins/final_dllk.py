@@ -16,7 +16,7 @@ import time
 def trans(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         web_url = update.text
-        Trnl.sh1.update('M3',web_url)
+        Trnl.sh2.update('M2',web_url)
         func_scpt(web_url)
         if "https://goldchannel.net/movies/" in web_url:
             gdrv_lk = gldchnl(web_url)
@@ -24,9 +24,9 @@ def trans(bot, update):
                 #chat_id=update.chat.id,
                 #text=gdrv_lk
             #)
-            base = Trnl.sh1.acell('K2').value
+            base = Trnl.sh2.acell('K2').value
             final_link = transloader(base,gdrv_lk)
-            Trnl.sh1.update('L3', final_link)
+            Trnl.sh2.update('L2', final_link)
             bot.send_message(
                 chat_id=update.chat.id,
                 text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
@@ -43,9 +43,9 @@ def trans(bot, update):
                 #chat_id=update.chat.id,
                 #text=gdrv_lk
             #)
-            base = Trnl.sh1.acell('K2').value
+            base = Trnl.sh2.acell('K2').value
             final_link = transloader(base,gdrv_lk)
-            Trnl.sh1.update('L3', final_link)
+            Trnl.sh2.update('L2', final_link)
             bot.send_message(
                 chat_id=update.chat.id,
                 text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
