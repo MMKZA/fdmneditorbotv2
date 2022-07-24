@@ -12,7 +12,7 @@ logging.basicConfig(level=logging.DEBUG,
 logger = logging.getLogger(__name__)
 from trnl import Trnl
 from plugins.transloader import transloader
-@pyrogram.Client.on_message(pyrogram.filters.command(["trsl"]))
+@pyrogram.Client.on_message(pyrogram.filters.regex(pattern="\A{}".format("trsl")))
 def incase(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         lk = update.text.split(" ", 1)
