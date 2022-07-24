@@ -21,7 +21,7 @@ def trans(bot, update):
         if "https://goldchannel.net/movies/" in web_url:
             gdrv_lk = gldchnl(web_url)
             avlb_lk = Trnl.sh2.acell('Q2').value
-            await bot.send_message(
+            bot.send_message(
                 chat_id=update.chat.id,
                 text="ရရှိနိုင်သော links များ👇\n" + avlb_lk
             )
@@ -35,7 +35,7 @@ def trans(bot, update):
         if "https://channelmyanmar.org/" in web_url:
             ytsn_lk = cnmm(web_url)
             avlb_lk = Trnl.sh2.acell('Q2').value
-            await bot.send_message(
+            bot.send_message(
                 chat_id=update.chat.id,
                 text="ရရှိနိုင်သော links များ👇\n" + avlb_lk
             )
@@ -45,7 +45,7 @@ def trans(bot, update):
                 gdrv_lk = ytsn_dllk(ytsn_lk)
             else:
                 gdrv_lk = gdrv_retrn
-            #await bot.send_message(
+            #bot.send_message(
                 #chat_id=update.chat.id,
                 #text=gdrv_lk
             #)
