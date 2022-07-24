@@ -77,7 +77,7 @@ def gldchnl(gld_url):
             lk_480 = re.search("(?P<url>https?://[^\s]+)", gdrv_480[0]).group("url")
             sz_qlt.update({size480:"G Drive SD 480p".replace("G Drive ","")})
             sz_qlt.update({size480:lk_480})
-    indices = [v for i, v in enumerate(sz_lst) if v < 2]
+    indices = [v for i, v in enumerate(sz_lst) if v < float(2)]
     max_sz = "{:.2f}".format(max(indices))
     max_qlt = sz_qlt[max_sz]
     Trnl.sh1.update('H3', max_qlt)
