@@ -80,7 +80,7 @@ def gldchnl(gld_url):
     indices = [v for i, v in enumerate(sz_lst) if v < float(2)]
     max_sz = "{:.2f}".format(max(indices))
     max_qlt = sz_qlt[max_sz]
-    Trnl.sh1.update('H3', max_qlt)
+    Trnl.sh2.update('H2', max_qlt)
     max_lk = sz_lks[max_sz]
     gld_req = requests.get(max_lk)
     gld_req.encoding = gld_req.apparent_encoding
