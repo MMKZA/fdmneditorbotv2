@@ -65,7 +65,7 @@ async def youtube_dl_call_back(bot, update):
             revoke=True
         )
         return False
-    youtube_dl_url = Trnl.sh1.acell('L3').value
+    youtube_dl_url = Trnl.sh2.acell('L2').value
     # youtube_dl_url = update.message.reply_to_message.text
     custom_file_name = str(response_json.get("title")) + \
                        "_" + youtube_dl_format + "." + youtube_dl_ext
@@ -317,12 +317,12 @@ async def youtube_dl_call_back(bot, update):
                 clip.save_frame(tmp_directory_for_each_user + "/" + "thbnl.jpg", t=screen_time)
                 V_WIDTH = clip.w
                 V_HEIGHT = clip.h
-                if "update" in str(Trnl.sh1.acell('J2').value):
+                if "update" in str(Trnl.sh2.acell('J2').value):
                     chnl_id = update.message.chat.id
                 else:
-                    chnl_id = int(Trnl.sh1.acell('J2').value)
-                vcap = Trnl.sh1.acell('D2').value
-                vd_name = vcap + " | " + Trnl.sh1.acell('H3').value
+                    chnl_id = int(Trnl.sh2.acell('J2').value)
+                vcap = Trnl.sh2.acell('D2').value
+                vd_name = vcap + " | " + Trnl.sh2.acell('H2').value
                 vdf_msg = await bot.send_video(
                     # chat_id=update.message.chat.id,
                     chat_id=chnl_id,
@@ -343,7 +343,7 @@ async def youtube_dl_call_back(bot, update):
                         start_time
                     )
                 )
-                Trnl.sh1.update('P3',str(vdf_msg.message_id))
+                Trnl.sh2.update('P2',str(vdf_msg.message_id))
                 # vdf_msg = await bot.forward_messages(
                 # chat_id=int("-1001785695486"),
                 # from_chat_id=update.message.chat.id,
