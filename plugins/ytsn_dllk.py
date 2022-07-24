@@ -23,7 +23,7 @@ def ytsn_dllk(ytsn_lk):
     for x in id_loc:
         if re.match('app.saveToGoogleDrive',x['onclick']):
             id_flt = x['onclick']
-            vd_id = re.findall("'(\w+)'",id_flt)
+            vd_id = id_flt.split("'")[1]
     headers1 = {
         'accept': '*/*',
         'accept-encoding': 'utf-8',
