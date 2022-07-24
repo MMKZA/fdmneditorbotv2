@@ -56,11 +56,10 @@ async def script_call_back(bot, update):
           invt_lk = invt_lst[3]
         chnl_hplk = '<a href="' + invt_lk + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
         vd_qlt = Trnl.sh1.acell('H3').value
-        Trnl.sh1.update('A2', vcap + " | " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext)
         mchnl_msg = await bot.send_photo(
             "@fdmnchannel",
             phto_url,
-            "🎞️\n" + vcap + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN,
+            "🎞️\n" + vcap + " | " + vd_qlt + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN,
             'html'
         )
         Trnl.sh1.update('G2', mchnl_msg.message_id)
