@@ -20,5 +20,5 @@ class Trnl(object):
     creds = ServiceAccountCredentials.from_json_keyfile_name(my_json, scope)
     gclient = gspread.authorize(creds)
     sh = gclient.open('tgtofbposts')
-    sh1 = sh.worksheet("Sheet1")
-    KEYWORD = sh1.acell('K2').value
+    sh2 = sh.worksheet("Sheet2")
+    KEYWORD = sh2.acell('K2').value
