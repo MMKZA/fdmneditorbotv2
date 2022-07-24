@@ -1,6 +1,8 @@
 import requests
 from bs4 import BeautifulSoup
 import re
+from trnl import Trnl
+
 
 def cnmm(web_url):
     web_req = requests.get(web_url)
@@ -29,8 +31,10 @@ def cnmm(web_url):
     cnmm_lst = list(filter(lambda x: "https://yoteshinportal.cc/" in x, chss_lst))
     gb_lst = ['GB', 'Gb', 'gb' 'gB']
     mb_lst = ['MB', 'Mb', 'mb' 'mB']
-    for a in qlt_lst:
-        if "1080" in a:
+    sz_qlt = {}
+    sz_lks = {}
+    for k in qlt_lst:
+        if "1080" in k:
             kwd_1080 = list(filter(lambda x: "1080" in x, qlt_lst))[0]
             cnmm_1080 = list(filter(lambda x: kwd_1080 in x, cnmm_lst))
             spl_1080 = " | " + kwd_1080 + " | "
@@ -44,9 +48,11 @@ def cnmm(web_url):
             for a in mb_lst:
                 if szunt_1080 in a:
                     sz_1080 = "{:.2f}".format(float(szstr_1080.replace(szunt_1080, "").strip()) / 1024)
+            sz_qlt.update({sz_1080: k})
+            sz_lks.update({sz_1080: lk_1080})
 
-    for a in qlt_lst:
-        if "720" in a:
+    for k in qlt_lst:
+        if "720" in k:
             kwd_720 = list(filter(lambda x: "720" in x, qlt_lst))[0]
             cnmm_720 = list(filter(lambda x: kwd_720 in x, cnmm_lst))
             spl_720 = " | " + kwd_720 + " | "
@@ -61,9 +67,11 @@ def cnmm(web_url):
                 if szunt_720 in a:
                     sz_720 = "{:.2f}".format(
                         float((cnmm_720[0].split(spl_720))[1].replace(szunt_720, "").strip()) / 1024)
+            sz_qlt.update({sz_720: k})
+            sz_lks.update({sz_720: lk_720})
 
-    for a in qlt_lst:
-        if "480" in a:
+    for k in qlt_lst:
+        if "480" in k:
             kwd_480 = list(filter(lambda x: "480" in x, qlt_lst))[0]
             cnmm_480 = list(filter(lambda x: kwd_480 in x, cnmm_lst))
             spl_480 = " | " + kwd_480 + " | "
@@ -77,6 +85,9 @@ def cnmm(web_url):
             for a in mb_lst:
                 if szunt_480 in a:
                     sz_480 = "{:.2f}".format(float(szstr_480.replace(szunt_480, "").strip()) / 1024)
+            sz_qlt.update({sz_480: k})
+            sz_lks.update({sz_480: lk_480})
+
     arr = list(range(1, len(szs_lst)))
     a = list(range(1, len(szs_lst)))
     for x in gb_lst:
@@ -88,15 +99,8 @@ def cnmm(web_url):
             if x in szs_lst[i]:
                 arr[i - 1] = float("{:.2f}".format(float(szs_lst[i].replace(x, "").strip()) / 1024))
     indices = [v for i, v in enumerate(arr) if v < 2]
-    max_sz = max(indices)
-    for a in cnmm_lst:
-        if "1080" in a:
-            if max_sz == float(sz_1080):
-                ytsn_lk = lk_1080
-        if "720" in a:
-            if max_sz == float(sz_720):
-                ytsn_lk = lk_720
-        if "480" in a:
-            if max_sz == float(sz_480):
-                ytsn_lk = lk_480
+    max_sz = "{:.2f}".format(max(indices))
+    max_qlt = sz_qlt[max_sz]
+    Trnl.sh1.update('H3', max_qlt)
+    ytsn_lk = sz_lks[max_sz]
     return ytsn_lk
