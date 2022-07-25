@@ -51,6 +51,7 @@ def cnmm(web_url):
     prr_cnmm = cnmm_lst[0]
     max_lk = prr_cnmm.split("|", 3)[0]
     qlt_kwd = []
+    max_qlt = ""
     for k in qlt_lst:
         if "" != k:
             qlt_kwd.append(k)
@@ -58,6 +59,8 @@ def cnmm(web_url):
         for q in qlt_kwd:
             if q in m:
                 max_qlt = m.split("|",3)[1]
+    if max_qlt == "":
+        max_qlt = "HD"
     avlb_lk = '\n'.join([str(lk) for lk in cnmm_lst])
     Trnl.sh2.update('Q2', avlb_lk)
     Trnl.sh2.update('H2', max_qlt)
