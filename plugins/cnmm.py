@@ -20,9 +20,14 @@ def cnmm(web_url):
     qlt_lst = []
     for a in soup.find_all('span', {'class': 'd'}):
         qlt_lst.append(a.text)
-    sz_lst = []
+    szs_lst = []
     for a in soup.find_all('span', {'class': 'c'}):
-        sz_lst.append(a.text)
+        szs_lst.append(a.text)
+    for s in szs_lst:
+        if s == "":
+            sz_lst.append("0 GB")
+        else:
+            sz_lst.append(s)
     gb_lst = ['GB', 'Gb', 'gb' 'gB']
     mb_lst = ['MB', 'Mb', 'mb' 'mB']
     szgb_lst = []
