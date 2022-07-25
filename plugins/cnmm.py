@@ -50,7 +50,10 @@ def cnmm(web_url):
                 cnmm_lst.append(m.split("|", 3)[0])
     prr_cnmm = cnmm_lst[0]
     max_lk = prr_cnmm.split("|", 3)[0]
-    qlt_kwd = ["1080","720","480"]
+    qlt_kwd = []
+    for k in qlt_lst:
+        if "" != k:
+            qlt_kwd.append(k)
     for m in max_lst:
         for q in qlt_kwd:
             if q in m:
