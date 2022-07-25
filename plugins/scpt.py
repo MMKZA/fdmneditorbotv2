@@ -27,6 +27,7 @@ async def script_call_back(bot, update):
         scpt_msg = await bot.send_message(
             chat_id="@fdmnscripts",
             text=msg_trm,
+            parse_mode='html'
         )
         scpt_id = scpt_msg.message_id
         vtext_lk = "https://t.me/fdmnscripts/" + str(scpt_id)
