@@ -17,15 +17,12 @@ def cnmm(web_url):
     soup = BeautifulSoup(url_cmb, 'html.parser')
     for a in soup.find_all('a', href=True):
         url_lst.append(a['href'])
-    del url_lst[0]
     qlt_lst = []
     for a in soup.find_all('span', {'class': 'd'}):
         qlt_lst.append(a.text)
-    del qlt_lst[0]
     sz_lst = []
     for a in soup.find_all('span', {'class': 'c'}):
         sz_lst.append(a.text)
-    del sz_lst[0]
     gb_lst = ['GB', 'Gb', 'gb' 'gB']
     mb_lst = ['MB', 'Mb', 'mb' 'mB']
     szgb_lst = []
