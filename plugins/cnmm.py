@@ -20,15 +20,24 @@ def cnmm(web_url):
     qlt_lst = []
     for a in soup.find_all('span', {'class': 'd'}):
         qlt_lst.append(a.text)
-    szs_lst = []
-    for a in soup.find_all('span', {'class': 'c'}):
-        szs_lst.append(a.text)
     sz_lst = []
-    for s in szs_lst:
-        if s == "":
-            sz_lst.append("0 GB")
+    for a in soup.find_all('span', {'class': 'c'}):
+        sz_lst.append(a.text)
+    for s in url_lst:
+        if "https://www.cmvipmembers.com/" in s:
+            index = url_lst.index(s)
+            del s
+            del qlt_lst[index]
+            del sz_lst[index]
         else:
-            sz_lst.append(s)
+            sz_lst = sz_lst
+            qlt_lst = qlt_lst
+            url_lst = url_lst
+    #for s in szs_lst:
+        #if s == "":
+            #sz_lst.append("0 GB")
+        #else:
+            #sz_lst.append(s)
     gb_lst = ['GB', 'Gb', 'gb' 'gB']
     mb_lst = ['MB', 'Mb', 'mb' 'mB']
     szgb_lst = []
