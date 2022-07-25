@@ -17,9 +17,9 @@ def trans(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         web_url = update.text
         Trnl.sh2.update('M2',web_url)
-        func_scpt(web_url)
         if "https://goldchannel.net/movies/" in web_url:
             gdrv_lk = gldchnl(web_url)
+            func_scpt(web_url)
             avlb_lk = Trnl.sh2.acell('Q2').value
             bot.send_message(
                 chat_id=update.chat.id,
@@ -34,6 +34,7 @@ def trans(bot, update):
             )
         if "https://channelmyanmar.org/" in web_url:
             ytsn_lk = cnmm(web_url)
+            func_scpt(web_url)
             avlb_lk = Trnl.sh2.acell('Q2').value
             bot.send_message(
                 chat_id=update.chat.id,
