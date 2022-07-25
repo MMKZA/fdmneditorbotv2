@@ -23,6 +23,7 @@ def cnmm(web_url):
     szs_lst = []
     for a in soup.find_all('span', {'class': 'c'}):
         szs_lst.append(a.text)
+    sz_lst = []
     for s in szs_lst:
         if s == "":
             sz_lst.append("0 GB")
