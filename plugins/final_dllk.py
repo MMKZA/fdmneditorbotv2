@@ -19,6 +19,7 @@ def trans(bot, update):
         if "/srs" in update.text:
             web_url = update.text.split(' ', 1)[1]
             Trnl.sh2.update('M2', web_url)
+            func_scpt(web_url)
             epsd_msg = series(web_url)
             bot.send_message(
                 chat_id=update.chat.id,
