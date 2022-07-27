@@ -20,6 +20,11 @@ def trans(bot, update):
             web_url = update.text.split(' ', 1)[1]
             Trnl.sh2.update('M2', web_url)
             func_scpt(web_url)
+            if "Channel" in Trnl.sh2.acell('H3').value:
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text = Trnl.sh2.acell('H3').value
+                )
             epsd_msg = series(web_url)
             if "1080" in epsd_msg[2]:
                 Trnl.sh2.update('H2', "1080p")
@@ -45,6 +50,11 @@ def trans(bot, update):
             if "https://goldchannel.net/movies/" in web_url:
                 gdrv_lk = gldchnl(web_url)
                 func_scpt(web_url)
+                if "Channel" in Trnl.sh2.acell('H3').value:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text = Trnl.sh2.acell('H3').value
+                    )
                 avlb_lk = Trnl.sh2.acell('Q2').value
                 bot.send_message(
                     chat_id=update.chat.id,
@@ -60,6 +70,11 @@ def trans(bot, update):
             if "https://channelmyanmar.org/" in web_url:
                 ytsn_lk = cnmm(web_url)
                 func_scpt(web_url)
+                if "Channel" in Trnl.sh2.acell('H3').value:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text = Trnl.sh2.acell('H3').value
+                    )
                 avlb_lk = Trnl.sh2.acell('Q2').value
                 bot.send_message(
                     chat_id=update.chat.id,
