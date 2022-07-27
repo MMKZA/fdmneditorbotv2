@@ -24,6 +24,7 @@ def func_scpt(script_url):
         vtext = (sscpt.split(start1))[1].split(end1)[0]
         vlink = (wscpt.split(start2))[1].split(end2)[0] + '.jpg'
         phto_splt = vlink.split('/')
+        Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v2.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
     elif "channelmyanmar" in script_url:
         all_lks = []
         for all in soup.select('div > img'):
@@ -43,8 +44,7 @@ def func_scpt(script_url):
                 Trnl.sh2.update('J2', '-1001718578294')
                 Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
             else:
-                Trnl.sh2.update('H3',
-                                "⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v2.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
+                Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v2.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
         else:
             mv_gnr = ""
         ctry_lst = ['Afghanistan', 'Aland Islands', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola',
