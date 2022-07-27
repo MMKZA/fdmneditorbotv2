@@ -11,6 +11,9 @@ def func_scpt(script_url):
     soup = BeautifulSoup(html_text, 'html.parser')
     wscpt = soup.prettify()
     sscpt = soup.get_text()
+    all_lks = []
+    for all in soup.select('div > img'):
+        all_lks.append(all['src'])
     if "goldchannel" in script_url:
         if 'tvshows' in script_url:
             start1 = 'Synopsis  '
@@ -22,6 +25,8 @@ def func_scpt(script_url):
         end2 = '.jpg'
         vcap = sscpt.split('      ', 1)[0]
         vtext = (sscpt.split(start1))[1].split(end1)[0]
+        vlink = (wscpt.split(start2))[1].split(end2)[0] + '.jpg'
+        phto_splt = vlink.split('/')
     elif "channelmyanmar" in script_url:
         if 'tvshows' in script_url:
             start1 = 'Synopsis of '
@@ -36,8 +41,8 @@ def func_scpt(script_url):
         del_vtext = 'Your browser does not support the video tag.  '
         if del_vtext in vtext:
             vtext = vtext.replace(del_vtext, '')
-    vlink = (wscpt.split(start2))[1].split(end2)[0] + '.jpg'
-    phto_splt = vlink.split('/')
+        vlink = all_lks[0]
+        phto_splt = vlink.split('/')
     if 'tmdb' in vlink:
         if "channelmyanmar" in script_url:
             phto_cd = phto_splt[-1]
