@@ -322,7 +322,10 @@ async def youtube_dl_call_back(bot, update):
                 else:
                     chnl_id = int(Trnl.sh2.acell('J2').value)
                 vcap = Trnl.sh2.acell('D2').value
-                vd_name = vcap + " | " + Trnl.sh2.acell('H2').value
+                if "series" in Trnl.sh2.acell('P3').value:
+                    vd_name = description
+                else:
+                    vd_name = vcap + " | " + Trnl.sh2.acell('H2').value
                 vdf_msg = await bot.send_video(
                     # chat_id=update.message.chat.id,
                     chat_id=chnl_id,
