@@ -18,21 +18,21 @@ def trans(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         if "/srs" in update.text:
             web_url = update.text.split(' ',1)[1]
-            Trnl.sh1.update('M2',web_url)
-            Trnl.sh1.update('P3',"Series")
+            Trnl.sh2.update('M2',web_url)
+            Trnl.sh2.update('P3',"Series")
             func_scpt(web_url)
-            if web_url in Trnl.sh1.acell('H3').value:
+            if web_url in Trnl.sh2.acell('H3').value:
                 bot.send_message(
                     chat_id=update.chat.id,
-                    text = Trnl.sh1.acell('H3').value
+                    text = Trnl.sh2.acell('H3').value
                 )
             epsd_msg = series(web_url)
             if "1080" in epsd_msg[0]:
-                Trnl.sh1.update('H2', "1080p")
+                Trnl.sh2.update('H2', "1080p")
             elif "720" in epsd_msg[0]:
-                Trnl.sh1.update('H2', "720p")
+                Trnl.sh2.update('H2', "720p")
             else:
-                Trnl.sh1.update('H2', "HD")
+                Trnl.sh2.update('H2', "HD")
             if len(epsd_msg) == 3:
                 bot.send_message(
                     chat_id=update.chat.id,
@@ -68,31 +68,31 @@ def trans(bot, update):
                 gdrv_lk = lk
             base = Trnl.sh1.acell('K2').value
             final_link = transloader(base, gdrv_lk)
-            Trnl.sh1.update('L2', final_link)
+            Trnl.sh2.update('L2', final_link)
             bot.send_message(
                 chat_id=update.chat.id,
                 text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
             )
         if ("/srs" not in update.text) and ("/ic" not in update.text):
             web_url = update.text
-            Trnl.sh1.update('M2',web_url)
-            Trnl.sh1.update('P3',"Movie")
+            Trnl.sh2.update('M2',web_url)
+            Trnl.sh2.update('P3',"Movie")
             if "https://goldchannel.net/movies/" in web_url:
                 gdrv_lk = gldchnl(web_url)
                 func_scpt(web_url)
-                if web_url in Trnl.sh1.acell('H3').value:
+                if web_url in Trnl.sh2.acell('H3').value:
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text = Trnl.sh1.acell('H3').value
+                        text = Trnl.sh2.acell('H3').value
                     )
-                avlb_lk = Trnl.sh1.acell('Q2').value
+                avlb_lk = Trnl.sh2.acell('Q2').value
                 bot.send_message(
                     chat_id=update.chat.id,
                     text="ရရှိနိုင်သော links များ👇\n" + avlb_lk
                 )
                 base = Trnl.sh1.acell('K2').value
                 final_link = transloader(base,gdrv_lk)
-                Trnl.sh1.update('L2', final_link)
+                Trnl.sh2.update('L2', final_link)
                 bot.send_message(
                     chat_id=update.chat.id,
                     text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
@@ -100,12 +100,12 @@ def trans(bot, update):
             if "https://channelmyanmar.org/" in web_url:
                 ytsn_lk = cnmm(web_url)
                 func_scpt(web_url)
-                if web_url in Trnl.sh1.acell('H3').value:
+                if web_url in Trnl.sh2.acell('H3').value:
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text = Trnl.sh1.acell('H3').value
+                        text = Trnl.sh2.acell('H3').value
                     )
-                avlb_lk = Trnl.sh1.acell('Q2').value
+                avlb_lk = Trnl.sh2.acell('Q2').value
                 bot.send_message(
                     chat_id=update.chat.id,
                     text="ရရှိနိုင်သော links များ👇\n" + avlb_lk
@@ -122,7 +122,7 @@ def trans(bot, update):
                 #)
                 base = Trnl.sh1.acell('K2').value
                 final_link = transloader(base,gdrv_lk)
-                Trnl.sh1.update('L2', final_link)
+                Trnl.sh2.update('L2', final_link)
                 bot.send_message(
                     chat_id=update.chat.id,
                     text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
