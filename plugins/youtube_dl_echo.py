@@ -33,7 +33,7 @@ async def echo(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         logger.info(update.from_user)
         #url = update.text
-        url = Trnl.sh1.acell('L2').value
+        url = Trnl.sh2.acell('L2').value
         youtube_dl_username = None
         youtube_dl_password = None
         file_name = None
