@@ -76,7 +76,7 @@ def cnmm(web_url):
     if max_qlt == "":
         max_qlt = "HD"
     avlb_lk = '\n'.join([str(lk) for lk in cnmm_lst])
-    Trnl.sh1.update('Q2', avlb_lk)
-    Trnl.sh1.update('H2', max_qlt)
+    Trnl.sh2.update('Q2', avlb_lk)
+    Trnl.sh2.update('H2', max_qlt)
     ytsn_lk = max_lk
     return ytsn_lk
