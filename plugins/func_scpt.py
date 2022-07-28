@@ -49,7 +49,7 @@ def func_scpt(script_url):
                 Trnl.sh2.update('I2', 'https://t.me/c/1785695486/')
                 Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v1.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
         else:
-            mv_gnr = ""
+            mv_gnr = Trnl.sh2.acell('P3').value
             Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v1.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
         Trnl.sh2.update('M3', mv_gnr)
         ctry_lst = ['Afghanistan', 'Aland Islands', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola',
@@ -175,7 +175,7 @@ def func_scpt(script_url):
         else:
             phto_url = vlink
         vd_qlt = Trnl.sh2.acell('H2').value
-        Trnl.sh2.update('A2', vcap + " | " + mv_gnr + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext)
+        Trnl.sh2.update('A2', vcap + " | " + mv_gnr + " | " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext)
         Trnl.sh2.update('C2', phto_url)
         Trnl.sh2.update('D2', vcap)
         vcap_hsh = ''.join(e for e in vcap if e.isalnum())
