@@ -314,8 +314,8 @@ async def youtube_dl_call_back(bot, update):
             elif tg_send_type == "video":
                 clip = VideoFileClip(download_directory)
                 screen_time = random.randint(120,600)
-                download_directory = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/" + "thbnl1.jpg"
-                clip.save_frame(download_directory, t = screen_time)
+                thumb = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/" + "thbnl1.jpg"
+                clip.save_frame(thumb, t = screen_time)
                 width = clip.w
                 height = clip.h
                 if "update" in str(Trnl.sh2.acell('J2').value):
@@ -338,7 +338,7 @@ async def youtube_dl_call_back(bot, update):
                     height=height,
                     supports_streaming=True,
                     # reply_markup=reply_markup,
-                    thumb=download_directory,
+                    thumb=thumb,
                     # reply_to_message_id=update.message.reply_to_message.message_id,
                     progress=progress_for_pyrogram,
                     progress_args=(
