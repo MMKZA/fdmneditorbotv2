@@ -32,9 +32,6 @@ async def script_call_back(bot, update):
         scpt_id = scpt_msg.message_id
         vtext_lk = "https://t.me/fdmnscripts/" + str(scpt_id)
         vtext_hplk = '<a href="' + vtext_lk + '">👉 ဇာတ်ညွှန်းဖတ်ရန် နှိပ်ပါ 📜</a>'
-        chnl_lk = str(Trnl.sh2.acell('I2').value)
-        vd_lk = chnl_lk + str(Trnl.sh2.acell('P2').value)
-        vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
         invt_lst = [
             "https://t.me/+RqwAss5VI6M0N2Rl",
             "https://t.me/+Hlpn-6_fi8c1OWI1",
@@ -56,8 +53,13 @@ async def script_call_back(bot, update):
         if Trnl.sh2.acell('J2').value == id_lst[3]:
           invt_lk = invt_lst[3]
         for id in id_lst:
-            if Trnl.sh1.acell('J2').value != id:
-                invt_lk = Trnl.sh1.acell('I2').value
+            if Trnl.sh2.acell('J2').value != id:
+                invt_lk = Trnl.sh2.acell('I2').value
+                vd_lk = invt_lk
+            else:
+                chnl_lk = str(Trnl.sh2.acell('I2').value)
+                vd_lk = chnl_lk + str(Trnl.sh2.acell('P2').value)
+        vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
         chnl_hplk = '<a href="' + invt_lk + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
         vd_qlt = Trnl.sh2.acell('H2').value
         mchnl_msg = await bot.send_photo(
