@@ -21,5 +21,4 @@ class Trnl(object):
     gclient = gspread.authorize(creds)
     sh = gclient.open('tgtofbposts')
     sh1 = sh.worksheet("Sheet1")
-    sh2 = sh.worksheet("Sheet2")
-    KEYWORD = sh2.acell('K2').value
+    KEYWORD = sh1.acell('K2').value

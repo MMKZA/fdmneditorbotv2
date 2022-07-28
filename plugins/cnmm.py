@@ -57,8 +57,7 @@ def cnmm(web_url):
     max_sz = float("{:.2f}".format(max(indices)))
     max_lst = list(filter(lambda x: str(max_sz) + "GB" in x, all_lst))
     cnmm_lst = []
-    max_qlt = ''
-    kwd_st = ['https://yoteshinportal.cc/','https://vip.yoteshinportal.cc/', 'https://mega.nz/file/']
+    kwd_st = ['https://vip.yoteshinportal.cc/', 'https://yoteshinportal.cc/', 'https://mega.nz/file/']
     for k in kwd_st:
         for m in max_lst:
             if k in m:
@@ -73,11 +72,11 @@ def cnmm(web_url):
     for m in max_lst:
         for q in qlt_kwd:
             if q in m:
-                max_qlt = m.split("|",3)[1]
+                max_qlt = m.split("|", 3)[1]
     if max_qlt == "":
         max_qlt = "HD"
     avlb_lk = '\n'.join([str(lk) for lk in cnmm_lst])
-    Trnl.sh2.update('Q2', avlb_lk)
-    Trnl.sh2.update('H2', max_qlt)
+    Trnl.sh1.update('Q2', avlb_lk)
+    Trnl.sh1.update('H2', max_qlt)
     ytsn_lk = max_lk
     return ytsn_lk

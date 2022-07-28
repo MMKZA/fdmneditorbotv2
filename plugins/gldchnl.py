@@ -102,7 +102,7 @@ def gldchnl(gld_url):
     for p in qlt_kw:
         if p in max_qlt:
             max_qlt = max_qlt.replace(p, "")
-    Trnl.sh2.update('H2',max_qlt)
+    Trnl.sh1.update('H2',max_qlt)
     max_lk = sz_url[max_sz]
     gdrv_req = requests.get(max_lk)
     gdrv_req.encoding = gdrv_req.apparent_encoding
@@ -118,6 +118,6 @@ def gldchnl(gld_url):
             if k in h:
                 dllk_lst.append([x for x in href_lst if x.startswith(k)][0])
     avlb_lk = '\n'.join([str(lk) for lk in dllk_lst])
-    Trnl.sh2.update('Q2', avlb_lk)
+    Trnl.sh1.update('Q2', avlb_lk)
     dllk = dllk_lst[0]
     return dllk
