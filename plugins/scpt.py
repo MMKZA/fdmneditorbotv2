@@ -44,21 +44,20 @@ async def script_call_back(bot, update):
             "-1001389311243",
             "-1001750623132"
         ]
-        if Trnl.sh2.acell('J2').value == id_lst[0]:
-          invt_lk = invt_lst[0]
-        if Trnl.sh2.acell('J2').value == id_lst[1]:
-          invt_lk = invt_lst[1]
-        if Trnl.sh2.acell('J2').value == id_lst[2]:
-          invt_lk = invt_lst[2]
-        if Trnl.sh2.acell('J2').value == id_lst[3]:
-          invt_lk = invt_lst[3]
-        for id in id_lst:
-            if Trnl.sh2.acell('J2').value != id:
-                invt_lk = Trnl.sh2.acell('I2').value
-                vd_lk = invt_lk
-            else:
-                chnl_lk = str(Trnl.sh2.acell('I2').value)
-                vd_lk = chnl_lk + str(Trnl.sh2.acell('P2').value)
+        if "Series" in Trnl.sh2.acell('P3').value:
+            chnl_lk = str(Trnl.sh2.acell('I2').value)
+            vd_lk = chnl_lk + str(Trnl.sh2.acell('P2').value)
+            if Trnl.sh2.acell('J2').value == id_lst[0]:
+                invt_lk = invt_lst[0]
+            if Trnl.sh2.acell('J2').value == id_lst[1]:
+                invt_lk = invt_lst[1]
+            if Trnl.sh2.acell('J2').value == id_lst[2]:
+                invt_lk = invt_lst[2]
+            if Trnl.sh2.acell('J2').value == id_lst[3]:
+                invt_lk = invt_lst[3]
+        if "Movie" in Trnl.sh2.acell('P3').value:
+            invt_lk = Trnl.sh2.acell('I2').value
+            vd_lk = invt_lk
         vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
         chnl_hplk = '<a href="' + invt_lk + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
         vd_qlt = Trnl.sh2.acell('H2').value
