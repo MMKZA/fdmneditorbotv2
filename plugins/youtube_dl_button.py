@@ -206,15 +206,15 @@ async def youtube_dl_call_back(bot, update):
                 message_id=update.message.message_id
             )
         else:
-            is_w_f = False
-            images = await generate_screen_shots(
-            download_directory,
-            tmp_directory_for_each_user,
-            is_w_f,
-            Config.DEF_WATER_MARK_FILE,
-            300,
-            9
-            )
+            #is_w_f = False
+            #images = await generate_screen_shots(
+            #download_directory,
+            #tmp_directory_for_each_user,
+            #is_w_f,
+            #Config.DEF_WATER_MARK_FILE,
+            #300,
+            #9
+            #)
             #logger.info(images)
             await bot.edit_message_text(
                 text=Translation.UPLOAD_START,
