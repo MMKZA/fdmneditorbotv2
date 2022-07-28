@@ -15,7 +15,6 @@ tldextract
 psycopg2-binary
 sqlalchemy
 youtube-dl
-moviepy
 gspread
 oauth2client
 urllib3
