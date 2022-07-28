@@ -12,14 +12,14 @@ logger = logging.getLogger(__name__)
 @pyrogram.Client.on_message(pyrogram.filters.command(["stp1"]))
 def setup(bot, update):
     full_id = update.chat.id
-    Trnl.sh1.update('J2',full_id)
+    Trnl.sh2.update('J2',full_id)
     invt_lk = bot.create_chat_invite_link(chat_id=update.chat.id)
-    Trnl.sh1.update('I2',invt_lk['invite_link'])
+    Trnl.sh2.update('I2',invt_lk['invite_link'])
     bot.delete_messages(
         chat_id=full_id,
         message_ids=update.message_id
     )
-    r = requests.get(Trnl.sh1.acell('C2').value)
+    r = requests.get(Trnl.sh2.acell('C2').value)
     inmemoryfile = io.BytesIO(r.content)
     bot.set_chat_photo(
         chat_id=full_id,
@@ -27,7 +27,7 @@ def setup(bot, update):
     )
 @pyrogram.Client.on_message(pyrogram.filters.command(["pic1"]))
 def setpic(bot, update):
-    r = requests.get(Trnl.sh1.acell('C2').value)
+    r = requests.get(Trnl.sh2.acell('C2').value)
     inmemoryfile = io.BytesIO(r.content)
     bot.delete_messages(
         chat_id=update.chat.id,
@@ -40,7 +40,7 @@ def setpic(bot, update):
 @pyrogram.Client.on_message(pyrogram.filters.command(["id1"]))
 def sendid(bot, update):
     full_id = update.chat.id
-    Trnl.sh1.update('J2',full_id)
+    Trnl.sh2.update('J2',full_id)
     bot.delete_messages(
         chat_id=full_id,
         message_ids=update.message_id
