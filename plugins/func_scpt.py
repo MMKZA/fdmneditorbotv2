@@ -127,8 +127,8 @@ def func_scpt(script_url):
             del_vtext = 'Your browser does not support the video tag.  '
             if del_vtext in vtext:
                 vtext = vtext.replace(del_vtext, '')
-            vlink = all_lks[0]
-            phto_splt = vlink.split('/')
+        vlink = all_lks[0]
+        phto_splt = vlink.split('/')
         if 'tmdb' in vlink:
             if "channelmyanmar" in script_url:
                 phto_cd = phto_splt[-1]
