@@ -32,18 +32,28 @@ def trans(bot, update):
                 Trnl.sh2.update('H2', "720p")
             else:
                 Trnl.sh2.update('H2', "HD")
-            bot.send_message(
-                chat_id=update.chat.id,
-                text=epsd_msg[0]
-            )
-            bot.send_message(
-                chat_id=update.chat.id,
-                text=epsd_msg[1]
-            )
-            bot.send_message(
-                chat_id=update.chat.id,
-                text=epsd_msg[2]
-            )
+            if len(epsd_msg) == 3:
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text = epsd_msg[0]
+                )
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text = epsd_msg[1]
+                )
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text = epsd_msg[2]
+                )
+            if len(epsd_msg) == 2:
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text = epsd_msg[0]
+                )
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text = epsd_msg[1]
+                )
         if "/srs" not in update.text:
             web_url = update.text
             Trnl.sh2.update('M2',web_url)
