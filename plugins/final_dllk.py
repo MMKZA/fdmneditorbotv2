@@ -26,9 +26,9 @@ def trans(bot, update):
                     text = Trnl.sh2.acell('H3').value
                 )
             epsd_msg = series(web_url)
-            if "1080" in epsd_msg[2]:
+            if "1080" in epsd_msg[0]:
                 Trnl.sh2.update('H2', "1080p")
-            elif "720" in epsd_msg[2]:
+            elif "720" in epsd_msg[0]:
                 Trnl.sh2.update('H2', "720p")
             else:
                 Trnl.sh2.update('H2', "HD")
