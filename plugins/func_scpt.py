@@ -185,6 +185,6 @@ def func_scpt(script_url):
         elif "channelmyanmar" in script_url:
             credit = 'Channel Myanmar'
         Trnl.sh2.update('F2', credit)
-        msg_whl = phto_url + "\n\n" + vcap + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext
+        msg_whl = phto_url + "\n\n" + vcap + " | " + mv_gnr + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext
         msg_trm = msg_whl[0:4095]
         Trnl.sh2.update('O2', msg_trm)
