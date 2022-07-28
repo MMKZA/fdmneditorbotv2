@@ -1,7 +1,7 @@
 import pyrogram
 from plugins.gdrvclean import gdrvclean
 
-@pyrogram.Client.on_message(pyrogram.filters.command(["cl1"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["cl2"]))
 def clean(bot, update):
     status = "error"
     gdrvclean(status)
