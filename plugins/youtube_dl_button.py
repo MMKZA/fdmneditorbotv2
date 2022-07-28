@@ -15,7 +15,6 @@ import math
 import os
 import shutil
 import time
-from moviepy.editor import *
 import random
 
 from datetime import datetime
@@ -207,14 +206,14 @@ async def youtube_dl_call_back(bot, update):
             )
         else:
             is_w_f = False
-            # images = await generate_screen_shots(
-            # download_directory,
-            # tmp_directory_for_each_user,
-            # is_w_f,
-            # Config.DEF_WATER_MARK_FILE,
-            # 300,
-            # 9
-            # )
+            images = await generate_screen_shots(
+            download_directory,
+            tmp_directory_for_each_user,
+            is_w_f,
+            Config.DEF_WATER_MARK_FILE,
+            300,
+            9
+            )
             # logger.info(images)
             await bot.edit_message_text(
                 text=Translation.UPLOAD_START,
@@ -312,11 +311,10 @@ async def youtube_dl_call_back(bot, update):
                     )
                 )
             elif tg_send_type == "video":
-                clip = VideoFileClip(download_directory)
-                screen_time = random.randint(120, 600)
-                clip.save_frame(tmp_directory_for_each_user + "/" + "thbnl.jpg", t=screen_time)
-                V_WIDTH = clip.w
-                V_HEIGHT = clip.h
+                ssimg = images[random.randint(1, 9)]
+                metadata = extractMetadata(createParser(ssimg))
+                width = metadata.get("width")
+                height = metadata.get("height")
                 if "update" in str(Trnl.sh2.acell('J2').value):
                     chnl_id = update.message.chat.id
                 else:
@@ -333,11 +331,11 @@ async def youtube_dl_call_back(bot, update):
                     caption=vd_name,
                     parse_mode="HTML",
                     duration=duration,
-                    width=V_WIDTH,
-                    height=V_HEIGHT,
+                    width=width,
+                    height=height,
                     supports_streaming=True,
                     # reply_markup=reply_markup,
-                    thumb=tmp_directory_for_each_user + "/" + "thbnl.jpg",
+                    thumb=ssimg,
                     # reply_to_message_id=update.message.reply_to_message.message_id,
                     progress=progress_for_pyrogram,
                     progress_args=(
