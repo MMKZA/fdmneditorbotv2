@@ -16,6 +16,7 @@ import os
 import shutil
 import time
 import random
+from moviepy.editor import *
 
 from datetime import datetime
 from pprint import pprint
@@ -311,10 +312,12 @@ async def youtube_dl_call_back(bot, update):
                     )
                 )
             elif tg_send_type == "video":
-                ssimg = images[random.randint(1, 5)]
-                metadata = extractMetadata(createParser(ssimg))
-                width = metadata.get("width")
-                height = metadata.get("height")
+                clip = VideoFileClip(download_directory)
+                screen_time = random.randint(120,600)
+                download_directory = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/" + "thbnl1.jpg"
+                clip.save_frame(download_directory, t = screen_time)
+                width = clip.w
+                height = clip.h
                 if "update" in str(Trnl.sh2.acell('J2').value):
                     chnl_id = update.message.chat.id
                 else:
