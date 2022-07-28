@@ -145,16 +145,16 @@ async def generate_screen_shots(
     if metadata is not None:
         if metadata.has("duration"):
             duration = metadata.get('duration').seconds
-    #if duration > min_duration:
-        #images = []
-        #ttl_step = duration // no_of_photos
-        #current_ttl = ttl_step
-        #for looper in range(0, no_of_photos):
-            #ss_img = await take_screen_shot(video_file, output_directory, current_ttl)
-            #current_ttl = current_ttl + ttl_step
-            #if is_watermarkable:
-                #ss_img = await place_water_mark(ss_img, output_directory + "/" + str(time.time()) + ".jpg", wf)
-            #images.append(ss_img)
-        #return images
+    if duration > min_duration:
+        images = []
+        ttl_step = duration // no_of_photos
+        current_ttl = ttl_step
+        for looper in range(0, no_of_photos):
+            ss_img = await take_screen_shot(video_file, output_directory, current_ttl)
+            current_ttl = current_ttl + ttl_step
+            if is_watermarkable:
+                ss_img = await place_water_mark(ss_img, output_directory + "/" + str(time.time()) + ".jpg", wf)
+            images.append(ss_img)
+        return images
     else:
         return None
