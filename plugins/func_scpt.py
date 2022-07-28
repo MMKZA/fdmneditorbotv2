@@ -142,28 +142,32 @@ def func_scpt(script_url):
                 phto_url = 'https://image.tmdb.org/t/p/original/' + phto_cd
             elif "channelmyanmar" in script_url:
                 start3 = 'https://www.imdb.com/title/t'
-                end3 = '/" target="_blank">'
-                start4 = '/mediaviewer/'
-                end4 = '/?ref_=tt_ov_i'
-                start5 = 'https://'
-                end5 = '.jpg'
                 if start3 in wscpt:
-                    imdb_cd = (wscpt.split(start3))[1].split(end3)[0]
-                    imdb_url = start3 + imdb_cd
+                    hrf_lks = []
+                    for all in soup.find_all('a', href=True):
+                        hrf_lks.append(all['href'])
+                    for h in hrf_lks:
+                        if "https://www.imdb.com/title/t" in h:
+                            imdb_url = h
                     imdb_req = requests.get(imdb_url)
                     imdb_req.encoding = imdb_req.apparent_encoding
                     imdb_html = imdb_req.text
                     imdb_soup = BeautifulSoup(imdb_html, 'html.parser')
-                    imdb_wscpt = imdb_soup.prettify()
-                    imdb2_cd = (imdb_wscpt.split(start4))[1].split(end4)[0]
-                    imdb2_url = imdb_url + '/mediaviewer/' + imdb2_cd
+                    imdb_hrf = []
+                    for all in imdb_soup.find_all('a', href=True):
+                        imdb_hrf.append(all['href'])
+                    for i in imdb_hrf:
+                        if '/?ref_=tt_ov_i' in i:
+                            imdb2_url = 'https://www.imdb.com' + i
                     imdb2_req = requests.get(imdb2_url)
                     imdb2_req.encoding = imdb2_req.apparent_encoding
                     imdb2_html = imdb2_req.text
                     imdb2_soup = BeautifulSoup(imdb2_html, 'html.parser')
-                    imdb2_wscpt = imdb2_soup.prettify()
-                    imdb3_cd = (imdb2_wscpt.split(start5))[1].split(end5)[0]
-                    phto_url = start5 + imdb3_cd + end5
+                    imdb2_hrf = []
+                    for all in imdb2_soup.find_all('meta'):
+                        imdb2_hrf.append(all)
+                    imdb2 = "".join([str(lk) for lk in imdb2_hrf])
+                    phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
                 elif start3 not in wscpt:
                     phto_url = vlink
         else:
