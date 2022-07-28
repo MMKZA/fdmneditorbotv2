@@ -55,6 +55,9 @@ async def script_call_back(bot, update):
           invt_lk = invt_lst[2]
         if Trnl.sh2.acell('J2').value == id_lst[3]:
           invt_lk = invt_lst[3]
+        for id in id_lst:
+            if Trnl.sh1.acell('J2').value != id:
+                invt_lk = Trnl.sh1.acell('I2').value
         chnl_hplk = '<a href="' + invt_lk + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
         vd_qlt = Trnl.sh2.acell('H2').value
         mchnl_msg = await bot.send_photo(
