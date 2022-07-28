@@ -19,7 +19,7 @@ def trans(bot, update):
         if "/srs" in update.text:
             web_url = update.text.split(' ', 1)[1]
             Trnl.sh2.update('M2', web_url)
-            Trnl.sh2.update('P3', "series")
+            Trnl.sh2.update('P3', "Series")
             func_scpt(web_url)
             if web_url in Trnl.sh2.acell('H3').value:
                 bot.send_message(
@@ -58,7 +58,7 @@ def trans(bot, update):
         if "/srs" not in update.text:
             web_url = update.text
             Trnl.sh2.update('M2',web_url)
-            Trnl.sh2.update('P3', "movie")
+            Trnl.sh2.update('P3', "Movie")
             if "https://goldchannel.net/movies/" in web_url:
                 gdrv_lk = gldchnl(web_url)
                 func_scpt(web_url)
