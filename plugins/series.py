@@ -78,4 +78,7 @@ def series(web_url):
     if len(mega_lst) != 0:
         mega_epsd = "Mega Episodes အားလုံး👇\n" + "\n".join([str(lk) for lk in mega_lst])
     last_epsd = "နောက်ဆုံးတင်ထားသော Episode👇\n" + "\n".join([str(lk) for lk in fnl_lst])
-    return [ytsn_epsd, mega_epsd, last_epsd]
+    try:
+        return [ytsn_epsd, mega_epsd, last_epsd]
+    except:
+        return [ytsn_epsd, last_epsd]
