@@ -1,12 +1,40 @@
 import pyrogram
+from pyrogram.types import InputMediaPhoto
 from trnl import Trnl
+import logging
+import requests
+import io
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 @pyrogram.Client.on_message(pyrogram.filters.command(["hi2"]))
-def getid2(bot, update):
+def prpr(bot, update):
     full_id = update.chat.id
-    invt_lk = bot.export_chat_invite_link(chat_id=full_id)
     Trnl.sh2.update('J2',full_id)
-    Trnl.sh2.update('I2',invt_lk)
+    invt_lk = bot.export_chat_invite_link(chat_id=update.chat.id)
+    Trnl.sh2.update('I2',invt_lk['invite_link'])
+    bot.delete_messages(
+        chat_id=full_id,
+        message_ids=update.message_id
+    )
+@pyrogram.Client.on_message(pyrogram.filters.command(["pic2"]))
+def setpic(bot, update):
+    r = requests.get(Trnl.sh2.acell('C2').value)
+    inmemoryfile = io.BytesIO(r.content)
+    bot.set_chat_photo(
+        chat_id=update.chat.id,
+        photo=inmemoryfile
+    )
+    bot.delete_messages(
+        chat_id=full_id,
+        message_ids=update.message_id
+    )
+@pyrogram.Client.on_message(pyrogram.filters.command(["id2"]))
+def sendid(bot, update):
+    full_id = update.chat.id
+    Trnl.sh2.update('J2',full_id)
     bot.delete_messages(
         chat_id=full_id,
         message_ids=update.message_id
