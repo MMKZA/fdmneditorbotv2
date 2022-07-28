@@ -311,7 +311,7 @@ async def youtube_dl_call_back(bot, update):
                     )
                 )
             elif tg_send_type == "video":
-                ssimg = images[random.randint(1, 9)]
+                ssimg = images[random.randint(1, 5)]
                 metadata = extractMetadata(createParser(ssimg))
                 width = metadata.get("width")
                 height = metadata.get("height")
