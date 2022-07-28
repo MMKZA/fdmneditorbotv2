@@ -1,6 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
 from trnl import Trnl
+import re
 
 def func_scpt(script_url):
     req = requests.get(script_url)
