@@ -195,7 +195,7 @@ async def youtube_dl_call_back(bot, update):
             # download_directory = os.path.splitext(download_directory)[0]
             # custom_file_name = str(response_json.get("title")) + \
             # "." + youtube_dl_ext
-            download_directory = os.path.splitext(download_directory)[0] + "." + "mp4"
+            download_directory = os.path.splitext(download_directory)[0]# + "." + "mkv"
             # https://stackoverflow.com/a/678242/4723940
             file_size = os.stat(download_directory).st_size
         if file_size > Config.TG_MAX_FILE_SIZE:
@@ -214,7 +214,7 @@ async def youtube_dl_call_back(bot, update):
             300,
             9
             )
-            # logger.info(images)
+            #logger.info(images)
             await bot.edit_message_text(
                 text=Translation.UPLOAD_START,
                 chat_id=update.message.chat.id,
@@ -320,7 +320,7 @@ async def youtube_dl_call_back(bot, update):
                 else:
                     chnl_id = int(Trnl.sh2.acell('J2').value)
                 vcap = Trnl.sh2.acell('D2').value
-                if "series" in Trnl.sh2.acell('P3').value:
+                if "Series" in Trnl.sh2.acell('P3').value:
                     vd_name = description
                 else:
                     vd_name = vcap + " | " + Trnl.sh2.acell('H2').value
