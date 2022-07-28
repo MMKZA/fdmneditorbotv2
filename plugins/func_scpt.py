@@ -122,11 +122,11 @@ def func_scpt(script_url):
                 end1 = 'Download Nulled Scripts and Plugins'
             start2 = 'image" src="'
             end2 = '.jpg'
-            vcap = sscpt.split('\n', 1)[0]
             vtext = (sscpt.split(start1))[1].split(end1)[0]
             del_vtext = 'Your browser does not support the video tag.  '
             if del_vtext in vtext:
                 vtext = vtext.replace(del_vtext, '')
+        vcap = sscpt.split('\n', 1)[0]
         vlink = all_lks[0]
         phto_splt = vlink.split('/')
         if 'tmdb' in vlink:
