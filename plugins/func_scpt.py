@@ -40,8 +40,8 @@ def func_scpt(script_url):
         title = vcap.replace('(' + year + ')', '').strip()
         rmv = ['(21+)', '{21+}', '[21+]', '(18+)', '{18+}', '[18+]']
         for r in rmv:
-            if r in vcap:
-                title = vcap.replace(r, '').strip()
+            if r in title:
+                title = title.replace(r, '').strip()
         hrf_lks = []
         try:
             for all in soup.find_all('a', href=True):
@@ -223,7 +223,7 @@ def func_scpt(script_url):
     else:
         phto_url = vlink
     vd_qlt = Trnl.sh2.acell('H2').value
-    Trnl.sh2.update('A2', vcap + "\nအမျိုးအစား 🎬 " + mv_gnr + "\nကြာချိန် ⏰ " + rntm + "\nရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext)
+    Trnl.sh2.update('A2', title + "\nထွက်ရှိသည့်ခုနှစ် 🗓️ " + year + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext)
     Trnl.sh2.update('C2', phto_url)
     Trnl.sh2.update('D2', vcap)
     vcap_hsh = ''.join(e for e in vcap if e.isalnum())
@@ -243,6 +243,6 @@ def func_scpt(script_url):
         runtime = omdb_req['Runtime']
     except:
         runtime = "⁉️"
-    msg_whl = phto_url + "\n\n" + vcap + "\nအမျိုးအစား 🎬 " + mv_gnr + "\nကြာချိန် ⏰ " + rntm + "\nရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext
+    msg_whl = phto_url + "\n\n" + title + "\nထွက်ရှိသည့်ခုနှစ် 🗓️ " + year + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext
     msg_trm = msg_whl[0:4095]
     Trnl.sh2.update('O2', msg_trm)
