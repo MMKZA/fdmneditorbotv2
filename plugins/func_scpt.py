@@ -242,7 +242,7 @@ def func_scpt(script_url):
     try:
         runtime = omdb_req['Runtime']
     except:
-        runtime = "-"
+        runtime = "⁉️"
     msg_whl = phto_url + "\n\n" + vcap + "\nအမျိုးအစား 🎬 " + mv_gnr + "\nကြာချိန် ⏰ " + rntm + "\nရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext
     msg_trm = msg_whl[0:4095]
     Trnl.sh2.update('O2', msg_trm)
