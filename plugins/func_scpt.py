@@ -96,7 +96,7 @@ def func_scpt(script_url):
         else:
             mv_gnr = Trnl.sh2.acell('P3').value
             Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
-        print(mv_gnr)
+        Trnl.sh2.update('M3', mv_gnr)
         ctry_lst = ['Afghanistan', 'Aland Islands', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola',
                     'Anguilla',
                     'Antarctica', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria',
