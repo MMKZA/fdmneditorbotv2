@@ -36,8 +36,15 @@ def func_scpt(script_url):
         start3 = 'https://www.imdb.com/title/t'
         for all in soup.find_all('h1', {'itemprop': 'name'}):
             vcap = all.text
-        year = re.findall(r'(\d+)', vcap)[len(re.findall(r'(\d+)', vcap)) - 1]
-        title = vcap.replace('(' + year + ')', '').strip()
+        try:
+            year = re.findall(r'(\d+)', vcap)[len(re.findall(r'(\d+)', vcap)) - 1]
+        except:
+            for all in soup.select('#uwee > div.data > p.meta > span:nth-child(1) > a'):
+                year=all.text
+        try:
+            title = vcap.replace('(' + year + ')', '').strip()
+        except:
+            title = vcap
         rmv = ['(21+)', '{21+}', '[21+]', '(18+)', '{18+}', '[18+]']
         for r in rmv:
             if r in title:
