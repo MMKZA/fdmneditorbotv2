@@ -9,7 +9,7 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-@pyrogram.Client.on_message(pyrogram.filters.command(["stp1"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["stp2"]))
 def setup(bot, update):
     full_id = update.chat.id
     Trnl.sh2.update('J2',full_id)
@@ -25,7 +25,7 @@ def setup(bot, update):
         chat_id=full_id,
         photo=inmemoryfile
     )
-@pyrogram.Client.on_message(pyrogram.filters.command(["pic1"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["pic2"]))
 def setpic(bot, update):
     r = requests.get(Trnl.sh2.acell('C2').value)
     inmemoryfile = io.BytesIO(r.content)
@@ -37,7 +37,7 @@ def setpic(bot, update):
         chat_id=update.chat.id,
         photo=inmemoryfile
     )
-@pyrogram.Client.on_message(pyrogram.filters.command(["id1"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["id2"]))
 def sendid(bot, update):
     full_id = update.chat.id
     Trnl.sh2.update('J2',full_id)
