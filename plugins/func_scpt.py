@@ -225,7 +225,7 @@ def func_scpt(script_url):
     vd_qlt = Trnl.sh2.acell('H2').value
     try:
         rntm = omdb_req['Runtime'].split(' ',2)[0]
-        rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
+        rntm = "{} hr : {} min".format(*divmod(int(rntm), 60))
     except:
         rntm = "⁉️"
     Trnl.sh2.update('M4', rntm)
