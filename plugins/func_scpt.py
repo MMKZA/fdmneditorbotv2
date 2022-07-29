@@ -42,6 +42,8 @@ def func_scpt(script_url):
         for r in rmv:
             if r in title:
                 title = title.replace(r, '').strip()
+        Trnl.sh2.update('M4', title)
+        Trnl.sh2.update('M5', year)
         hrf_lks = []
         try:
             for all in soup.find_all('a', href=True):
@@ -243,6 +245,7 @@ def func_scpt(script_url):
         runtime = omdb_req['Runtime']
     except:
         runtime = "⁉️"
+    Trnl.sh2.update('M6', runtime)
     msg_whl = phto_url + "\n\n" + title + "\nထွက်ရှိသည့်ခုနှစ် 🗓️ " + year + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext
     msg_trm = msg_whl[0:4095]
     Trnl.sh2.update('O2', msg_trm)
