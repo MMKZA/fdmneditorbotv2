@@ -242,10 +242,10 @@ def func_scpt(script_url):
         credit = 'Channel Myanmar'
     Trnl.sh2.update('F2', credit)
     try:
-        runtime = omdb_req['Runtime']
+        rntm = omdb_req['Runtime']
     except:
-        runtime = "⁉️"
-    Trnl.sh2.update('M6', runtime)
+        rntm = "⁉️"
+    Trnl.sh2.update('M6', rntm)
     msg_whl = phto_url + "\n\n" + title + "\nထွက်ရှိသည့်ခုနှစ် 🗓️ " + year + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext
     msg_trm = msg_whl[0:4095]
     Trnl.sh2.update('O2', msg_trm)
