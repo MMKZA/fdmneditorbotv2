@@ -229,6 +229,7 @@ def func_scpt(script_url):
         rntm = omdb_req['Runtime']
     except:
         rntm = "⁉️"
+    Trnl.sh2.update('M6', rntm)
     Trnl.sh2.update('A2', title + "\nထွက်ရှိသည့်ခုနှစ် 🗓️ " + year + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext)
     Trnl.sh2.update('C2', phto_url)
     Trnl.sh2.update('D2', vcap)
@@ -245,11 +246,6 @@ def func_scpt(script_url):
     elif "channelmyanmar" in script_url:
         credit = 'Channel Myanmar'
     Trnl.sh2.update('F2', credit)
-    try:
-        rntm = omdb_req['Runtime']
-    except:
-        rntm = "⁉️"
-    Trnl.sh2.update('M6', rntm)
     msg_whl = phto_url + "\n\n" + title + "\nထွက်ရှိသည့်ခုနှစ် 🗓️ " + year + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext
     msg_trm = msg_whl[0:4095]
     Trnl.sh2.update('O2', msg_trm)
