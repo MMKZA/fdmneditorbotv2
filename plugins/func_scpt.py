@@ -223,8 +223,6 @@ def func_scpt(script_url):
                         imdb2_hrf.append(all)
                     imdb2 = "".join([str(lk) for lk in imdb2_hrf])
                     phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
-                else:
-                    phto_url = vlink
             if start3 not in wscpt:
                 phto_url = vlink
     else:
