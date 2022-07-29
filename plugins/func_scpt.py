@@ -42,8 +42,6 @@ def func_scpt(script_url):
         for r in rmv:
             if r in title:
                 title = title.replace(r, '').strip()
-        Trnl.sh2.update('M4', title)
-        Trnl.sh2.update('M5', year)
         hrf_lks = []
         try:
             for all in soup.find_all('a', href=True):
@@ -230,7 +228,7 @@ def func_scpt(script_url):
     except:
         rntm = "⁉️"
     Trnl.sh2.update('M6', rntm)
-    Trnl.sh2.update('A2', title + "\nထွက်ရှိသည့်ခုနှစ် 🗓️ " + year + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext)
+    Trnl.sh2.update('A2', vcap + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext)
     Trnl.sh2.update('C2', phto_url)
     Trnl.sh2.update('D2', vcap)
     vcap_hsh = ''.join(e for e in vcap if e.isalnum())
@@ -246,6 +244,6 @@ def func_scpt(script_url):
     elif "channelmyanmar" in script_url:
         credit = 'Channel Myanmar'
     Trnl.sh2.update('F2', credit)
-    msg_whl = phto_url + "\n\n" + title + "\nထွက်ရှိသည့်ခုနှစ် 🗓️ " + year + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext
+    msg_whl = phto_url + "\n\n" + vcap + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext
     msg_trm = msg_whl[0:4095]
     Trnl.sh2.update('O2', msg_trm)
