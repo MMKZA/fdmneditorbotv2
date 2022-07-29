@@ -31,7 +31,7 @@ def func_scpt(script_url):
         vtext = (sscpt.split(start1))[1].split(end1)[0]
         vlink = (wscpt.split(start2))[1].split(end2)[0] + '.jpg'
         phto_splt = vlink.split('/')
-        Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v1.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
+        Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v2.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
     elif "channelmyanmar" in script_url:
         start3 = 'https://www.imdb.com/title/t'
         for all in soup.find_all('h1', {'itemprop': 'name'}):
@@ -85,7 +85,7 @@ def func_scpt(script_url):
             else:
                 Trnl.sh2.update('J2', '-1001785695486')
                 Trnl.sh2.update('I2', 'https://t.me/c/1785695486/')
-                Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
+                Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားကို v2 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
             if 'Series' in Trnl.sh2.acell('P3').value:
                 mv_gnr = Trnl.sh2.acell('P3').value
             if "Uncategorized" in mv_gnr:
@@ -95,7 +95,7 @@ def func_scpt(script_url):
                     pass
         else:
             mv_gnr = Trnl.sh2.acell('P3').value
-            Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
+            Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားကို v2 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
         Trnl.sh2.update('M3', mv_gnr)
         ctry_lst = ['Afghanistan', 'Aland Islands', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola',
                     'Anguilla',
