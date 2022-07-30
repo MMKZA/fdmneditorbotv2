@@ -19,19 +19,85 @@ def func_scpt(script_url):
     wscpt = soup.prettify()
     sscpt = soup.get_text()
     if "goldchannel" in script_url:
+        req = requests.get(script_url)
+    # override encoding by real educated guess as provided by chardet
+    req.encoding = req.apparent_encoding
+    # access the data
+    html_text = req.text
+    soup = BeautifulSoup(html_text, 'html.parser')
+    wscpt = soup.prettify()
+    sscpt = soup.get_text()
+    if "goldchannel" in script_url:
+        for all in soup.select('#single > div.content.right > div.sheader > div.data > h1'):
+            vcap = all.text
+        for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.date'):
+            rls_date = datetime.datetime.strptime(all.text, "%b. %d, %Y")
+            year = rls_date.year
+        for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.country'):
+            ctry = all.text
+        try:
+            for all in soup.select('#single > div.content.right > div.sheader > div.data > div.sgeneros'):
+                mv_gnr = re.sub(r"(\w)([A-Z])", r"\1, \2", all.text)
+        except:
+            if len(omdb_req['Genre']) != 0:
+                mv_gnr = omdb_req['Genre']
+        for all in soup.select(
+                '#single > div.content.right > div.sheader > div.data > div.extra > span.CNot.Rated.rated'):
+            chck_rtd = all.text
+        if len(chck_rtd) != 0:
+            if "Not" not in chck_rtd:
+                Trnl.sh2.update('J2', '-1001750623132')
+                Trnl.sh2.update('I2', 'https://t.me/c/1750623132/')
+        omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(vcap) + '&y=' + str(year) + '&apikey=39ecaf7'
+        omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
         if 'tvshows' in script_url:
-            start1 = 'Synopsis  '
-            end1 = '   Original title'
-        if 'tvshows' not in script_url:
-            start1 = 'Synopsis  '
-            end1 = '    Original title'
-        start2 = 'image" src="'
-        end2 = '.jpg'
-        vcap = sscpt.split('      ', 1)[0]
-        vtext = (sscpt.split(start1))[1].split(end1)[0]
-        vlink = (wscpt.split(start2))[1].split(end2)[0] + '.jpg'
+            for all in soup.select('#info > div:nth-child(9) > span'):
+                rntm = all.text.split(' ', 2)[0]
+                rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
+        elif 'tvshows' not in script_url:
+            for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.runtime'):
+                rntm = all.text.split(' ', 2)[0]
+                rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
+            if len(ctry) != 0:
+                if "India" in ctry:
+                    Trnl.sh2.update('J2', '-1001718578294')
+                    Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+            elif len(omdb_req['Country']) != 0:
+                if "India" in omdb_req['Country']:
+                    Trnl.sh2.update('J2', '-1001718578294')
+                    Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+            else:
+                Trnl.sh2.update('J2', '-1001785695486')
+                Trnl.sh2.update('I2', 'https://t.me/c/1785695486/')
+                Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v1.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
+        else:
+            rntm = "-"
+        if len(mv_gnr) != 0:
+            if "Animation" in mv_gnr:
+                Trnl.sh2.update('J2', '-1001389311243')
+                Trnl.sh2.update('I2', 'https://t.me/c/1389311243/')
+        for all in soup.select('#single > div.content.right > div.sheader > div.poster > img'):
+            vlink = all['src']
         phto_splt = vlink.split('/')
-        Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v2.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
+        vtext = ""
+        try:
+            bd_lks = []
+            bd_soup = soup.select('#info > div.wp-content > p')
+            for all in bd_soup:
+                bd_lks.append(all.text)
+            if len(bd_lks) != 0:
+                vtext = "\n".join([str(txt) for txt in bd_lks])
+        except:
+            if 'tvshows' in script_url:
+                start1 = 'Synopsis  '
+                end1 = '   Original title'
+            if 'tvshows' not in script_url:
+                start1 = 'Synopsis  '
+                end1 = '    Original title'
+            vtext = (sscpt.split(start1))[1].split(end1)[0]
+        if len(vtext) == 0:
+            vtext = "⁉"
+        credit = 'Gold Channel Movies'
     elif "channelmyanmar" in script_url:
         start3 = 'https://www.imdb.com/title/t'
         for all in soup.find_all('h1', {'itemprop': 'name'}):
@@ -70,6 +136,11 @@ def func_scpt(script_url):
                 Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
         else:
             pass
+        try:
+            rntm = omdb_req['Runtime'].split(' ',2)[0]
+            rntm = "{} hr : {} min".format(*divmod(int(rntm), 60))
+        except:
+            rntm = "⁉️"
         all_lks = []
         for all in soup.select('div > img'):
             all_lks.append(all['src'])
@@ -191,6 +262,7 @@ def func_scpt(script_url):
         vcap = vcap
         vlink = all_lks[0]
         phto_splt = vlink.split('/')
+        credit = 'Channel Myanmar'
     if 'tmdb' in vlink:
         if "channelmyanmar" in script_url:
             phto_cd = phto_splt[-1]
@@ -228,11 +300,6 @@ def func_scpt(script_url):
     else:
         phto_url = vlink
     vd_qlt = Trnl.sh2.acell('H2').value
-    try:
-        rntm = omdb_req['Runtime'].split(' ',2)[0]
-        rntm = "{} hr : {} min".format(*divmod(int(rntm), 60))
-    except:
-        rntm = "⁉️"
     Trnl.sh2.update('M4', rntm)
     Trnl.sh2.update('A2', vcap + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
     Trnl.sh2.update('C2', phto_url)
@@ -245,10 +312,6 @@ def func_scpt(script_url):
     else:
         vcap_hsh = vcap_hsh
     Trnl.sh2.update('E2', vcap_hsh)
-    if "goldchannel" in script_url:
-        credit = 'Gold Channel Movies'
-    elif "channelmyanmar" in script_url:
-        credit = 'Channel Myanmar'
     Trnl.sh2.update('F2', credit)
     msg_whl = phto_url + "\n\n" + vcap + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
     msg_trm = msg_whl[0:4095]
