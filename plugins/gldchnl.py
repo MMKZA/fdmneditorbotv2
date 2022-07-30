@@ -35,7 +35,7 @@ def gldchnl(gld_url):
         if k in table:
             if entrmGB in table:
                 size1080 = (table.split(k))[1].split(entrmGB)[0]
-            if "Myanmar" in size1080:
+            if entrmMB in size1080:
                 size1080 = float("{:.2f}".format(float((table.split(k))[1].split(entrmMB)[0]) / 1024))
             else:
                 size1080 = float(size1080)
@@ -45,7 +45,7 @@ def gldchnl(gld_url):
         if k in table:
             if entrmGB in table:
                 size720 = (table.split(k))[1].split(entrmGB)[0]
-            if "Myanmar" in size720:
+            if entrmMB in size720:
                 size720 = float("{:.2f}".format(float((table.split(k))[1].split(entrmMB)[0]) / 1024))
             else:
                 size720 = float(size720)
@@ -54,7 +54,7 @@ def gldchnl(gld_url):
         if k in table:
             if entrmGB in table:
                 size480 = (table.split(k))[1].split(entrmGB)[0]
-            if "Myanmar" in size480:
+            if entrmMB in size480:
                 size480 = "{:.2f}".format(float((table.split(k))[1].split(entrmMB)[0]) / 1024)
             else:
                 size480 = float(size480)
