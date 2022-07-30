@@ -100,30 +100,36 @@ def trans(bot, update):
             if "https://channelmyanmar.org/" in web_url:
                 ytsn_lk = cnmm(web_url)
                 func_scpt(web_url)
-                if web_url in Trnl.sh2.acell('H3').value:
+                if "Manual" in ytsn_lk:
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text = Trnl.sh2.acell('H3').value
+                        text=ytsn_lk
+                        )
+                if "Manual" not in ytsn_lk:
+                    if web_url in Trnl.sh2.acell('H3').value:
+                        bot.send_message(
+                            chat_id=update.chat.id,
+                            text = Trnl.sh2.acell('H3').value
+                        )
+                    avlb_lk = Trnl.sh2.acell('Q2').value
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text="ရရှိနိုင်သော links များ👇\n" + avlb_lk
                     )
-                avlb_lk = Trnl.sh2.acell('Q2').value
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text="ရရှိနိုင်သော links များ👇\n" + avlb_lk
-                )
-                gdrv_retrn = ytsn_dllk(ytsn_lk)
-                if "error" in gdrv_retrn:
-                    gdrvclean(gdrv_retrn)
-                    gdrv_lk = ytsn_dllk(ytsn_lk)
-                else:
-                    gdrv_lk = gdrv_retrn
-                #bot.send_message(
-                    #chat_id=update.chat.id,
-                    #text=gdrv_lk
-                #)
-                base = Trnl.sh1.acell('K2').value
-                final_link = transloader(base,gdrv_lk)
-                Trnl.sh2.update('L2', final_link)
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
-                )
+                    gdrv_retrn = ytsn_dllk(ytsn_lk)
+                    if "error" in gdrv_retrn:
+                        gdrvclean(gdrv_retrn)
+                        gdrv_lk = ytsn_dllk(ytsn_lk)
+                    else:
+                        gdrv_lk = gdrv_retrn
+                    #bot.send_message(
+                        #chat_id=update.chat.id,
+                        #text=gdrv_lk
+                    #)
+                    base = Trnl.sh1.acell('K2').value
+                    final_link = transloader(base,gdrv_lk)
+                    Trnl.sh2.update('L2', final_link)
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
+                    )
