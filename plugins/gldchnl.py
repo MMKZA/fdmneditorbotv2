@@ -49,7 +49,7 @@ def gldchnl(gld_url):
     for k in kwd_st:
         for a in all_lst:
             if k in a:
-                avlb_lst.append(a.split("|", 3)[0])
+                avlb_lst.append(a)
     avlb_lk = '\n'.join([str(lk) for lk in avlb_lst])
     dllk = ''
     for m in max_lst:
