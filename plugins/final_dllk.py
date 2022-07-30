@@ -106,11 +106,6 @@ def trans(bot, update):
                         text=ytsn_lk
                         )
                 if "Manual" not in ytsn_lk:
-                    if web_url in Trnl.sh2.acell('H3').value:
-                        bot.send_message(
-                            chat_id=update.chat.id,
-                            text = Trnl.sh2.acell('H3').value
-                        )
                     avlb_lk = Trnl.sh2.acell('Q2').value
                     bot.send_message(
                         chat_id=update.chat.id,
