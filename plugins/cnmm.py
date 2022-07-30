@@ -84,6 +84,6 @@ def cnmm(web_url):
     except:
         all_lst = list(range(0, len(sz_lst)))
         for i in all_lst:
-            all_lst[i] = ("{}|{}|{}".format(url_lst[i], qlt_lst[i], str(sz_lst[i])))
+            all_lst[i] = ("{} | {} | {}".format(url_lst[i], qlt_lst[i], str(sz_lst[i])))
             ytsn_lk = 'အခက်အခဲဖြစ်ပေါ်နေလို့ Manual ရွေးပါ\n' + "\n".join([str(lk) for lk in all_lst])
     return ytsn_lk
