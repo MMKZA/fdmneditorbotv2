@@ -50,6 +50,7 @@ def gldchnl(gld_url):
         for a in all_lst:
             if k in a:
                 avlb_lst.append(a.split("|", 3)[0])
+    avlb_lk = '\n'.join([str(lk) for lk in avlb_lst])
     dllk = ''
     for m in max_lst:
         if 'G Drive' in m:
@@ -70,4 +71,6 @@ def gldchnl(gld_url):
         elif 'Mega' in m:
             max_mega = m.split("|", 3)[0]
             dllk = max_mega
+    Trnl.sh2.update('Q2', avlb_lk)
+    Trnl.sh2.update('H2', max_qlt)
     return dllk
