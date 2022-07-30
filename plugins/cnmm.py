@@ -26,7 +26,7 @@ def cnmm(web_url):
     for s in url_lst:
         if "https://www.cmvipmembers.com/" in s:
             index = url_lst.index(s)
-            del s
+            del url_lst[index]
             del qlt_lst[index]
             del sz_lst[index]
         else:
@@ -43,13 +43,14 @@ def cnmm(web_url):
     szgb_lst = []
     for v in sz_lst:
         szspl = re.findall('(\d+|[A-Za-z]+)', v)
-        szunt = szspl[len(szspl) - 1]
-        for g in gb_lst:
-            if szunt in g:
-                szgb_lst.append(float("{:.2f}".format(float(v.replace(szunt, "").strip()))))
-        for m in mb_lst:
-            if szunt in m:
-                szgb_lst.append(float("{:.2f}".format(float(v.replace(szunt, "").strip()) / 1024)))
+        if len(szspl) != 0:
+            szunt = szspl[len(szspl) - 1]
+            for g in gb_lst:
+                if szunt in g:
+                    szgb_lst.append(float("{:.2f}".format(float(v.replace(szunt, "").strip()))))
+            for m in mb_lst:
+                if szunt in m:
+                    szgb_lst.append(float("{:.2f}".format(float(v.replace(szunt, "").strip()) / 1024)))
     all_lst = list(range(0, len(szgb_lst)))
     for i in all_lst:
         all_lst[i] = ("{}|{}|{}".format(url_lst[i], qlt_lst[i], str(szgb_lst[i]) + "GB"))
