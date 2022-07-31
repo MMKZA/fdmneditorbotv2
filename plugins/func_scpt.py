@@ -116,8 +116,8 @@ def func_scpt(script_url):
                 imdb_hrf.append(h['href'])
             for h in imdb_hrf:
                 if "https://www.imdb.com/title/t" in h:
-                imdb_url = h
-                imdb_id = imdb_url.split('/', 5)[4]
+                    imdb_url = h
+                    imdb_id = imdb_url.split('/', 5)[4]
         except:
             imdb_id = omdb_req['imdbID']
             if (len(imdb_id) != 0) and ('NA' not in imdb_id):
