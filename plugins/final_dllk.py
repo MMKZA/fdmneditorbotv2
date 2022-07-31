@@ -27,6 +27,10 @@ def trans(bot, update):
                     text = Trnl.sh2.acell('H3').value
                 )
             epsd_msg = series(web_url)
+            bot.send_message(
+                chat_id=update.chat.id,
+                text = Trnl.sh2.acell('D2').value
+            )
             if "1080" in epsd_msg[0]:
                 Trnl.sh2.update('H2', "1080p")
             elif "720" in epsd_msg[0]:
