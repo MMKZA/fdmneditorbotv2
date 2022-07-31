@@ -20,15 +20,6 @@ def func_scpt(script_url):
     wscpt = soup.prettify()
     sscpt = soup.get_text()
     if "goldchannel" in script_url:
-        req = requests.get(script_url)
-    # override encoding by real educated guess as provided by chardet
-    req.encoding = req.apparent_encoding
-    # access the data
-    html_text = req.text
-    soup = BeautifulSoup(html_text, 'html.parser')
-    wscpt = soup.prettify()
-    sscpt = soup.get_text()
-    if "goldchannel" in script_url:
         for all in soup.select('#single > div.content.right > div.sheader > div.data > h1'):
             vcap = all.text
         for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.date'):
@@ -116,27 +107,29 @@ def func_scpt(script_url):
         for r in rmv:
             if r in title:
                 title = title.replace(r, '').strip()
-        hrf_lks = []
+        omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(title) + '&y=' + year + '&apikey=39ecaf7'
+        omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
         try:
+            if "https://www.imdb.com/title/t" in h:
+                imdb_url = h
+                imdb_id = imdb_url.split('/', 5)[4]
+        except:
+            imdb_id = omdb_req['imdbID']
+            if (len(imdb_id) != 0) and ('NA' not in imdb_id):
+                imdb_url = 'https://www.imdb.com/title/' + imdb_id
+        try:
+            omdb_req = omdb_req
+        except:
+            hrf_lks = []
             for all in soup.find_all('a', href=True):
                 hrf_lks.append(all['href'])
             for h in hrf_lks:
-                if "https://www.imdb.com/title/t" in h:
-                    imdb_url = h
-                    imdb_id = imdb_url.split('/', 5)[4]
-                    omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
-                    omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
-                    if "India" in omdb_req['Country']:
-                        Trnl.sh2.update('J2', '-1001718578294')
-                        Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
-        except:
-            omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(title) + '&y=' + year + '&apikey=39ecaf7'
-            omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
-            if "India" in omdb_req['Country']:
-                Trnl.sh2.update('J2', '-1001718578294')
-                Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
-        else:
-            pass
+                omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
+                omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
+
+        if "India" in omdb_req['Country']:
+            Trnl.sh2.update('J2', '-1001718578294')
+            Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
         try:
             rntm = omdb_req['Runtime'].split(' ',2)[0]
             rntm = "{} hr : {} min".format(*divmod(int(rntm), 60))
@@ -162,7 +155,7 @@ def func_scpt(script_url):
             else:
                 Trnl.sh2.update('J2', '-1001785695486')
                 Trnl.sh2.update('I2', 'https://t.me/c/1785695486/')
-                Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားကို v2 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
+                Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
             if 'Series' in Trnl.sh2.acell('P3').value:
                 mv_gnr = Trnl.sh2.acell('P3').value
             if "Uncategorized" in mv_gnr:
@@ -172,7 +165,7 @@ def func_scpt(script_url):
                     pass
         else:
             mv_gnr = Trnl.sh2.acell('P3').value
-            Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားကို v2 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
+            Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
         Trnl.sh2.update('M3', mv_gnr)
         ctry_lst = ['Afghanistan', 'Aland Islands', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola',
                     'Anguilla',
@@ -274,28 +267,40 @@ def func_scpt(script_url):
             phto_url = 'https://image.tmdb.org/t/p/original/' + phto_cd
         elif "channelmyanmar" in script_url:
             if start3 in wscpt:
-                try:
-                    phto_url = omdb_req["Poster"].replace('_SX300', '')
-                except:
-                    imdb_req = requests.get(imdb_url)
-                    imdb_req.encoding = imdb_req.apparent_encoding
-                    imdb_html = imdb_req.text
-                    imdb_soup = BeautifulSoup(imdb_html, 'html.parser')
-                    imdb_hrf = []
-                    for all in imdb_soup.find_all('a', href=True):
-                        imdb_hrf.append(all['href'])
-                    for i in imdb_hrf:
-                        if '/?ref_=tt_ov_i' in i:
-                            imdb2_url = 'https://www.imdb.com' + i
-                    imdb2_req = requests.get(imdb2_url)
-                    imdb2_req.encoding = imdb2_req.apparent_encoding
-                    imdb2_html = imdb2_req.text
-                    imdb2_soup = BeautifulSoup(imdb2_html, 'html.parser')
-                    imdb2_hrf = []
-                    for all in imdb2_soup.find_all('meta'):
-                        imdb2_hrf.append(all)
-                    imdb2 = "".join([str(lk) for lk in imdb2_hrf])
-                    phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
+                phto_url = omdb_req["Poster"].replace('_SX300', '')
+                if 'N/A' in phto_url:
+                    try:
+                        tmdb = TMDb()
+                        tmdb.api_key = "53b9eff4684ba49f0f2225d888fd4202"
+                        search = Search()
+                        if 'Movie' in Trnl.sh2.acell('P3').value:
+                            results = search.movies({"query": title, "year": year})
+                            for result in results:
+                                phto_url = 'https://image.tmdb.org/t/p/original/' + result.poster_path
+                        if 'Series' in Trnl.sh2.acell('P3').value:
+                            results = search.tv_shows({"query": title, "year": year})
+                            for result in results:
+                                phto_url = 'https://image.tmdb.org/t/p/original/' + result.poster_path
+                    except:
+                        imdb_req = requests.get(imdb_url)
+                        imdb_req.encoding = imdb_req.apparent_encoding
+                        imdb_html = imdb_req.text
+                        imdb_soup = BeautifulSoup(imdb_html, 'html.parser')
+                        imdb_hrf = []
+                        for all in imdb_soup.find_all('a', href=True):
+                            imdb_hrf.append(all['href'])
+                        for i in imdb_hrf:
+                            if '/?ref_=tt_ov_i' in i:
+                                imdb2_url = 'https://www.imdb.com' + i
+                        imdb2_req = requests.get(imdb2_url)
+                        imdb2_req.encoding = imdb2_req.apparent_encoding
+                        imdb2_html = imdb2_req.text
+                        imdb2_soup = BeautifulSoup(imdb2_html, 'html.parser')
+                        imdb2_hrf = []
+                        for all in imdb2_soup.find_all('meta'):
+                            imdb2_hrf.append(all)
+                        imdb2 = "".join([str(lk) for lk in imdb2_hrf])
+                        phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
             if start3 not in wscpt:
                 phto_url = vlink
     else:
