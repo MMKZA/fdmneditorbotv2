@@ -61,7 +61,7 @@ def trans(bot, update):
                 gdrv_retrn = ytsn_dllk(lk)
                 if "error" in gdrv_retrn:
                     gdrvclean(gdrv_retrn)
-                    gdrv_lk = ytsn_dllk(ytsn_lk)
+                    gdrv_lk = ytsn_dllk(lk)
                 else:
                     gdrv_lk = gdrv_retrn
             elif "mega.nz" in lk:
