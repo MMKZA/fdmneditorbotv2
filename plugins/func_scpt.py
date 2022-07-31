@@ -274,7 +274,7 @@ def func_scpt(script_url):
             phto_url = 'https://image.tmdb.org/t/p/original/' + phto_cd
         elif "channelmyanmar" in script_url:
             if start3 in wscpt:
-                if ('NA' not in omdb_req["Poster"]) and (len(omdb_req["Poster"]) != 0):
+                if "Poster" in omdb_req:
                     phto_url = omdb_req["Poster"].replace('_SX300', '')
                 if 'N/A' in phto_url:
                     try:
