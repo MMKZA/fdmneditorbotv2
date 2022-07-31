@@ -111,7 +111,11 @@ def func_scpt(script_url):
         omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(title) + '&y=' + year + '&apikey=39ecaf7'
         omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
         try:
-            if "https://www.imdb.com/title/t" in h:
+            imdb_hrf = []
+            for h in soup.find_all('a',href=True):
+                imdb_hrf.append(h['href'])
+            for h in imdb_hrf:
+                if "https://www.imdb.com/title/t" in h:
                 imdb_url = h
                 imdb_id = imdb_url.split('/', 5)[4]
         except:
@@ -127,10 +131,12 @@ def func_scpt(script_url):
             for h in hrf_lks:
                 omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
                 omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
-
-        if "India" in omdb_req['Country']:
-            Trnl.sh2.update('J2', '-1001718578294')
-            Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+        try:
+            if "India" in omdb_req['Country']:
+                Trnl.sh2.update('J2', '-1001718578294')
+                Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+        except:
+            pass
         try:
             rntm = omdb_req['Runtime'].split(' ',2)[0]
             rntm = "{} hr : {} min".format(*divmod(int(rntm), 60))
