@@ -285,11 +285,11 @@ def func_scpt(script_url):
                         if 'Movie' in Trnl.sh2.acell('P3').value:
                             results = search.movies({"query": title, "year": year})
                             for result in results:
-                                phto_url = 'https://image.tmdb.org/t/p/original/' + result.poster_path
+                                phto_url = 'https://image.tmdb.org/t/p/original' + result.poster_path
                         if 'Series' in Trnl.sh2.acell('P3').value:
                             results = search.tv_shows({"query": title, "year": year})
                             for result in results:
-                                phto_url = 'https://image.tmdb.org/t/p/original/' + result.poster_path
+                                phto_url = 'https://image.tmdb.org/t/p/original' + result.poster_path
                     except:
                         imdb_req = requests.get(imdb_url)
                         imdb_req.encoding = imdb_req.apparent_encoding
