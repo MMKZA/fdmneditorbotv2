@@ -1,5 +1,7 @@
 import logging
 import os
+import requests
+import io
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -22,6 +24,8 @@ async def script_call_back(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         script_url = Trnl.sh2.acell('M2').value
         phto_url = Trnl.sh2.acell('C2').value
+        r = requests.get(phto_url)
+        phto_bio = io.BytesIO(r.content)
         msg_trm = Trnl.sh2.acell('O2').value
         vcap = Trnl.sh2.acell('D2').value
         scpt_msg = await bot.send_message(
@@ -65,7 +69,7 @@ async def script_call_back(bot, update):
         rntm = Trnl.sh2.acell('M4').value
         mchnl_msg = await bot.send_photo(
             "@fdmnchannel",
-            phto_url,
+            phto_bio,
             "🎞️\n" + vcap + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN,
             'html'
         )
