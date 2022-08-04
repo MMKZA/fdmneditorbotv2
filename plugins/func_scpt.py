@@ -44,15 +44,16 @@ def func_scpt(script_url):
                     chck_rtd = y.text
             except:
                 chck_rtd = 'Not Rated'
+        rntm = ""
         if 'tvshows' in script_url:
             for all in soup.select('#info > div:nth-child(9) > span'):
                 rntm = all.text.split(' ', 2)[0]
                 rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
-        elif 'tvshows' not in script_url:
+        if 'movies' in script_url:
             for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.runtime'):
                 rntm = all.text.split(' ', 2)[0]
                 rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
-        else:
+        if rntm == "":
             rntm = "⁉️"
         omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(vcap) + '&y=' + str(year) + '&apikey=39ecaf7'
         omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
