@@ -70,7 +70,7 @@ async def script_call_back(bot, update):
         mchnl_msg = await bot.send_photo(
             "@fdmnchannel",
             phto_url,
-            "🎞️\n" + vcap + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN,
+            "🎞️\n" + vcap + "\n🗓️ " + year + "\n🎬 " + mv_gnr + "\n🎞️ " + typ + "\n⏰ " + rntm + "\n📺 " + vd_qlt + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN,
             'html'
         )
         Trnl.sh2.update('G2', mchnl_msg.message_id)
