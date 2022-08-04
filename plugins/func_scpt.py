@@ -150,7 +150,7 @@ def func_scpt(script_url):
             rntm = "⁉️"
         if '⁉️' in rntm:
             try:
-                for r in soup.select('#uwee > div.data > p.meta > span:nth-child(2) > i'):
+                for r in soup.select('#uwee > div.data > p.meta > span > i'):
                     rntm = r.text
             except:
                 rntm = "⁉️"
