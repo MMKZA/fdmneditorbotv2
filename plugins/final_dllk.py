@@ -84,8 +84,8 @@ def trans(bot, update):
             Trnl.sh2.update('M2',web_url)
             Trnl.sh2.update('P3',"Movie")
             if "https://goldchannel.net/movies/" in web_url:
-                gdrv_lk = gldchnl(web_url)
                 func_scpt(web_url)
+                gdrv_lk = gldchnl(web_url)
                 if web_url in Trnl.sh2.acell('H3').value:
                     bot.send_message(
                         chat_id=update.chat.id,
@@ -104,8 +104,8 @@ def trans(bot, update):
                     text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
                 )
             if "https://channelmyanmar.org/" in web_url:
-                ytsn_lk = cnmm(web_url)
                 func_scpt(web_url)
+                ytsn_lk = cnmm(web_url)
                 if "Manual" in ytsn_lk:
                     bot.send_message(
                         chat_id=update.chat.id,
