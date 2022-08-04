@@ -4,7 +4,7 @@ from bs4 import BeautifulSoup
 def mp4(url, base):
     #url = 'https://app.rapidleech.gq/files/Black.Site.2022.HD_GC.m4v'
     #base = 'https://app.rapidleech.gq/'
-    base_host = base.split('/')[-2]
+    base_host = base.split('/')[-1]
     kwd = url.split('/')[-1]
     nw_nm = kwd.replace('.m4v','.mp4')
     nw_url = 'https://app.rapidleech.gq/files/' + nw_nm
