@@ -2,6 +2,8 @@ import pyrogram
 import requests
 from bs4 import BeautifulSoup
 import re
+from plugins.gldchnl import gldchnl
+
 def series(web_url):
     web_req = requests.get(web_url)
     # override encoding by real educated guess as provided by chardet
