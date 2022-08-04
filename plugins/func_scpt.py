@@ -342,6 +342,7 @@ def func_scpt(script_url):
         vcap_hsh = vcap_hsh
     Trnl.sh2.update('E2', vcap_hsh)
     Trnl.sh2.update('F2', credit)
+    vcap = '<b>' + vcap + '</b>'
     msg_whl = phto_url + "\n\n" + vcap + "\n🗓️ " + year + "\n🎬 " + mv_gnr + "\n🎞️ " + typ + "\n⏰ " + rntm + "\n📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
     msg_trm = msg_whl[0:4095]
     Trnl.sh2.update('O2', msg_trm)
