@@ -326,6 +326,7 @@ def func_scpt(script_url):
     else:
         phto_url = vlink
     vd_qlt = Trnl.sh2.acell('H2').value
+    typ = Trnl.sh2.acell('P3').value
     Trnl.sh2.update('M3', mv_gnr)
     Trnl.sh2.update('M4', rntm)
     Trnl.sh2.update('M5', year)
