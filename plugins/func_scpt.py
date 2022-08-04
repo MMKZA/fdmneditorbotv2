@@ -44,12 +44,6 @@ def func_scpt(script_url):
                     chck_rtd = y.text
             except:
                 chck_rtd = 'Not Rated'
-        if len(chck_rtd) != 0:
-            if ("Not Rated" not in chck_rtd) or ("R" in chck_rtd):
-                Trnl.sh2.update('J2', '-1001750623132')
-                Trnl.sh2.update('I2', 'https://t.me/c/1750623132/')
-        omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(vcap) + '&y=' + str(year) + '&apikey=39ecaf7'
-        omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
         if 'tvshows' in script_url:
             for all in soup.select('#info > div:nth-child(9) > span'):
                 rntm = all.text.split(' ', 2)[0]
@@ -58,20 +52,25 @@ def func_scpt(script_url):
             for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.runtime'):
                 rntm = all.text.split(' ', 2)[0]
                 rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
-            if len(ctry) != 0:
-                if "India" in ctry:
-                    Trnl.sh2.update('J2', '-1001718578294')
-                    Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
-            elif len(omdb_req['Country']) != 0:
-                if "India" in omdb_req['Country']:
-                    Trnl.sh2.update('J2', '-1001718578294')
-                    Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
-            else:
-                Trnl.sh2.update('J2', '-1001785695486')
-                Trnl.sh2.update('I2', 'https://t.me/c/1785695486/')
-                Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v1.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
         else:
-            rntm = "-"
+            rntm = "⁉️"
+        omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(vcap) + '&y=' + str(year) + '&apikey=39ecaf7'
+        omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
+        Trnl.sh2.update('J2', '-1001785695486')
+        Trnl.sh2.update('I2', 'https://t.me/c/1785695486/')
+        Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v1.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
+        if len(chck_rtd) != 0:
+            if ("Not Rated" not in chck_rtd) or ("R" in chck_rtd):
+                Trnl.sh2.update('J2', '-1001750623132')
+                Trnl.sh2.update('I2', 'https://t.me/c/1750623132/')
+        if len(ctry) != 0:
+            if "India" in ctry:
+                Trnl.sh2.update('J2', '-1001718578294')
+                Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+        if len(omdb_req['Country']) != 0:
+            if "India" in omdb_req['Country']:
+                Trnl.sh2.update('J2', '-1001718578294')
+                Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
         if len(mv_gnr) != 0:
             if "Animation" in mv_gnr:
                 Trnl.sh2.update('J2', '-1001389311243')
