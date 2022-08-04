@@ -17,48 +17,60 @@ import time
 def trans(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         if "/srs" in update.text:
-            web_url = update.text.split(' ',1)[1]
-            Trnl.sh2.update('M2',web_url)
-            Trnl.sh2.update('P3',"Series")
-            func_scpt(web_url)
-            if web_url in Trnl.sh2.acell('H3').value:
+            web_url = update.text.split(' ', 1)[1]
+            Trnl.sh1.update('M2', web_url)
+            Trnl.sh1.update('P3', "Series")
+            if "goldchannel" in update.text:
+                func_scpt(web_url)
+                epsd_msg = series(web_url)
                 bot.send_message(
                     chat_id=update.chat.id,
-                    text = Trnl.sh2.acell('H3').value
-                )
-            epsd_msg = series(web_url)
-            bot.send_message(
-                chat_id=update.chat.id,
-                text = Trnl.sh2.acell('D2').value
-            )
-            if "1080" in epsd_msg[0]:
-                Trnl.sh2.update('H2', "1080p")
-            elif "720" in epsd_msg[0]:
-                Trnl.sh2.update('H2', "720p")
-            else:
-                Trnl.sh2.update('H2', "HD")
-            if len(epsd_msg) == 3:
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text = epsd_msg[0]
+                    text=Trnl.sh1.acell('D2').value
                 )
                 bot.send_message(
                     chat_id=update.chat.id,
-                    text = epsd_msg[1]
+                    text=epsd_msg
                 )
+            if "channelmyanmar" in update.text:
+                func_scpt(web_url)
+                if web_url in Trnl.sh2.acell('H3').value:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text = Trnl.sh2.acell('H3').value
+                    )
+                epsd_msg = series(web_url)
                 bot.send_message(
                     chat_id=update.chat.id,
-                    text = epsd_msg[2]
+                    text = Trnl.sh2.acell('D2').value
                 )
-            if len(epsd_msg) == 2:
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text = epsd_msg[0]
-                )
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text = epsd_msg[1]
-                )
+                if "1080" in epsd_msg[0]:
+                    Trnl.sh2.update('H2', "1080p")
+                elif "720" in epsd_msg[0]:
+                    Trnl.sh2.update('H2', "720p")
+                else:
+                    Trnl.sh2.update('H2', "HD")
+                if len(epsd_msg) == 3:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text = epsd_msg[0]
+                    )
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text = epsd_msg[1]
+                    )
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text = epsd_msg[2]
+                    )
+                if len(epsd_msg) == 2:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text = epsd_msg[0]
+                    )
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text = epsd_msg[1]
+                    )
         if "/ic" in update.text:
             lk = update.text.split(" ", 2)[1]
             if "yoteshinportal.cc" in lk:
