@@ -81,7 +81,7 @@ def func_scpt(script_url):
         vtext = ""
         try:
             bd_lks = []
-            bd_soup = soup.select('#info > div.wp-content > p')
+            bd_soup = soup.select('#info > div.wp-content')
             for all in bd_soup:
                 bd_lks.append(all.text)
             if len(bd_lks) != 0:
@@ -95,11 +95,7 @@ def func_scpt(script_url):
                 end1 = '    Original title'
             vtext = (sscpt.split(start1))[1].split(end1)[0]
         if len(vtext) == 0:
-            try:
-                for b in soup.select('#\:1j6 > div:nth-child(1)'):
-                    vtext = b.text.strip()
-            except:
-                vtext = "⁉"
+            vtext = "⁉"
         credit = 'Gold Channel Movies'
     elif "channelmyanmar" in script_url:
         start3 = 'https://www.imdb.com/title/t'
