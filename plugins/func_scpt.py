@@ -328,6 +328,7 @@ def func_scpt(script_url):
     vd_qlt = Trnl.sh2.acell('H2').value
     Trnl.sh2.update('M3', mv_gnr)
     Trnl.sh2.update('M4', rntm)
+    Trnl.sh2.update('M5', year)
     Trnl.sh2.update('A2', vcap + "\n🗓️ " + year + "\n🎬 " + mv_gnr + "\n🎞️ " + typ + "\n⏰ " + rntm + "\n📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
     Trnl.sh2.update('C2', phto_url)
     Trnl.sh2.update('D2', vcap)
