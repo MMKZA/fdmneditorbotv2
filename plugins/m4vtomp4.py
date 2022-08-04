@@ -12,7 +12,7 @@ def mp4(url, base):
     res = r.get(base)
     soup = BeautifulSoup(res.content, 'html.parser')
     sp1 = soup.find_all('tr',{'title':kwd})
-    sp2 = "\n".join([str(lk) for lk in sp1[0].find_all('input')])
+    sp2 = "".join([str(lk) for lk in sp1[0].find_all('input')])
     fl_id = sp2.split('"')[-2]
     payload = {
         'act': 'rename_go',
