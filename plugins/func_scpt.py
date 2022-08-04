@@ -6,7 +6,7 @@ import re
 import json
 import urllib
 import datetime
-from tmdbv3api import TMDb, Search
+from tmdbv3api import TMDb, Search, Genre
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
