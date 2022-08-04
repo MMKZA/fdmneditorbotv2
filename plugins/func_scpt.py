@@ -142,6 +142,12 @@ def func_scpt(script_url):
             rntm = "{} hr : {} min".format(*divmod(int(rntm), 60))
         except:
             rntm = "⁉️"
+        if '⁉️' in rntm:
+            try:
+                for r in soup.select('#uwee > div.data > p.meta > span:nth-child(2) > i'):
+                    rntm = r.text
+            except:
+                rntm = "⁉️"
         all_lks = []
         for all in soup.select('div > img'):
             all_lks.append(all['src'])
