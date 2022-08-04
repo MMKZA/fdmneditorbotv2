@@ -26,6 +26,7 @@ def func_scpt(script_url):
         for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.date'):
             rls_date = datetime.datetime.strptime(all.text, "%b. %d, %Y")
             year = rls_date.year
+        ctry = ''
         for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.country'):
             ctry = all.text
         try:
