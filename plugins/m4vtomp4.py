@@ -43,8 +43,4 @@ def mp4(url, base):
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.134 Safari/537.36 Edg/103.0.1264.77'
     }
     res = r.post(base,headers=headers,data=payload)
-    if '200' in res:
-        return nw_url
-    else:
-        status = 'error'
-        return status
+    return nw_url
