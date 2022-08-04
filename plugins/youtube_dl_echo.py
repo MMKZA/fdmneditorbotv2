@@ -17,6 +17,7 @@ else:
 
 # the Strings used for this "thing"
 from translation import Translation
+from plugins.m4vtomp4 import mp4
 
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
