@@ -89,7 +89,11 @@ def func_scpt(script_url):
                 end1 = '    Original title'
             vtext = (sscpt.split(start1))[1].split(end1)[0]
         if len(vtext) == 0:
-            vtext = "⁉"
+            try:
+                for b in soup.select('#\:1j6 > div:nth-child(1)'):
+                    vtext = b.text.strip()
+            except:
+                vtext = "⁉"
         credit = 'Gold Channel Movies'
     elif "channelmyanmar" in script_url:
         start3 = 'https://www.imdb.com/title/t'
