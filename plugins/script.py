@@ -48,7 +48,8 @@ async def script_call_back(bot, update):
             "-1001389311243",
             "-1001750623132"
         ]
-        if "Movie" in Trnl.sh2.acell('P3').value:
+        typ = Trnl.sh2.acell('P3').value
+        if "Movie" in typ:
             chnl_lk = str(Trnl.sh2.acell('I2').value)
             vd_lk = chnl_lk + str(Trnl.sh2.acell('P2').value)
             if Trnl.sh2.acell('J2').value == id_lst[0]:
@@ -59,7 +60,7 @@ async def script_call_back(bot, update):
                 invt_lk = invt_lst[2]
             elif Trnl.sh2.acell('J2').value == id_lst[3]:
                 invt_lk = invt_lst[3]
-        if "Series" in Trnl.sh2.acell('P3').value:
+        if "Series" in typ:
             invt_lk = Trnl.sh2.acell('I2').value
             vd_lk = invt_lk          
         vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
