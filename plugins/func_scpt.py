@@ -67,10 +67,11 @@ def func_scpt(script_url):
             if "India" in ctry:
                 Trnl.sh2.update('J2', '-1001718578294')
                 Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
-        if len(omdb_req['Country']) != 0:
-            if "India" in omdb_req['Country']:
-                Trnl.sh2.update('J2', '-1001718578294')
-                Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+        if 'Country' in omdb_req:
+            if len(omdb_req['Country']) != 0:
+                if "India" in omdb_req['Country']:
+                    Trnl.sh2.update('J2', '-1001718578294')
+                    Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
         if len(mv_gnr) != 0:
             if "Animation" in mv_gnr:
                 Trnl.sh2.update('J2', '-1001389311243')
