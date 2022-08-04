@@ -20,6 +20,10 @@ def func_scpt(script_url):
     soup = BeautifulSoup(html_text, 'html.parser')
     wscpt = soup.prettify()
     sscpt = soup.get_text()
+    tmdb = TMDb()
+    tmdb.api_key = "53b9eff4684ba49f0f2225d888fd4202"
+    search = Search()
+    genre = Genre()
     if "goldchannel" in script_url:
         for all in soup.select('#single > div.content.right > div.sheader > div.data > h1'):
             vcap = all.text
@@ -284,26 +288,28 @@ def func_scpt(script_url):
             phto_url = 'https://image.tmdb.org/t/p/original/' + phto_cd
     elif 'tmdb' not in vlink:
         if "goldchannel" in script_url:
-            phto_cd = phto_splt[-1].replace('-200x300', '')
-            phto_url = 'https://image.tmdb.org/t/p/original/' + phto_cd
-        elif "channelmyanmar" in script_url:
-            if start3 in wscpt:
-                phto_url = ""
+            try:
+                phto_cd = phto_splt[-1].replace('-200x300', '')
+                phto_url = 'https://image.tmdb.org/t/p/original/' + phto_cd
+            except:
                 if "Poster" in omdb_req:
                     phto_url = omdb_req["Poster"].replace('_SX300', '')
-                if (len(phto_url) ==0) or ('N/A' in phto_url):
+                if (len(phto_url) == 0) or ('N/A' in phto_url):
                     try:
-                        tmdb = TMDb()
-                        tmdb.api_key = "53b9eff4684ba49f0f2225d888fd4202"
-                        search = Search()
                         if 'Movie' in Trnl.sh2.acell('P3').value:
-                            results = search.movies({"query": title, "year": year})
+                            results = search.movies({"query": vcap, "year": year})
                             for result in results:
                                 phto_url = 'https://image.tmdb.org/t/p/original' + result.poster_path
                         if 'Series' in Trnl.sh2.acell('P3').value:
-                            results = search.tv_shows({"query": title, "year": year})
+                            results = search.tv_shows({"query": vcap, "year": year})
+                            genres = genre.tv_list()
+                            gnr_lst = []
                             for result in results:
                                 phto_url = 'https://image.tmdb.org/t/p/original' + result.poster_path
+                                for g in genres:
+                                    if g.id in result.genre_ids:
+                                        gnr_lst.append(g.name)
+                            mv_gnr = ", ".join(g for g in gnr_lst)
                     except:
                         imdb_req = requests.get(imdb_url)
                         imdb_req.encoding = imdb_req.apparent_encoding
@@ -324,8 +330,46 @@ def func_scpt(script_url):
                             imdb2_hrf.append(all)
                         imdb2 = "".join([str(lk) for lk in imdb2_hrf])
                         phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
-            if start3 not in wscpt:
-                phto_url = vlink
+        elif "channelmyanmar" in script_url:
+            phto_url = ""
+            if "Poster" in omdb_req:
+                phto_url = omdb_req["Poster"].replace('_SX300', '')
+            if (len(phto_url) == 0) or ('N/A' in phto_url):
+                try:
+                    if 'Movie' in Trnl.sh2.acell('P3').value:
+                        results = search.movies({"query": title, "year": year})
+                        for result in results:
+                            phto_url = 'https://image.tmdb.org/t/p/original' + result.poster_path
+                    if 'Series' in Trnl.sh2.acell('P3').value:
+                        genres = genre.tv_list()
+                        results = search.tv_shows({"query": title, "year": year})
+                        gnr_lst = []
+                        for result in results:
+                            phto_url = 'https://image.tmdb.org/t/p/original' + result.poster_path
+                            for g in genres:
+                                if g.id in result.genre_ids:
+                                    gnr_lst.append(g.name)
+                        mv_gnr = ", ".join(g for g in gnr_lst)
+                except:
+                    imdb_req = requests.get(imdb_url)
+                    imdb_req.encoding = imdb_req.apparent_encoding
+                    imdb_html = imdb_req.text
+                    imdb_soup = BeautifulSoup(imdb_html, 'html.parser')
+                    imdb_hrf = []
+                    for all in imdb_soup.find_all('a', href=True):
+                        imdb_hrf.append(all['href'])
+                    for i in imdb_hrf:
+                        if '/?ref_=tt_ov_i' in i:
+                            imdb2_url = 'https://www.imdb.com' + i
+                    imdb2_req = requests.get(imdb2_url)
+                    imdb2_req.encoding = imdb2_req.apparent_encoding
+                    imdb2_html = imdb2_req.text
+                    imdb2_soup = BeautifulSoup(imdb2_html, 'html.parser')
+                    imdb2_hrf = []
+                    for all in imdb2_soup.find_all('meta'):
+                        imdb2_hrf.append(all)
+                    imdb2 = "".join([str(lk) for lk in imdb2_hrf])
+                    phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
     else:
         phto_url = vlink
     vd_qlt = Trnl.sh2.acell('H2').value
