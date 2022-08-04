@@ -36,16 +36,11 @@ async def echo(bot, update):
         #url = update.text
         url = Trnl.sh2.acell('L2').value
         if '.m4v' in url:
-            base = Trnl.sh2.acell('K2').value
+            base = Trnl.sh1.acell('K2').value
             rtrn = mp4(url, base)
-            if 'error' != rtrn:
-                url = rtrn
-                Trnl.sh2.update('L2', url)
-            if 'error' == rtrn:
-                await bot.send_message(
-                    chat_id=update.chat.id,
-                    text = "⚠️m4v မှ mp4 ပြောင်းရာတွင် အခက်အခဲကြုံနေပါသည်⚠️"
-                )
+            logger.info(rtrn)
+            url = rtrn
+            Trnl.sh2.update('L2', url)
         youtube_dl_username = None
         youtube_dl_password = None
         file_name = None
