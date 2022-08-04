@@ -286,7 +286,7 @@ def func_scpt(script_url):
         if "channelmyanmar" in script_url:
             phto_cd = phto_splt[-1]
             phto_url = 'https://image.tmdb.org/t/p/original/' + phto_cd
-    elif 'tmdb' not in vlink:
+    if 'tmdb' not in vlink:
         if "goldchannel" in script_url:
             try:
                 phto_cd = phto_splt[-1].replace('-200x300', '')
@@ -370,7 +370,7 @@ def func_scpt(script_url):
                         imdb2_hrf.append(all)
                     imdb2 = "".join([str(lk) for lk in imdb2_hrf])
                     phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
-    else:
+    if phto_url == "":
         phto_url = vlink
     vd_qlt = Trnl.sh2.acell('H2').value
     typ = Trnl.sh2.acell('P3').value
