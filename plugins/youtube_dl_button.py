@@ -66,6 +66,8 @@ async def youtube_dl_call_back(bot, update):
         )
         return False
     youtube_dl_url = Trnl.sh2.acell('L2').value
+    if '.m4v' in youtube_dl_url:
+        youtube_dl_url = youtube_dl_url.replace('.m4v','.mp4')
     # youtube_dl_url = update.message.reply_to_message.text
     custom_file_name = str(response_json.get("title")) + \
                        "_" + youtube_dl_format + "." + youtube_dl_ext
