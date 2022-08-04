@@ -34,13 +34,17 @@ def func_scpt(script_url):
         except:
             if len(omdb_req['Genre']) != 0:
                 mv_gnr = omdb_req['Genre']
-        for all in soup.select(
-                '#single > div.content.right > div.sheader > div.data > div.extra > span.CNot.Rated.rated'):
-            chck_rtd = all.text
+        try:
+            for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.CR.rated'):
+                chck_rtd = all.text
+        except:
+            for all in soup.select(
+                    '#single > div.content.right > div.sheader > div.data > div.extra > span.CNot.Rated.rated'):
+                chck_rtd = all.text
         if len(chck_rtd) != 0:
-            if "Not" not in chck_rtd:
-                Trnl.sh2.update('J2', '-1001750623132')
-                Trnl.sh2.update('I2', 'https://t.me/c/1750623132/')
+            if ("Not Rated" not in chck_rtd) or ("R" in chck_rtd):
+                Trnl.sh1.update('J2', '-1001750623132')
+                Trnl.sh1.update('I2', 'https://t.me/c/1750623132/')
         omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(vcap) + '&y=' + str(year) + '&apikey=39ecaf7'
         omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
         if 'tvshows' in script_url:
