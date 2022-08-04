@@ -60,7 +60,7 @@ def func_scpt(script_url):
         Trnl.sh2.update('I2', 'https://t.me/c/1785695486/')
         Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v1.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
         if len(chck_rtd) != 0:
-            if ("Not Rated" not in chck_rtd) or ("R" in chck_rtd):
+            if ("Not Rated" not in chck_rtd) or ("R" == chck_rtd):
                 Trnl.sh2.update('J2', '-1001750623132')
                 Trnl.sh2.update('I2', 'https://t.me/c/1750623132/')
         if len(ctry) != 0:
