@@ -185,7 +185,6 @@ def func_scpt(script_url):
         else:
             mv_gnr = Trnl.sh2.acell('P3').value
             Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
-        Trnl.sh2.update('M3', mv_gnr)
         ctry_lst = ['Afghanistan', 'Aland Islands', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola',
                     'Anguilla',
                     'Antarctica', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria',
@@ -327,8 +326,9 @@ def func_scpt(script_url):
     else:
         phto_url = vlink
     vd_qlt = Trnl.sh2.acell('H2').value
+    Trnl.sh2.update('M3', mv_gnr)
     Trnl.sh2.update('M4', rntm)
-    Trnl.sh2.update('A2', vcap + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
+    Trnl.sh2.update('A2', vcap + "\n🗓️ " + year + "\n🎬 " + mv_gnr + "\n⏰ " + rntm + "\n📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
     Trnl.sh2.update('C2', phto_url)
     Trnl.sh2.update('D2', vcap)
     vcap_hsh = ''.join(e for e in vcap if e.isalnum())
@@ -340,6 +340,6 @@ def func_scpt(script_url):
         vcap_hsh = vcap_hsh
     Trnl.sh2.update('E2', vcap_hsh)
     Trnl.sh2.update('F2', credit)
-    msg_whl = phto_url + "\n\n" + vcap + "\nရုပ်ရှင်အမျိုးအစား 🎬 " + mv_gnr + "\nကြာမြင့်ချိန် ⏰ " + rntm + "\nရုပ်ရှင်ရုပ်ထွက် 📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
+    msg_whl = phto_url + "\n\n" + vcap + "\n🗓️ " + year + "\n🎬 " + mv_gnr + "\n⏰ " + rntm + "\n📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
     msg_trm = msg_whl[0:4095]
     Trnl.sh2.update('O2', msg_trm)
