@@ -332,7 +332,7 @@ def func_scpt(script_url):
     Trnl.sh2.update('M3', mv_gnr)
     Trnl.sh2.update('M4', rntm)
     Trnl.sh2.update('M5', year)
-    Trnl.sh2.update('A2', vcap + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n⏰ " + rntm + "\n📺 " + vd_qlt + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
+    Trnl.sh2.update('A2', vcap + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n⏰ " + rntm + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
     Trnl.sh2.update('C2', phto_url)
     Trnl.sh2.update('D2', vcap)
     vcap_hsh = ''.join(e for e in vcap if e.isalnum())
