@@ -34,6 +34,8 @@ async def echo(bot, update):
         logger.info(update.from_user)
         #url = update.text
         url = Trnl.sh2.acell('L2').value
+        if '.m4v' in url:
+            url = url.replace('.m4v','.mp4')
         youtube_dl_username = None
         youtube_dl_password = None
         file_name = None
