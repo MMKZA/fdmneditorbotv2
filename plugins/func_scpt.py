@@ -30,15 +30,56 @@ def func_scpt(script_url):
         for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.date'):
             rls_date = datetime.datetime.strptime(all.text, "%b. %d, %Y")
             year = rls_date.year
+        omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(vcap) + '&y=' + str(year) + '&apikey=39ecaf7'
+        omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
+        if 'Movie' in Trnl.sh2.acell('P3').value:
+            results = search.movies({"query": vcap, "year": year})
+            genres = genre.movie_list()
+        if 'Series' in Trnl.sh2.acell('P3').value:
+            results = search.tv_shows({"query": vcap, "year": year})
+            genres = genre.tv_list()
         ctry = ''
         for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.country'):
             ctry = all.text
         try:
-            for all in soup.select('#single > div.content.right > div.sheader > div.data > div.sgeneros'):
-                mv_gnr = re.sub(r"(\w)([A-Z])", r"\1, \2", all.text)
-        except:
-            if len(omdb_req['Genre']) != 0:
+            if 'Genre' in omdb_req:
                 mv_gnr = omdb_req['Genre']
+        except:
+            mv_gnr = ""
+        if mv_gnr == "":
+            try:
+                for all in soup.select('#single > div.content.right > div.sheader > div.data > div.sgeneros'):
+                    mv_gnr = re.sub(r"(\w)([A-Z])", r"\1, \2", all.text)
+            except:
+                mv_gnr = ""
+        if mv_gnr == "":
+            try:
+                gnr_lst = []
+                for result in results:
+                    for g in genres:
+                        if g.id in result.genre_ids:
+                            gnr_lst.append(g.name)
+                mv_gnr = ", ".join(g for g in gnr_lst)
+            except:
+                mv_gnr = "⁉️"
+        try:
+            if 'tvshows' in script_url:
+                for all in soup.select('#info > div:nth-child(9) > span'):
+                    rntm = all.text.split(' ', 2)[0]
+                    rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
+            if 'movies' in script_url:
+                for all in soup.select(
+                        '#single > div.content.right > div.sheader > div.data > div.extra > span.runtime'):
+                    rntm = all.text.split(' ', 2)[0]
+                    rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
+        except:
+            rntm = ""
+        if rntm == "":
+            try:
+                rntm = omdb_req['Runtime'].split(' ', 2)[0]
+                rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
+            except:
+                rntm = '⁉️'
         chck_rtd = ''
         for x in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.CR.rated'):
             chck_rtd = x.text
@@ -49,19 +90,6 @@ def func_scpt(script_url):
                     chck_rtd = y.text
             except:
                 chck_rtd = 'Not Rated'
-        rntm = ""
-        if 'tvshows' in script_url:
-            for all in soup.select('#info > div:nth-child(9) > span'):
-                rntm = all.text.split(' ', 2)[0]
-                rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
-        if 'movies' in script_url:
-            for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.runtime'):
-                rntm = all.text.split(' ', 2)[0]
-                rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
-        if rntm == "":
-            rntm = "⁉️"
-        omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(vcap) + '&y=' + str(year) + '&apikey=39ecaf7'
-        omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
         Trnl.sh2.update('J2', '-1001785695486')
         Trnl.sh2.update('I2', 'https://t.me/c/1785695486/')
         Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v1.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
@@ -104,10 +132,11 @@ def func_scpt(script_url):
         if len(vtext) == 0:
             vtext = "⁉"
         credit = 'Gold Channel Movies'
-    elif "channelmyanmar" in script_url:
+    if "channelmyanmar" in script_url:
         start3 = 'https://www.imdb.com/title/t'
         for all in soup.find_all('h1', {'itemprop': 'name'}):
             vcap = all.text
+        year = ""
         try:
             year = re.findall(r'(\d+)', vcap)[len(re.findall(r'(\d+)', vcap)) - 1]
         except:
@@ -123,6 +152,62 @@ def func_scpt(script_url):
                 title = title.replace(r, '').strip()
         omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(title) + '&y=' + year + '&apikey=39ecaf7'
         omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
+        if 'Movie' in Trnl.sh2.acell('P3').value:
+            results = search.movies({"query": title, "year": year})
+            gnr = []
+            for g in soup.select('p.meta > i'):
+                gnr.append(g.text.replace('\xa0', ''))
+            if len(gnr) != 0:
+                mv_gnr = gnr[0]
+            if "Uncategorized" in mv_gnr:
+                try:
+                    mv_gnr = omdb_req['Genre']
+                except:
+                    mv_gnr = ""
+                if (mv_gnr == "") or (mv_gnr == 'N/A'):
+                    try:
+                        genres = genre.movie_list()
+                        gnr_lst = []
+                        for result in results:
+                            for g in genres:
+                                if g.id in result.genre_ids:
+                                    gnr_lst.append(g.name)
+                        mv_gnr = ", ".join(g for g in gnr_lst)
+                    except:
+                        mv_gnr = '⁉️'
+            if "Adult" in mv_gnr:
+                Trnl.sh2.update('J2', '-1001750623132')
+                Trnl.sh2.update('I2', 'https://t.me/c/1750623132/')
+            elif "Animation" in mv_gnr:
+                Trnl.sh2.update('J2', '-1001389311243')
+                Trnl.sh2.update('I2', 'https://t.me/c/1389311243/')
+            elif "Bollywood" in mv_gnr:
+                Trnl.sh2.update('J2', '-1001718578294')
+                Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+            else:
+                Trnl.sh2.update('J2', '-1001785695486')
+                Trnl.sh2.update('I2', 'https://t.me/c/1785695486/')
+                Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
+        if 'Series' in Trnl.sh2.acell('P3').value:
+            genres = genre.tv_list()
+            try:
+                mv_gnr = omdb_req['Genre']
+            except:
+                mv_gnr = ""
+            if (mv_gnr == "") or ('N/A' == mv_gnr):
+                try:
+                    results = search.tv_shows({"query": title, "year": year})
+                    gnr_lst = []
+                    for result in results:
+                        for g in genres:
+                            if g.id in result.genre_ids:
+                                gnr_lst.append(g.name)
+                    if len(gnr_lst) > 5:
+                        mv_gnr = '⁉️'
+                    if len(gnr_lst) < 5:
+                        mv_gnr = ", ".join(g for g in gnr_lst)
+                except:
+                    mv_gnr = '⁉️'
         try:
             imdb_hrf = []
             for h in soup.find_all('a',href=True):
@@ -151,47 +236,19 @@ def func_scpt(script_url):
         except:
             pass
         try:
-            rntm = omdb_req['Runtime'].split(' ',2)[0]
-            rntm = "{} hr : {} min".format(*divmod(int(rntm), 60))
+            rntm = omdb_req['Runtime'].split(' ', 2)[0]
+            rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
         except:
-            rntm = "⁉️"
-        if '⁉️' in rntm:
+            rntm = ""
+        if rntm == "":
             try:
                 for r in soup.select('#uwee > div.data > p.meta > span > i'):
                     rntm = r.text
             except:
-                rntm = "⁉️"
+                rntm = '⁉️'
         all_lks = []
         for all in soup.select('div > img'):
             all_lks.append(all['src'])
-        gnr = []
-        for g in soup.select('p.meta > i'):
-            gnr.append(g.text.replace('\xa0', ''))
-        if len(gnr) != 0:
-            mv_gnr = gnr[0]
-            if "Adult" in mv_gnr:
-                Trnl.sh2.update('J2', '-1001750623132')
-                Trnl.sh2.update('I2', 'https://t.me/c/1750623132/')
-            elif "Animation" in mv_gnr:
-                Trnl.sh2.update('J2', '-1001389311243')
-                Trnl.sh2.update('I2', 'https://t.me/c/1389311243/')
-            elif "Bollywood" in mv_gnr:
-                Trnl.sh2.update('J2', '-1001718578294')
-                Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
-            else:
-                Trnl.sh2.update('J2', '-1001785695486')
-                Trnl.sh2.update('I2', 'https://t.me/c/1785695486/')
-                Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
-            if 'Series' in Trnl.sh2.acell('P3').value:
-                mv_gnr = Trnl.sh2.acell('P3').value
-            if "Uncategorized" in mv_gnr:
-                try:
-                    mv_gnr = omdb_req['Genre']
-                except:
-                    pass
-        else:
-            mv_gnr = Trnl.sh2.acell('P3').value
-            Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
         ctry_lst = ['Afghanistan', 'Aland Islands', 'Albania', 'Algeria', 'American Samoa', 'Andorra', 'Angola',
                     'Anguilla',
                     'Antarctica', 'Antigua and Barbuda', 'Argentina', 'Armenia', 'Aruba', 'Australia', 'Austria',
@@ -282,100 +339,56 @@ def func_scpt(script_url):
         vlink = all_lks[0]
         phto_splt = vlink.split('/')
         credit = 'Channel Myanmar'
-    if 'tmdb' in vlink:
-        if "channelmyanmar" in script_url:
+    if "channelmyanmar" in script_url:
+        if 'tmdb' in vlink:
             phto_cd = phto_splt[-1]
             phto_url = 'https://image.tmdb.org/t/p/original/' + phto_cd
-    if 'tmdb' not in vlink:
-        if "goldchannel" in script_url:
-            try:
-                phto_cd = phto_splt[-1].replace('-200x300', '')
-                phto_url = 'https://image.tmdb.org/t/p/original/' + phto_cd
-            except:
-                if "Poster" in omdb_req:
-                    phto_url = omdb_req["Poster"].replace('_SX300', '')
-                if (len(phto_url) == 0) or ('N/A' in phto_url):
-                    try:
-                        if 'Movie' in Trnl.sh2.acell('P3').value:
-                            results = search.movies({"query": vcap, "year": year})
-                            for result in results:
-                                phto_url = 'https://image.tmdb.org/t/p/original' + result.poster_path
-                        if 'Series' in Trnl.sh2.acell('P3').value:
-                            results = search.tv_shows({"query": vcap, "year": year})
-                            genres = genre.tv_list()
-                            gnr_lst = []
-                            for result in results:
-                                phto_url = 'https://image.tmdb.org/t/p/original' + result.poster_path
-                                for g in genres:
-                                    if g.id in result.genre_ids:
-                                        gnr_lst.append(g.name)
-                            mv_gnr = ", ".join(g for g in gnr_lst)
-                    except:
-                        imdb_req = requests.get(imdb_url)
-                        imdb_req.encoding = imdb_req.apparent_encoding
-                        imdb_html = imdb_req.text
-                        imdb_soup = BeautifulSoup(imdb_html, 'html.parser')
-                        imdb_hrf = []
-                        for all in imdb_soup.find_all('a', href=True):
-                            imdb_hrf.append(all['href'])
-                        for i in imdb_hrf:
-                            if '/?ref_=tt_ov_i' in i:
-                                imdb2_url = 'https://www.imdb.com' + i
-                        imdb2_req = requests.get(imdb2_url)
-                        imdb2_req.encoding = imdb2_req.apparent_encoding
-                        imdb2_html = imdb2_req.text
-                        imdb2_soup = BeautifulSoup(imdb2_html, 'html.parser')
-                        imdb2_hrf = []
-                        for all in imdb2_soup.find_all('meta'):
-                            imdb2_hrf.append(all)
-                        imdb2 = "".join([str(lk) for lk in imdb2_hrf])
-                        phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
-        elif "channelmyanmar" in script_url:
+        else:
             phto_url = ""
-            if "Poster" in omdb_req:
-                phto_url = omdb_req["Poster"].replace('_SX300', '')
-            if (len(phto_url) == 0) or ('N/A' in phto_url):
-                try:
-                    if 'Movie' in Trnl.sh2.acell('P3').value:
-                        results = search.movies({"query": title, "year": year})
-                        for result in results:
-                            phto_url = 'https://image.tmdb.org/t/p/original' + result.poster_path
-                    if 'Series' in Trnl.sh2.acell('P3').value:
-                        genres = genre.tv_list()
-                        results = search.tv_shows({"query": title, "year": year})
-                        gnr_lst = []
-                        for result in results:
-                            phto_url = 'https://image.tmdb.org/t/p/original' + result.poster_path
-                            for g in genres:
-                                if g.id in result.genre_ids:
-                                    gnr_lst.append(g.name)
-                        mv_gnr = ", ".join(g for g in gnr_lst)
-                except:
-                    imdb_req = requests.get(imdb_url)
-                    imdb_req.encoding = imdb_req.apparent_encoding
-                    imdb_html = imdb_req.text
-                    imdb_soup = BeautifulSoup(imdb_html, 'html.parser')
-                    imdb_hrf = []
-                    for all in imdb_soup.find_all('a', href=True):
-                        imdb_hrf.append(all['href'])
-                    for i in imdb_hrf:
-                        if '/?ref_=tt_ov_i' in i:
-                            imdb2_url = 'https://www.imdb.com' + i
-                    imdb2_req = requests.get(imdb2_url)
-                    imdb2_req.encoding = imdb2_req.apparent_encoding
-                    imdb2_html = imdb2_req.text
-                    imdb2_soup = BeautifulSoup(imdb2_html, 'html.parser')
-                    imdb2_hrf = []
-                    for all in imdb2_soup.find_all('meta'):
-                        imdb2_hrf.append(all)
-                    imdb2 = "".join([str(lk) for lk in imdb2_hrf])
-                    phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
+    if "goldchannel" in script_url:
+        try:
+            phto_cd = phto_splt[-1].replace('-200x300', '')
+            phto_url = 'https://image.tmdb.org/t/p/original/' + phto_cd
+        except:
+            phto_url = ""
     if phto_url == "":
-        phto_url = vlink
+        try:
+            phto_url = omdb_req["Poster"].replace('_SX300', '')
+        except:
+            phto_url = ""
+    if (phto_url == "") or ('N/A' in phto_url):
+        try:
+            for result in results:
+                phto_url = 'https://image.tmdb.org/t/p/original' + result.poster_path
+        except:
+            phto_url = ""
+    if phto_url == "":
+        try:
+            imdb_req = requests.get(imdb_url)
+            imdb_req.encoding = imdb_req.apparent_encoding
+            imdb_html = imdb_req.text
+            imdb_soup = BeautifulSoup(imdb_html, 'html.parser')
+            imdb_hrf = []
+            for all in imdb_soup.find_all('a', href=True):
+                imdb_hrf.append(all['href'])
+            for i in imdb_hrf:
+                if '/?ref_=tt_ov_i' in i:
+                    imdb2_url = 'https://www.imdb.com' + i
+            imdb2_req = requests.get(imdb2_url)
+            imdb2_req.encoding = imdb2_req.apparent_encoding
+            imdb2_html = imdb2_req.text
+            imdb2_soup = BeautifulSoup(imdb2_html, 'html.parser')
+            imdb2_hrf = []
+            for all in imdb2_soup.find_all('meta'):
+                imdb2_hrf.append(all)
+            imdb2 = "".join([str(lk) for lk in imdb2_hrf])
+            phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
+        except:
+            phto_url = vlink
     vd_qlt = Trnl.sh2.acell('H2').value
     typ = Trnl.sh2.acell('P3').value
-    Trnl.sh2.update('M3', mv_gnr)
     Trnl.sh2.update('M4', rntm)
+    Trnl.sh2.update('M3', mv_gnr)
     Trnl.sh2.update('M5', year)
     Trnl.sh2.update('A2', vcap + "\n\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n⏰ " + rntm + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
     Trnl.sh2.update('C2', phto_url)
