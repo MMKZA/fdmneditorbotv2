@@ -13,6 +13,7 @@ logger = logging.getLogger(__name__)
 def setup(bot, update):
     full_id = update.chat.id
     Trnl.sh2.update('J2',full_id)
+    Trnl.sh2.update('P3','Series')
     invt_lk = bot.create_chat_invite_link(chat_id=update.chat.id)
     Trnl.sh2.update('I2',invt_lk['invite_link'])
     bot.delete_messages(
@@ -41,6 +42,7 @@ def setpic(bot, update):
 def sendid(bot, update):
     full_id = update.chat.id
     Trnl.sh2.update('J2',full_id)
+    Trnl.sh2.update('P3','Series')
     bot.delete_messages(
         chat_id=full_id,
         message_ids=update.message_id
