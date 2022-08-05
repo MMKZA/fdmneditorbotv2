@@ -245,7 +245,9 @@ def func_scpt(script_url):
                 for r in soup.select('#uwee > div.data > p.meta > span > i'):
                     rntm = r.text
             except:
-                rntm = '⁉️'
+                rntm = ""
+        if rntm == "":
+            rntm = '⁉️'
         all_lks = []
         for all in soup.select('div > img'):
             all_lks.append(all['src'])
