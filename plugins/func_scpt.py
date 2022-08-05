@@ -79,7 +79,9 @@ def func_scpt(script_url):
                 rntm = omdb_req['Runtime'].split(' ', 2)[0]
                 rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
             except:
-                rntm = '⁉️'
+                rntm = ""
+        if rntm == "":
+            rntm = '⁉️'
         chck_rtd = ''
         for x in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.CR.rated'):
             chck_rtd = x.text
