@@ -95,7 +95,7 @@ def trans(bot, update):
                 chat_id=update.chat.id,
                 text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
             )
-        if ("/srs" not in update.text) and ("/ic" not in update.text):
+        if ("/srs" not in update.text) and ("/ic" not in update.text) and ("/gd" not in update.text):
             web_url = update.text
             Trnl.sh2.update('M2',web_url)
             Trnl.sh2.update('P3',"Movie")
