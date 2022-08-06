@@ -9,6 +9,7 @@ from plugins.gdrvclean import gdrvclean
 from plugins.transloader import transloader
 from plugins.func_scpt import func_scpt
 from plugins.series import series
+from plugins.blc import blc
 import os
 import re
 import time
@@ -95,6 +96,31 @@ def trans(bot, update):
             web_url = update.text
             Trnl.sh2.update('M2',web_url)
             Trnl.sh2.update('P3',"Movie")
+            if "burmalinkchannel" in web_url:
+                func_scpt(web_url)
+                ytsn_lk = blc(web_url)
+                if "Manual" in ytsn_lk:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text=ytsn_lk
+                    )
+                if "Manual" not in ytsn_lk:
+                    avlb_lk = Trnl.sh2.acell('Q2').value
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text="ရရှိနိုင်သော links များ👇\n" + avlb_lk
+                    )
+                    # bot.send_message(
+                    # chat_id=update.chat.id,
+                    # text=gdrv_lk
+                    # )
+                    base = Trnl.sh1.acell('K2').value
+                    final_link = transloader(base, ytsn_lk)
+                    Trnl.sh2.update('L2', final_link)
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
+                    )
             if "https://goldchannel.net/movies/" in web_url:
                 func_scpt(web_url)
                 gdrv_lk = gldchnl(web_url)
