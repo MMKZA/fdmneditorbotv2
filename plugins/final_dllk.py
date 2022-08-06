@@ -72,6 +72,9 @@ def trans(bot, update):
                         chat_id=update.chat.id,
                         text = epsd_msg[1]
                     )
+        if "/gd" in update.text:
+            lk = update.text.split(" ", 2)[1]
+            Trnl.sh2.update('L2', lk)
         if "/ic" in update.text:
             lk = update.text.split(" ", 2)[1]
             if "yoteshinportal.cc" in lk:
