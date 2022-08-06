@@ -7,11 +7,14 @@ import json
 import urllib
 import datetime
 from tmdbv3api import TMDb, Search, Genre
+from json2html import *
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 def func_scpt(script_url):
+    if "burmalinkchannel" in script_url:
+        script_url = 'https://api.burmalinkchannel.com/moviedetail/' + script_url.split('/')[-1]
     req = requests.get(script_url)
     # override encoding by real educated guess as provided by chardet
     req.encoding = req.apparent_encoding
@@ -24,6 +27,127 @@ def func_scpt(script_url):
     tmdb.api_key = "53b9eff4684ba49f0f2225d888fd4202"
     search = Search()
     genre = Genre()
+    if "burmalinkchannel" in script_url:
+        jsn1 = json.loads(html_text)
+        html = json2html.convert(json=jsn1)
+        soup = BeautifulSoup(html, 'html.parser')
+        # TITLE
+        nm_lst = []
+        for d in soup.find_all("th", text="name"):
+            nm_lst.append(d.find_next_sibling("td").text)
+        vcap = nm_lst[-2]
+        # YEAR
+        year = soup.find("th", text="reYear").find_next_sibling("td").text
+        # OMDB
+        omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(vcap) + '&y=' + year + '&apikey=39ecaf7'
+        omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
+        # TMDB
+        if 'Movie' in Trnl.sh2.acell('P3').value:
+            results = search.movies({"query": vcap, "year": year})
+            genres = genre.movie_list()
+        if 'Series' in Trnl.sh2.acell('P3').value:
+            results = search.tv_shows({"query": vcap, "year": year})
+            genres = genre.tv_list()
+        # SCRIPT
+        vtext = soup.find("th", text="description").find_next_sibling("td").text
+        # RUNTIME
+        try:
+            rntm = soup.find("th", text="duration").find_next_sibling("td").text
+            rntm = "{} hr: {} min".format(*divmod(int(rntm), 60))
+        except:
+            rntm = ""
+        if rntm == "":
+            try:
+                rntm = omdb_req['Runtime'].split(' ', 2)[0]
+                rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
+            except:
+                rntm = '⁉'
+        # GENRE
+        try:
+            if 'Genre' in omdb_req:
+                mv_gnr = omdb_req['Genre']
+        except:
+            mv_gnr = ""
+        if mv_gnr == "":
+            try:
+                gnr_lst = []
+                for s in soup.find("th", text="genre").find_next_sibling("td").find_all("li"):
+                    gnr_lst.append(s.text)
+                mv_gnr = ", ".join(g for g in gnr_lst)
+            except:
+                mv_gnr = ""
+        if mv_gnr == "":
+            try:
+                gnr_lst = []
+                for result in results:
+                    for g in genres:
+                        if g.id in result.genre_ids:
+                            gnr_lst.append(g.name)
+                mv_gnr = ", ".join(g for g in gnr_lst)
+            except:
+                mv_gnr = "⁉"
+        # GENRE_RELATED
+        if "Adult" in mv_gnr:
+            Trnl.sh2.update('J2', '-1001750623132')
+            Trnl.sh2.update('I2', 'https://t.me/c/1750623132/')
+        elif "Animation" in mv_gnr:
+            Trnl.sh2.update('J2', '-1001389311243')
+            Trnl.sh2.update('I2', 'https://t.me/c/1389311243/')
+        elif "Bollywood" in mv_gnr:
+            Trnl.sh2.update('J2', '-1001718578294')
+            Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+        else:
+            Trnl.sh2.update('J2', '-1001785695486')
+            Trnl.sh2.update('I2', 'https://t.me/c/1785695486/')
+            Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
+        # COUNTRY
+        ctry = soup.find("th", text="reCountry").find_next_sibling("td").text
+        # COUNTRY_RELATED
+        if len(ctry) != 0:
+            if ("India" in ctry) or ("india" in ctry):
+                Trnl.sh2.update('J2', '-1001718578294')
+                Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+        if 'Country' in omdb_req:
+            if len(omdb_req['Country']) != 0:
+                if "India" in omdb_req['Country']:
+                    Trnl.sh2.update('J2', '-1001718578294')
+                    Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+        # POSTER
+        try:
+            phto_url = omdb_req["Poster"].replace('_SX300', '')
+        except:
+            phto_url = ""
+        if (phto_url == "") or ('N/A' in phto_url):
+            try:
+                for result in results:
+                    phto_url = 'https://image.tmdb.org/t/p/original' + result.poster_path
+            except:
+                phto_url = ""
+        if phto_url == "":
+            try:
+                imdb_req = requests.get(imdb_url)
+                imdb_req.encoding = imdb_req.apparent_encoding
+                imdb_html = imdb_req.text
+                imdb_soup = BeautifulSoup(imdb_html, 'html.parser')
+                imdb_hrf = []
+                for all in imdb_soup.find_all('a', href=True):
+                    imdb_hrf.append(all['href'])
+                for i in imdb_hrf:
+                    if '/?ref_=tt_ov_i' in i:
+                        imdb2_url = 'https://www.imdb.com' + i
+                imdb2_req = requests.get(imdb2_url)
+                imdb2_req.encoding = imdb2_req.apparent_encoding
+                imdb2_html = imdb2_req.text
+                imdb2_soup = BeautifulSoup(imdb2_html, 'html.parser')
+                imdb2_hrf = []
+                for all in imdb2_soup.find_all('meta'):
+                    imdb2_hrf.append(all)
+                imdb2 = "".join([str(lk) for lk in imdb2_hrf])
+                phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
+            except:
+                phto_url = vlink
+        # CREDIT
+        credit = 'Burma Link Channel'
     if "goldchannel" in script_url:
         for all in soup.select('#single > div.content.right > div.sheader > div.data > h1'):
             vcap = all.text
