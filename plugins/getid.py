@@ -47,7 +47,3 @@ def sendid(bot, update):
         chat_id=full_id,
         message_ids=update.message_id
     )
-@pyrogram.Client.on_message(pyrogram.filters.command(["gd"]))
-def gdrv(bot, update):
-    lk = update.text.split(" ", 2)[1]
-    Trnl.sh2.update('L2', lk)
