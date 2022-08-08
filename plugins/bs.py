@@ -55,7 +55,7 @@ def bs(web_url):
     for s in sv_kw:
         for a in all_lst:
             if s in a:
-                avlb_lst.append(a.split("|", 4)[0])
+                avlb_lst.append(a)
     avlb_lk = '\n'.join([str(lk) for lk in avlb_lst])
     max_avlb = []
     for m in max_lst:
