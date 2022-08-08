@@ -103,16 +103,34 @@ def trans(bot, update):
             Trnl.sh2.update('P3',"Movie")
             if "https://burmesesubtitles.com/" in web_url:
                 func_scpt(web_url)
-                max_lks = bs(web_url)
+                bs_rtrn = bs(web_url)
                 avlb_lk = Trnl.sh2.acell('Q2').value
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text="Links အားလုံး👇\n" + avlb_lk
-                )
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text="Size အကြီးဆုံး Links များ 👇\n" + max_lks
-                )
+                if len(bs_rtrn) == 1:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text="Links အားလုံး👇\n" + avlb_lk
+                    )
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text="Size အကြီးဆုံး Links များ 👇\n" + bs_rtrn[0]
+                    )
+                if len(bs_rtrn) == 2:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text="Links အားလုံး👇\n" + avlb_lk
+                    )
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text="Size အကြီးဆုံး Links များ 👇\n" + bs_rtrn[0]
+                    )
+                    gdrv_lk = bs_rtrn[1]
+                    base = Trnl.sh1.acell('K2').value
+                    final_link = transloader(base, gdrv_lk)
+                    Trnl.sh2.update('L2', final_link)
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
+                    )
             if "burmalinkchannel" in web_url:
                 func_scpt(web_url)
                 ytsn_lk = blc(web_url)
