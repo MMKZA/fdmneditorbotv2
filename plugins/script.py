@@ -69,7 +69,7 @@ async def script_call_back(bot, update):
         mv_gnr = Trnl.sh2.acell('M3').value
         rntm = Trnl.sh2.acell('M4').value
         year = Trnl.sh2.acell('M5').value
-        ctry = Trnl.sh1.acell('M6').value
+        ctry = Trnl.sh2.acell('M6').value
         vcap = '<b>' + vcap + '</b>'
         mchnl_msg = await bot.send_photo(
             "@fdmnchannel",
