@@ -442,17 +442,22 @@ def func_scpt(script_url):
                     'United States', 'United States Minor Outlying Islands', 'Uruguay', 'Uzbekistan', 'Vanuatu',
                     'Venezuela, Bolivarian Republic of', 'Viet Nam', 'Virgin Islands, British', 'Virgin Islands, U.S.',
                     'Wallis and Futuna', 'Yemen', 'Zambia', 'Zimbabwe']
-        ctry = []
+        ctry_all = []
         for c in soup.select('p', {'class': 'icon-network'}):
-            ctry.append(c.text)
-        if len(ctry) != 0:
-            for x in ctry:
+            ctry_all.append(c.text)
+        if len(ctry_all) != 0:
+            for x in ctry_all:
                 for y in ctry_lst:
                     if y in x:
                         mv_ctry = y
                         if "India" in mv_ctry:
                             Trnl.sh2.update('J2', '-1001718578294')
                             Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+        try:
+            if 'Country' in omdb_req:
+                ctry = omdb_req['Country']
+        except:
+            ctry = '⁉'
         bd_lks = []
         bd_soup = soup.select('#cap1 > p')
         for all in bd_soup:
