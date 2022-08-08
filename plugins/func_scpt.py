@@ -13,6 +13,23 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 def func_scpt(script_url):
+    if "burmalinkchannel" in script_url:
+        if 'series' in script_url:
+            script_url = 'https://api.burmalinkchannel.com/seriesdetail/' + script_url.split('/')[-1]
+        if 'movies' in script_url:
+            script_url = 'https://api.burmalinkchannel.com/moviedetail/' + script_url.split('/')[-1]
+    req = requests.get(script_url)
+    # override encoding by real educated guess as provided by chardet
+    req.encoding = req.apparent_encoding
+    # access the data
+    html_text = req.text
+    soup = BeautifulSoup(html_text, 'html.parser')
+    wscpt = soup.prettify()
+    sscpt = soup.get_text()
+    tmdb = TMDb()
+    tmdb.api_key = "53b9eff4684ba49f0f2225d888fd4202"
+    search = Search()
+    genre = Genre()
     if "burmesesubtitles" in script_url:
         for all in soup.select('#single > div.content > div.sheader > div.data > h1'):
             vcap = all.text
@@ -171,23 +188,6 @@ def func_scpt(script_url):
         vlink = all_lks[0]
         phto_splt = vlink.split('/')
         credit = 'Burmese Subtitles'
-    if "burmalinkchannel" in script_url:
-        if 'series' in script_url:
-            script_url = 'https://api.burmalinkchannel.com/seriesdetail/' + script_url.split('/')[-1]
-        if 'movies' in script_url:
-            script_url = 'https://api.burmalinkchannel.com/moviedetail/' + script_url.split('/')[-1]
-    req = requests.get(script_url)
-    # override encoding by real educated guess as provided by chardet
-    req.encoding = req.apparent_encoding
-    # access the data
-    html_text = req.text
-    soup = BeautifulSoup(html_text, 'html.parser')
-    wscpt = soup.prettify()
-    sscpt = soup.get_text()
-    tmdb = TMDb()
-    tmdb.api_key = "53b9eff4684ba49f0f2225d888fd4202"
-    search = Search()
-    genre = Genre()
     if "burmalinkchannel" in script_url:
         jsn1 = json.loads(html_text)
         html = json2html.convert(json=jsn1)
