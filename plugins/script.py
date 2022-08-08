@@ -69,11 +69,12 @@ async def script_call_back(bot, update):
         mv_gnr = Trnl.sh2.acell('M3').value
         rntm = Trnl.sh2.acell('M4').value
         year = Trnl.sh2.acell('M5').value
+        ctry = Trnl.sh1.acell('M6').value
         vcap = '<b>' + vcap + '</b>'
         mchnl_msg = await bot.send_photo(
             "@fdmnchannel",
             phto_url,
-            vcap + "\n\n🎬 " + mv_gnr + "\n🗓️ " + year + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n⏰ " + rntm + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN,
+            vcap + "\n\n🎬 " + mv_gnr + "\n🗓️ " + year + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n⏰ " + rntm + " 🌎 " + ctry + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN,
             'html'
         )
         Trnl.sh2.update('G2', mchnl_msg.message_id)
