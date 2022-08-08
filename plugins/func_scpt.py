@@ -134,14 +134,14 @@ def func_scpt(script_url):
             pass
         try:
             rntm = omdb_req['Runtime'].split(' ', 2)[0]
-            rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
+            rntm = "{} နာရီ : {} မိနစ်".format(*divmod(int(rntm), 60))
         except:
             rntm = ""
         if rntm == "":
             try:
                 for r in soup.select('#single > div.content > div.sheader > div.data > div.extra > span.runtime'):
                     rntm = r.text
-                    rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
+                    rntm = "{} နာရီ : {} မိနစ်".format(*divmod(int(rntm), 60))
             except:
                 rntm = ""
         if rntm == "":
@@ -218,13 +218,13 @@ def func_scpt(script_url):
         # RUNTIME
         try:
             rntm = soup.find("th", text="duration").find_next_sibling("td").text
-            rntm = "{} hr: {} min".format(*divmod(int(rntm), 60))
+            rntm = "{} နာရီ :  {} မိနစ်".format(*divmod(int(rntm), 60))
         except:
             rntm = ""
         if rntm == "":
             try:
                 rntm = omdb_req['Runtime'].split(' ', 2)[0]
-                rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
+                rntm = "{} နာရီ : {} မိနစ်".format(*divmod(int(rntm), 60))
             except:
                 rntm = '⁉'
         # GENRE
@@ -355,18 +355,18 @@ def func_scpt(script_url):
             if 'tvshows' in script_url:
                 for all in soup.select('#info > div:nth-child(9) > span'):
                     rntm = all.text.split(' ', 2)[0]
-                    rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
+                    rntm = "{} နာရီ : {} မိနစ်".format(*divmod(int(rntm), 60))
             if 'movies' in script_url:
                 for all in soup.select(
                         '#single > div.content.right > div.sheader > div.data > div.extra > span.runtime'):
                     rntm = all.text.split(' ', 2)[0]
-                    rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
+                    rntm = "{} နာရီ : {} မိနစ်".format(*divmod(int(rntm), 60))
         except:
             rntm = ""
         if rntm == "":
             try:
                 rntm = omdb_req['Runtime'].split(' ', 2)[0]
-                rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
+                rntm = "{} နာရီ : {} မိနစ်".format(*divmod(int(rntm), 60))
             except:
                 rntm = ""
         if rntm == "":
@@ -537,7 +537,7 @@ def func_scpt(script_url):
             pass
         try:
             rntm = omdb_req['Runtime'].split(' ', 2)[0]
-            rntm = "{} hr:{} min".format(*divmod(int(rntm), 60))
+            rntm = "{} နာရီ : {} မိနစ်".format(*divmod(int(rntm), 60))
         except:
             rntm = ""
         if rntm == "":
