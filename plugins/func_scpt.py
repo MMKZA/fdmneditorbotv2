@@ -298,7 +298,7 @@ def func_scpt(script_url):
             results = search.movies({"query": title, "year": year})
             gnr = []
             for g in soup.select('p.meta > i'):
-                gnr.append(g.text.replace('\xa0', ''))
+                gnr.append(g.text.replace('\xa0', ' '))
             if len(gnr) != 0:
                 mv_gnr = gnr[0]
             if "Uncategorized" in mv_gnr:
