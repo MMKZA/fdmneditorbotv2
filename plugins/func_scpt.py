@@ -14,7 +14,10 @@ logging.basicConfig(level=logging.DEBUG,
 logger = logging.getLogger(__name__)
 def func_scpt(script_url):
     if "burmalinkchannel" in script_url:
-        script_url = 'https://api.burmalinkchannel.com/moviedetail/' + script_url.split('/')[-1]
+        if 'series' in script_url: 
+            script_url = 'https://api.burmalinkchannel.com/seriesdetail/' + script_url.split('/')[-1]
+        if 'movies' in script_url:
+            script_url = 'https://api.burmalinkchannel.com/moviedetail/' + script_url.split('/')[-1]
     req = requests.get(script_url)
     # override encoding by real educated guess as provided by chardet
     req.encoding = req.apparent_encoding
@@ -32,9 +35,13 @@ def func_scpt(script_url):
         html = json2html.convert(json=jsn1)
         soup = BeautifulSoup(html, 'html.parser')
         # TITLE
+        nm_td = []
         nm_lst = []
         for d in soup.find_all("th", text="name"):
-            nm_lst.append(d.find_next_sibling("td").text)
+            nm_td.append(d.find_next_sibling("td"))
+        for n in nm_td:
+            if str(n) != 'None':
+                nm_lst.append(n.text)
         vcap = nm_lst[-2]
         # YEAR
         year = soup.find("th", text="reYear").find_next_sibling("td").text
