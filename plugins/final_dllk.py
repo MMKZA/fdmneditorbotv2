@@ -99,6 +99,18 @@ def trans(bot, update):
             web_url = update.text
             Trnl.sh2.update('M2',web_url)
             Trnl.sh2.update('P3',"Movie")
+            if "https://burmesesubtitles.com/" in web_url:
+                func_scpt(web_url)
+                max_lks = bs(web_url)
+                avlb_lk = Trnl.sh2.acell('Q2').value
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text="Links အားလုံး👇\n" + avlb_lk
+                )
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text="Size အကြီးဆုံး Links များ 👇\n" + max_lks
+                )
             if "burmalinkchannel" in web_url:
                 func_scpt(web_url)
                 ytsn_lk = blc(web_url)
