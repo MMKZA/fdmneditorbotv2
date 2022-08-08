@@ -88,6 +88,8 @@ def trans(bot, update):
                 gdrv_lk = lk
             elif "https://drive.google.com/" in lk:
                 gdrv_lk = lk
+            elif "burmesesubtitles.com" in lk:
+                gdrv_lk = lk
             base = Trnl.sh1.acell('K2').value
             final_link = transloader(base, gdrv_lk)
             Trnl.sh2.update('L2', final_link)
