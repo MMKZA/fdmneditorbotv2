@@ -66,15 +66,18 @@ def bs(web_url):
     max_lks = '\n'.join([str(lk) for lk in max_avlb])
     Trnl.sh2.update('Q2', avlb_lk)
     Trnl.sh2.update('H2', max_qlt)
-    gdrv = max_avlb[1].split("|",4)[0]
-    gdrv_req = requests.get(gdrv)
-    gdrv_req.encoding = gdrv_req.apparent_encoding
-    gdrv_html = gdrv_req.text
-    soup = BeautifulSoup(gdrv_html, 'html.parser')
-    href_mega = []
-    for a in soup.find_all('a', href=True):
-        href_mega.append(a['href'])
-    for h in href_mega:
-        if 'https://gd.burmesesubtitles.com' in h:
-            max_lk = h
-    return [max_lks, max_lk]
+    try:
+        gdrv = max_avlb[1].split("|",4)[0]
+        gdrv_req = requests.get(gdrv)
+        gdrv_req.encoding = gdrv_req.apparent_encoding
+        gdrv_html = gdrv_req.text
+        soup = BeautifulSoup(gdrv_html, 'html.parser')
+        href_mega = []
+        for a in soup.find_all('a', href=True):
+            href_mega.append(a['href'])
+        for h in href_mega:
+            if 'https://gd.burmesesubtitles.com' in h:
+                max_lk = h
+        return [max_lks, max_lk]
+    except:
+        return [max_lks]
