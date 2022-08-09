@@ -192,8 +192,8 @@ def func_scpt(script_url):
         credit = 'Burmese Subtitles'
     if "burmalinkchannel" in script_url:
         jsn1 = json.loads(html_text)
-        html = json2html.convert(json=jsn1)
-        soup = BeautifulSoup(html, 'html.parser')
+        html_blc = json2html.convert(json=jsn1)
+        soup = BeautifulSoup(html_blc, 'html.parser')
         # TITLE
         nm_td = []
         nm_lst = []
