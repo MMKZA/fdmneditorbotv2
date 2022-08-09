@@ -1,5 +1,5 @@
 class channels(object):
-    ani_chcl = ['-1001389311243',
+    ani_chnl = ['-1001389311243',
                 'https://t.me/c/1389311243/',
                 'https://t.me/+iVLlmOtK3fZkYTRl'
                ]
