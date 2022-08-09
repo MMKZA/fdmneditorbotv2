@@ -621,8 +621,7 @@ def func_scpt(script_url):
                             Trnl.sh2.update('J2', '-1001718578294')
                             Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
         try:
-            if 'Country' in omdb_req:
-                ctry = omdb_req['Country']
+            ctry = omdb_req['Country']
         except:
             ctry = '⁉'
         bd_lks = []
