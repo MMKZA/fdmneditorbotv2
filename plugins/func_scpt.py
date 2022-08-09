@@ -10,6 +10,7 @@ from tmdbv3api import TMDb, Search, Genre
 from json2html import *
 from lxml import html
 from translation import Translation
+from channels import channels
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -75,17 +76,17 @@ def func_scpt(script_url):
                     except:
                         mv_gnr = '⁉'
             if "Adult" in mv_gnr:
-                Trnl.sh2.update('J2', '-1001750623132')
-                Trnl.sh2.update('I2', 'https://t.me/c/1750623132/')
+                Trnl.sh2.update('J2', channels.rt_chnl[0])
+                Trnl.sh2.update('I2', channels.rt_chnl[1])
             elif "Animation" in mv_gnr:
-                Trnl.sh2.update('J2', '-1001389311243')
-                Trnl.sh2.update('I2', 'https://t.me/c/1389311243/')
+                Trnl.sh2.update('J2', channels.ani_chnl[0])
+                Trnl.sh2.update('I2', channels.ani_chnl[1])
             elif "Bollywood" in mv_gnr:
-                Trnl.sh2.update('J2', '-1001718578294')
-                Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+                Trnl.sh2.update('J2', channels.bt_chnl[0])
+                Trnl.sh2.update('I2', channels.bt_chnl[1])
             else:
-                Trnl.sh2.update('J2', '-1001785695486')
-                Trnl.sh2.update('I2', 'https://t.me/c/1785695486/')
+                Trnl.sh2.update('J2', channels.gn_chnl[0])
+                Trnl.sh2.update('I2', channels.gn_chnl[1])
                 Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
         if 'Series' in Trnl.sh2.acell('P3').value:
             genres = genre.tv_list()
@@ -130,8 +131,8 @@ def func_scpt(script_url):
                 omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
         try:
             if "India" in omdb_req['Country']:
-                Trnl.sh2.update('J2', '-1001718578294')
-                Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+                Trnl.sh2.update('J2', channels.bt_chnl[0])
+                Trnl.sh2.update('I2', channels.bt_chnl[1])
         except:
             pass
         try:
@@ -159,13 +160,13 @@ def func_scpt(script_url):
                 ctry = '⁉'
         if len(ctry) != 0:
             if "India" in ctry:
-                Trnl.sh2.update('J2', '-1001718578294')
-                Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+                Trnl.sh2.update('J2', channels.bt_chnl[0])
+                Trnl.sh2.update('I2', channels.bt_chnl[1])
         if 'Country' in omdb_req:
             if len(omdb_req['Country']) != 0:
                 if "India" in omdb_req['Country']:
-                    Trnl.sh2.update('J2', '-1001718578294')
-                    Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+                    Trnl.sh2.update('J2', channels.bt_chnl[0])
+                    Trnl.sh2.update('I2', channels.bt_chnl[1])
         bd_lks = []
         bd_soup = soup.select('#info > div.wp-content')
         for all in bd_soup:
@@ -255,30 +256,30 @@ def func_scpt(script_url):
                 mv_gnr = "⁉"
         # GENRE_RELATED
         if "Adult" in mv_gnr:
-            Trnl.sh2.update('J2', '-1001750623132')
-            Trnl.sh2.update('I2', 'https://t.me/c/1750623132/')
+            Trnl.sh2.update('J2', channels.rt_chnl[0])
+            Trnl.sh2.update('I2', channels.rt_chnl[1])
         elif "Animation" in mv_gnr:
-            Trnl.sh2.update('J2', '-1001389311243')
-            Trnl.sh2.update('I2', 'https://t.me/c/1389311243/')
+            Trnl.sh2.update('J2', channels.ani_chnl[0])
+            Trnl.sh2.update('I2', channels.ani_chnl[1])
         elif "Bollywood" in mv_gnr:
-            Trnl.sh2.update('J2', '-1001718578294')
-            Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+            Trnl.sh2.update('J2', channels.bt_chnl[0])
+            Trnl.sh2.update('I2', channels.bt_chnl[1])
         else:
-            Trnl.sh2.update('J2', '-1001785695486')
-            Trnl.sh2.update('I2', 'https://t.me/c/1785695486/')
+            Trnl.sh2.update('J2', channels.gn_chnl[0])
+            Trnl.sh2.update('I2', channels.gn_chnl[1])
             Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
         # COUNTRY
         ctry = soup.find("th", text="reCountry").find_next_sibling("td").text
         # COUNTRY_RELATED
         if len(ctry) != 0:
             if ("India" in ctry) or ("india" in ctry):
-                Trnl.sh2.update('J2', '-1001718578294')
-                Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+                Trnl.sh2.update('J2', channels.bt_chnl[0])
+                Trnl.sh2.update('I2', channels.bt_chnl[1])
         if 'Country' in omdb_req:
             if len(omdb_req['Country']) != 0:
                 if "India" in omdb_req['Country']:
-                    Trnl.sh2.update('J2', '-1001718578294')
-                    Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+                    Trnl.sh2.update('J2', channels.bt_chnl[0])
+                    Trnl.sh2.update('I2', channels.bt_chnl[1])
         # POSTER
         try:
             phto_url = omdb_req["Poster"].replace('_SX300', '')
@@ -383,26 +384,26 @@ def func_scpt(script_url):
                     chck_rtd = y.text
             except:
                 chck_rtd = 'Not Rated'
-        Trnl.sh2.update('J2', '-1001785695486')
-        Trnl.sh2.update('I2', 'https://t.me/c/1785695486/')
+        Trnl.sh2.update('J2', channels.gn_chnl[0])
+        Trnl.sh2.update('I2', channels.gn_chnl[1])
         Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v1.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
         if len(chck_rtd) != 0:
             if ("Not Rated" not in chck_rtd) or ("R" == chck_rtd):
-                Trnl.sh2.update('J2', '-1001750623132')
-                Trnl.sh2.update('I2', 'https://t.me/c/1750623132/')
+                Trnl.sh2.update('J2', channels.rt_chnl[0])
+                Trnl.sh2.update('I2', channels.rt_chnl[1])
         if len(ctry) != 0:
             if "India" in ctry:
-                Trnl.sh2.update('J2', '-1001718578294')
-                Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+                Trnl.sh2.update('J2', channels.bt_chnl[0])
+                Trnl.sh2.update('I2', channels.bt_chnl[1])
         if 'Country' in omdb_req:
             if len(omdb_req['Country']) != 0:
                 if "India" in omdb_req['Country']:
-                    Trnl.sh2.update('J2', '-1001718578294')
-                    Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+                    Trnl.sh2.update('J2', channels.bt_chnl[0])
+                    Trnl.sh2.update('I2', channels.bt_chnl[1])
         if len(mv_gnr) != 0:
             if "Animation" in mv_gnr:
-                Trnl.sh2.update('J2', '-1001389311243')
-                Trnl.sh2.update('I2', 'https://t.me/c/1389311243/')
+                Trnl.sh2.update('J2', channels.ani_chnl[0])
+                Trnl.sh2.update('I2', channels.ani_chnl[1])
         for all in soup.select('#single > div.content.right > div.sheader > div.poster > img'):
             vlink = all['src']
         phto_splt = vlink.split('/')
@@ -478,17 +479,17 @@ def func_scpt(script_url):
                     except:
                         mv_gnr = '⁉️'
             if "Adult" in mv_gnr:
-                Trnl.sh2.update('J2', '-1001750623132')
-                Trnl.sh2.update('I2', 'https://t.me/c/1750623132/')
+                Trnl.sh2.update('J2', channels.rt_chnl[0])
+                Trnl.sh2.update('I2', channels.rt_chnl[1])
             elif "Animation" in mv_gnr:
-                Trnl.sh2.update('J2', '-1001389311243')
-                Trnl.sh2.update('I2', 'https://t.me/c/1389311243/')
+                Trnl.sh2.update('J2', channels.ani_chnl[0])
+                Trnl.sh2.update('I2', channels.ani_chnl[1])
             elif "Bollywood" in mv_gnr:
-                Trnl.sh2.update('J2', '-1001718578294')
-                Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+                Trnl.sh2.update('J2', channels.bt_chnl[0])
+                Trnl.sh2.update('I2', channels.bt_chnl[1])
             else:
-                Trnl.sh2.update('J2', '-1001785695486')
-                Trnl.sh2.update('I2', 'https://t.me/c/1785695486/')
+                Trnl.sh2.update('J2', channels.gn_chnl[0])
+                Trnl.sh2.update('I2', channels.gn_chnl[1])
                 Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
         if 'Series' in Trnl.sh2.acell('P3').value:
             genres = genre.tv_list()
@@ -533,8 +534,8 @@ def func_scpt(script_url):
                 omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
         try:
             if "India" in omdb_req['Country']:
-                Trnl.sh2.update('J2', '-1001718578294')
-                Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+                Trnl.sh2.update('J2', channels.bt_chnl[0])
+                Trnl.sh2.update('I2', channels.bt_chnl[1])
         except:
             pass
         try:
@@ -570,8 +571,8 @@ def func_scpt(script_url):
         if ctry == '':
             ctry = '⁉'
         if "India" in ctry:
-            Trnl.sh2.update('J2', '-1001718578294')
-            Trnl.sh2.update('I2', 'https://t.me/c/1718578294/')
+            Trnl.sh2.update('J2', channels.bt_chnl[0])
+            Trnl.sh2.update('I2', channels.bt_chnl[1])
         bd_lks = []
         bd_soup = soup.select('#cap1 > p')
         for all in bd_soup:
