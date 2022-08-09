@@ -49,22 +49,26 @@ async def script_call_back(bot, update):
                 invt_lk = channels.ani_chnl[2]
             elif Trnl.sh2.acell('J2').value == channels.rt_chnl[0]:
                 invt_lk = channels.rt_chnl[2]
+        invt_lk = 'https://t.me/FDMN_Signup_Bot'
         if "Series" in typ:
             invt_lk = Trnl.sh2.acell('I2').value
             vd_lk = invt_lk
         vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
-        #chnl_hplk = '<a href="' + invt_lk + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
-        chnl_hplk = '<a href="' + 'https://t.me/FDMN_Signup_Bot' + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
+        chnl_hplk = '<a href="' + invt_lk + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
         vd_qlt = Trnl.sh2.acell('H2').value
         mv_gnr = Trnl.sh2.acell('M3').value
         rntm = Trnl.sh2.acell('M4').value
         year = Trnl.sh2.acell('M5').value
         ctry = Trnl.sh2.acell('M6').value
         vcap = '<b>' + vcap + '</b>'
+        if "Movie" in typ:
+            mssg = vcap + "\n\n🎬 " + mv_gnr + "\n🗓️ " + year + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n⏰ " + rntm + "\n🌎 " + ctry + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN
+        if "Series" in typ:
+            mssg = vcap + "\n\n🎬 " + mv_gnr + "\n🗓️ " + year + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n⏰ " + rntm + "\n🌎 " + ctry + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_FB
         mchnl_msg = await bot.send_photo(
             "@fdmnchannel",
             phto_url,
-            vcap + "\n\n🎬 " + mv_gnr + "\n🗓️ " + year + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n⏰ " + rntm + "\n🌎 " + ctry + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN,
+            mssg,
             'html'
         )
         Trnl.sh2.update('G2', mchnl_msg.message_id)
