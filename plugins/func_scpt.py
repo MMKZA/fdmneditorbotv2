@@ -446,14 +446,14 @@ def func_scpt(script_url):
                 title = title.replace(r, '').strip()
         omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(title) + '&y=' + year + '&apikey=39ecaf7'
         omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
-        try:
-            imdb_lst = []
-            for s in soup.find_all('a', href = True):
-                imdb_lst.append(s['href'])
-            for i in imdb_lst:
-                if "https://www.imdb.com/title/" in i:
-                    imdb_id = i.split('/')[-2]
-        except:
+        imdb_id = ''
+        imdb_lst = []
+        for s in soup.find_all('a', href = True):
+            imdb_lst.append(s['href'])
+        for i in imdb_lst:
+            if "https://www.imdb.com/title/" in i:
+                imdb_id = i.split('/')[-2]
+        if imdb_id == '':
             imdb_id = Trnl.sh2.acell('M7').value
         if 'Error' in omdb_req:
             omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
