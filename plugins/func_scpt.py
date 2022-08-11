@@ -454,6 +454,8 @@ def func_scpt(script_url):
             if "https://www.imdb.com/title/" in i:
                 imdb_id = i.split('/')[-2]
         if imdb_id == '':
+            imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
+            Trnl.sh2.update('L3', imdb_wrn)
             imdb_id = Trnl.sh2.acell('M7').value
         if 'Error' in omdb_req:
             omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
