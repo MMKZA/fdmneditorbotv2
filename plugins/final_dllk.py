@@ -23,6 +23,11 @@ def trans(bot, update):
             Trnl.sh1.update('P3', "Series")
             if "goldchannel" in update.text:
                 func_scpt(web_url)
+                if web_url in Trnl.sh2.acell('L3').value:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text=Trnl.sh2.acell('L3').value
+                    )
                 epsd_msg = series(web_url)
                 bot.send_message(
                     chat_id=update.chat.id,
@@ -34,6 +39,11 @@ def trans(bot, update):
                 )
             if "channelmyanmar" in update.text:
                 func_scpt(web_url)
+                if web_url in Trnl.sh2.acell('L3').value:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text=Trnl.sh2.acell('L3').value
+                    )
                 if web_url in Trnl.sh2.acell('H3').value:
                     bot.send_message(
                         chat_id=update.chat.id,
@@ -103,6 +113,11 @@ def trans(bot, update):
             Trnl.sh2.update('P3',"Movie")
             if "https://burmesesubtitles.com/" in web_url:
                 func_scpt(web_url)
+                if web_url in Trnl.sh2.acell('L3').value:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text=Trnl.sh2.acell('L3').value
+                    )
                 bs_rtrn = bs(web_url)
                 avlb_lk = Trnl.sh2.acell('Q2').value
                 if len(bs_rtrn) == 1:
@@ -133,6 +148,11 @@ def trans(bot, update):
                     )
             if "burmalinkchannel" in web_url:
                 func_scpt(web_url)
+                if web_url in Trnl.sh2.acell('L3').value:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text=Trnl.sh2.acell('L3').value
+                    )
                 ytsn_lk = blc(web_url)
                 if "Manual" in ytsn_lk:
                     bot.send_message(
@@ -158,6 +178,11 @@ def trans(bot, update):
                     )
             if "https://goldchannel.net/movies/" in web_url:
                 func_scpt(web_url)
+                if web_url in Trnl.sh2.acell('L3').value:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text=Trnl.sh2.acell('L3').value
+                    )
                 gdrv_lk = gldchnl(web_url)
                 if web_url in Trnl.sh2.acell('H3').value:
                     bot.send_message(
@@ -178,6 +203,11 @@ def trans(bot, update):
                 )
             if "https://channelmyanmar.org/" in web_url:
                 func_scpt(web_url)
+                if web_url in Trnl.sh2.acell('L3').value:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text=Trnl.sh2.acell('L3').value
+                    )
                 ytsn_lk = cnmm(web_url)
                 if "Manual" in ytsn_lk:
                     bot.send_message(
