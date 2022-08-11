@@ -20,8 +20,8 @@ def trans(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         if "/srs" in update.text:
             web_url = update.text.split(' ', 1)[1]
-            Trnl.sh1.update('M2', web_url)
-            Trnl.sh1.update('P3', "Series")
+            Trnl.sh2.update('M2', web_url)
+            Trnl.sh2.update('P3', "Series")
             if "goldchannel" in update.text:
                 func_scpt(web_url)
                 if web_url in Trnl.sh2.acell('L3').value:
