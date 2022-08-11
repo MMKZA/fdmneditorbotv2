@@ -13,6 +13,7 @@ from plugins.blc import blc
 import os
 import re
 import time
+from googletrans import Translator
 
 @pyrogram.Client.on_message(pyrogram.filters.regex(pattern=".*http.*"))
 def trans(bot, update):
@@ -29,9 +30,16 @@ def trans(bot, update):
                         text=Trnl.sh2.acell('L3').value
                     )
                 epsd_msg = series(web_url)
+                translator = Translator()
+                en_cap = Trnl.sh2.acell('D2').value
+                mm_cap = translator.translate(en_cap,'my','en').text
                 bot.send_message(
                     chat_id=update.chat.id,
-                    text=Trnl.sh1.acell('D2').value
+                    text=en_cap
+                )
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text=mm_cap
                 )
                 bot.send_message(
                     chat_id=update.chat.id,
@@ -50,9 +58,16 @@ def trans(bot, update):
                         text = Trnl.sh2.acell('H3').value
                     )
                 epsd_msg = series(web_url)
+                translator = Translator()
+                en_cap = Trnl.sh2.acell('D2').value
+                mm_cap = translator.translate(en_cap,'my','en').text
                 bot.send_message(
                     chat_id=update.chat.id,
-                    text = Trnl.sh2.acell('D2').value
+                    text=en_cap
+                )
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text=mm_cap
                 )
                 if "1080" in epsd_msg[0]:
                     Trnl.sh2.update('H2', "1080p")
