@@ -50,7 +50,7 @@ def sendid(bot, update):
 @pyrogram.Client.on_message(pyrogram.filters.command(["im2"]))
 def imdb(bot, update):
     full_id = update.chat.id
-    imdb_id = update.message.split(' ')[1]
+    imdb_id = update.text.split(' ')[1]
     Trnl.sh2.update('M7',imdb_id)
     bot.delete_messages(
         chat_id=full_id,
