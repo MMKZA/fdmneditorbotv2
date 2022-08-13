@@ -138,6 +138,10 @@ def func_scpt(script_url):
                 'div > div.entry-content > div.imdbwp.imdbwp--movie.light > div.imdbwp__thumb > a > img'):
             all_lks.append(all['data-src'])
         vlink = all_lks[0]
+        try:
+            vlink = vlink.replace('_SX300','')
+        except:
+            pass
         phto_url = vlink
         credit = 'ShweFlix'
     if "burmesesubtitles" in script_url:
