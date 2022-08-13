@@ -10,6 +10,7 @@ from plugins.transloader import transloader
 from plugins.func_scpt import func_scpt
 from plugins.series import series
 from plugins.blc import blc
+from plugins.shweflix import shweflix
 import os
 import re
 import time
@@ -126,6 +127,17 @@ def trans(bot, update):
             web_url = update.text
             Trnl.sh2.update('M2',web_url)
             Trnl.sh2.update('P3',"Movie")
+            if "https://shweflix.org/" in web_url:
+                func_scpt(web_url)
+                rtrn = shweflix(web_url)
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text="Links အားလုံး👇\n" + rtrn[0]
+                )
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text="Size အကြီးဆုံး Link👇\n" + rtrn[1]
+                )
             if "https://burmesesubtitles.com/" in web_url:
                 func_scpt(web_url)
                 if web_url in Trnl.sh2.acell('L3').value:
