@@ -2,6 +2,7 @@ import requests
 from bs4 import BeautifulSoup
 import re
 from trnl import Trnl
+from lxml import html
 
 def shweflix(web_url):
     web_req = requests.get(web_url)
