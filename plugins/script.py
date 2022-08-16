@@ -65,12 +65,22 @@ async def script_call_back(bot, update):
             mssg = vcap + "\n\n🎬 " + mv_gnr + "\n🗓️ " + year + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n⏰ " + rntm + "\n🌎 " + ctry + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN
         if "Series" in typ:
             mssg = vcap + "\n\n🎬 " + mv_gnr + "\n🗓️ " + year + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n⏰ " + rntm + "\n🌎 " + ctry + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_FB
-        mchnl_msg = await bot.send_photo(
-            "@fdmnchannel",
-            phto_url,
-            mssg,
-            'html'
-        )
+        try:
+            mchnl_msg = await bot.send_photo(
+                "@fdmnchannel",
+                phto_url,
+                mssg,
+                'html'
+            )
+        except:
+            phto_req = requests.get(phto_url)
+            phto_bio = io.BytesIO(phto_req.content)
+            mchnl_msg = await bot.send_photo(
+                "@fdmnchannel",
+                phto_bio,
+                mssg,
+                'html'
+            )
         Trnl.sh2.update('G2', mchnl_msg.message_id)
         await bot.send_message(
             chat_id=update.chat.id,
