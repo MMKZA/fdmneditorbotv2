@@ -34,6 +34,7 @@ from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 # https://stackoverflow.com/a/37631799/4723940
 from PIL import Image
+from trnl import Trnl
 
 
 @pyrogram.Client.on_message(pyrogram.filters.command(["convert2video"]))
@@ -114,9 +115,19 @@ async def convert_to_video(bot, update):
                 # https://pillow.readthedocs.io/en/3.1.x/reference/Image.html#create-thumbnails
             # try to upload file
             c_time = time.time()
+            if "@" in str(Trnl.sh2.acell('J2').value):
+                chnl_id = update.message.chat.id
+            else:
+                chnl_id = int(Trnl.sh2.acell('J2').value)
+            vcap = Trnl.sh2.acell('D2').value
+            if "Series" in Trnl.sh2.acell('P3').value:
+                vd_name = description
+            else:
+                vd_name = vcap + " | " + Trnl.sh2.acell('H2').value
             await bot.send_video(
-                chat_id=update.chat.id,
+                chat_id=chnl_id,
                 video=the_real_download_location,
+                caption=vd_name,
                 duration=duration,
                 width=V_WIDTH,
                 height=V_HEIGHT,
