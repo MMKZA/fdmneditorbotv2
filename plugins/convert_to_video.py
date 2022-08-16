@@ -122,6 +122,7 @@ async def convert_to_video(bot, update):
             await bot.send_video(
                 chat_id=chnl_id,
                 video=the_real_download_location,
+                caption=the_real_download_location.split('/')[-1],
                 duration=duration,
                 width=V_WIDTH,
                 height=V_HEIGHT,
