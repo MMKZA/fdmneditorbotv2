@@ -765,9 +765,18 @@ def func_scpt(script_url):
     imdb_rt = ''
     imdb_vt = ''
     imdb = ''
-    imdb_rt = omdb_req['imdbRating']
-    imdb_vt = omdb_req['imdbVotes']
-    imdb = imdb_rt + '/10 (' + imdb_vt + ' Votes)'
+    try:
+        imdb_rt = omdb_req['imdbRating']
+        imdb_vt = omdb_req['imdbVotes']
+        imdb = imdb_rt + '/10 (' + imdb_vt + ' Votes)'
+    except:
+        imdb = ''
+    if (str(imdb_rt) == 'N/A') or (imdb == ''):
+        try:
+            for result in results:
+                imdb = str(result.vote_average) + '/10'
+        except:
+            imdb = ''
     if imdb == '':
         imdb = '⁉️'
     vd_qlt = Trnl.sh2.acell('H2').value
