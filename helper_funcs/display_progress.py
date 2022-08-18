@@ -45,23 +45,23 @@ async def progress_for_pyrogram(
         x = random.randint(1,4)
         if x == 1:
             progress = "[{0}{1}] \nP: {2}%\n".format(
-                ''.join(["🌳" for i in range(math.floor(percentage / 5))]),
-                ''.join(["🌱" for i in range(20 - math.floor(percentage / 5))]),
+                ''.join(["🌳" for i in range(math.floor(percentage / 10))]),
+                ''.join(["🌱" for i in range(10 - math.floor(percentage / 10))]),
                 round(percentage, 2))
         if x == 2:
             progress = "[{0}{1}] \nP: {2}%\n".format(
-                ''.join(["🌧" for i in range(math.floor(percentage / 5))]),
-                ''.join(["☁️" for i in range(20 - math.floor(percentage / 5))]),
+                ''.join(["🦋" for i in range(math.floor(percentage / 10))]),
+                ''.join(["🐛" for i in range(10 - math.floor(percentage / 10))]),
                 round(percentage, 2))
         if x == 3:
             progress = "[{0}{1}] \nP: {2}%\n".format(
-                ''.join(["🍂" for i in range(math.floor(percentage / 5))]),
-                ''.join(["🍃" for i in range(20 - math.floor(percentage / 5))]),
+                ''.join(["🍂" for i in range(math.floor(percentage / 10))]),
+                ''.join(["🍃" for i in range(10 - math.floor(percentage / 10))]),
                 round(percentage, 2))
         if x == 4:
             progress = "[{0}{1}] \nP: {2}%\n".format(
-                ''.join(["🐳" for i in range(math.floor(percentage / 5))]),
-                ''.join(["🐋" for i in range(20 - math.floor(percentage / 5))]),
+                ''.join(["🛬" for i in range(math.floor(percentage / 10))]),
+                ''.join(["🛫" for i in range(10 - math.floor(percentage / 10))]),
                 round(percentage, 2))
         tmp = progress + "{0} of {1}\nSpeed: {2}/s\nETA: {3}\n".format(
             humanbytes(current),
