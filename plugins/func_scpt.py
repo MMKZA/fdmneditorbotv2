@@ -139,7 +139,7 @@ def func_scpt(script_url):
             all_lks.append(all['data-src'])
         vlink = all_lks[0]
         try:
-            vlink = vlink.replace('_SX300','')
+            vlink = vlink.replace('_SX300','_FMjpg_UX1000_')
         except:
             pass
         phto_url = vlink
@@ -393,7 +393,7 @@ def func_scpt(script_url):
                     Trnl.sh2.update('I2', channels.bt_chnl[1])
         # POSTER
         try:
-            phto_url = omdb_req["Poster"].replace('_SX300', '')
+            phto_url = omdb_req["Poster"].replace('_SX300', '_FMjpg_UX1000_')
         except:
             phto_url = ""
         if (phto_url == "") or ('N/A' in phto_url):
@@ -730,7 +730,7 @@ def func_scpt(script_url):
             phto_url = ""
     if phto_url == "":
         try:
-            phto_url = omdb_req["Poster"].replace('_SX300', '')
+            phto_url = omdb_req["Poster"].replace('_SX300', '_FMjpg_UX1000_')
         except:
             phto_url = ""
     if (phto_url == "") or ('N/A' in phto_url):
