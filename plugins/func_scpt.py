@@ -8,8 +8,8 @@ import urllib
 import datetime
 from tmdbv3api import TMDb, Search, Genre
 from json2html import *
-from lxml import html
 from translation import Translation
+from lxml import html
 from channels import channels
 
 logging.basicConfig(level=logging.DEBUG,
@@ -22,9 +22,8 @@ def func_scpt(script_url):
         if 'movies' in script_url:
             script_url = 'https://api.burmalinkchannel.com/moviedetail/' + script_url.split('/')[-1]
     req = requests.get(script_url)
-    # override encoding by real educated guess as provided by chardet
+    tree = html.fromstring(req.content)
     req.encoding = req.apparent_encoding
-    # access the data
     html_text = req.text
     soup = BeautifulSoup(html_text, 'html.parser')
     wscpt = soup.prettify()
@@ -46,20 +45,21 @@ def func_scpt(script_url):
         for r in rmv:
             if r in title:
                 title = title.replace(r, '').strip()
-        try:
-            imdb_hrf = []
-            for h in soup.find_all('a', href=True):
-                imdb_hrf.append(h['href'])
-            for h in imdb_hrf:
-                if "https://www.imdb.com/title/t" in h:
-                    imdb_url = h
-                    imdb_id = imdb_url.split('/', 5)[4]
-        except:
-            imdb_id = omdb_req['imdbID']
-            if (len(imdb_id) != 0) and ('NA' not in imdb_id):
-                imdb_url = 'https://www.imdb.com/title/' + imdb_id
         omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(title) + '&y=' + year + '&apikey=39ecaf7'
         omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
+        imdb_hrf = []
+        for h in soup.find_all('a', href=True):
+            imdb_hrf.append(h['href'])
+        for h in imdb_hrf:
+            if "https://www.imdb.com/title/t" in h:
+                imdb_id = h.split('/', 5)[4]
+        if ('Error' not in omdb_req) and ('imdbID' in omdb_req) and (str(omdb_req['imdbID']) != 'N/A') and (imdb_id == ''):
+            imdb_id = omdb_req['imdbID']
+        if imdb_id == '':
+            imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
+            Trnl.sh2.update('L3', imdb_wrn)
+            imdb_id = Trnl.sh2.acell('M7').value
+        imdb_url = 'https://www.imdb.com/title/' + imdb_id
         if 'Error' in omdb_req:
             omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
             omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
@@ -332,7 +332,7 @@ def func_scpt(script_url):
         # RUNTIME
         try:
             rntm = soup.find("th", text="duration").find_next_sibling("td").text
-            rntm = "{} နာရီ :  {} မိနစ်".format(*divmod(int(rntm), 60))
+            rntm = "{} နာရီ : {} မိနစ်".format(*divmod(int(rntm), 60))
         except:
             rntm = ""
         if rntm == "":
@@ -383,7 +383,7 @@ def func_scpt(script_url):
         ctry = soup.find("th", text="reCountry").find_next_sibling("td").text
         # COUNTRY_RELATED
         if len(ctry) != 0:
-            if ("India" in ctry) or ("india" in ctry):
+            if "India" in ctry:
                 Trnl.sh2.update('J2', channels.bt_chnl[0])
                 Trnl.sh2.update('I2', channels.bt_chnl[1])
         if 'Country' in omdb_req:
@@ -435,6 +435,17 @@ def func_scpt(script_url):
             year = rls_date.year
         omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(vcap) + '&y=' + str(year) + '&apikey=39ecaf7'
         omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
+        imdb_id = ''
+        if ('Error' not in omdb_req) and ('imdbID' in omdb_req) and (str(omdb_req['imdbID']) != 'N/A') and (imdb_id == ''):
+            imdb_id = omdb_req['imdbID']
+        if imdb_id == '':
+            imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
+            Trnl.sh2.update('L3', imdb_wrn)
+            imdb_id = Trnl.sh2.acell('M7').value
+        imdb_url = 'https://www.imdb.com/title/' + imdb_id
+        if 'Error' in omdb_req:
+            omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
+            omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
         if 'Movie' in Trnl.sh2.acell('P3').value:
             results = search.movies({"query": vcap, "year": year})
             genres = genre.movie_list()
@@ -559,15 +570,18 @@ def func_scpt(script_url):
         omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
         imdb_id = ''
         imdb_lst = []
-        for s in soup.find_all('a', href = True):
+        for s in soup.find_all('a', href=True):
             imdb_lst.append(s['href'])
         for i in imdb_lst:
             if "https://www.imdb.com/title/" in i:
                 imdb_id = i.split('/')[-2]
+        if ('Error' not in omdb_req) and ('imdbID' in omdb_req) and (str(omdb_req['imdbID']) != 'N/A') and (imdb_id == ''):
+            imdb_id = omdb_req['imdbID']
         if imdb_id == '':
             imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
             Trnl.sh2.update('L3', imdb_wrn)
             imdb_id = Trnl.sh2.acell('M7').value
+        imdb_url = 'https://www.imdb.com/title/' + imdb_id
         if 'Error' in omdb_req:
             omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
             omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
@@ -628,27 +642,6 @@ def func_scpt(script_url):
                 except:
                     mv_gnr = '⁉️'
         try:
-            imdb_hrf = []
-            for h in soup.find_all('a',href=True):
-                imdb_hrf.append(h['href'])
-            for h in imdb_hrf:
-                if "https://www.imdb.com/title/t" in h:
-                    imdb_url = h
-                    imdb_id = imdb_url.split('/', 5)[4]
-        except:
-            imdb_id = omdb_req['imdbID']
-            if (len(imdb_id) != 0) and ('NA' not in imdb_id):
-                imdb_url = 'https://www.imdb.com/title/' + imdb_id
-        try:
-            omdb_req = omdb_req
-        except:
-            hrf_lks = []
-            for all in soup.find_all('a', href=True):
-                hrf_lks.append(all['href'])
-            for h in hrf_lks:
-                omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
-                omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
-        try:
             if "India" in omdb_req['Country']:
                 Trnl.sh2.update('J2', channels.bt_chnl[0])
                 Trnl.sh2.update('I2', channels.bt_chnl[1])
@@ -675,7 +668,6 @@ def func_scpt(script_url):
         try:
             ctry = omdb_req['Country']
         except:
-            tree = html.fromstring(req.content)
             xpth_ctry = tree.xpath('//*[@id="uwee"]/div[2]/p[4]/text()')
             mv_ctry = []
             if len(xpth_ctry) != 0:
@@ -765,18 +757,17 @@ def func_scpt(script_url):
     imdb_rt = ''
     imdb_vt = ''
     imdb = ''
-    try:
-        imdb_rt = omdb_req['imdbRating']
-        imdb_vt = omdb_req['imdbVotes']
-        imdb = imdb_rt + '/10 (' + imdb_vt + ' Votes)'
-    except:
-        imdb = ''
-    if (str(imdb_rt) == 'N/A') or (imdb == ''):
-        try:
-            for result in results:
-                imdb = str(result.vote_average) + '/10'
-        except:
-            imdb = ''
+    imdb_req = requests.get(imdb_url)
+    imdb_req.encoding = imdb_req.apparent_encoding
+    imdb_html = imdb_req.text
+    imdb_soup = BeautifulSoup(imdb_html, 'html.parser')
+    for i in imdb_soup.select(
+            '#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-db8c1937-0.eGmDjE.sc-80d4314-3.iBtAhY > div > div:nth-child(1) > a > div > div > div.sc-7ab21ed2-0.fAePGh > div.sc-7ab21ed2-2.kYEdvH > span.sc-7ab21ed2-1.jGRxWM'):
+        imdb_rt = i.text
+    for i in imdb_soup.select(
+            '#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-db8c1937-0.eGmDjE.sc-80d4314-3.iBtAhY > div > div:nth-child(1) > a > div > div > div.sc-7ab21ed2-0.fAePGh > div.sc-7ab21ed2-3.dPVcnq'):
+        imdb_vt = i.text
+    imdb = imdb_rt + '/10 (' + imdb_vt + ' Votes)'
     if imdb == '':
         imdb = '⁉️'
     vd_qlt = Trnl.sh2.acell('H2').value
