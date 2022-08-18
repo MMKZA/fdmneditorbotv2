@@ -762,12 +762,21 @@ def func_scpt(script_url):
             phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
         except:
             phto_url = vlink
+    imdb_rt = ''
+    imdb_vt = ''
+    imdb = ''
+    imdb_rt = omdb_req['imdbRating']
+    imdb_vt = omdb_req['imdbVotes']
+    imdb = imdb_rt + '/10 (' + imdb_vt + ' Votes)'
+    if imdb == '':
+        imdb = '⁉️'
     vd_qlt = Trnl.sh2.acell('H2').value
     typ = Trnl.sh2.acell('P3').value
     Trnl.sh2.update('M4', rntm)
     Trnl.sh2.update('M3', mv_gnr)
     Trnl.sh2.update('M5', year)
     Trnl.sh2.update('M6', ctry)
+    Trnl.sh2.update('M8', imdb)
     Trnl.sh2.update('A2', vcap + "\n\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n⏰ " + rntm + "\n🌎 " + ctry + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
     Trnl.sh2.update('C2', phto_url)
     Trnl.sh2.update('D2', vcap)
