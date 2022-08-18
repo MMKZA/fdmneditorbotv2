@@ -777,7 +777,7 @@ def func_scpt(script_url):
     Trnl.sh2.update('M5', year)
     Trnl.sh2.update('M6', ctry)
     Trnl.sh2.update('M8', imdb)
-    Trnl.sh2.update('A2', vcap + "\n\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n⏰ " + rntm + "\n🌎 " + ctry + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
+    Trnl.sh2.update('A2', vcap + "\n\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
     Trnl.sh2.update('C2', phto_url)
     Trnl.sh2.update('D2', vcap)
     vcap_hsh = ''.join(e for e in vcap if e.isalnum())
@@ -790,6 +790,6 @@ def func_scpt(script_url):
     Trnl.sh2.update('E2', vcap_hsh)
     Trnl.sh2.update('F2', credit)
     vcap = '<b>' + vcap + '</b>'
-    msg_whl = phto_url + "\n\n" + vcap + "\n\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n⏰ " + rntm + "\n🌎 " + ctry + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
+    msg_whl = phto_url + "\n\n" + vcap + "\n\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
     msg_trm = msg_whl[0:4095]
     Trnl.sh2.update('O2', msg_trm)
