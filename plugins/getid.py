@@ -40,6 +40,10 @@ def setup(bot, update):
         srs_no = translator.translate(srs_no,'my','en').text
     except:
         srs_no = '၀၀၀'
+    try:
+        srs_no = srs_no.replace('း','')
+    except:
+        pass
     index = len(no_find)+1
     Trnl.sh3.update('A{}'.format(index),srs_no)
     Trnl.sh2.update('D3',srs_no)
