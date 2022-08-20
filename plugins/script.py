@@ -53,7 +53,6 @@ async def script_call_back(bot, update):
         #if "Series" in typ:
             #invt_lk = Trnl.sh2.acell('I2').value
             #vd_lk = invt_lk
-        vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
         chnl_hplk = '<a href="' + invt_lk + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
         vd_qlt = Trnl.sh2.acell('H2').value
         mv_gnr = Trnl.sh2.acell('M3').value
@@ -63,6 +62,7 @@ async def script_call_back(bot, update):
         imdb = Trnl.sh2.acell('M8').value
         vcap = '<b>' + vcap + '</b>'
         if "Movie" in typ:
+            vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
             mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + year + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN
         if "Series" in typ:
             srs_no = 'ဇာတ်လမ်းတွဲ အမှတ်စဥ်: ' + '`' + 'စရ-{}'.format(Trnl.sh2.acell('D3').value) + '`'
