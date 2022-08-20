@@ -768,7 +768,7 @@ def func_scpt(script_url):
             '#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-db8c1937-0.eGmDjE.sc-80d4314-3.iBtAhY > div > div:nth-child(1) > a > div > div > div.sc-7ab21ed2-0.fAePGh > div.sc-7ab21ed2-3.dPVcnq'):
         imdb_vt = i.text
     imdb = imdb_rt + '/10 (' + imdb_vt + ' Votes)'
-    if imdb == '':
+    if imdb_rt == '':
         imdb = '⁉️'
     vd_qlt = Trnl.sh2.acell('H2').value
     typ = Trnl.sh2.acell('P3').value
