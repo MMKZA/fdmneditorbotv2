@@ -14,8 +14,9 @@ def setup(bot, update):
     full_id = update.chat.id
     Trnl.sh2.update('J2',full_id)
     Trnl.sh2.update('P3','Series')
-    invt_lk = bot.create_chat_invite_link(chat_id=update.chat.id)
-    Trnl.sh2.update('I2',invt_lk['invite_link'])
+    #invt_lk = bot.create_chat_invite_link(chat_id=update.chat.id)
+    chat = bot.get_chat(chat_id=update.chat.id)
+    Trnl.sh2.update('I2',chat['invite_link'])
     bot.delete_messages(
         chat_id=full_id,
         message_ids=update.message_id
@@ -26,6 +27,23 @@ def setup(bot, update):
         chat_id=full_id,
         photo=inmemoryfile
     )
+    no_find = Trnl.sh3.col_values(1)
+    no_lst = []
+    for n in no_find:
+        if n.isdigit():
+            no_lst.append(n)
+    try:
+        base = int(max(no_lst))
+        srs_no = "{0:0=3d}".format( base + 1)
+        translator = Translator()
+        srs_no = translator.translate(srs_no,'my','en').text
+    except:
+        srs_no = '၀၀၀'
+    index = len(no_find)+1
+    Trnl.sh3.update('A{}'.format(index),srs_no)
+    Trnl.sh2.update('D3',srs_no)
+    Trnl.sh3.update('B{}'.format(index),chat['invite_link'])
+    Trnl.sh3.update('C{}'.format(index),chat['title'])
 @pyrogram.Client.on_message(pyrogram.filters.command(["pic2"]))
 def setpic(bot, update):
     r = requests.get(Trnl.sh2.acell('C2').value)
