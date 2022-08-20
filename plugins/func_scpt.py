@@ -455,6 +455,8 @@ def func_scpt(script_url):
         ctry = ''
         for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.country'):
             ctry = all.text
+        if ctry == '':
+            ctry = '⁉️'
         mv_gnr = ""
         try:
             if 'Genre' in omdb_req:
