@@ -4,6 +4,7 @@ from trnl import Trnl
 import logging
 import requests
 import io
+from googletrans import Translator
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
