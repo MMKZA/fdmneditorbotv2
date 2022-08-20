@@ -79,3 +79,5 @@ def imdb(bot, update):
         chat_id=full_id,
         message_ids=update.message_id
     )
+    script_url = Trnl.sh2.acell('M2').value
+    func_scpt(script_url)
