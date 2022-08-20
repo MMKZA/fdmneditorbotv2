@@ -50,9 +50,9 @@ async def script_call_back(bot, update):
             elif Trnl.sh2.acell('J2').value == channels.rt_chnl[0]:
                 invt_lk = channels.rt_chnl[2]
         invt_lk = 'https://t.me/FDMN_Signup_Bot'
-        if "Series" in typ:
-            invt_lk = Trnl.sh2.acell('I2').value
-            vd_lk = invt_lk
+        #if "Series" in typ:
+            #invt_lk = Trnl.sh2.acell('I2').value
+            #vd_lk = invt_lk
         vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
         chnl_hplk = '<a href="' + invt_lk + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
         vd_qlt = Trnl.sh2.acell('H2').value
@@ -65,13 +65,14 @@ async def script_call_back(bot, update):
         if "Movie" in typ:
             mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + year + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN
         if "Series" in typ:
-            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + year + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_FB
+            srs_no = 'ဇာတ်လမ်းတွဲ အမှတ်စဥ်: ' + '`' + 'စရ-{}'.format(Trnl.sh2.acell('D3').value) + '`'
+            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + srs_no + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + Translation.CHNL_FB
         try:
             mchnl_msg = await bot.send_photo(
                 "@fdmnchannel",
                 phto_url,
-                mssg,
-                'html'
+                mssg
+                #'html'
             )
         except:
             phto_req = requests.get(phto_url)
@@ -79,8 +80,8 @@ async def script_call_back(bot, update):
             mchnl_msg = await bot.send_photo(
                 "@fdmnchannel",
                 phto_bio,
-                mssg,
-                'html'
+                mssg
+                #'html'
             )
         Trnl.sh2.update('G2', mchnl_msg.message_id)
         await bot.send_message(
