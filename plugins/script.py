@@ -65,7 +65,7 @@ async def script_call_back(bot, update):
             vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
             mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + year + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN
         if "Series" in typ:
-            srs_no = 'ဇာတ်လမ်းတွဲ အမှတ်စဥ်: ' + '`' + 'စရ-{}'.format(Trnl.sh2.acell('D3').value) + '`'
+            srs_no = 'ဇာတ်လမ်းတွဲ အမှတ်စဥ်: ' + '`' + 'စရ-{}'.format(Trnl.sh2.acell('D3').value) + '`' + '\nဇာတ်လမ်းတွဲ အမှတ်စဥ်ကို Copy ယူရန် "စရ-xxx" စာသားပေါ်ကို တစ်ချက်နှိပ်ပါ 🔝'
             mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + srs_no + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + Translation.CHNL_FB
         try:
             mchnl_msg = await bot.send_photo(
