@@ -42,27 +42,13 @@ async def progress_for_pyrogram(
         elapsed_time = TimeFormatter(milliseconds=elapsed_time)
         estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
         
-        x = random.randint(1,4)
-        if x == 1:
-            progress = "[{0}{1}] \nP: {2}%\n".format(
-                ''.join(["🌳" for i in range(math.floor(percentage / 10))]),
-                ''.join(["🌱" for i in range(10 - math.floor(percentage / 10))]),
-                round(percentage, 2))
-        if x == 2:
-            progress = "[{0}{1}] \nP: {2}%\n".format(
-                ''.join(["🦋" for i in range(math.floor(percentage / 10))]),
-                ''.join(["🐛" for i in range(10 - math.floor(percentage / 10))]),
-                round(percentage, 2))
-        if x == 3:
-            progress = "[{0}{1}] \nP: {2}%\n".format(
-                ''.join(["🍂" for i in range(math.floor(percentage / 10))]),
-                ''.join(["🍃" for i in range(10 - math.floor(percentage / 10))]),
-                round(percentage, 2))
-        if x == 4:
-            progress = "[{0}{1}] \nP: {2}%\n".format(
-                ''.join(["🛬" for i in range(math.floor(percentage / 10))]),
-                ''.join(["🛫" for i in range(10 - math.floor(percentage / 10))]),
-                round(percentage, 2))
+        zero_lst = ['🌱','🐛','🍃','🌹']
+        one_lst = ['🌳','🦋','🍂','🥀']
+        x = random.randint(0,len(zero_lst)-1)
+        progress = "[{0}{1}] \nP: {2}%\n".format(
+            ''.join(['{}'.format(one_lst[x]) for i in range(math.floor(percentage / 10))]),
+            ''.join(['{}'.format(zero_lst[x]) for i in range(10 - math.floor(percentage / 10))]),
+            round(percentage, 2))
         tmp = progress + "{0} of {1}\nSpeed: {2}/s\nETA: {3}\n".format(
             humanbytes(current),
             humanbytes(total),
