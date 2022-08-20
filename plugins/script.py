@@ -66,7 +66,8 @@ async def script_call_back(bot, update):
             mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + year + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN
         if "Series" in typ:
             srs_no = 'စီးရီးအမှတ်စဥ် 👉' + '`' + 'စရ-{}'.format(Trnl.sh2.acell('D3').value) + '`' + '👈 ကူးယူရန် ထိပါ'
-            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + srs_no + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + Translation.CHNL_FB
+            srs_inst = "\n\n<b>အသစ်ရောက်လာတဲ့သူတွေက...</b>\n<b>စီးရီးချာနယ် ထဲဝင်နည်း Video ကို 👉<a href='https://t.me/fdmnchannel/1017'> ဒီနေရာမှာ</a>👈 နှိပ်ပြီး ကြည့်ပါ။</b>\n<b>ဝင်ကြေးပေးစရာမလို(အခမဲ့)ပါ။</b>"
+            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + srs_no + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + srs_inst + "\n\n" + Translation.CHNL_FB
         try:
             mchnl_msg = await bot.send_photo(
                 "@fdmnchannel",
