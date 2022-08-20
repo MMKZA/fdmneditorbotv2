@@ -476,6 +476,7 @@ def func_scpt(script_url):
                 mv_gnr = ", ".join(g for g in gnr_lst)
             except:
                 mv_gnr = "⁉️"
+        rntm = ""
         try:
             if 'tvshows' in script_url:
                 for all in soup.select('#info > div:nth-child(9) > span'):
