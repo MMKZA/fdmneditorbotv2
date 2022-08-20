@@ -455,6 +455,7 @@ def func_scpt(script_url):
         ctry = ''
         for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.country'):
             ctry = all.text
+        mv_gnr = ""
         try:
             if 'Genre' in omdb_req:
                 mv_gnr = omdb_req['Genre']
@@ -475,7 +476,9 @@ def func_scpt(script_url):
                             gnr_lst.append(g.name)
                 mv_gnr = ", ".join(g for g in gnr_lst)
             except:
-                mv_gnr = "⁉️"
+                mv_gnr = ""
+        if mv_gnr == "":
+            mv_gnr = "⁉️"
         rntm = ""
         try:
             if 'tvshows' in script_url:
