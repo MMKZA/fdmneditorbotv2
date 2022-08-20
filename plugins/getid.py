@@ -5,6 +5,7 @@ import logging
 import requests
 import io
 from googletrans import Translator
+from plugins.func_scpt import func_scpt
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
