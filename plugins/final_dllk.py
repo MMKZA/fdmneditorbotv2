@@ -236,21 +236,25 @@ def trans(bot, update):
                         text=Trnl.sh2.acell('L3').value
                     )
                 ytsn_lk = cnmm(web_url)
-                if "Manual" in ytsn_lk:
+                if len(ytsn_lk) == 1:
                     bot.send_message(
                         chat_id=update.chat.id,
                         text=ytsn_lk
                         )
-                if "Manual" not in ytsn_lk:
+                if len(ytsn_lk) == 2:
                     avlb_lk = Trnl.sh2.acell('Q2').value
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text=ytsn_lk[1]
+                    )
                     bot.send_message(
                         chat_id=update.chat.id,
                         text="ရရှိနိုင်သော links များ👇\n" + avlb_lk
                     )
-                    gdrv_retrn = ytsn_dllk(ytsn_lk)
+                    gdrv_retrn = ytsn_dllk(ytsn_lk[0])
                     if "error" in gdrv_retrn:
                         gdrvclean(gdrv_retrn)
-                        gdrv_lk = ytsn_dllk(ytsn_lk)
+                        gdrv_lk = ytsn_dllk(ytsn_lk[0])
                     else:
                         gdrv_lk = gdrv_retrn
                     #bot.send_message(
