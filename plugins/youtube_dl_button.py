@@ -218,9 +218,7 @@ async def youtube_dl_call_back(bot, update):
                 "𝙩𝙧𝙮𝙞𝙣𝙜 𝙩𝙤 𝙪𝙥𝙡𝙤𝙖𝙙 𝙩𝙤 𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢, 𝙣𝙤𝙬 "
             )
             for le_file in totlaa_sleif:
-                i_lst = list(range(1,len(totlaa_sleif)))
-                for i in i_lst:
-                    i_th = i
+                i_th = totlaa_sleif.index(le_file) + 1
                 dwnl_dir = tmp_directory_for_each_user + "/fdmnsplits/" + le_file
                 is_w_f = False
                 images = await generate_screen_shots(
@@ -232,7 +230,7 @@ async def youtube_dl_call_back(bot, update):
                     9
                 )
                 await bot.edit_message_text(
-                    text=Translation.UPLOAD_START,
+                    text=Translation.UPLOAD_START + f"\n<code>{ba_se_file_name} Part {i_th}</code>",
                     chat_id=update.message.chat.id,
                     message_id=update.message.message_id
                 )
@@ -281,12 +279,12 @@ async def youtube_dl_call_back(bot, update):
                     # reply_to_message_id=update.message.reply_to_message.message_id,
                     progress=progress_for_pyrogram,
                     progress_args=(
-                        Translation.UPLOAD_START,
+                        Translation.UPLOAD_START + f"\n<code>{ba_se_file_name} Part {i_th}</code>",
                         update.message,
                         start_time
                     )
                 )
-                Trnl.sh1.update('P2',str(vdf_msg.message_id-i_th+1))
+                Trnl.sh2.update('P2',str(vdf_msg.message_id-i_th+1))
             #await bot.edit_message_text(
                 #chat_id=update.message.chat.id,
                 #text=Translation.RCHD_TG_API_LIMIT.format(time_taken_for_download, humanbytes(file_size)),
@@ -429,7 +427,7 @@ async def youtube_dl_call_back(bot, update):
                     # reply_to_message_id=update.message.reply_to_message.message_id,
                     progress=progress_for_pyrogram,
                     progress_args=(
-                        Translation.UPLOAD_START,
+                        Translation.UPLOAD_START + f"\n<code>{vd_name}</code>",
                         update.message,
                         start_time
                     )
@@ -475,15 +473,15 @@ async def youtube_dl_call_back(bot, update):
             # media=media_album_p
             # )
             #
-            try:
-                shutil.rmtree(tmp_directory_for_each_user)
-                os.remove(thumb_image_path)
-            except:
-                pass
-            await bot.edit_message_text(
-                text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS.format(time_taken_for_download,
+        try:
+            shutil.rmtree(tmp_directory_for_each_user)
+            os.remove(thumb_image_path)
+        except:
+            pass
+        await bot.edit_message_text(
+            text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS.format(time_taken_for_download,
                                                                             time_taken_for_upload),
-                chat_id=update.message.chat.id,
-                message_id=update.message.message_id,
-                disable_web_page_preview=True
-            )
+            chat_id=update.message.chat.id,
+            message_id=update.message.message_id,
+            disable_web_page_preview=True
+        )
