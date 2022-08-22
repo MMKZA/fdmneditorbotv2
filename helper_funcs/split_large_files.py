@@ -34,6 +34,7 @@ MAX_TG_SPLIT_FILE_SIZE = 1610612736
 async def split_large_files(input_file):
     working_directory = os.path.dirname(os.path.abspath(input_file))
     new_working_directory = working_directory + "/fdmnsplits/"
+    new_working_directory = new_working_directory.replace('/workspace','.')
     # create download directory, if not exist
     if not os.path.isdir(new_working_directory):
         os.makedirs(new_working_directory)
