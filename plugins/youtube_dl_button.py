@@ -128,7 +128,8 @@ async def youtube_dl_call_back(bot, update):
         command_to_exec = [
             "yt-dlp",
             "-c",
-            "--max-filesize", str(Config.TG_MAX_FILE_SIZE),
+            #"--max-filesize", str(Config.TG_MAX_FILE_SIZE),
+            "--max-filesize", str(4294967296),
             "--prefer-ffmpeg",
             "--extract-audio",
             "--audio-format", youtube_dl_ext,
@@ -144,7 +145,8 @@ async def youtube_dl_call_back(bot, update):
         command_to_exec = [
             "yt-dlp",
             "-c",
-            "--max-filesize", str(Config.TG_MAX_FILE_SIZE),
+            #"--max-filesize", str(Config.TG_MAX_FILE_SIZE),
+            "--max-filesize", str(4294967296),
             "--embed-subs",
             "-f", minus_f_format,
             "--hls-prefer-ffmpeg", youtube_dl_url,
