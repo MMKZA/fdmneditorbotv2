@@ -9,7 +9,6 @@ import time
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from logging.handlers import RotatingFileHandler
-import ffmpeg
 
 logging.basicConfig(
     level=logging.DEBUG,
