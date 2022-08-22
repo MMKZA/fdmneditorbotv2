@@ -200,11 +200,98 @@ async def youtube_dl_call_back(bot, update):
             # https://stackoverflow.com/a/678242/4723940
             file_size = os.stat(download_directory).st_size
         if file_size > Config.TG_MAX_FILE_SIZE:
-            await bot.edit_message_text(
+            d_f_s = humanbytes(os.path.getsize(download_directory))
+            i_m_s_g = await bot.edit_message_text(
+                text="𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢 𝙎𝙪𝙥𝙥𝙤𝙧𝙩𝙨 2𝙂𝘽 𝙈𝙖𝙭\n𝘿𝙚𝙩𝙚𝙘𝙩𝙚𝙙 𝙁𝙞𝙡𝙚 𝙎𝙞𝙯𝙚: {} \n𝙩𝙧𝙮𝙞𝙣𝙜 𝙩𝙤 𝙨𝙥𝙡𝙞𝙩 𝙩𝙝𝙚 𝙛𝙞𝙡𝙚𝙨".format(d_f_s),
                 chat_id=update.message.chat.id,
-                text=Translation.RCHD_TG_API_LIMIT.format(time_taken_for_download, humanbytes(file_size)),
                 message_id=update.message.message_id
             )
+            splitted_dir = await split_large_files(download_directory)
+            totlaa_sleif = os.listdir(splitted_dir)
+            totlaa_sleif.sort()
+            number_of_files = len(totlaa_sleif)
+            logger.info(totlaa_sleif)
+            ba_se_file_name = os.path.basename(download_directory)
+            await i_m_s_g.edit_text(
+                f"𝘿𝙚𝙩𝙚𝙘𝙩𝙚𝙙 𝙁𝙞𝙡𝙚 𝙎𝙞𝙯𝙚: {d_f_s} \n"
+                f"<code>{ba_se_file_name}</code> 𝙨𝙥𝙡𝙞𝙩𝙩𝙚𝙙 𝙞𝙣𝙩𝙤 {number_of_files} 𝙛𝙞𝙡𝙚𝙨.\n"
+                "𝙩𝙧𝙮𝙞𝙣𝙜 𝙩𝙤 𝙪𝙥𝙡𝙤𝙖𝙙 𝙩𝙤 𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢, 𝙣𝙤𝙬 "
+            )
+            for le_file in totlaa_sleif:
+                i_lst = list(range(1,len(totlaa_sleif)))
+                for i in i_lst:
+                    i_th = i
+                dwnl_dir = tmp_directory_for_each_user + "/fdmnsplits/" + le_file
+                is_w_f = False
+                images = await generate_screen_shots(
+                    dwnl_dir,
+                    tmp_directory_for_each_user,
+                    is_w_f,
+                    Config.DEF_WATER_MARK_FILE,
+                    300,
+                    9
+                )
+                await bot.edit_message_text(
+                    text=Translation.UPLOAD_START,
+                    chat_id=update.message.chat.id,
+                    message_id=update.message.message_id
+                )
+                width = 0
+                height = 0
+                duration = 0
+                if tg_send_type != "file":
+                    metadata = extractMetadata(createParser(dwnl_dir))
+                    if metadata is not None:
+                        if metadata.has("duration"):
+                            duration = metadata.get('duration').seconds
+                if os.path.exists(thumb_image_path):
+                    width = 0
+                    height = 0
+                    metadata = extractMetadata(createParser(thumb_image_path))
+                    if metadata.has("width"):
+                        width = metadata.get("width")
+                    if metadata.has("height"):
+                        height = metadata.get("height")
+                start_time = time.time()
+                ssimg = images[random.randint(0, 2)]
+                metadata = extractMetadata(createParser(ssimg))
+                width = metadata.get("width")
+                height = metadata.get("height")
+                if "@" in str(Trnl.sh2.acell('J2').value):
+                    chnl_id = update.message.chat.id
+                else:
+                    chnl_id = int(Trnl.sh2.acell('J2').value)
+                vcap = Trnl.sh2.acell('D2').value + " | Part {}".format(i_th)
+                if "Series" in Trnl.sh2.acell('P3').value:
+                    vd_name = description
+                else:
+                    vd_name = vcap + " | " + Trnl.sh2.acell('H2').value
+                vdf_msg = await bot.send_video(
+                    # chat_id=update.message.chat.id,
+                    chat_id=chnl_id,
+                    video=dwnl_dir,
+                    caption=vd_name,
+                    parse_mode="HTML",
+                    duration=duration,
+                    width=width,
+                    height=height,
+                    supports_streaming=True,
+                    # reply_markup=reply_markup,
+                    thumb=ssimg,
+                    # reply_to_message_id=update.message.reply_to_message.message_id,
+                    progress=progress_for_pyrogram,
+                    progress_args=(
+                        Translation.UPLOAD_START,
+                        update.message,
+                        start_time
+                    )
+                )
+                Trnl.sh1.update('P2',str(vdf_msg.message_id-i_th+1))
+            #await bot.edit_message_text(
+                #chat_id=update.message.chat.id,
+                #text=Translation.RCHD_TG_API_LIMIT.format(time_taken_for_download, humanbytes(file_size)),
+                #message_id=update.message.message_id
+            #)
         else:
             #is_w_f = False
             #images = await generate_screen_shots(
