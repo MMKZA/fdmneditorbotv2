@@ -73,7 +73,7 @@ async def split_large_files(input_file):
                 str(base_name), str(i).zfill(5), str(input_extension)
             )
 
-            output_file = os.path.join(new_working_directory, parted_file_name)
+            output_file = os.path.join(new_working_directory, parted_file_name).replace('/workspace','.')
             LOGGER.info(input_file)
             LOGGER.info(output_file)
             LOGGER.info(
