@@ -29,7 +29,7 @@ else:
 
 # the Strings used for this "thing"
 from translation import Translation
-
+from helper_funcs.split_large_files import split_large_files
 import pyrogram
 
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
