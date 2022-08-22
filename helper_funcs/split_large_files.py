@@ -72,6 +72,7 @@ async def split_large_files(input_file):
             )
 
             output_file = os.path.join(new_working_directory, parted_file_name)
+            LOGGER.info(input_file)
             LOGGER.info(output_file)
             LOGGER.info(
                 await cult_small_video(
