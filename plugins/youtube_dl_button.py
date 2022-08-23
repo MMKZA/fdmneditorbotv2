@@ -65,6 +65,7 @@ async def youtube_dl_call_back(bot, update):
             revoke=True
         )
         return False
+    vcap = Trnl.sh2.acell('D2').value
     youtube_dl_url = Trnl.sh2.acell('L2').value
     # youtube_dl_url = update.message.reply_to_message.text
     custom_file_name = str(response_json.get("title")) + \
@@ -460,7 +461,6 @@ async def youtube_dl_call_back(bot, update):
                     chnl_id = update.message.chat.id
                 else:
                     chnl_id = int(Trnl.sh2.acell('J2').value)
-                vcap = Trnl.sh2.acell('D2').value
                 if "Series" in Trnl.sh2.acell('P3').value:
                     vd_name = description
                 else:
