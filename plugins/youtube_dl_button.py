@@ -29,7 +29,7 @@ else:
 # the Strings used for this "thing"
 from translation import Translation
 from helper_funcs.split_large_files import split_large_files
-from helper_funcs.download_progress import download_progress
+#from helper_funcs.download_progress import download_progress
 import pyrogram
 
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
@@ -110,7 +110,7 @@ async def youtube_dl_call_back(bot, update):
                 l = entity.length
                 youtube_dl_url = youtube_dl_url[o:o + l]
     a = await bot.edit_message_text(
-        text=Translation.DOWNLOAD_START,
+        text=Translation.DOWNLOAD_START + '\n<code>{}</code>'.format(vcap),
         chat_id=update.message.chat.id,
         message_id=update.message.message_id,
     )
@@ -175,8 +175,8 @@ async def youtube_dl_call_back(bot, update):
     # Wait for the subprocess to finish
     stdout, stderr = await process.communicate()
     #Trnl.sh2.update('F5',stdout.decode().strip())
-    text = await download_progress(stdout,vcap)
-    await a.edit_text(text)
+    #text = await download_progress(stdout,vcap)
+    #await a.edit_text(text)
     e_response = stderr.decode().strip()
     t_response = stdout.decode().strip()
     logger.info(e_response)
