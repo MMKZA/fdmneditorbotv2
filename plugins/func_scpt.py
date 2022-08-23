@@ -787,7 +787,10 @@ def func_scpt(script_url):
     Trnl.sh2.update('C2', phto_url)
     Trnl.sh2.update('D2', vcap)
     Trnl.sh2.update('F2', credit)
-    vtext = pds.cvt2uni(vtext)
+    if "mm_zg" in pds.detect(vtext):
+        vtext = pds.cvt2uni(vtext.strip())
+    else:
+        vtext = vtext.strip()
     Trnl.sh2.update('O2', vtext)
     vcap_hsh = ''.join(e for e in vcap if e.isalnum())
     Trnl.sh1.update('E2', vcap_hsh)
