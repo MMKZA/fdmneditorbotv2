@@ -26,4 +26,4 @@ moviepy
 tmdbv3api
 json2html
 googletrans==3.1.0a0
-ffmpeg-python
+pyidaungsu
