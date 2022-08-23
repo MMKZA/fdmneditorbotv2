@@ -29,7 +29,6 @@ async def script_call_back(bot, update):
         #phto_bio = io.BytesIO(r.content)
         msg_trm = Trnl.sh2.acell('O2').value
         vcap = Trnl.sh2.acell('D2').value
-        vcap = '<b>' + vcap + '</b>'
         vtext = Trnl.sh2.acell('O2').value
         vd_qlt = Trnl.sh2.acell('H2').value
         mv_gnr = Trnl.sh2.acell('M3').value
@@ -39,6 +38,7 @@ async def script_call_back(bot, update):
         imdb = Trnl.sh2.acell('M8').value
         typ = Trnl.sh2.acell('P3').value
         Trnl.sh2.update('A2', vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
+        vcap = '<b>' + vcap + '</b>'
         msg_whl = phto_url + "\n\n" + vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
         msg_trm = msg_whl[0:4095]
         scpt_msg = await bot.send_message(
