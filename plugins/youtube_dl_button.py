@@ -256,17 +256,17 @@ async def youtube_dl_call_back(bot, update):
                         width = metadata.get("width")
                     if metadata.has("height"):
                         height = metadata.get("height")
+                start_time = time.time()
+                ssimg = images[random.randint(0, 2)]
+                metadata = extractMetadata(createParser(ssimg))
+                width = metadata.get("width")
+                height = metadata.get("height")
                 if 864 < width < 1296:
                     Trnl.sh2.update('H2','720p HD')
                 elif 1536 < width < 2304:
                     Trnl.sh2.update('H2','1080p FHD')
                 elif 3072 < width < 4608:
                     Trnl.sh2.update('H2','4K')
-                start_time = time.time()
-                ssimg = images[random.randint(0, 2)]
-                metadata = extractMetadata(createParser(ssimg))
-                width = metadata.get("width")
-                height = metadata.get("height")
                 if "@" in str(Trnl.sh2.acell('J2').value):
                     chnl_id = update.message.chat.id
                 else:
