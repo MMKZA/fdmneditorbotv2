@@ -29,6 +29,18 @@ async def script_call_back(bot, update):
         #phto_bio = io.BytesIO(r.content)
         msg_trm = Trnl.sh2.acell('O2').value
         vcap = Trnl.sh2.acell('D2').value
+        vcap = '<b>' + vcap + '</b>'
+        vtext = Trnl.sh2.acell('O2').value
+        vd_qlt = Trnl.sh2.acell('H2').value
+        mv_gnr = Trnl.sh2.acell('M3').value
+        rntm = Trnl.sh2.acell('M4').value
+        year = Trnl.sh2.acell('M5').value
+        ctry = Trnl.sh2.acell('M6').value
+        imdb = Trnl.sh2.acell('M8').value
+        typ = Trnl.sh2.acell('P3').value
+        Trnl.sh2.update('A2', vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
+        msg_whl = phto_url + "\n\n" + vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
+        msg_trm = msg_whl[0:4095]
         scpt_msg = await bot.send_message(
             chat_id="@fdmnscripts",
             text=msg_trm,
@@ -37,7 +49,6 @@ async def script_call_back(bot, update):
         scpt_id = scpt_msg.message_id
         vtext_lk = "https://t.me/fdmnscripts/" + str(scpt_id)
         vtext_hplk = '<a href="' + vtext_lk + '">👉 ဇာတ်ညွှန်းဖတ်ရန် နှိပ်ပါ 📜</a>'
-        typ = Trnl.sh2.acell('P3').value
         if "Movie" in typ:
             chnl_lk = str(Trnl.sh2.acell('I2').value)
             vd_lk = chnl_lk + str(Trnl.sh2.acell('P2').value)
@@ -54,12 +65,6 @@ async def script_call_back(bot, update):
             #invt_lk = Trnl.sh2.acell('I2').value
             #vd_lk = invt_lk
         chnl_hplk = '<a href="' + invt_lk + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
-        vd_qlt = Trnl.sh2.acell('H2').value
-        mv_gnr = Trnl.sh2.acell('M3').value
-        rntm = Trnl.sh2.acell('M4').value
-        year = Trnl.sh2.acell('M5').value
-        ctry = Trnl.sh2.acell('M6').value
-        imdb = Trnl.sh2.acell('M8').value
         vcap = '<b>' + vcap + '</b>'
         if "Movie" in typ:
             vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
