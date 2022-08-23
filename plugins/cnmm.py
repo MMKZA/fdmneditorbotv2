@@ -59,11 +59,16 @@ def cnmm(web_url):
         max_sz = float("{:.2f}".format(max(indices)))
         max_lst = list(filter(lambda x: str(max_sz) + "GB" in x, all_lst))
         cnmm_lst = []
+        avlb_lst = []
         kwd_st = ['https://vip.yoteshinportal.cc/', 'https://yoteshinportal.cc/', 'https://mega.nz/file/']
         for k in kwd_st:
             for m in max_lst:
                 if k in m:
                     cnmm_lst.append(m.split("|", 3)[0])
+        for k in kwd_st:
+            for a in all_lst:
+                if k in a:
+                    avlb_lst.append(a)
         prr_cnmm = cnmm_lst[0]
         max_lk = prr_cnmm.split("|", 3)[0]
         qlt_kwd = []
@@ -77,7 +82,7 @@ def cnmm(web_url):
                     max_qlt = m.split("|", 3)[1]
         if max_qlt == "":
             max_qlt = "HD"
-        avlb_lk = 'Link အားလုံး 👇\n' + "\n".join([str(lk) for lk in all_lst])
+        avlb_lk = 'Link အားလုံး 👇\n' + "\n".join([str(lk) for lk in avlb_lst])
         Trnl.sh2.update('Q2', avlb_lk)
         Trnl.sh2.update('H2', max_qlt)
         ytsn_lk = max_lk
