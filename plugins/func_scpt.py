@@ -785,6 +785,7 @@ def func_scpt(script_url):
     Trnl.sh2.update('M8', imdb)
     Trnl.sh2.update('C2', phto_url)
     Trnl.sh2.update('D2', vcap)
-    Trnl.sh2.update('E2', vcap_hsh)
     Trnl.sh2.update('F2', credit)
     Trnl.sh2.update('O2', vtext)
+    vcap_hsh = ''.join(e for e in vcap if e.isalnum())
+    Trnl.sh1.update('E2', vcap_hsh)
