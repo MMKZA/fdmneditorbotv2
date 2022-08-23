@@ -45,7 +45,7 @@ from hachoir.parser import createParser
 from PIL import Image
 #from helper_funcs.help_Nekmo_ffmpeg import generate_screen_shots
 from trnl import Trnl
-
+from plugins.script import script_call_back
 
 async def youtube_dl_call_back(bot, update):
     cb_data = update.data
@@ -502,3 +502,4 @@ async def youtube_dl_call_back(bot, update):
             message_id=update.message.message_id,
             disable_web_page_preview=True
         )
+        await script_call_back(bot, update)
