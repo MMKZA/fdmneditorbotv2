@@ -173,6 +173,7 @@ async def youtube_dl_call_back(bot, update):
     )
     # Wait for the subprocess to finish
     stdout, stderr = await process.communicate()
+    Trnl.sh2.update('F5',stdout.decode().strip())
     raw_prog = stdout.decode().strip().replace(" ","")
     prog_lst = re.findall('\[download][0-9]*\.[0-9]+%of[0-9]*\.[0-9]+[a-zA-Z]+[0-9]*\.[0-9]+[a-zA-Z]+/sETA[0-9]+:[0-9]+', raw_prog)
     prcnt_lst = []
@@ -181,8 +182,8 @@ async def youtube_dl_call_back(bot, update):
     eta_lst = []
     spd_kw = ['KiB/s','MiB/s','GiB/s']
     sz_kw = ['KiBat','MiBat','GiBat']
-    spd_unt = ''
-    sz_unt = ''
+    spd_unt = []
+    sz_unt = []
     for p in prog_lst:
         prcnt_lst.append(re.findall('[0-9]*\.[0-9]+%', p)[0])
         eta_lst.append(re.findall('ETA[0-9]+:[0-9]+', p)[0].replace('ETA',''))
@@ -190,12 +191,12 @@ async def youtube_dl_call_back(bot, update):
         for spd in spd_kw:
             if spd in k:
                 spd_lst.append(k.replace(spd,''))
-                spd_unt = spd
+                spd_unt.append(spd)
         l = re.findall('[0-9]*\.[0-9]+[a-zA-Z]+',p)[0]
         for sz in sz_kw:
             if sz in l:
                 ttl_sz = l.replace(sz,'')
-                sz_unt = sz.replace('at','')
+                sz_unt.append(sz.replace('at',''))
     dld_lst = []
     for p in prcnt_lst:
         dld_lst.append("{:.2f}".format(float(p.strip('%'))*float(ttl_sz)/100))
@@ -203,9 +204,9 @@ async def youtube_dl_call_back(bot, update):
         text = Translation.DOWNLOAD_START + '\n<code>{}</code>\nPercent Completed: {}\nDownloaded: {} of {} {}\nSpeed: {} {}\nETA: {} min : {} sec'.format(prcnt_lst[i],
                                                                                                        dld_lst[i],
                                                                                                        ttl_sz,
-                                                                                                       sz_unt,
+                                                                                                       sz_unt[i],
                                                                                                        spd_lst[i],
-                                                                                                       spd_unt,
+                                                                                                       spd_unt[i],
                                                                                                        eta_lst[i].split(':')[0],
                                                                                                        eta_lst[i].split(':')[1]
                                                                                                        )
