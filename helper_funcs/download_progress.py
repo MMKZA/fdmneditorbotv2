@@ -1,4 +1,5 @@
 import re
+from translation import Translation
 
 async def download_progress(stdout,vcap):
     raw_prog = stdout.decode().strip().replace(" ","")
