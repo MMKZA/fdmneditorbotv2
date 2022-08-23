@@ -201,7 +201,8 @@ async def youtube_dl_call_back(bot, update):
     for p in prcnt_lst:
         dld_lst.append("{:.2f}".format(float(p.strip('%'))*float(ttl_sz)/100))
     for i in range(0,len(prcnt_lst)):
-        text = Translation.DOWNLOAD_START + '\n<code>{}</code>\nPercent Completed: {}\nDownloaded: {} of {} {}\nSpeed: {} {}\nETA: {} min : {} sec'.format(prcnt_lst[i],
+        text = Translation.DOWNLOAD_START + '\n<code>{}</code>\nPercent Completed: {}\nDownloaded: {} of {} {}\nSpeed: {} {}\nETA: {} min : {} sec'.format(vcap,
+                                                                                                       prcnt_lst[i],
                                                                                                        dld_lst[i],
                                                                                                        ttl_sz,
                                                                                                        sz_unt[i],
