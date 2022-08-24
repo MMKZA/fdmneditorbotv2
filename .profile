@@ -1,4 +1,5 @@
-echo ${GOOGLE_CREDENTIALS} > /app/token.json
-echo ${GOOGLE_CREDENTIALS_AIT} > /app/aittoken.json
-echo ${GOOGLE_CREDENTIALS_ROBERT} > /app/roberttoken.json
+echo ${GSPREAD_AA} > /app/gsprd_aa.json
+echo ${GSPREAD_TP} > /app/gsprd_tp.json
+echo ${GSPREAD_RB} > /app/gsprd_rb.json
+echo ${GSPREAD_AIT} > /app/gsprd_ait.json
 #
