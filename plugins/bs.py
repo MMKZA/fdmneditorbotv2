@@ -48,7 +48,7 @@ def bs(web_url):
     for m in max_lst:
         for s in sv_kw:
             if s in m:
-                max_qlt = m.split("|", 4)[2]
+                max_qlt = m.split("|", 4)[2].strip()
     if max_qlt == "":
         max_qlt = "HD"
     avlb_lst = []
@@ -56,18 +56,18 @@ def bs(web_url):
         for a in all_lst:
             if s in a:
                 avlb_lst.append(a)
-    avlb_lk = '\n'.join([str(lk) for lk in avlb_lst])
+    avlb_lk = '\n'.join(['<code>{}</code> | {} | {} | {}'.format(str(lk).split("|", 4)[0],str(lk).split("|", 4)[1],str(lk).split("|", 4)[2],str(lk).split("|", 4)[3]) for lk in avlb_lst])
     max_avlb = []
     for m in max_lst:
         if 'GDrive' in m:
             max_avlb.append(m)
         elif 'Mega' in m:
             max_avlb.append(m)
-    max_lks = '\n'.join([str(lk) for lk in max_avlb])
+    max_lks = '\n'.join(['<code>{}</code> | {} | {} | {}'.format(str(lk).split("|", 4)[0],str(lk).split("|", 4)[1],str(lk).split("|", 4)[2],str(lk).split("|", 4)[3]) for lk in max_avlb])
     Trnl.sh2.update('Q2', avlb_lk)
-    Trnl.sh2.update('H2', max_qlt)
+    #Trnl.sh2.update('H2', max_qlt)
     try:
-        gdrv = max_avlb[1].split("|",4)[0]
+        gdrv = max_avlb[1].split("|",4)[0].strip()
         gdrv_req = requests.get(gdrv)
         gdrv_req.encoding = gdrv_req.apparent_encoding
         gdrv_html = gdrv_req.text
