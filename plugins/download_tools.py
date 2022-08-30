@@ -19,6 +19,7 @@ from plugins.transloader import transloader
 from plugins.func_scpt import func_scpt
 from plugins.series import series
 from plugins.echo_auto import echo_auto
+import requests, zipfile, io
 
 @pyrogram.Client.on_message(pyrogram.filters.command(["trsl"]))
 def trsl_tool(bot, update):
@@ -192,3 +193,15 @@ def srs_tool(bot, update):
                             text=epsd,
                             disable_web_page_preview=True
                         )
+@pyrogram.Client.on_message(pyrogram.filters.command(["ytdlpdl"]))
+def ytdlpdl_tool(bot, update):
+    if update.from_user.id in Config.AUTH_USERS:
+        zip_file_url = 'https://github.com/yt-dlp/yt-dlp/archive/refs/heads/master.zip'
+        r = requests.get(zip_file_url)
+        z = zipfile.ZipFile(io.BytesIO(r.content))
+        dl_dir = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/ytdlp"
+        z.extractall(dl_dir)
+        bot.send_message(
+            chat_id=update.chat.id,
+            text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်",
+        )
