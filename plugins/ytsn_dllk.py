@@ -49,9 +49,6 @@ def ytsn_lgn(eml, pswd, csrf):
         'remember': 'true'
         }
     res = r.post(url_login,headers=headers,data=payload,cookies=cookies,allow_redirects=False)
-    res.encoding = res.apparent_encoding
-    html_text = res.text
-    Trnl.sh2.update('A6',html_text)
     return [r,cookies]
 
 def ytsn_dllk(ytsn_lk):
