@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.DEBUG,
 logger = logging.getLogger(__name__)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
-def ytsn_lgn(eml, pswd):
+def ytsn_lgn(eml, pswd, csrf):
     url_login = 'https://yoteshinportal.cc/login'
     r = requests.session()
     cookies = {
@@ -42,7 +42,7 @@ def ytsn_lgn(eml, pswd):
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36 Edg/103.0.1264.62'
         }
     payload = {
-        '_csrf': 'YQsY5w6s-AJAj2iMCdt_MXdcasxJs6tAHMF4',
+        '_csrf': csrf, #'YQsY5w6s-AJAj2iMCdt_MXdcasxJs6tAHMF4',
         'username': eml,
         'password': pswd,
         'remember': 'true'
@@ -57,12 +57,15 @@ def ytsn_dllk(ytsn_lk):
     acc_id = Trnl.sh2.acell('N2').value
     if "robert" in acc_id:
         eml = 'robertfalconscott1997@gmail.com'
+        csrf = 'a68CI1uX-ZsR_78AIvDKeTwitEjh2P2JFSb4'
     if "tharphyo" in acc_id:
         eml = 'gantgawnitharphyoaung@gmail.com'
+        csrf = 'sgWVjryl-b2oTJB6NAmpUUg0qSs0or87TTmU'
     if "st121" in acc_id:
         eml = 'st121485@ait.asia'
+        csrf = 'fyYGZ6UJ-7JYRuoc8_CgHt3GOi4Uwi6hMp5k'
     pswd = 'Vending5'
-    rtrn = ytsn_lgn(eml,pswd)
+    rtrn = ytsn_lgn(eml,pswd,csrf)
     session = rtrn[0]
     sv_url = 'https://yoteshinportal.cc/api/save'
     get_ytsn_lk = 'https://yoteshinportal.cc/drive/' + ytsn_lk.split('/')[-1]
