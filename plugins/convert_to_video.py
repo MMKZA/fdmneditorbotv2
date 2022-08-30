@@ -20,7 +20,6 @@ if bool(os.environ.get("WEBHOOK", False)):
 else:
     from config import Config
 
-# the Strings used for this "thing"
 from translation import Translation
 
 import pyrogram
@@ -49,7 +48,7 @@ async def convert_to_video(bot, update):
     if update.reply_to_message is not None:
         nfh = random_char(5)
         download_location = Config.DOWNLOAD_LOCATION + "/" + f'{nfh}' + "/"
-        a = await bot.send_message(
+        dwnl_mssg = await bot.send_message(
             chat_id=update.chat.id,
             text=Translation.DOWNLOAD_FILE,
             reply_to_message_id=update.message_id
@@ -61,7 +60,7 @@ async def convert_to_video(bot, update):
             progress=progress_for_pyrogram,
             progress_args=(
                 Translation.DOWNLOAD_FILE,
-                a,
+                dwnl_mssg,
                 c_time
             )
         )
@@ -70,9 +69,10 @@ async def convert_to_video(bot, update):
             await bot.edit_message_text(
                 text=Translation.SAVED_RECVD_DOC_FILE,
                 chat_id=update.chat.id,
-                message_id=a.message_id
+                message_id=dwnl_mssg.message_id
             )
-            await a.delete()
+            time.sleep(2)
+            await dwnl_mssg.delete()
             up = await bot.send_message(
             chat_id=update.chat.id,
             text=Translation.UPLOAD_START,
@@ -91,9 +91,18 @@ async def convert_to_video(bot, update):
             clip.save_frame(Config.DOWNLOAD_LOCATION + "/" + f'{nfh}' + "/" + "thbnl1.jpg", t = screen_time)
             V_WIDTH = clip.w
             V_HEIGHT = clip.h
+            if 864 < V_WIDTH < 1296:
+                vd_qlt = '720p HD'
+            elif 1536 < V_WIDTH < 2304:
+                vd_qlt = '1080p FHD'
+            elif 3072 < V_WIDTH < 4608:
+                vd_qlt = '4K'
+            else:
+                vd_qlt = 'HD'
+            Trnl.sh2.update('H2',vd_qlt)
             if metadata.has("duration"):
                 duration = metadata.get('duration').seconds
-            thumb_image_path = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
+            #thumb_image_path = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
             #if not os.path.exists(thumb_image_path):
                 #thumb_image_path = None
             #else:
@@ -119,10 +128,11 @@ async def convert_to_video(bot, update):
                 chnl_id = update.message.chat.id
             else:
                 chnl_id = int(Trnl.sh2.acell('J2').value)
-            await bot.send_video(
+            vd_name = the_real_download_location.split('/')[-1].replace('.mp4','') + ' | {} @fdmnchannel'.format(vd_qlt)
+            vdf_msg = await bot.send_video(
                 chat_id=chnl_id,
                 video=the_real_download_location,
-                caption=the_real_download_location.split('/')[-1].replace('.mp4',''),
+                caption=vd_name,
                 duration=duration,
                 width=V_WIDTH,
                 height=V_HEIGHT,
@@ -137,6 +147,7 @@ async def convert_to_video(bot, update):
                     c_time
                 )
             )
+            Trnl.sh2.update('P2',str(vdf_msg.message_id))
             try:
                 os.remove(the_real_download_location)
                 os.remove(thumb_image_path)
