@@ -10,7 +10,7 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
-logging.getLogger('chardet.charsetprober').setLevel(logging.INFO)
+logging.getLogger('chardet.universaldetector').setLevel(logging.INFO)
 
 def ytsn_lgn(eml, pswd, csrf):
     url_login = 'https://yoteshinportal.cc/login'
