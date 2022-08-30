@@ -24,8 +24,8 @@ def series(web_url):
         for u in url_lst:
             dllk = gldchnl(u)
             dllk_lst.append(dllk)
-        avlb_lst = '\n'.join([d for d in dllk_lst])
-        return avlb_lst
+        #avlb_lst = '\n'.join([d for d in dllk_lst])
+        return dllk_lst
     if "channelmyanmar" in web_url:
         url_lst = []
         for a in soup.find_all('a', href=True):
@@ -91,12 +91,12 @@ def series(web_url):
         if len(mega_hd) != 0:
             lk = mega_hd[len(mega_hd) - 1]
             fnl_lst.append(lk + ' | ' + szhd)
-        if len(ytsn_lst) != 0:
-            ytsn_epsd = "Yoteshin Episodes အားလုံး👇\n" + "\n".join([str(lk) for lk in ytsn_lst])
-        if len(mega_lst) != 0:
-            mega_epsd = "Mega Episodes အားလုံး👇\n" + "\n".join([str(lk) for lk in mega_lst])
-        last_epsd = "နောက်ဆုံးတင်ထားသော Episode👇\n" + "\n".join([str(lk) for lk in fnl_lst])
+        #if len(ytsn_lst) != 0:
+            #ytsn_epsd = "Yoteshin Episodes အားလုံး👇\n" + "\n".join(['<code>{}</code>'.format(str(lk)) for lk in ytsn_lst])
+        #if len(mega_lst) != 0:
+            #mega_epsd = "Mega Episodes အားလုံး👇\n" + "\n".join(['<code>{}</code>'.format(str(lk)) for lk in mega_lst])
+        #last_epsd = "နောက်ဆုံးတင်ထားသော Episode👇\n" + "\n".join(['<code>{}</code> | {}'.format(str(lk).split('|')[0],str(lk).split('|')[1]) for lk in fnl_lst])
         try:
-            return [ytsn_epsd, mega_epsd, last_epsd]
+            return [ytsn_lst, mega_lst, fnl_lst]
         except:
-            return [ytsn_epsd, last_epsd]
+            return [ytsn_lst, fnl_lst]
