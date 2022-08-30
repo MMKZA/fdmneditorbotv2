@@ -8,6 +8,13 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 from trnl import Trnl
 
+import logging
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
+
 def transloader(base, last_url):
     req = requests.get(base)
     req.encoding = req.apparent_encoding
@@ -33,7 +40,8 @@ def transloader(base, last_url):
         premium_user="",
         premium_pass=""
     )
-    r = post(base + "/index.php", data=data, headers=headers, verify=False)
+    r = post(base + "index.php", data=data, headers=headers, verify=False)
+    logger.info(r)
     # session = HTMLSession()
     # r = session.post(base+"/index.php",data=data,headers=headers,verify=False)
     soup = BeautifulSoup(r.text, "lxml")
@@ -41,12 +49,15 @@ def transloader(base, last_url):
     data = {}
     for a in all_:
         data.update({a["name"]: a["value"]})
-    j = post(base + "/index.php", data=data, headers=headers, verify=False)
+    j = post(base + "index.php", data=data, headers=headers, verify=False)
+    logger.info(j)
     # j = session.post(base+"/index.php",data=data,headers=headers,verify=False)
     final = BeautifulSoup(j.text, "lxml")
     d = final.find_all("a", href=True)
     try:
         final_link = base + d[-2]["href"]
+        final_link = final_link.replace('//files','/files')
     except:
         final_link = "THE_ERROR"
+    logger.info(final_link)
     return final_link
