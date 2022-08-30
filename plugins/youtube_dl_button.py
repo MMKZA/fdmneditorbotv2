@@ -521,7 +521,7 @@ async def youtube_dl_call_back(bot, update):
                         vd_name = '{} @fdmnchannel'.format(vcap.replace('.',' ').replace('_',' '))
                     if typ == 'Movie':
                         vd_name = "{} | {} @fdmnchannel".format(vcap,vd_qlt)
-                        ssimg = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/fdmn_thumb.png"
+                        ssimg = Config.DOWNLOAD_LOCATION + "/1700943365/fdmn_thumb.png"
                     vdf_msg = await bot.send_video(
                         # chat_id=update.message.chat.id,
                         chat_id=chnl_id,
