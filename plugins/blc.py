@@ -2,8 +2,6 @@ import requests
 from bs4 import BeautifulSoup
 import re
 from trnl import Trnl
-import json
-from json2html import *
 
 def blc(web_url):
     if "burmalinkchannel" in web_url:
@@ -64,7 +62,7 @@ def blc(web_url):
                 if k in m:
                     blc_lst.append(m.split("|", 3)[0])
         prr_blc = blc_lst[0]
-        max_lk = prr_blc.split("|", 3)[0]
+        max_lk = prr_blc.split("|", 3)[0].strip()
         # MAX_QUALITY
         qlt_kwd = []
         max_qlt = ""
@@ -74,16 +72,16 @@ def blc(web_url):
         for m in max_lst:
             for q in qlt_kwd:
                 if q in m:
-                    max_qlt = m.split("|", 3)[1]
+                    max_qlt = m.split("|", 3)[1].strip()
         if max_qlt == "":
             max_qlt = "HD"
-        avlb_lk = '\n'.join([str(lk) for lk in all_lst])
+        avlb_lk = '\n'.join(['<code>{}</code> | {} | {}'.format(str(lk).split("|", 3)[0],str(lk).split("|", 3)[1],str(lk).split("|", 3)[2]) for lk in all_lst])
         Trnl.sh2.update('Q2', avlb_lk)
-        Trnl.sh2.update('H2', max_qlt)
+        #Trnl.sh2.update('H2', max_qlt)
         ytsn_lk = max_lk
     except:
         all_lst = list(range(0, len(sz_lst)))
         for i in all_lst:
             all_lst[i] = ("{} | {} | {}".format(url_lst[i], qlt_lst[i], str(sz_lst[i])))
-            ytsn_lk = 'အခက်အခဲဖြစ်ပေါ်နေလို့ Manual ရွေးပါ\n' + "\n".join([str(lk) for lk in all_lst])
+            ytsn_lk = 'အခက်အခဲဖြစ်ပေါ်နေလို့ Manual ရွေးပါ\n' + "\n".join(['<code>{}</code> | {} | {}'.format(str(lk).split("|", 3)[0],str(lk).split("|", 3)[1],str(lk).split("|", 3)[2]) for lk in all_lst])
     return ytsn_lk
