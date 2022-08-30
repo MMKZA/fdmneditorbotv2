@@ -47,7 +47,13 @@ def final_dllk(bot, update):
             if trsl_kw in web_url:
                 act_trsl_kw = trsl_kw
                 
-        if (act_source_kw in web_url) and (act_srs_kw != '') and (act_srs_kw in web_url) and ('https://www.imdb.com/title/tt' not in web_url) and (act_trsl_kw == ''):
+        imdb_kw_lst = ['https://www.imdb.com/title/tt','https://m.imdb.com/title/tt']
+        act_imdb_kw = ''
+        for imdb_kw in imdb_kw_lst:
+            if imdb_kw in web_url:
+                act_imdb_kw = imdb_kw
+                
+        if (act_source_kw in web_url) and (act_srs_kw != '') and (act_srs_kw in web_url) and (act_imdb_kw == '') and (act_trsl_kw == ''):
             Trnl.sh2.update('M2', web_url)
             Trnl.sh2.update('P3', "Series")
             if "goldchannel" in act_source_kw:
@@ -156,7 +162,7 @@ def final_dllk(bot, update):
                             disable_web_page_preview=True
                         )
 
-        if (act_source_kw in web_url) and (act_srs_kw == '') and ('https://www.imdb.com/title/tt' not in web_url) and (act_trsl_kw == ''):
+        if (act_source_kw in web_url) and (act_srs_kw == '') and (act_imdb_kw == '') and (act_trsl_kw == ''):
             Trnl.sh2.update('M2', web_url)
             Trnl.sh2.update('P3', "Movie")
             if "https://shweflix.org/" in web_url:
@@ -322,7 +328,7 @@ def final_dllk(bot, update):
                             chat_id=update.chat.id,
                             text=text + final_link
                         )
-        if 'https://www.imdb.com/title/tt' in web_url:
+        if (act_imdb_kw != '') and (act_imdb_kw in web_url):
             imdb_lk = web_url
             try:
                 imdb_id = imdb_lk.split('/')[-2]
