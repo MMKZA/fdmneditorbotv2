@@ -2,6 +2,7 @@ from PIL import Image
 import shutil
 import requests
 from trnl import Trnl
+from plugins.transloader import transloader
 
 import os
 if bool(os.environ.get("WEBHOOK", False)):
