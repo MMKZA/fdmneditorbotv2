@@ -29,7 +29,7 @@ def rar_extract(inpath,outpath):
 @pyrogram.Client.on_message(pyrogram.filters.command(["fldl"]))
 async def file_extract(bot,update):
     if update.from_user.id in Config.AUTH_USERS:
-        inpath = Trnl.sh1.acell('I3').value
+        inpath = Trnl.sh2.acell('I3').value
         fl_ext = os.path.splitext(inpath)[1]
         outpath = os.path.splitext(inpath)[0] + '/'
         if not os.path.isdir(outpath):
