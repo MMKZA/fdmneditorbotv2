@@ -35,13 +35,13 @@ async def echo_auto(bot, update, url):
         logger.info(update.from_user)
         #url = update.text
         await asyncio.sleep(2)
-        #url = Trnl.sh1.acell('L2').value
+        #url = Trnl.sh2.acell('L2').value
         if ('.m4v' in url) or ('.mkv' in url):
-            base = Trnl.sh1.acell('K2').value
+            base = Trnl.sh2.acell('K2').value
             rtrn = mp4(url, base)
             logger.info(rtrn)
             url = rtrn
-            Trnl.sh1.update('L2', url)
+            Trnl.sh2.update('L2', url)
         youtube_dl_username = None
         youtube_dl_password = None
         file_name = None
