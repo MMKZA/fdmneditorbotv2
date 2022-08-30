@@ -37,7 +37,7 @@ def shweflix(web_url):
         all_lst = list(range(0,len(szgb_lst)))
         for i in all_lst:
             all_lst[i] = ("{} | {} | {}".format(urls_lst[i],qlt_lst[i],str(szgb_lst[i])+"GB"))
-        avlb_lk = '\n'.join([str(lk) for lk in all_lst])
+        avlb_lk = '\n'.join(['<code>{}</code> | {} | {}'.format(str(lk).split('|')[0],str(lk).split('|')[1],str(lk).split('|')[2]) for lk in all_lst])
         indices = [v for i, v in enumerate(szgb_lst) if v < 2]
         max_sz = float("{:.2f}".format(max(indices)))
         for m in szgb_lst:
