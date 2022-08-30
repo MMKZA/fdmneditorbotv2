@@ -54,9 +54,9 @@ def trsl_tool(bot, update):
             gdrv_lk = lk
         elif "burmesesubtitles.com" in lk:
             gdrv_lk = lk
-        base = Trnl.sh4.acell('K2').value
+        base = Trnl.sh2.acell('K2').value
         final_link = transloader(base, gdrv_lk)
-        Trnl.sh4.update('L2', final_link)
+        Trnl.sh2.update('L2', final_link)
         arc_kw = ['.zip','.rar','.7z']
         vd_kw = ['.mp4','.mkv','.mov','.m4v']
         fl_ext = os.path.splitext(final_link)[1]
@@ -85,7 +85,7 @@ def trsl_tool(bot, update):
 def gtsh_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         lk = update.reply_to_message.text
-        Trnl.sh4.update('L2', lk)
+        Trnl.sh2.update('L2', lk)
  
 @pyrogram.Client.on_message(pyrogram.filters.command(["srs"]))
 def srs_tool(bot, update):
@@ -99,18 +99,18 @@ def srs_tool(bot, update):
                 act_source_kw = source_kw
                 
         if act_source_kw in web_url:
-            Trnl.sh4.update('M2', web_url)
-            Trnl.sh4.update('P3', "Series")
+            Trnl.sh2.update('M2', web_url)
+            Trnl.sh2.update('P3', "Series")
             if "goldchannel" in act_source_kw:
                 func_scpt(web_url)
-                if web_url in Trnl.sh4.acell('L3').value:
+                if web_url in Trnl.sh2.acell('L3').value:
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text=Trnl.sh4.acell('L3').value
+                        text=Trnl.sh2.acell('L3').value
                     )
                 epsd_lst = series(web_url)
                 translator = Translator()
-                en_cap = Trnl.sh4.acell('D2').value
+                en_cap = Trnl.sh2.acell('D2').value
                 mm_cap = translator.translate(en_cap,'my','en').text
                 bot.send_message(
                     chat_id=update.chat.id,
@@ -132,19 +132,19 @@ def srs_tool(bot, update):
                     )
             if "channelmyanmar" in act_source_kw:
                 func_scpt(web_url)
-                if web_url in Trnl.sh4.acell('L3').value:
+                if web_url in Trnl.sh2.acell('L3').value:
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text=Trnl.sh4.acell('L3').value
+                        text=Trnl.sh2.acell('L3').value
                     )
-                if web_url in Trnl.sh4.acell('H3').value:
+                if web_url in Trnl.sh2.acell('H3').value:
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text=Trnl.sh4.acell('H3').value
+                        text=Trnl.sh2.acell('H3').value
                     )
                 epsd_lst = series(web_url)
                 translator = Translator()
-                en_cap = Trnl.sh4.acell('D2').value
+                en_cap = Trnl.sh2.acell('D2').value
                 mm_cap = translator.translate(en_cap,'my','en').text
                 bot.send_message(
                     chat_id=update.chat.id,
