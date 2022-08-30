@@ -228,3 +228,14 @@ def ytdlpstp_tool(bot, update):
             chat_id=update.chat.id,
             text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်",
         )
+@pyrogram.Client.on_message(pyrogram.filters.command(["jsdl"]))
+def jsdl_tool(bot, update):
+    if update.from_user.id in Config.AUTH_USERS:
+        zip_file_url = update.reply_to_message.text
+        r = requests.get(zip_file_url)
+        z = zipfile.ZipFile(io.BytesIO(r.content))
+        dl_dir = Config.DOWNLOAD_LOCATION + "/myjsons"
+        z.extractall(dl_dir)
+        bot.send_message(
+            chat_id=update.chat.id,
+            text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်",
