@@ -21,7 +21,19 @@ from plugins.series import series
 from plugins.echo_auto import echo_auto
 import requests, zipfile, io
 import subprocess
+import os
 
+class cd:
+    """Context manager for changing the current working directory"""
+    def __init__(self, newPath):
+        self.newPath = os.path.expanduser(newPath)
+
+    def __enter__(self):
+        self.savedPath = os.getcwd()
+        os.chdir(self.newPath)
+
+    def __exit__(self, etype, value, traceback):
+        os.chdir(self.savedPath)
 @pyrogram.Client.on_message(pyrogram.filters.command(["trsl"]))
 def trsl_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -209,9 +221,9 @@ def ytdlpdl_tool(bot, update):
 @pyrogram.Client.on_message(pyrogram.filters.command(["ytdlpstp"]))
 def ytdlpstp_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        stp_dir = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/ytdlp/yt-dlp-master/setup.py"
-        exec_cmd = ['python','{}'.format(stp_dir),'install']
-        subprocess.run(exec_cmd)
+        cd_dir  = 'C:\\Users\\aunga\\Desktop\\yt-dlp-master\\'
+        with cd(cd_dir):
+        grep_process = subprocess.run(['python', 'setup.py', 'install'],shell=False)
         bot.send_message(
             chat_id=update.chat.id,
             text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်",
