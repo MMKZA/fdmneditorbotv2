@@ -28,15 +28,17 @@ from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from trnl import Trnl
+import asyncio
 #@pyrogram.Client.on_message(pyrogram.filters.regex(pattern="\A{}".format(Trnl.KEYWORD)))
 @pyrogram.Client.on_message(pyrogram.filters.command(["dwnl"]))
 async def echo(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         logger.info(update.from_user)
         #url = update.text
+        await asyncio.sleep(2)
         url = Trnl.sh2.acell('L2').value
-        if '.m4v' in url:
-            base = Trnl.sh1.acell('K2').value
+        if ('.m4v' in url) or ('.mkv' in url):
+            base = Trnl.sh2.acell('K2').value
             rtrn = mp4(url, base)
             logger.info(rtrn)
             url = rtrn
