@@ -19,6 +19,7 @@ import locale
 from datetime import datetime
 from pprint import pprint
 import math
+from moviepy.editor import *
 
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
@@ -290,15 +291,22 @@ async def youtube_dl_call_back(bot, update):
                 for le_file in totlaa_sleif:
                     i_th = totlaa_sleif.index(le_file) + 1
                     dwnl_dir = tmp_directory_for_each_user + "/fdmnsplits/" + le_file
-                    is_w_f = False
-                    images = await generate_screen_shots(
-                        dwnl_dir,
-                        tmp_directory_for_each_user,
-                        is_w_f,
-                        Config.DEF_WATER_MARK_FILE,
-                        30,
-                        9
-                    )
+                    try:
+                        is_w_f = False
+                        images = await generate_screen_shots(
+                            dwnl_dir,
+                            tmp_directory_for_each_user,
+                            is_w_f,
+                            Config.DEF_WATER_MARK_FILE,
+                            30,
+                            9
+                        )
+                        ssimg = images[random.randint(0, 2)]
+                    except:
+                        clip = VideoFileClip(dwnl_dir)
+                        screen_time = random.randint(120,600)
+                        clip.save_frame(Config.DOWNLOAD_LOCATION + "/" + f'{nfh}' + "/" + "thbnl1.jpg", t = screen_time)
+                        ssimg = Config.DOWNLOAD_LOCATION + "/" + f'{nfh}' + "/" + "thbnl1.jpg"
                     upmssg = await bot.edit_message_text(
                         text=Translation.UPLOAD_START + f"\n<code>{ba_se_file_name} Part {i_th}</code>",
                         chat_id=update.message.chat.id,
@@ -320,7 +328,6 @@ async def youtube_dl_call_back(bot, update):
                             width = metadata.get("width")
                         if metadata.has("height"):
                             height = metadata.get("height")
-                    ssimg = images[random.randint(0, 2)]
                     metadata = extractMetadata(createParser(ssimg))
                     width = metadata.get("width")
                     height = metadata.get("height")
@@ -381,16 +388,22 @@ async def youtube_dl_call_back(bot, update):
                     disable_web_page_preview=True
                 )
             if file_size < Config.TG_MAX_FILE_SIZE:
-                is_w_f = False
-                images = await generate_screen_shots(
-                download_directory,
-                tmp_directory_for_each_user,
-                is_w_f,
-                Config.DEF_WATER_MARK_FILE,
-                30,
-                9
-                )
-                #logger.info(images)
+                try:
+                    is_w_f = False
+                    images = await generate_screen_shots(
+                    download_directory,
+                    tmp_directory_for_each_user,
+                    is_w_f,
+                    Config.DEF_WATER_MARK_FILE,
+                    30,
+                    9
+                    )
+                    ssimg = images[random.randint(0, 2)]
+                except:
+                    clip = VideoFileClip(download_directory)
+                    screen_time = random.randint(120,600)
+                    clip.save_frame(Config.DOWNLOAD_LOCATION + "/" + f'{nfh}' + "/" + "thbnl1.jpg", t = screen_time)
+                    ssimg = Config.DOWNLOAD_LOCATION + "/" + f'{nfh}' + "/" + "thbnl1.jpg"
                 upmssg = await bot.edit_message_text(
                     text=Translation.UPLOAD_START + '\n<code>{}</code>'.format(vcap),
                     chat_id=update.message.chat.id,
@@ -488,7 +501,6 @@ async def youtube_dl_call_back(bot, update):
                         )
                     )
                 elif tg_send_type == "video":
-                    ssimg = images[random.randint(0, 2)]
                     metadata = extractMetadata(createParser(ssimg))
                     width = metadata.get("width")
                     height = metadata.get("height")
