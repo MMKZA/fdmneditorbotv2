@@ -68,15 +68,11 @@ async def script_call_back(bot, update):
         vcap = '<b>' + vcap + '</b>'
         if "Movie" in typ:
             vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
-            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + year + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN + "\n1️⃣"
-        if "Series" in typ:
-        if "Series" in typ
+            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + year + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN + "\n2️⃣"
         if "Series" in typ:
             srs_no = 'စီးရီးအမှတ်စဥ် 👉 ' + '`' + '<b>' + '{}'.format(Trnl.sh1.acell('D3').value) + '</b>' + '`' + '\nကူးယူရန် ထိလိုက်ပါ 👆'
             srs_inst = "\n\n<b>အသစ်ရောက်လာတဲ့သူတွေက...</b>\n<b>စီးရီးချာနယ် ထဲဝင်နည်း Video ကို 👉<a href='https://t.me/fdmnchannel/1020'> ဒီနေရာမှာ</a>👈 နှိပ်ပြီး ကြည့်ပါ။</b>\n<b>ဝင်ကြေးပေးစရာမလို(အခမဲ့)ပါ။</b>"
-            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + srs_no + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + srs_inst + "\n\n" + Translation.CHNL_FB + + "\n1️⃣"
-        if "Series" in typ:
-        if "Series" in typ
+            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + srs_no + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + srs_inst + "\n\n" + Translation.CHNL_FB + "\n2️⃣"
         try:
             mchnl_msg = await bot.send_photo(
                 "@fdmnchannel",
