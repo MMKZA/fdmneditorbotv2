@@ -11,10 +11,13 @@ from json2html import *
 from translation import Translation
 from lxml import html
 from channels import channels
+from helper_funcs.imdb_search import google
+
 logging.getLogger('chardet.charsetprober').setLevel(logging.INFO)
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+
 def func_scpt(script_url):
     if "burmalinkchannel" in script_url:
         if 'series' in script_url:
@@ -58,7 +61,10 @@ def func_scpt(script_url):
         if imdb_id == '':
             imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
             Trnl.sh2.update('L3', imdb_wrn)
-            imdb_id = Trnl.sh2.acell('M7').value
+            try:
+                imdb_id = google('{} {} imdb'.format(title,year))
+            except:
+                imdb_id = Trnl.sh2.acell('M7').value
         imdb_url = 'https://www.imdb.com/title/' + imdb_id
         if 'Error' in omdb_req:
             omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
@@ -428,6 +434,7 @@ def func_scpt(script_url):
         # CREDIT
         credit = 'Burma Link Channel'
     if "goldchannel" in script_url:
+        vcap = ''
         for all in soup.select('#single > div.content.right > div.sheader > div.data > h1'):
             vcap = all.text
         year = ''
@@ -442,7 +449,10 @@ def func_scpt(script_url):
         if imdb_id == '':
             imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
             Trnl.sh2.update('L3', imdb_wrn)
-            imdb_id = Trnl.sh2.acell('M7').value
+            try:
+                imdb_id = google('{} {} imdb'.format(vcap,year))
+            except:
+                imdb_id = Trnl.sh2.acell('M7').value
         imdb_url = 'https://www.imdb.com/title/' + imdb_id
         if 'Error' in omdb_req:
             omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
@@ -587,7 +597,10 @@ def func_scpt(script_url):
         if imdb_id == '':
             imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
             Trnl.sh2.update('L3', imdb_wrn)
-            imdb_id = Trnl.sh2.acell('M7').value
+            try:
+                imdb_id = google('{} {} imdb'.format(title,year))
+            except:
+                imdb_id = Trnl.sh2.acell('M7').value
         imdb_url = 'https://www.imdb.com/title/' + imdb_id
         if 'Error' in omdb_req:
             omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
@@ -764,7 +777,7 @@ def func_scpt(script_url):
     imdb_rt = ''
     imdb_vt = ''
     imdb = ''
-    imdb_req = requests.get(imdb_url)
+    imdb_req = requests.get(imdb_url,headers={'Connection':'close'})
     imdb_req.encoding = imdb_req.apparent_encoding
     imdb_html = imdb_req.text
     imdb_soup = BeautifulSoup(imdb_html, 'html.parser')
@@ -790,4 +803,4 @@ def func_scpt(script_url):
     vtext = vtext.strip()
     Trnl.sh2.update('O2', vtext)
     vcap_hsh = ''.join(e for e in vcap if e.isalnum())
-    Trnl.sh1.update('E2', vcap_hsh)
+    Trnl.sh2.update('E2', vcap_hsh)
