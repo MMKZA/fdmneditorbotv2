@@ -10,27 +10,54 @@ from plugins.transloader import transloader
 from plugins.func_scpt import func_scpt
 from plugins.series import series
 from plugins.blc import blc
+from plugins.bs import bs
 from plugins.shweflix import shweflix
+from plugins.echo_auto import echo_auto
 import os
 import re
 import time
+import asyncio
 from googletrans import Translator
+import logging
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 @pyrogram.Client.on_message(pyrogram.filters.regex(pattern=".*http.*"))
-def trans(bot, update):
+def final_dllk(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        if "/srs" in update.text:
-            web_url = update.text.split(' ', 1)[1]
+        base = Trnl.sh2.acell('K2').value
+        web_url = update.text
+        
+        srs_kw_lst = ['tvshows']
+        act_srs_kw = ''
+        for srs_kw in srs_kw_lst:
+            if srs_kw in web_url:
+                act_srs_kw = srs_kw
+                
+        source_kw_lst = ['https://channelmyanmar.org/','https://goldchannel.net/','https://shweflix.org/']
+        act_source_kw = ''
+        for source_kw in source_kw_lst:
+            if source_kw in web_url:
+                act_source_kw = source_kw
+        
+        trsl_kw_lst = ['https://yoteshinportal.cc/','https://drive.google.com/']
+        act_trsl_kw = ''
+        for trsl_kw in trsl_kw_lst:
+            if trsl_kw in web_url:
+                act_trsl_kw = trsl_kw
+                
+        if (act_source_kw in web_url) and (act_srs_kw != '') and (act_srs_kw in web_url) and ('https://www.imdb.com/title/tt' not in web_url) and (act_trsl_kw == ''):
             Trnl.sh2.update('M2', web_url)
             Trnl.sh2.update('P3', "Series")
-            if "goldchannel" in update.text:
+            if "goldchannel" in act_source_kw:
                 func_scpt(web_url)
                 if web_url in Trnl.sh2.acell('L3').value:
                     bot.send_message(
                         chat_id=update.chat.id,
                         text=Trnl.sh2.acell('L3').value
                     )
-                epsd_msg = series(web_url)
+                epsd_lst = series(web_url)
                 translator = Translator()
                 en_cap = Trnl.sh2.acell('D2').value
                 mm_cap = translator.translate(en_cap,'my','en').text
@@ -44,9 +71,15 @@ def trans(bot, update):
                 )
                 bot.send_message(
                     chat_id=update.chat.id,
-                    text=epsd_msg
+                    text="Episodes အားလုံး 👇"
                 )
-            if "channelmyanmar" in update.text:
+                for epsd in epsd_lst:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text=epsd,
+                        disable_web_page_preview=True
+                    )
+            if "channelmyanmar" in act_source_kw:
                 func_scpt(web_url)
                 if web_url in Trnl.sh2.acell('L3').value:
                     bot.send_message(
@@ -56,9 +89,9 @@ def trans(bot, update):
                 if web_url in Trnl.sh2.acell('H3').value:
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text = Trnl.sh2.acell('H3').value
+                        text=Trnl.sh2.acell('H3').value
                     )
-                epsd_msg = series(web_url)
+                epsd_lst = series(web_url)
                 translator = Translator()
                 en_cap = Trnl.sh2.acell('D2').value
                 mm_cap = translator.translate(en_cap,'my','en').text
@@ -70,63 +103,62 @@ def trans(bot, update):
                     chat_id=update.chat.id,
                     text=mm_cap
                 )
-                if "1080" in epsd_msg[0]:
-                    Trnl.sh2.update('H2', "1080p")
-                elif "720" in epsd_msg[0]:
-                    Trnl.sh2.update('H2', "720p")
-                else:
-                    Trnl.sh2.update('H2', "HD")
-                if len(epsd_msg) == 3:
+                if len(epsd_lst) == 3:
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text = epsd_msg[0]
+                        text="Yoteshin Episodes အားလုံး 👇"
                     )
+                    for epsd in epsd_lst[0]:
+                        bot.send_message(
+                            chat_id=update.chat.id,
+                            text=epsd,
+                            disable_web_page_preview=True
+                        )
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text = epsd_msg[1]
+                        text="Mega Episodes အားလုံး 👇"
                     )
+                    for epsd in epsd_lst[1]:
+                        bot.send_message(
+                            chat_id=update.chat.id,
+                            text=epsd,
+                            disable_web_page_preview=True
+                        )
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text = epsd_msg[2]
+                        text="နောက်ဆုံးတင်ထားသော Episodes များ 👇"
                     )
-                if len(epsd_msg) == 2:
+                    for epsd in epsd_lst[2]:
+                        bot.send_message(
+                            chat_id=update.chat.id,
+                            text=epsd,
+                            disable_web_page_preview=True
+                        )
+                if len(epsd_lst) == 2:
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text = epsd_msg[0]
+                        text="Yoteshin Episodes အားလုံး 👇"
                     )
+                    for epsd in epsd_lst[0]:
+                        bot.send_message(
+                            chat_id=update.chat.id,
+                            text=epsd,
+                            disable_web_page_preview=True
+                        )
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text = epsd_msg[1]
+                        text="နောက်ဆုံးတင်ထားသော Episodes များ 👇"
                     )
-        if "/gd" in update.text:
-            lk = update.text.split(" ", 2)[1]
-            Trnl.sh2.update('L2', lk)
-        if "/ic" in update.text:
-            lk = update.text.split(" ", 2)[1]
-            if "yoteshinportal.cc" in lk:
-                gdrv_retrn = ytsn_dllk(lk)
-                if "error" in gdrv_retrn:
-                    gdrvclean(gdrv_retrn)
-                    gdrv_lk = ytsn_dllk(lk)
-                else:
-                    gdrv_lk = gdrv_retrn
-            elif "mega.nz" in lk:
-                gdrv_lk = lk
-            elif "https://drive.google.com/" in lk:
-                gdrv_lk = lk
-            elif "burmesesubtitles.com" in lk:
-                gdrv_lk = lk
-            base = Trnl.sh1.acell('K2').value
-            final_link = transloader(base, gdrv_lk)
-            Trnl.sh2.update('L2', final_link)
-            bot.send_message(
-                chat_id=update.chat.id,
-                text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
-            )
-        if ("/srs" not in update.text) and ("/ic" not in update.text) and ("/gd" not in update.text):
-            web_url = update.text
-            Trnl.sh2.update('M2',web_url)
-            Trnl.sh2.update('P3',"Movie")
+                    for epsd in epsd_lst[2]:
+                        bot.send_message(
+                            chat_id=update.chat.id,
+                            text=epsd,
+                            disable_web_page_preview=True
+                        )
+
+        if (act_source_kw in web_url) and (act_srs_kw == '') and ('https://www.imdb.com/title/tt' not in web_url) and (act_trsl_kw == ''):
+            Trnl.sh2.update('M2', web_url)
+            Trnl.sh2.update('P3', "Movie")
             if "https://shweflix.org/" in web_url:
                 func_scpt(web_url)
                 rtrn = shweflix(web_url)
@@ -166,7 +198,6 @@ def trans(bot, update):
                         text="Size အကြီးဆုံး Links များ 👇\n" + bs_rtrn[0]
                     )
                     gdrv_lk = bs_rtrn[1]
-                    base = Trnl.sh1.acell('K2').value
                     final_link = transloader(base, gdrv_lk)
                     Trnl.sh2.update('L2', final_link)
                     bot.send_message(
@@ -192,18 +223,13 @@ def trans(bot, update):
                         chat_id=update.chat.id,
                         text="ရရှိနိုင်သော links များ👇\n" + avlb_lk
                     )
-                    # bot.send_message(
-                    # chat_id=update.chat.id,
-                    # text=gdrv_lk
-                    # )
-                    base = Trnl.sh1.acell('K2').value
                     final_link = transloader(base, ytsn_lk)
                     Trnl.sh2.update('L2', final_link)
                     bot.send_message(
                         chat_id=update.chat.id,
                         text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
                     )
-            if "https://goldchannel.net/movies/" in web_url:
+            if "https://goldchannel.net/" in web_url:
                 func_scpt(web_url)
                 if web_url in Trnl.sh2.acell('L3').value:
                     bot.send_message(
@@ -214,20 +240,21 @@ def trans(bot, update):
                 if web_url in Trnl.sh2.acell('H3').value:
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text = Trnl.sh2.acell('H3').value
+                        text=Trnl.sh2.acell('H3').value
                     )
                 avlb_lk = Trnl.sh2.acell('Q2').value
                 bot.send_message(
                     chat_id=update.chat.id,
                     text="ရရှိနိုင်သော links များ👇\n" + avlb_lk
                 )
-                base = Trnl.sh1.acell('K2').value
-                final_link = transloader(base,gdrv_lk)
+                
+                final_link = transloader(base, gdrv_lk)
                 Trnl.sh2.update('L2', final_link)
                 bot.send_message(
                     chat_id=update.chat.id,
                     text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
                 )
+                asyncio.run(echo_auto(bot,update,final_link))
             if "https://channelmyanmar.org/" in web_url:
                 func_scpt(web_url)
                 if web_url in Trnl.sh2.acell('L3').value:
@@ -235,38 +262,120 @@ def trans(bot, update):
                         chat_id=update.chat.id,
                         text=Trnl.sh2.acell('L3').value
                     )
-                ytsn_lk = cnmm(web_url)
-                ytsn_lk = Trnl.sh2.acell('J3').value
-                if "Manual" in ytsn_lk:
+                cnmm_rtrn = cnmm(web_url)
+                if len(cnmm_rtrn) == 1:
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text=ytsn_lk
+                        text="အခက်အခဲဖြစ်ပေါ်နေလို့ Manual ရွေးပါ 👇"
+                    )                    
+                    for epsd in cnmm_rtrn[0]:
+                        bot.send_message(
+                            chat_id=update.chat.id,
+                            text=epsd,
+                            disable_web_page_preview=True
                         )
-                if "Manual" not in ytsn_lk:
-                    avlb_lk = Trnl.sh2.acell('Q2').value
+                if len(cnmm_rtrn) == 4:
+                    max_lk = cnmm_rtrn[1]
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text=ytsn_lk
-                    )
+                        text="ရရှိနိုင်သော Link အားလုံး 👇"
+                    )                    
+                    for epsd in cnmm_rtrn[0]:
+                        bot.send_message(
+                            chat_id=update.chat.id,
+                            text=epsd,
+                            disable_web_page_preview=True
+                        )
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text="ရရှိနိုင်သော links များ👇\n" + avlb_lk
+                        text="2 GB ထက်နည်းသော Link - Quality: {} - Size: {} GB👇\n{}".format(cnmm_rtrn[2],cnmm_rtrn[3],max_lk),
+                        disable_web_page_preview=True
                     )
-                    gdrv_retrn = ytsn_dllk(ytsn_lk)
+                    gdrv_retrn = ytsn_dllk(max_lk)
                     if "error" in gdrv_retrn:
                         gdrvclean(gdrv_retrn)
-                        gdrv_lk = ytsn_dllk(ytsn_lk)
+                        gdrv_lk = ytsn_dllk(max_lk)
                     else:
                         gdrv_lk = gdrv_retrn
-                    #bot.send_message(
-                        #chat_id=update.chat.id,
-                        #text=gdrv_lk
-                    #)
-                    logger.info(gdrv_lk)
-                    base = Trnl.sh1.acell('K2').value
-                    final_link = transloader(base,gdrv_lk)
+                    final_link = transloader(base, gdrv_lk)
                     Trnl.sh2.update('L2', final_link)
-                    bot.send_message(
-                        chat_id=update.chat.id,
-                        text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
-                    )
+                    arc_kw = ['.zip','.rar','.7z']
+                    vd_kw = ['.mp4','.mkv','.mov','.m4v']
+                    fl_ext = os.path.splitext(final_link)[1]
+                    if fl_ext in arc_kw:
+                        text = "Archive ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 🗃️SFile ကိုရွေးချယ်ပါ 👇\n"
+                        bot.send_message(
+                            chat_id=update.chat.id,
+                            text=text + final_link
+                        )
+                        asyncio.run(echo_auto(bot,update,final_link))
+                    elif fl_ext in vd_kw:
+                        text = "Video ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 📺SVideo ကိုရွေးချယ်ပါ 👇\n"
+                        bot.send_message(
+                            chat_id=update.chat.id,
+                            text=text + final_link
+                        )
+                        asyncio.run(echo_auto(bot,update,final_link))
+                    else:
+                        text = "Link အမှားအယွင်းရှိနိုင်ပါတယ်၊ သေချာစစ်ကြည့်ပါ ⚠️\n"
+                        bot.send_message(
+                            chat_id=update.chat.id,
+                            text=text + final_link
+                        )
+        if 'https://www.imdb.com/title/tt' in web_url:
+            imdb_lk = web_url
+            try:
+                imdb_id = imdb_lk.split('/')[-2]
+            except:
+                imdb_id = imdb_lk
+            Trnl.sh2.update('M7',imdb_id)
+            script_url = Trnl.sh2.acell('M2').value
+            func_scpt(script_url)
+            bot.delete_messages(
+                chat_id=update.chat.id,
+                message_ids=update.message_id
+            )
+        if (act_trsl_kw != '') and (act_trsl_kw in web_url):
+            if '|' in web_url:
+                lk = web_url.split("|")[0].strip()
+            else:
+                lk = web_url
+            if "yoteshinportal.cc" in lk:
+                gdrv_retrn = ytsn_dllk(lk)
+                if "error" in gdrv_retrn:
+                    gdrvclean(gdrv_retrn)
+                    gdrv_lk = ytsn_dllk(lk)
+                else:
+                    gdrv_lk = gdrv_retrn
+            elif "mega.nz" in lk:
+                gdrv_lk = lk
+            elif "https://drive.google.com/" in lk:
+                gdrv_lk = lk
+            elif "burmesesubtitles.com" in lk:
+                gdrv_lk = lk
+            base = Trnl.sh2.acell('K2').value
+            final_link = transloader(base, gdrv_lk)
+            Trnl.sh2.update('L2', final_link)
+            arc_kw = ['.zip','.rar','.7z']
+            vd_kw = ['.mp4','.mkv','.mov','.m4v']
+            fl_ext = os.path.splitext(final_link)[1]
+            if fl_ext in arc_kw:
+                text = "Archive ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 🗃️SFile ကိုရွေးချယ်ပါ 👇\n"
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text=text + final_link
+                )
+                asyncio.run(echo_auto(bot,update,final_link))
+            elif fl_ext in vd_kw:
+                text = "Video ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 📺SVideo ကိုရွေးချယ်ပါ 👇\n"
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text=text + final_link
+                )
+                asyncio.run(echo_auto(bot,update,final_link))
+            else:
+                text = "Link အမှားအယွင်းရှိနိုင်ပါတယ်၊ သေချာစစ်ကြည့်ပါ ⚠️\n"
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text=text + final_link
+                )
