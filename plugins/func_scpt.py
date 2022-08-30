@@ -12,6 +12,7 @@ from translation import Translation
 from lxml import html
 from channels import channels
 from helper_funcs.imdb_search import google
+from helper_funcs.fdmn_frame import fdmn_frame
 
 logging.getLogger('chardet.charsetprober').setLevel(logging.INFO)
 logging.basicConfig(level=logging.DEBUG,
@@ -774,6 +775,7 @@ def func_scpt(script_url):
             phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
         except:
             phto_url = vlink
+    fdmn_frame(phto_url)
     imdb_rt = ''
     imdb_vt = ''
     imdb = ''
