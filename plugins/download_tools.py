@@ -221,7 +221,7 @@ def ytdlpdl_tool(bot, update):
 @pyrogram.Client.on_message(pyrogram.filters.command(["ytdlpstp"]))
 def ytdlpstp_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        cd_dir  = 'C:\\Users\\aunga\\Desktop\\yt-dlp-master\\'
+        cd_dir  = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/ytdlp/yt-dlp-master/"
         with cd(cd_dir):
              process = subprocess.run(['python', 'setup.py', 'install'],shell=False)
         bot.send_message(
