@@ -349,6 +349,7 @@ async def youtube_dl_call_back(bot, update):
                         vd_name = '{} | Part {} @fdmnchannel'.format(vcap.replace('.',' ').replace('_',' '),i_th)
                     if typ == 'Movie':
                         vd_name = "{} | {} | Part {} @fdmnchannel".format(vcap,vd_qlt,i_th)
+                        ssimg = 'fdmn_thumb.png'
                     start_time = time.time()
                     start_one = datetime.now()
                     vdf_msg = await bot.send_video(
