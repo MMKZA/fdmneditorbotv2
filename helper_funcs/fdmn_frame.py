@@ -11,13 +11,16 @@ else:
     from config import Config
     
 def fdmn_frame(vlink):
-    base = Trnl.sh2.acell('K2').value
-    url = 'https://drive.google.com/file/d/1LPX16iYs4mE6fd5lfqtz5lWJxZpPV6Bc/view?usp=sharing'
-    frame_link = transloader(base, url)
-    response = requests.get(frame_link, stream=True)
-    with open('myback.png', 'wb') as out_file:
-        shutil.copyfileobj(response.raw, out_file)
-    del response
+    if os.path.exists('myback.png'):
+        pass
+    elif not os.path.exists('myback.png'):
+        base = Trnl.sh2.acell('K2').value
+        url = 'https://drive.google.com/file/d/1LPX16iYs4mE6fd5lfqtz5lWJxZpPV6Bc/view?usp=sharing'
+        frame_link = transloader(base, url)
+        response = requests.get(frame_link, stream=True)
+        with open('myback.png', 'wb') as out_file:
+            shutil.copyfileobj(response.raw, out_file)
+        del response
     
     response = requests.get(vlink, stream=True)
     with open('mv_poster.png', 'wb') as out_file:
