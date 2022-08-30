@@ -23,7 +23,7 @@ def ytsn_lgn(eml, pswd, csrf):
         }
     headers = {
         'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-        'accept-encoding': 'gzip, deflate, br',
+        'accept-encoding': 'utf-8',
         'accept-language': 'en-US,en;q=0.9',
         'cache-control': 'max-age=0',
         'content-length': '117',
@@ -73,7 +73,7 @@ def ytsn_dllk(ytsn_lk):
     cookies = rtrn[1]
     headers = {
         'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
-        'accept-encoding': 'gzip, deflate, br',
+        'accept-encoding': 'utf-8',
         'accept-language': 'en-US,en;q=0.9',
         'cache-control': 'max-age=0',
         'referer': 'https://yoteshinportal.cc/login',
