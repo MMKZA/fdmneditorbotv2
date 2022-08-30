@@ -37,5 +37,4 @@ def fdmn_frame(vlink):
     posterbot.save('paste1.png')
     paste1 = Image.open('paste1.png', 'r')
     paste1.paste(postertop,(1188,0))
-    save_path = Config.DOWNLOAD_LOCATION + "/1700943365/fdmn_thumb.png"
-    paste1.save(save_path)
+    paste1.save('fdmn_thumb.png')
