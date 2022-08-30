@@ -20,6 +20,7 @@ from plugins.func_scpt import func_scpt
 from plugins.series import series
 from plugins.echo_auto import echo_auto
 import requests, zipfile, io
+import subprocess
 
 @pyrogram.Client.on_message(pyrogram.filters.command(["trsl"]))
 def trsl_tool(bot, update):
@@ -201,6 +202,16 @@ def ytdlpdl_tool(bot, update):
         z = zipfile.ZipFile(io.BytesIO(r.content))
         dl_dir = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/ytdlp"
         z.extractall(dl_dir)
+        bot.send_message(
+            chat_id=update.chat.id,
+            text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်",
+        )
+@pyrogram.Client.on_message(pyrogram.filters.command(["ytdlpstp"]))
+def ytdlpstp_tool(bot, update):
+    if update.from_user.id in Config.AUTH_USERS:
+        stp_dir = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/ytdlp/yt-dlp-master/setup.py"
+        exec_cmd = ['python','{}'.format(stp_dir),'install']
+        subprocess.run(exec_cmd)
         bot.send_message(
             chat_id=update.chat.id,
             text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်",
