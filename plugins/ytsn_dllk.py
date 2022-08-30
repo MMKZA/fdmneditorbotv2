@@ -49,6 +49,7 @@ def ytsn_lgn(eml, pswd, csrf):
         'remember': 'true'
         }
     res = r.post(url_login,headers=headers,data=payload,cookies=cookies,allow_redirects=False)
+    logger.info(res)
     return [r,cookies]
 
 def ytsn_dllk(ytsn_lk):
@@ -86,6 +87,7 @@ def ytsn_dllk(ytsn_lk):
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36 Edg/103.0.1264.62'
         }
     get = session.get(get_ytsn_lk,headers=headers,cookies=cookies,allow_redirects=False)
+    logger.info(get)
     soup = BeautifulSoup(get.content,'lxml')
     id_loc = soup.find_all('a', {'class':"butt text-decoration-none disabled"})
     for x in id_loc:
