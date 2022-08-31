@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 def gdrvupload(image):
     service = gdrvauth()
     file_metadata = {'name': image}
-    media = MediaFileUpload(image,mimetype='image/png')
+    media = MediaFileUpload(image,mimetype='image/jpg')
     file = service.files().create(body=file_metadata, media_body=media,
                                       fields='id').execute()
     image_id = file.get("id")
@@ -81,13 +81,13 @@ def fdmn_frame(vlink):
     pp_w, pp_h = 1810, 2715
     pp = poster_org.resize((pp_w, pp_h))
     #CREATING POST POSTER
-    blank_frame = Image.new('RGBA', (pf_w, pf_h), (255, 255, 255, 255))
+    blank_frame = Image.new('RGB', (pf_w, pf_h), (255, 255, 255, 255))
     offset = (int((pf_w-pp_w)/2), int((pf_h-pp_h)/2))
     blank_frame.paste(pp,offset)
     blank_frame.paste(post_frame, (0,0),mask=post_frame)
-    blank_frame.save('post_poster_v2.png')
+    blank_frame.save('post_poster_v2.jpg')
     #UPLOADING TO GOOGLE DRIVE
-    gdrvupload('post_poster_v2.png')
+    gdrvupload('post_poster_v2.jpg')
     #blank_frame.show()
     #CREATING THUMB POSTER
     left = 0
@@ -102,5 +102,5 @@ def fdmn_frame(vlink):
     bottom = top + 2160
     po_stf.paste(po_top,(left,top,right,bottom))
     po_tf_s320 = po_stf.resize((320,int(tf_h*320/tf_w)))
-    po_tf_s320.save('thumb_poster.png')
+    po_tf_s320.save('thumb_poster.jpg')
     #po_tf_s320.show()
