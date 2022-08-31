@@ -218,8 +218,11 @@ async def youtube_dl_call_back(bot, update):
                     ''.join(['█' for i in range(math.floor(float(prcnt.replace('%','')) / 5))]),
                     ''.join(['░' for i in range(20 - math.floor(float(prcnt.replace('%','')) / 5))]),
                     round(float(prcnt.replace('%','')), 2))
-                await a.edit_text(Translation.DOWNLOAD_START + '\n<code>{}</code>\n{}\n{}'.format(vcap,progress,text))
-                time.sleep(0.02)
+                try:
+                    await a.edit_text(Translation.DOWNLOAD_START + '\n<code>{}</code>\n{}\n{}'.format(vcap,progress,text))
+                    time.sleep(0.02)
+                except:
+                    pass
     #await process.communicate()
     #process = await asyncio.create_subprocess_exec(
         #*command_to_exec,
