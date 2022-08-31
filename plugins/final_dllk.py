@@ -53,7 +53,7 @@ def final_dllk(bot, update):
             if imdb_kw in web_url:
                 act_imdb_kw = imdb_kw
                 
-        if (act_source_kw in web_url) and (act_srs_kw != '') and (act_srs_kw in web_url) and (act_imdb_kw == '') and (act_trsl_kw == ''):
+        if (act_source_kw in web_url) and (act_srs_kw != '') and (act_srs_kw in web_url) and (act_imdb_kw == '') and (act_trsl_kw == '') and ('https://t.me/c' not in web_url):
             Trnl.sh2.update('M2', web_url)
             Trnl.sh2.update('P3', "Series")
             if "goldchannel" in act_source_kw:
@@ -162,7 +162,7 @@ def final_dllk(bot, update):
                             disable_web_page_preview=True
                         )
 
-        if (act_source_kw in web_url) and (act_srs_kw == '') and (act_imdb_kw == '') and (act_trsl_kw == ''):
+        if (act_source_kw in web_url) and (act_srs_kw == '') and (act_imdb_kw == '') and (act_trsl_kw == '') and ('https://t.me/c' not in web_url):
             Trnl.sh2.update('M2', web_url)
             Trnl.sh2.update('P3', "Movie")
             if "https://shweflix.org/" in web_url:
@@ -328,7 +328,7 @@ def final_dllk(bot, update):
                             chat_id=update.chat.id,
                             text=text + final_link
                         )
-        if (act_imdb_kw != '') and (act_imdb_kw in web_url):
+        if (act_imdb_kw != '') and (act_imdb_kw in web_url) and ('https://t.me/c' not in web_url):
             imdb_lk = web_url
             try:
                 imdb_id = imdb_lk.split('/')[-2]
@@ -341,7 +341,7 @@ def final_dllk(bot, update):
                 chat_id=update.chat.id,
                 message_ids=update.message_id
             )
-        if (act_trsl_kw != '') and (act_trsl_kw in web_url):
+        if (act_trsl_kw != '') and (act_trsl_kw in web_url) and ('https://t.me/c' not in web_url):
             if '|' in web_url:
                 lk = web_url.split("|")[0].strip()
             else:
@@ -385,3 +385,11 @@ def final_dllk(bot, update):
                     chat_id=update.chat.id,
                     text=text + final_link
                 )
+                
+        if 'https://t.me/c' in web_url:
+            vd_id = web_url.split("/")[-1]
+            Trnl.sh2.update('P2',vd_id)
+            bot.delete_messages(
+                chat_id=update.chat.id,
+                message_ids=update.message_id
+            )
