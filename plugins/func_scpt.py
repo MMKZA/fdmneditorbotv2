@@ -141,9 +141,11 @@ def func_scpt(script_url):
         if len(bd_lks) != 0:
             vtext = "\n".join([str(txt) for txt in bd_lks])
         all_lks = []
-        for all in soup.select(
-                'div > div.entry-content > div.imdbwp.imdbwp--movie.light > div.imdbwp__thumb > a > img'):
-            all_lks.append(all['data-src'])
+        for all in soup.select('div > div.entry-content > div.imdbwp.imdbwp--movie.light > div.imdbwp__thumb > a > img'):
+            try:
+                all_lks.append(all['data-src'])
+            except:
+                all_lks.append(all['src'])
         vlink = all_lks[0]
         try:
             vlink = vlink.replace('_SX300','_FMjpg_UX1000_')
