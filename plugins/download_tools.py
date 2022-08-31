@@ -283,7 +283,8 @@ def openauto_vlink(bot, update):
     omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
     phto_url = omdb_req["Poster"].replace('_SX300', '_FMjpg_UX1000_')
     Trnl.sh2.update('C4',phto_url)
-    asyncio.run(func_scpt(bot,update))
+    web_url = Trnl.sh2.acell('M2').value
+    func_scpt(web_url)
     bot.send_message(
         chat_id=update.chat.id,
         text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်"
@@ -294,7 +295,8 @@ def open_vlink(bot, update):
     Trnl.sh2.update('C3','open')
     phto_url = update.reply_to_message.text
     Trnl.sh2.update('C4',phto_url)
-    asyncio.run(func_scpt(bot,update))
+    web_url = Trnl.sh2.acell('M2').value
+    func_scpt(web_url)
     bot.send_message(
         chat_id=update.chat.id,
         text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်"
