@@ -1,6 +1,7 @@
 from PIL import Image
 import shutil
 import requests
+import random
 from trnl import Trnl
 from plugins.transloader import transloader
 from plugins.gdrvclean import gdrvauth
