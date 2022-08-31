@@ -275,19 +275,28 @@ def poster_clean(bot, update):
         chat_id=update.chat.id,
         message_ids=update.message_id
     )
-@pyrogram.Client.on_message(pyrogram.filters.command(["open"]))
-def open_vlink(bot, update):
+@pyrogram.Client.on_message(pyrogram.filters.command(["openauto"]))
+def openauto_vlink(bot, update):
     Trnl.sh2.update('C3','open')
     imdb_id = Trnl.sh2.acell('M7').value
     omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
     omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
     phto_url = omdb_req["Poster"].replace('_SX300', '_FMjpg_UX1000_')
     Trnl.sh2.update('C4',phto_url)
+    asyncio.run(func_scpt(bot,update))
     bot.send_message(
         chat_id=update.chat.id,
         text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်"
     )
-    
-@pyrogram.Client.on_message(pyrogram.filters.command(["close"]))
-def close_vlink(bot, update):
+    Trnl.sh2.update('C3','close')
+@pyrogram.Client.on_message(pyrogram.filters.command(["open"]))
+def open_vlink(bot, update):
+    Trnl.sh2.update('C3','open')
+    phto_url = update.reply_to_message.text
+    Trnl.sh2.update('C4',phto_url)
+    asyncio.run(func_scpt(bot,update))
+    bot.send_message(
+        chat_id=update.chat.id,
+        text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်"
+    )
     Trnl.sh2.update('C3','close')
