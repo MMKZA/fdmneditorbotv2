@@ -16,6 +16,8 @@ import asyncio
 from plugins.ytsn_dllk import ytsn_dllk
 from plugins.gdrvclean import gdrvclean
 from plugins.transloader import transloader
+from plugins.gdrvclean import gdrvclean
+from plugins.gdrvclean import poster_gdrvclean
 from plugins.func_scpt import func_scpt
 from plugins.series import series
 from plugins.echo_auto import echo_auto
@@ -262,3 +264,20 @@ def jsdl_tool(bot, update):
             chat_id=update.chat.id,
             text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်"
         )
+
+@pyrogram.Client.on_message(pyrogram.filters.command(["cl"]))
+def clean(bot, update):
+    status = "error"
+    gdrvclean(status)
+    bot.delete_messages(
+        chat_id=update.chat.id,
+        message_ids=update.message_id
+    )
+    
+@pyrogram.Client.on_message(pyrogram.filters.command(["pstcl"]))
+def poster_clean(bot, update):
+    poster_gdrvclean()
+    bot.delete_messages(
+        chat_id=update.chat.id,
+        message_ids=update.message_id
+    )
