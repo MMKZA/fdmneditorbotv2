@@ -3,38 +3,105 @@ import shutil
 import requests
 from trnl import Trnl
 from plugins.transloader import transloader
-
+from plugins.gdrvclean import gdrvauth
 import os
 if bool(os.environ.get("WEBHOOK", False)):
     from sample_config import Config
 else:
     from config import Config
-    
+import logging
+from googleapiclient.http import MediaFileUpload
+import json
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+
+
+
+
+def gdrvupload(image):
+    service = gdrvauth()
+    file_metadata = {'name': image}
+    media = MediaFileUpload(image,mimetype='image/png')
+    file = service.files().create(body=file_metadata, media_body=media,
+                                      fields='id').execute()
+    image_id = file.get("id")
+    service.permissions().create(fileId=image_id,
+                                               body={"additionalRoles":[],"role":"reader","type":"anyone","withLink":"true"},
+                                               fields='id').execute()
+    gdrv_lk = 'https://drive.google.com/file/d/' + image_id + '/view?usp=sharing'
+    base = Trnl.sh2.acell('K2').value
+    poster_link = transloader(base, gdrv_lk)
+    Trnl.sh2.update('C3',poster_link)
+
+def crop_height(enl_h,tf_h):
+    top = random.randint(200,enl_h)
+    while top + tf_h > enl_h:
+        top = random.randint(100,enl_h)
+    if top + tf_h < enl_h:
+        return top
+
 def fdmn_frame(vlink):
     if os.path.exists('myback.png'):
         pass
     elif not os.path.exists('myback.png'):
         base = Trnl.sh2.acell('K2').value
-        url = 'https://drive.google.com/file/d/1LPX16iYs4mE6fd5lfqtz5lWJxZpPV6Bc/view?usp=sharing'
-        frame_link = transloader(base, url)
-        response = requests.get(frame_link, stream=True)
-        with open('myback.png', 'wb') as out_file:
-            shutil.copyfileobj(response.raw, out_file)
-        del response
-    
+        post_url = 'https://drive.google.com/file/d/1LPX16iYs4mE6fd5lfqtz5lWJxZpPV6Bc/view?usp=sharing'
+        post_link = transloader(base, post_url)
+        post_response = requests.get(post_link, stream=True)
+        with open('fdmn_post_frame.png', 'wb') as out_file:
+            shutil.copyfileobj(post_response.raw, out_file)
+        del post_response
+        #
+        thumb_url = 'https://drive.google.com/file/d/1LPX16iYs4mE6fd5lfqtz5lWJxZpPV6Bc/view?usp=sharing'
+        thumb_link = transloader(base, thumb_url)
+        thumb_response = requests.get(thumb_link, stream=True)
+        with open('fdmn_thumb_frame.png', 'wb') as out_file:
+            shutil.copyfileobj(thumb_response.raw, out_file)
+        del thumb_response
     response = requests.get(vlink, stream=True)
     with open('mv_poster.png', 'wb') as out_file:
         shutil.copyfileobj(response.raw, out_file)
     del response
     
-    poster1 = Image.open('mv_poster.png', 'r')
-    pst_w, pst_h = poster1.size
-    background = Image.open('myback.png', 'r')
-    bg_w, bg_h = background.size
-    posterbot = poster1.resize((bg_w, bg_h))
-    postertop = poster1.resize((1465, 2160))
-    posterbot.paste(background, (0,0),mask=background)
-    posterbot.save('paste1.png')
-    paste1 = Image.open('paste1.png', 'r')
-    paste1.paste(postertop,(1188,0))
-    paste1.save('fdmn_thumb.png')
+    #OPENING POSTER PHOTO
+    poster_org = Image.open('mv_poster.png', 'r')
+    #OPENING FRAME PHOTOS
+    post_frame = Image.open('fdmn_post_frame.png', 'r')
+    thumb_frame = Image.open('fdmn_thumb_frame.png', 'r')
+    #GETTING PHOTO SIZES
+    po_w, po_h = poster_org.size
+    pf_w, pf_h = post_frame.size
+    tf_w, tf_h = thumb_frame.size
+    #RESIZING POSTER FOR THUMB
+    po_top = poster_org.resize((1465, 2160))
+    enl_w,enl_h = tf_w,int(po_h/po_w*tf_w)
+    po_bot = poster_org.resize((enl_w,enl_h))
+    #RESIZING POSTER FOR POST
+    pp_w, pp_h = 1810, 2715
+    pp = poster_org.resize((pp_w, pp_h))
+    #CREATING POST POSTER
+    blank_frame = Image.new('RGBA', (pf_w, pf_h), (255, 255, 255, 255))
+    offset = (int((pf_w-pp_w)/2), int((pf_h-pp_h)/2))
+    blank_frame.paste(pp,offset)
+    blank_frame.paste(post_frame, (0,0),mask=post_frame)
+    blank_frame.save('post_poster_v2.png')
+    #UPLOADING TO GOOGLE DRIVE
+    gdrvupload('post_poster_v2.png')
+    #blank_frame.show()
+    #CREATING THUMB POSTER
+    left = 0
+    top = crop_height(enl_h,tf_h)
+    right = tf_w
+    bottom = top+tf_h
+    po_stf = po_bot.crop((left,top,right,bottom))
+    po_stf.paste(thumb_frame,None,mask=thumb_frame)
+    left = 2200 - int(1465/2)
+    top = 0
+    right = left + 1465
+    bottom = top + 2160
+    po_stf.paste(po_top,(left,top,right,bottom))
+    po_tf_s320 = po_stf.resize((320,int(tf_h*320/tf_w)))
+    po_tf_s320.save('thumb_poster.png')
+    #po_tf_s320.show()
