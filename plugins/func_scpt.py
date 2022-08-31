@@ -777,6 +777,8 @@ def func_scpt(script_url):
             phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
         except:
             phto_url = vlink
+    if 'open' in Trnl.sh2.acell('C3').value:
+        phto_url = Trnl.sh2.acell('C4').value
     fdmn_frame(phto_url)
     imdb_rt = ''
     imdb_vt = ''
@@ -797,6 +799,7 @@ def func_scpt(script_url):
     vd_qlt = Trnl.sh2.acell('H2').value
     typ = Trnl.sh2.acell('P3').value
     Trnl.sh2.update('M4', rntm)
+    Trnl.sh2.update('M7', imdb_id)
     Trnl.sh2.update('M3', mv_gnr)
     Trnl.sh2.update('M5', year)
     Trnl.sh2.update('M6', ctry)
