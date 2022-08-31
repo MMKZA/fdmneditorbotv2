@@ -25,6 +25,7 @@ async def scpt_auto(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         script_url = Trnl.sh2.acell('M2').value
         phto_url = Trnl.sh2.acell('R2').value
+        phto_lk = Trnl.sh2.acell('C2').value
         #r = requests.get(phto_url)
         #phto_bio = io.BytesIO(r.content)
         vcap = Trnl.sh2.acell('D2').value
@@ -38,7 +39,7 @@ async def scpt_auto(bot, update):
         typ = Trnl.sh2.acell('P3').value
         Trnl.sh2.update('A2', vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
         vcap = '<b>' + vcap + '</b>'
-        msg_whl = phto_url + "\n\n" + vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
+        msg_whl = phto_lk + "\n\n" + vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
         msg_trm = msg_whl[0:4095]
         scpt_msg = await bot.send_message(
             chat_id="@fdmnscripts",
