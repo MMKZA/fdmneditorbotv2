@@ -33,7 +33,7 @@ def gdrvupload(image):
                                                fields='id').execute()
     gdrv_lk = 'https://drive.google.com/file/d/' + image_id + '/view?usp=sharing'
     base = Trnl.sh2.acell('K2').value
-    poster_link = transloader(base, gdrv_lk)
+    poster_link = 'https://drive.google.com/uc?export=download&id=' + image_id
     Trnl.sh2.update('R2',poster_link)
 
 def crop_height(enl_h,tf_h):
