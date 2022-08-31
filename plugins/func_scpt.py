@@ -777,6 +777,13 @@ def func_scpt(script_url):
             phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
         except:
             phto_url = vlink
+    if 'close' in Trnl.sh2.acell('C3').value:
+        try:
+            omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
+            omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
+            phto_url = omdb_req["Poster"].replace('_SX300', '_FMjpg_UX1000_')
+        except:
+            pass
     if 'open' in Trnl.sh2.acell('C3').value:
         phto_url = Trnl.sh2.acell('C4').value
     fdmn_frame(phto_url)
