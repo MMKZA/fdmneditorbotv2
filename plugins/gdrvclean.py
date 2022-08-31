@@ -4,52 +4,41 @@ from oauth2client.service_account import ServiceAccountCredentials
 from trnl import Trnl
 import json
 import requests
-import os
-if bool(os.environ.get("WEBHOOK", False)):
-    from sample_config import Config
-else:
-    from config import Config
-    
+
+def gdrvauth():
+    if "tharphyo" in Trnl.sh2.acell('N2').value:
+        client_id = '361597500565-vb5t244ml0no4hurcsnsi2ev2465r5lo.apps.googleusercontent.com'
+        client_secret = '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'
+        refresh_token = '1//0g2YEbK1fywuVCgYIARAAGBASNwF-L9IrM850SylhyzdhHQeWDgYNWmAfYTtTqQYqq8E3alIb3L-DhkVWBORZR1eXcls9YKTD8-4'
+    if "st121" in Trnl.sh2.acell('N2').value:
+        client_id = '98300816133-rkcep9nmlfghfcvuokejk8mdkgh8ie29.apps.googleusercontent.com'
+        client_secret = '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'
+        refresh_token = '1//0gbP5IYZ1-9dhCgYIARAAGBASNwF-L9Irj-9p1ncmil8BVpfyLrYtqbzG7rWZ2Z2EGMqsNbt_gqZW3lWdcRphxqcCkqvVm3oscBU'
+    if "robert" in Trnl.sh2.acell('N2').value:
+        client_id = '418134424748-p19effruii2fs8p0b1ldakalppkvbi0n.apps.googleusercontent.com'
+        client_secret = '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'
+        refresh_token = '1//0gnH7e9YpevauCgYIARAAGBASNwF-L9IrQuGVaJw9T1_i2DckjYkoABBJ1YfFfSGMJRDeGVd21xDbzJ8cbsLT781_HJRooAi8HDs'
+    scope = ['https://www.googleapis.com/auth/drive']
+    params = {
+            "grant_type": "refresh_token",
+            "client_id": client_id,
+            "client_secret": client_secret,
+            "refresh_token": refresh_token
+    }
+    authorization_url = "https://oauth2.googleapis.com/token"
+    r = requests.post(authorization_url, data=params)
+    access_token = r.json()['access_token']
+    creds = Credentials(access_token, scope)
+    service = build('drive', 'v3', credentials=creds)
+    return service
 def gdrvclean(status):
-    if "tharphyo" in Trnl.sh1.acell('N2').value:
-        gsprd_json_path = Config.DOWNLOAD_LOCATION + "/myjsons/drvtokens/gsprd_tp.json"
-        with open(gsprd_json_path, "r", encoding="utf8") as f:
-            gsprd_json = json.load(f)
-        client_id = gsprd_json['client_id']
-        client_secret = gsprd_json['client_secret']
-        refresh_token = gsprd_json['refresh_token']
-    if "st121" in Trnl.sh1.acell('N2').value:
-        gsprd_json_path = Config.DOWNLOAD_LOCATION + "/myjsons/drvtokens/tphatoken.json"
-        with open(gsprd_json_path, "r", encoding="utf8") as f:
-            gsprd_json = json.load(f)
-        client_id = gsprd_json['client_id']
-        client_secret = gsprd_json['client_secret']
-        refresh_token = gsprd_json['refresh_token']
-    if "robert" in Trnl.sh1.acell('N2').value:
-        gsprd_json_path = Config.DOWNLOAD_LOCATION + "/myjsons/drvtokens/roberttoken.json"
-        with open(gsprd_json_path, "r", encoding="utf8") as f:
-            gsprd_json = json.load(f)
-        client_id = gsprd_json['client_id']
-        client_secret = gsprd_json['client_secret']
-        refresh_token = gsprd_json['refresh_token']
     if "error" in status:
-        scope = ['https://www.googleapis.com/auth/drive']
-        params = {
-                "grant_type": "refresh_token",
-                "client_id": client_id,
-                "client_secret": client_secret,
-                "refresh_token": refresh_token
-        }
-        authorization_url = "https://oauth2.googleapis.com/token"
-        r = requests.post(authorization_url, data=params)
-        access_token = r.json()['access_token']
-        creds = Credentials(access_token, scope)
-        service = build('drive', 'v3', credentials=creds)
+        service = gdrvauth()
         page_token = None
         results = service.files().list(q="name contains 'YoteShin'",
                                         spaces='drive',
                                         fields='nextPageToken, '
-                                               'files(id, name)',
+                                            'files(id, name)',
                                         pageToken=page_token).execute()
         ytsn_info = results.get('files', [])
         for a in ytsn_info:
