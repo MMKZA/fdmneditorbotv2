@@ -48,7 +48,7 @@ def gdrvclean(status):
 def poster_gdrvclean():
     service = gdrvauth()
     page_token = None
-    results = service.files().list(q="name contains 'post_poster_v1'",
+    results = service.files().list(q="name contains 'post_poster_v2'",
                                     spaces='drive',
                                     fields='nextPageToken, '
                                         'files(id, name)',
