@@ -46,14 +46,14 @@ def crop_height(enl_h,tf_h):
 def fdmn_frame(vlink):
     if not os.path.exists('fdmn_post_frame.png'):
         base = Trnl.sh2.acell('K2').value
-        post_url = 'https://drive.google.com/file/d/18UhVlm7g73wckU_QE52k-w8A2NjJlvaI/view?usp=sharing'
+        post_url = Trnl.sh2.acell('S2').value
         post_link = transloader(base, post_url)
         post_response = requests.get(post_link, stream=True)
         with open('fdmn_post_frame.png', 'wb') as out_file:
             shutil.copyfileobj(post_response.raw, out_file)
         del post_response
         #
-        thumb_url = 'https://drive.google.com/file/d/1h8w2szRyKP8EtDy1UF3ve-0-gEYvKBkf/view?usp=sharing'
+        thumb_url = Trnl.sh2.acell('T2').value
         thumb_link = transloader(base, thumb_url)
         thumb_response = requests.get(thumb_link, stream=True)
         with open('fdmn_thumb_frame.png', 'wb') as out_file:
