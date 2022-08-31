@@ -45,3 +45,15 @@ def gdrvclean(status):
             ytsn_id = u'{0}'.format(a['id'])
         service.files().delete(fileId=ytsn_id).execute()
             
+def poster_gdrvclean():
+    service = gdrvauth()
+    page_token = None
+    results = service.files().list(q="name contains 'post_poster_v1'",
+                                    spaces='drive',
+                                    fields='nextPageToken, '
+                                        'files(id, name)',
+                                    pageToken=page_token).execute()
+    ytsn_info = results.get('files', [])
+    for a in ytsn_info:
+        ytsn_id = u'{0}'.format(a['id'])
+        service.files().delete(fileId=ytsn_id).execute()
