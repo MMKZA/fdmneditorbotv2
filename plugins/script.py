@@ -24,7 +24,7 @@ from trnl import Trnl
 async def script_call_back(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         script_url = Trnl.sh2.acell('M2').value
-        phto_url = Trnl.sh2.acell('C2').value
+        phto_url = Trnl.sh2.acell('R2').value
         #r = requests.get(phto_url)
         #phto_bio = io.BytesIO(r.content)
         msg_trm = Trnl.sh2.acell('O2').value
