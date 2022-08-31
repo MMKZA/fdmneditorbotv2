@@ -44,9 +44,9 @@ def crop_height(enl_h,tf_h):
         return top
 
 def fdmn_frame(vlink):
-    if os.path.exists('myback.png'):
+    if (os.path.exists('fdmn_post_frame.png')) and (os.path.exists('fdmn_thumb_frame.png')):
         pass
-    elif not os.path.exists('myback.png'):
+    elif not (os.path.exists('fdmn_post_frame.png')) and (os.path.exists('fdmn_thumb_frame.png')):
         base = Trnl.sh2.acell('K2').value
         post_url = 'https://drive.google.com/file/d/1LPX16iYs4mE6fd5lfqtz5lWJxZpPV6Bc/view?usp=sharing'
         post_link = transloader(base, post_url)
