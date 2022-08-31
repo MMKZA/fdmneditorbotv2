@@ -23,7 +23,7 @@ from plugins.series import series
 from plugins.echo_auto import echo_auto
 import requests, zipfile, io
 import subprocess
-import os
+import json
 
 class cd:
     """Context manager for changing the current working directory"""
