@@ -33,7 +33,7 @@ from trnl import Trnl
 import asyncio
 import subprocess
 
-def echo_echo(bot, update, url, mssgid):
+def echo_echo(bot, update, url, mssg):
     if update.from_user.id in Config.AUTH_USERS:
         logger.info(update.from_user)
         #url = update.text
@@ -346,13 +346,18 @@ def echo_echo(bot, update, url, mssgid):
                 im.save(thumb_image_path.replace(".webp", ".jpg"), "jpeg")
             else:
                 thumb_image_path = None
-            bot.send_message(
-                chat_id=update.from_user.id,
+            mssg.edit_text(
                 text=Translation.FORMAT_SELECTION.format(thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
-                reply_markup=reply_markup,
                 parse_mode="html",
-                reply_to_message_id=mssgid
+                reply_markup=reply_markup
             )
+            #bot.send_message(
+                #chat_id=update.from_user.id,
+                #text=Translation.FORMAT_SELECTION.format(thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
+                #reply_markup=reply_markup,
+                #parse_mode="html",
+                #reply_to_message_id=mssgid
+            #)
         else:
             # fallback for nonnumeric port a.k.a seedbox.io
             inline_keyboard = []
@@ -371,10 +376,15 @@ def echo_echo(bot, update, url, mssgid):
                 )
             ])
             reply_markup = InlineKeyboardMarkup(inline_keyboard)
-            bot.send_message(
-                chat_id=update.from_user.id,
+            mssg.edit_text(
                 text=Translation.FORMAT_SELECTION.format(""),
-                reply_markup=reply_markup,
                 parse_mode="html",
-                reply_to_message_id=mssgid
+                reply_markup=reply_markup
             )
+            #bot.send_message(
+                #chat_id=update.from_user.id,
+                #text=Translation.FORMAT_SELECTION.format(""),
+                #reply_markup=reply_markup,
+                #parse_mode="html",
+                #reply_to_message_id=mssgid
+            #)
