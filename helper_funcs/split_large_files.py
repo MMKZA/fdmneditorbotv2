@@ -9,9 +9,6 @@ import time
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from logging.handlers import RotatingFileHandler
-import subprocess
-import io
-import locale
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -33,7 +30,7 @@ LOGGER = logging.getLogger(__name__)
 SP_LIT_ALGO_RITH_M = os.environ.get("SP_LIT_ALGO_RITH_M", "hjs")
 MAX_TG_SPLIT_FILE_SIZE = 1610612736
 
-def split_large_files(input_file):
+async def split_large_files(input_file):
     working_directory = os.path.dirname(os.path.abspath(input_file))
     new_working_directory = working_directory + "/fdmnsplits/"
     # create download directory, if not exist
@@ -78,7 +75,7 @@ def split_large_files(input_file):
             LOGGER.info(input_file)
             LOGGER.info(output_file)
             LOGGER.info(
-                cult_small_video(
+                await cult_small_video(
                     input_file, output_file, str(start_time), str(end_time)
                 )
             )
@@ -107,7 +104,7 @@ def split_large_files(input_file):
             input_file,
             o_d_t,
         ]
-        run_comman_d(file_genertor_command)
+        await run_comman_d(file_genertor_command)
 
     elif SP_LIT_ALGO_RITH_M.lower() == "rar":
         o_d_t = os.path.join(
@@ -123,7 +120,7 @@ def split_large_files(input_file):
             o_d_t,
             input_file,
         ]
-        run_comman_d(file_genertor_command)
+        await run_comman_d(file_genertor_command)
     try:
         os.remove(input_file)
     except Exception as r:
@@ -131,7 +128,7 @@ def split_large_files(input_file):
     return new_working_directory
 
 
-def cult_small_video(video_file, out_put_file_name, start_time, end_time):
+async def cult_small_video(video_file, out_put_file_name, start_time, end_time):
     file_genertor_command = [
         "ffmpeg",
         "-hide_banner",
@@ -149,17 +146,29 @@ def cult_small_video(video_file, out_put_file_name, start_time, end_time):
         "copy",
         out_put_file_name,
     ]
-    process = subprocess.Popen(*file_genertor_command, stdout=subprocess.PIPE,stderr=subprocess.PIPE,universal_newlines=False)
+    process = await asyncio.create_subprocess_exec(
+        *file_genertor_command,
+        # stdout must a pipe to be accessible as process.stdout
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+    )
     # Wait for the subprocess to finish
-    e_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stderr,encoding=locale.getpreferredencoding(False),errors='strict')])
-    t_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict')])
+    stdout, stderr = await process.communicate()
+    e_response = stderr.decode().strip()
+    t_response = stdout.decode().strip()
     LOGGER.info(t_response)
     return out_put_file_name
 
 
-def run_comman_d(command_list):
-    process = subprocess.Popen(*command_list, stdout=subprocess.PIPE,stderr=subprocess.PIPE,universal_newlines=False)
+async def run_comman_d(command_list):
+    process = await asyncio.create_subprocess_exec(
+        *command_list,
+        # stdout must a pipe to be accessible as process.stdout
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+    )
     # Wait for the subprocess to finish
-    e_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stderr,encoding=locale.getpreferredencoding(False),errors='strict')])
-    t_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict')])
+    stdout, stderr = await process.communicate()
+    e_response = stderr.decode().strip()
+    t_response = stdout.decode().strip()
     return t_response, e_response
