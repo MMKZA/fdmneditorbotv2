@@ -295,9 +295,9 @@ def final_dllk(bot, update):
                             disable_web_page_preview=True
                         )
                         if 'yoteshinportal.cc' in epsd:
-                            lk = epsd.split('/')[0].strip()
-                            qlt = epsd.split('/')[1].strip()
-                            sz = epsd.split('/')[2].strip()
+                            lk = epsd.split('|')[0].strip()
+                            qlt = epsd.split('|')[1].strip()
+                            sz = epsd.split('|')[2].strip()
                             inline_keyboard.append([InlineKeyboardButton('Quality: {} ; Size: {} GB'.format(qlt,sz),callback_data=str(lk))])
                     reply_markup = InlineKeyboardMarkup(inline_keyboard)
                     try:
