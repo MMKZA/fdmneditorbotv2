@@ -17,7 +17,7 @@ logger = logging.getLogger(__name__)
 
 async def cnmm_transload(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        gdrv_lk = update.data
+        gdrv_lk = 'https://drive.google.com/file/d/{}/view?usp%3Dsharing&ec=GAZAGQ'.format(update.data.split('|')[1])
         logger.info(gdrv_lk)
         base = Trnl.sh2.acell('K2').value
         final_link = transloader(base, gdrv_lk)
