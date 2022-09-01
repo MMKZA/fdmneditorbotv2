@@ -18,8 +18,6 @@ else:
 # the Strings used for this "thing"
 from translation import Translation
 from plugins.m4vtomp4 import mp4
-import io
-import locale
 
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
@@ -32,6 +30,8 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from trnl import Trnl
 import asyncio
 import subprocess
+import io
+import locale
 
 def echo_echo(bot, update, url, mssg, mssgid):
     if update.from_user.id in Config.AUTH_USERS:
