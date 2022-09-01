@@ -33,7 +33,7 @@ from trnl import Trnl
 import asyncio
 import subprocess
 
-async def echo_echo(bot, update, url, mssg):
+def echo_echo(bot, update, url, mssg, mssgid):
     if update.from_user.id in Config.AUTH_USERS:
         logger.info(update.from_user)
         #url = Trnl.sh2.acell('L2').value
@@ -86,7 +86,7 @@ async def echo_echo(bot, update, url, mssg):
             pablo.edit_text('Uploading...')
             start_time = time.time()
             if xfiletype in ['video/mp4', 'video/x-matroska', 'video/webm']:
-                await bot.send_video(
+                bot.send_video(
                     chat_id=update.from_user.id,
                     video=dldir,
                     caption=file_name,
@@ -100,7 +100,7 @@ async def echo_echo(bot, update, url, mssg):
                     )
                 )
             elif xfiletype == 'audio/mpeg':
-                await bot.send_audio(
+                bot.send_audio(
                     chat_id=update.from_user.id,
                     audio=dldir,
                     caption=file_name,
@@ -114,7 +114,7 @@ async def echo_echo(bot, update, url, mssg):
                     )
                 )
             else:
-                await bot.send_document(
+                bot.send_document(
                     chat_id=update.from_user.id,
                     document=dldir,
                     caption=file_name,
@@ -336,7 +336,7 @@ async def echo_echo(bot, update, url, mssg):
                 Config.CHUNK_SIZE,
                 None,  # bot,
                 Translation.DOWNLOAD_START,
-                mssg.message_id,
+                mssgid,
                 update.from_user.id
             )
             if os.path.exists(thumb_image_path):
@@ -344,7 +344,7 @@ async def echo_echo(bot, update, url, mssg):
                 im.save(thumb_image_path.replace(".webp", ".jpg"), "jpeg")
             else:
                 thumb_image_path = None
-            await mssg.edit_text(
+            mssg.edit_text(
                 text=mssg.text + '\n' + Translation.FORMAT_SELECTION.format(thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
                 parse_mode="html",
                 reply_markup=reply_markup
@@ -374,7 +374,7 @@ async def echo_echo(bot, update, url, mssg):
                 )
             ])
             reply_markup = InlineKeyboardMarkup(inline_keyboard)
-            await mssg.edit_text(
+            mssg.edit_text(
                 text=mssg.text + '\n' + Translation.FORMAT_SELECTION.format(""),
                 parse_mode="html",
                 reply_markup=reply_markup
