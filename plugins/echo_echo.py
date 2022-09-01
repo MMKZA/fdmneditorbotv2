@@ -36,8 +36,6 @@ import subprocess
 async def echo_echo(bot, update, url, mssg):
     if update.from_user.id in Config.AUTH_USERS:
         logger.info(update.from_user)
-        #url = update.text
-        asyncio.sleep(2)
         #url = Trnl.sh2.acell('L2').value
         if ('.m4v' in url) or ('.mkv' in url):
             base = Trnl.sh2.acell('K2').value
