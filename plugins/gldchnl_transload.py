@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-async def cnmm_transload(bot, update):
+async def gldchnl_transload(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         gdrv_lk = 'https://drive.google.com/file/d/{}/view?usp%3Dsharing&ec=GAZAGQ'.format(update.data.split('|')[1])
         logger.info(gdrv_lk)
