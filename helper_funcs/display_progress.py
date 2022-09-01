@@ -22,7 +22,7 @@ else:
 from translation import Translation
 
 
-async def progress_for_pyrogram(
+def progress_for_pyrogram(
     current,
     total,
     ud_type,
@@ -57,7 +57,7 @@ async def progress_for_pyrogram(
             estimated_total_time if estimated_total_time != '' else "0 s"
         )
         try:
-            await message.edit(
+            message.edit(
                 text="{}\n {}".format(
                     ud_type,
                     tmp
