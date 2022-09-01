@@ -32,6 +32,7 @@ from plugins.youtube_dl_button import youtube_dl_call_back
 from plugins.dl_button import ddl_call_back
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
+from plugins.cnmm_transload import cnmm_transload
 # https://stackoverflow.com/a/37631799/4723940
 from PIL import Image
 
@@ -124,3 +125,5 @@ async def button(bot, update):
             await youtube_dl_call_back(bot, update)
         elif "=" in cb_data:
             await ddl_call_back(bot, update)
+        elif 'yoteshinportal.cc' in cb_data:
+            await cnmm_transload(bot,update)
