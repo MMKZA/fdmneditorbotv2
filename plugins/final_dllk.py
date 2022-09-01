@@ -262,7 +262,8 @@ def final_dllk(bot, update):
                         disable_web_page_preview=True
                     )
                     if 'drive.google.com' in gdrv:
-                        lk = gdrv.split('|')[0].strip().split('/')[5]
+                        lk = gdrv.split('|')[0].strip()
+                        lk = '{}|{}'.format(lk.split('/')[2],lk.split('/')[5])
                         qlt = gdrv.split('|')[1].strip()
                         sz = gdrv.split('|')[2].strip()
                         inline_keyboard.append([InlineKeyboardButton('Quality: {} ; Size: {}'.format(qlt,sz),callback_data=str(lk).encode("UTF-8"))])
