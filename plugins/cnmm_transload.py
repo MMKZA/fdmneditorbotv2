@@ -39,14 +39,14 @@ async def cnmm_transload(bot, update):
                 chat_id=update.from_user.id,
                 text=text + final_link
             )
-            echo_echo(bot,update,final_link,mssg.message_id)
+            echo_echo(bot,update,final_link,mssg)
         elif fl_ext in vd_kw:
             text = "Video ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 📺SVideo ကိုရွေးချယ်ပါ 👇\n"
             mssg = await bot.send_message(
                 chat_id=update.from_user.id,
                 text=text + final_link
             )
-            echo_echo(bot,update,final_link,mssg.message_id)
+            echo_echo(bot,update,final_link,mssg)
         else:
             text = "Link အမှားအယွင်းရှိနိုင်ပါတယ်၊ သေချာစစ်ကြည့်ပါ ⚠️\n"
             mssg = await bot.send_message(
