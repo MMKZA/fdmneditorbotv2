@@ -254,6 +254,7 @@ def final_dllk(bot, update):
                     chat_id=update.chat.id,
                     text="ရရှိနိုင်သော links များ👇\n" + avlb_lk
                 )
+                inline_keyboard = []
                 for gdrv in gdrv_lst:
                     bot.send_message(
                         chat_id=update.chat.id,
