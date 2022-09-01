@@ -35,21 +35,21 @@ async def cnmm_transload(bot, update):
         fl_ext = os.path.splitext(final_link)[1]
         if fl_ext in arc_kw:
             text = "Archive ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 🗃️SFile ကိုရွေးချယ်ပါ 👇\n"
-            await bot.send_message(
+            mssg = await bot.send_message(
                 chat_id=update.from_user.id,
                 text=text + final_link
             )
-            echo_echo(bot,update,final_link)
+            echo_echo(bot,update,final_link,mssg.message_id)
         elif fl_ext in vd_kw:
             text = "Video ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 📺SVideo ကိုရွေးချယ်ပါ 👇\n"
-            await bot.send_message(
+            mssg = await bot.send_message(
                 chat_id=update.from_user.id,
                 text=text + final_link
             )
-            echo_echo(bot,update,final_link)
+            echo_echo(bot,update,final_link,mssg.message_id)
         else:
             text = "Link အမှားအယွင်းရှိနိုင်ပါတယ်၊ သေချာစစ်ကြည့်ပါ ⚠️\n"
-            await bot.send_message(
+            mssg = await bot.send_message(
                 chat_id=update.from_user.id,
                 text=text + final_link
             )
