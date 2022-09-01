@@ -51,7 +51,6 @@ def gldchnl(gld_url):
             if k in a:
                 avlb_lst.append(a)
     gdrv_lst = []
-    href_lst = []
     dllk = ''
     for al in all_lst:
         if 'G Drive' in al:
@@ -60,16 +59,16 @@ def gldchnl(gld_url):
             gdrv_req.encoding = gdrv_req.apparent_encoding
             gdrv_html = gdrv_req.text
             soup = BeautifulSoup(gdrv_html, 'html.parser')
+            href_lst = []
             for a in soup.find_all('a', href=True):
                 href_lst.append(a['href'])
             for h in href_lst:
                 if 'followup=' in h:
                     dllk = h.split('followup=')[1]
                     gdrv_lst.append('{} | {} | {}'.format(dllk,al.split("|", 3)[1].strip(),al.split("|", 3)[2].strip()))
-                if 'followup=' not in h:
-                    if 'https://drive.google.com/file/d/' in h:
-                        dllk = h
-                        gdrv_lst.append('{} | {} | {}'.format(dllk,al.split("|", 3)[1].strip(),al.split("|", 3)[2].strip()))
+                elif ('followup=' not in h) and ('https://drive.google.com/file/d/' in h):
+                    dllk = h
+                    gdrv_lst.append('{} | {} | {}'.format(dllk,al.split("|", 3)[1].strip(),al.split("|", 3)[2].strip()))
     avlb_lk = '\n'.join([str(lk) for lk in avlb_lst])
     #dllk = ''
     #for m in max_lst:
