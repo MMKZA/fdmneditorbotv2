@@ -33,7 +33,7 @@ from trnl import Trnl
 import asyncio
 import subprocess
 
-def echo_echo(bot, update, url, mssg):
+async def echo_echo(bot, update, url, mssg):
     if update.from_user.id in Config.AUTH_USERS:
         logger.info(update.from_user)
         #url = update.text
@@ -88,7 +88,7 @@ def echo_echo(bot, update, url, mssg):
             pablo.edit_text('Uploading...')
             start_time = time.time()
             if xfiletype in ['video/mp4', 'video/x-matroska', 'video/webm']:
-                bot.send_video(
+                await bot.send_video(
                     chat_id=update.from_user.id,
                     video=dldir,
                     caption=file_name,
@@ -102,7 +102,7 @@ def echo_echo(bot, update, url, mssg):
                     )
                 )
             elif xfiletype == 'audio/mpeg':
-                bot.send_audio(
+                await bot.send_audio(
                     chat_id=update.from_user.id,
                     audio=dldir,
                     caption=file_name,
@@ -116,7 +116,7 @@ def echo_echo(bot, update, url, mssg):
                     )
                 )
             else:
-                bot.send_document(
+                await bot.send_document(
                     chat_id=update.from_user.id,
                     document=dldir,
                     caption=file_name,
@@ -346,8 +346,8 @@ def echo_echo(bot, update, url, mssg):
                 im.save(thumb_image_path.replace(".webp", ".jpg"), "jpeg")
             else:
                 thumb_image_path = None
-            mssg.edit_text(
-                text=Translation.FORMAT_SELECTION.format(thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
+            await mssg.edit_text(
+                text=mssg.text + '\n' + Translation.FORMAT_SELECTION.format(thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
                 parse_mode="html",
                 reply_markup=reply_markup
             )
@@ -376,8 +376,8 @@ def echo_echo(bot, update, url, mssg):
                 )
             ])
             reply_markup = InlineKeyboardMarkup(inline_keyboard)
-            mssg.edit_text(
-                text=Translation.FORMAT_SELECTION.format(""),
+            await mssg.edit_text(
+                text=mssg.text + '\n' + Translation.FORMAT_SELECTION.format(""),
                 parse_mode="html",
                 reply_markup=reply_markup
             )
