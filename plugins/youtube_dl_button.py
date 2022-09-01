@@ -20,6 +20,7 @@ from datetime import datetime
 from pprint import pprint
 import math
 from moviepy.editor import *
+from asgiref.sync import async_to_sync
 
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
@@ -280,7 +281,7 @@ def youtube_dl_call_back(bot, update):
                     chat_id=update.message.chat.id,
                     message_id=update.message.message_id
                 )
-                splitted_dir = split_large_files(download_directory)
+                splitted_dir = async_to_sync(split_large_files)(download_directory)
                 totlaa_sleif = os.listdir(splitted_dir)
                 totlaa_sleif.sort()
                 number_of_files = len(totlaa_sleif)
@@ -296,7 +297,7 @@ def youtube_dl_call_back(bot, update):
                     dwnl_dir = tmp_directory_for_each_user + "/fdmnsplits/" + le_file
                     try:
                         is_w_f = False
-                        images = generate_screen_shots(
+                        images = async_to_sync(generate_screen_shots)(
                             dwnl_dir,
                             tmp_directory_for_each_user,
                             is_w_f,
@@ -394,7 +395,7 @@ def youtube_dl_call_back(bot, update):
             if file_size < Config.TG_MAX_FILE_SIZE:
                 try:
                     is_w_f = False
-                    images = generate_screen_shots(
+                    images = async_to_sync(generate_screen_shots)(
                     download_directory,
                     tmp_directory_for_each_user,
                     is_w_f,
