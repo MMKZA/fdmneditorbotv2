@@ -53,12 +53,7 @@ def place_water_mark(input_file, output_file, water_mark_file):
         output_file
     ]
     # print(commands_to_execute)
-    process = subprocess.Popen(
-        *commands_to_execute,
-        # stdout must a pipe to be accessible as process.stdout
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
-    )
+    process = subprocess.Popen(commands_to_execute, stdout=subprocess.PIPE,stderr=subprocess.PIPE,universal_newlines=False)
     # Wait for the subprocess to finish
     e_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stderr,encoding=locale.getpreferredencoding(False),errors='strict')])
     t_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict')])
@@ -80,12 +75,7 @@ def take_screen_shot(video_file, output_directory, ttl):
         out_put_file_name
     ]
     # width = "90"
-    process = subprocess.Popen(
-        *file_genertor_command,
-        # stdout must a pipe to be accessible as process.stdout
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
+    process = subprocess.Popen(file_genertor_command, stdout=subprocess.PIPE,stderr=subprocess.PIPE,universal_newlines=False)
     # Wait for the subprocess to finish
     e_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stderr,encoding=locale.getpreferredencoding(False),errors='strict')])
     t_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict')])
@@ -114,12 +104,7 @@ def cult_small_video(video_file, output_directory, start_time, end_time):
         "-2",
         out_put_file_name
     ]
-    process = subprocess.Popen(
-        *file_genertor_command,
-        # stdout must a pipe to be accessible as process.stdout
-        stdout=subprocess.PIPE,
-        stderr=subprocess.PIPE,
-    )
+    process = subprocess.Popen(file_genertor_command, stdout=subprocess.PIPE,stderr=subprocess.PIPE,universal_newlines=False)
     # Wait for the subprocess to finish
     e_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stderr,encoding=locale.getpreferredencoding(False),errors='strict')])
     t_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict')])
