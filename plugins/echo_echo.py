@@ -33,7 +33,7 @@ from trnl import Trnl
 import asyncio
 import subprocess
 
-def echo_echo(bot, update, url):
+def echo_echo(bot, update, url, mssgid):
     if update.from_user.id in Config.AUTH_USERS:
         logger.info(update.from_user)
         #url = update.text
@@ -89,7 +89,7 @@ def echo_echo(bot, update, url):
             start_time = time.time()
             if xfiletype in ['video/mp4', 'video/x-matroska', 'video/webm']:
                 bot.send_video(
-                    chat_id=update.chat.id,
+                    chat_id=update.from_user.id,
                     video=dldir,
                     caption=file_name,
                     duration=duration,
@@ -103,7 +103,7 @@ def echo_echo(bot, update, url):
                 )
             elif xfiletype == 'audio/mpeg':
                 bot.send_audio(
-                    chat_id=update.chat.id,
+                    chat_id=update.from_user.id,
                     audio=dldir,
                     caption=file_name,
                     duration=duration,
@@ -117,7 +117,7 @@ def echo_echo(bot, update, url):
                 )
             else:
                 bot.send_document(
-                    chat_id=update.chat.id,
+                    chat_id=update.from_user.id,
                     document=dldir,
                     caption=file_name,
                     reply_to_message_id=update.message_id,
@@ -204,7 +204,7 @@ def echo_echo(bot, update, url):
             if "This video is only available for registered users." in error_message:
                 error_message += Translation.SET_CUSTOM_USERNAME_PASSWORD
             bot.send_message(
-                chat_id=update.chat.id,
+                chat_id=update.from_user.id,
                 text=Translation.NO_VOID_FORMAT_FOUND.format(str(error_message)),
                 reply_to_message_id=update.message_id,
                 parse_mode="html",
@@ -338,8 +338,8 @@ def echo_echo(bot, update, url):
                 Config.CHUNK_SIZE,
                 None,  # bot,
                 Translation.DOWNLOAD_START,
-                update.message_id,
-                update.chat.id
+                mssgid,
+                update.from_user.id
             )
             if os.path.exists(thumb_image_path):
                 im = Image.open(thumb_image_path).convert("RGB")
@@ -347,11 +347,11 @@ def echo_echo(bot, update, url):
             else:
                 thumb_image_path = None
             bot.send_message(
-                chat_id=update.chat.id,
+                chat_id=update.from_user.id,
                 text=Translation.FORMAT_SELECTION.format(thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
                 reply_markup=reply_markup,
                 parse_mode="html",
-                reply_to_message_id=update.message_id
+                reply_to_message_id=mssgid
             )
         else:
             # fallback for nonnumeric port a.k.a seedbox.io
@@ -372,9 +372,9 @@ def echo_echo(bot, update, url):
             ])
             reply_markup = InlineKeyboardMarkup(inline_keyboard)
             bot.send_message(
-                chat_id=update.chat.id,
+                chat_id=update.from_user.id,
                 text=Translation.FORMAT_SELECTION.format(""),
                 reply_markup=reply_markup,
                 parse_mode="html",
-                reply_to_message_id=update.message_id
+                reply_to_message_id=mssgid
             )
