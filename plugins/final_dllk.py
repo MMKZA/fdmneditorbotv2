@@ -311,6 +311,7 @@ def final_dllk(bot, update):
                         text="ရရှိနိုင်သော Link အားလုံး 👇"
                     )
                     inline_keyboard = []
+                    ytsn_lst = []
                     for epsd in cnmm_rtrn[0]:
                         bot.send_message(
                             chat_id=update.chat.id,
@@ -318,11 +319,14 @@ def final_dllk(bot, update):
                             disable_web_page_preview=True
                         )
                         if 'yoteshinportal.cc' in epsd:
-                            lk = epsd.split('|')[0].strip()
+                            ytsn_lst.append(epsd)
+                            lk = 'yoteshinportal.cc|{}'.format(cnmm_rtrn[0].index(epsd))
                             qlt = epsd.split('|')[1].strip()
                             sz = epsd.split('|')[2].strip()
                             inline_keyboard.append([InlineKeyboardButton('Quality: {} ; Size: {}'.format(qlt,sz),callback_data=str(lk).encode("UTF-8"))])
                     reply_markup = InlineKeyboardMarkup(inline_keyboard)
+                    ytsn_lst_txt = '\n'.join([ytsn for ytsn in ytsn_lst])
+                    Trnl.sh2.update('A6',ytsn_lst_txt)
                     if len(inline_keyboard) != 0:
                         bot.send_message(
                             chat_id=update.chat.id,
