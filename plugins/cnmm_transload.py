@@ -18,7 +18,10 @@ logger = logging.getLogger(__name__)
 
 def cnmm_transload(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        lk = update.data
+        index = int(update.data.split('|')[1])
+        ytsn_lst_txt = Trnl.sh2.acell('A6').value
+        ytsn_lst = ytsn_lst_txt.split('\n')
+        lk = ytsn_lst[index]
         logger.info(lk)
         gdrv_retrn = ytsn_dllk(lk)
         if "error" in gdrv_retrn:
