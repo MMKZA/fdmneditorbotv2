@@ -152,8 +152,8 @@ def cult_small_video(video_file, out_put_file_name, start_time, end_time):
     process = subprocess.Popen(
         *file_genertor_command,
         # stdout must a pipe to be accessible as process.stdout
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
     )
     # Wait for the subprocess to finish
     e_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stderr,encoding=locale.getpreferredencoding(False),errors='strict')])
@@ -166,8 +166,8 @@ def run_comman_d(command_list):
     process = subprocess.Popen(
         *command_list,
         # stdout must a pipe to be accessible as process.stdout
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
+        stdout=subprocess.PIPE,
+        stderr=subprocess.PIPE,
     )
     # Wait for the subprocess to finish
     e_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stderr,encoding=locale.getpreferredencoding(False),errors='strict')])
