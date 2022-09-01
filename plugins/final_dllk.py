@@ -13,6 +13,7 @@ from plugins.blc import blc
 from plugins.bs import bs
 from plugins.shweflix import shweflix
 from plugins.echo_auto import echo_auto
+from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import os
 import re
 import time
@@ -273,7 +274,7 @@ def final_dllk(bot, update):
                     bot.send_message(
                         chat_id=update.chat.id,
                         text="အခက်အခဲဖြစ်ပေါ်နေလို့ Manual ရွေးပါ 👇"
-                    )                    
+                    )
                     for epsd in cnmm_rtrn[0]:
                         bot.send_message(
                             chat_id=update.chat.id,
@@ -285,49 +286,66 @@ def final_dllk(bot, update):
                     bot.send_message(
                         chat_id=update.chat.id,
                         text="ရရှိနိုင်သော Link အားလုံး 👇"
-                    )                    
+                    )
+                    inline_keyboard = []
                     for epsd in cnmm_rtrn[0]:
                         bot.send_message(
                             chat_id=update.chat.id,
                             text=epsd,
                             disable_web_page_preview=True
                         )
-                    bot.send_message(
-                        chat_id=update.chat.id,
-                        text="2 GB ထက်နည်းသော Link - Quality: {} - Size: {} GB👇\n{}".format(cnmm_rtrn[2],cnmm_rtrn[3],max_lk),
-                        disable_web_page_preview=True
-                    )
-                    gdrv_retrn = ytsn_dllk(max_lk)
-                    if "error" in gdrv_retrn:
-                        gdrvclean(gdrv_retrn)
-                        gdrv_lk = ytsn_dllk(max_lk)
-                    else:
-                        gdrv_lk = gdrv_retrn
-                    final_link = transloader(base, gdrv_lk)
-                    Trnl.sh2.update('L2', final_link)
-                    arc_kw = ['.zip','.rar','.7z']
-                    vd_kw = ['.mp4','.mkv','.mov','.m4v']
-                    fl_ext = os.path.splitext(final_link)[1]
-                    if fl_ext in arc_kw:
-                        text = "Archive ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 🗃️SFile ကိုရွေးချယ်ပါ 👇\n"
+                        if 'yoteshinportal.cc' in epsd:
+                            lk = epsd.split('/')[0].strip()
+                            qlt = epsd.split('/')[1].strip()
+                            sz = epsd.split('/')[2].strip()
+                            inline_keyboard.append([InlineKeyboardButton('Quality: {} ; Size: {} GB'.format(qlt,sz),callback_data=str(lk))])
+                    reply_markup = InlineKeyboardMarkup(inline_keyboard)
+                    try:
                         bot.send_message(
                             chat_id=update.chat.id,
-                            text=text + final_link
+                            text="တင်မယ့် Quality ရွေးပါ 👇",
+                            reply_markup=reply_markup,
+                            parse_mode="html",
+                            reply_to_message_id=update.message_id
                         )
-                        asyncio.run(echo_auto(bot,update,final_link))
-                    elif fl_ext in vd_kw:
-                        text = "Video ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 📺SVideo ကိုရွေးချယ်ပါ 👇\n"
-                        bot.send_message(
-                            chat_id=update.chat.id,
-                            text=text + final_link
-                        )
-                        asyncio.run(echo_auto(bot,update,final_link))
-                    else:
-                        text = "Link အမှားအယွင်းရှိနိုင်ပါတယ်၊ သေချာစစ်ကြည့်ပါ ⚠️\n"
-                        bot.send_message(
-                            chat_id=update.chat.id,
-                            text=text + final_link
-                        )
+                    except:
+                        pass
+                    #bot.send_message(
+                        #chat_id=update.chat.id,
+                        #text="2 GB ထက်နည်းသော Link - Quality: {} - Size: {} GB👇\n{}".format(cnmm_rtrn[2],cnmm_rtrn[3],max_lk),
+                        #disable_web_page_preview=True
+                    #)
+                    #gdrv_retrn = ytsn_dllk(max_lk)
+                    #if "error" in gdrv_retrn:
+                        #gdrvclean(gdrv_retrn)
+                        #gdrv_lk = ytsn_dllk(max_lk)
+                    #else:
+                        #gdrv_lk = gdrv_retrn
+                    #final_link = transloader(base, gdrv_lk)
+                    #Trnl.sh2.update('L2', final_link)
+                    #arc_kw = ['.zip','.rar','.7z']
+                    #vd_kw = ['.mp4','.mkv','.mov','.m4v']
+                    #fl_ext = os.path.splitext(final_link)[1]
+                    #if fl_ext in arc_kw:
+                        #text = "Archive ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 🗃️SFile ကိုရွေးချယ်ပါ 👇\n"
+                        #bot.send_message(
+                            #chat_id=update.chat.id,
+                            #text=text + final_link
+                        #)
+                        #asyncio.run(echo_auto(bot,update,final_link))
+                    #elif fl_ext in vd_kw:
+                        #text = "Video ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 📺SVideo ကိုရွေးချယ်ပါ 👇\n"
+                        #bot.send_message(
+                            #chat_id=update.chat.id,
+                            #text=text + final_link
+                        #)
+                        #asyncio.run(echo_auto(bot,update,final_link))
+                    #else:
+                        #text = "Link အမှားအယွင်းရှိနိုင်ပါတယ်၊ သေချာစစ်ကြည့်ပါ ⚠️\n"
+                        #bot.send_message(
+                            #chat_id=update.chat.id,
+                            #text=text + final_link
+                        #)
         if (act_imdb_kw != '') and (act_imdb_kw in web_url) and ('https://t.me/c' not in web_url):
             imdb_lk = web_url
             try:
