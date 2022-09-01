@@ -131,3 +131,4 @@ async def button(bot, update):
             await cnmm_transload(bot,update)
         if 'drive.google.com' in cb_data:
             await gldchnl_transload(bot,update)
+        await asyncio.sleep(60)
