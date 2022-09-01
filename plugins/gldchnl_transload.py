@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-async def gldchnl_transload(bot, update):
+def gldchnl_transload(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         gdrv_lk = 'https://drive.google.com/file/d/{}/view?usp%3Dsharing&ec=GAZAGQ'.format(update.data.split('|')[1])
         logger.info(gdrv_lk)
@@ -28,22 +28,22 @@ async def gldchnl_transload(bot, update):
         fl_ext = os.path.splitext(final_link)[1]
         if fl_ext in arc_kw:
             text = "Archive ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 🗃️SFile ကိုရွေးချယ်ပါ 👇\n"
-            mssg = await bot.send_message(
+            mssg = bot.send_message(
                 chat_id=update.from_user.id,
                 text=text + final_link
             )
-            await echo_echo(bot,update,final_link,mssg)
+            echo_echo(bot,update,final_link,mssg,mssg.message_id)
         elif fl_ext in vd_kw:
             text = "Video ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 📺SVideo ကိုရွေးချယ်ပါ 👇\n"
-            mssg = await bot.send_message(
+            mssg = bot.send_message(
                 chat_id=update.from_user.id,
                 text=text + final_link
             )
-            await echo_echo(bot,update,final_link,mssg)
+            echo_echo(bot,update,final_link,mssg,mssg.message_id)
         else:
             text = "Link အမှားအယွင်းရှိနိုင်ပါတယ်၊ သေချာစစ်ကြည့်ပါ ⚠️\n"
-            mssg = await bot.send_message(
+            mssg = bot.send_message(
                 chat_id=update.from_user.id,
                 text=text + final_link
             )
-        await asyncio.sleep(20)
+        asyncio.sleep(20)
