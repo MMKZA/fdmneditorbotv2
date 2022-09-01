@@ -21,7 +21,7 @@ from pyrogram.types.bots_and_keyboards import InlineKeyboardButton, InlineKeyboa
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 from trnl import Trnl
 @pyrogram.Client.on_message(pyrogram.filters.command(["scpt"]))
-def script_call_back(bot, update):
+async def script_call_back(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         script_url = Trnl.sh2.acell('M2').value
         phto_url = Trnl.sh2.acell('R2').value
@@ -41,7 +41,7 @@ def script_call_back(bot, update):
         vcap = '<b>' + vcap + '</b>'
         msg_whl = phto_lk + "\n\n" + vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
         msg_trm = msg_whl[0:4095]
-        scpt_msg = bot.send_message(
+        scpt_msg = await bot.send_message(
             chat_id="@fdmnscripts",
             text=msg_trm,
             parse_mode = 'html'
@@ -67,13 +67,13 @@ def script_call_back(bot, update):
         chnl_hplk = '<a href="' + invt_lk + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
         if "Movie" in typ:
             vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
-            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN + "\n1️⃣"
+            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN + "\n2️⃣"
         if "Series" in typ:
             srs_no = 'စီးရီးအမှတ်စဥ် 👉 ' + '`' + '<b>' + '{}'.format(Trnl.sh2.acell('D3').value) + '</b>' + '`' + '\nကူးယူရန် ထိလိုက်ပါ 👆'
             srs_inst = "\n\n<b>အသစ်ရောက်လာတဲ့သူတွေက...</b>\n<b>စီးရီးချာနယ် ထဲဝင်နည်း Video ကို 👉<a href='https://t.me/fdmnchannel/1020'> ဒီနေရာမှာ</a>👈 နှိပ်ပြီး ကြည့်ပါ။</b>\n<b>ဝင်ကြေးပေးစရာမလို(အခမဲ့)ပါ။</b>"
-            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + srs_no + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + srs_inst + "\n\n" + Translation.CHNL_FB + "\n1️⃣"
+            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + srs_no + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + srs_inst + "\n\n" + Translation.CHNL_FB + "\n2️⃣"
         try:
-            mchnl_msg = bot.send_photo(
+            mchnl_msg = await bot.send_photo(
                 "@fdmnchannel",
                 phto_url,
                 mssg
@@ -82,14 +82,14 @@ def script_call_back(bot, update):
         except:
             phto_req = requests.get(phto_url)
             phto_bio = io.BytesIO(phto_req.content)
-            mchnl_msg = bot.send_photo(
+            mchnl_msg = await bot.send_photo(
                 "@fdmnchannel",
                 phto_bio,
                 mssg
                 #'html'
             )
         Trnl.sh2.update('G2', mchnl_msg.message_id)
-        bot.send_message(
+        await bot.send_message(
             chat_id=update.chat.id,
             text="Post တင်လိုက်သော ဇာတ်လမ်း 👇\n" + script_url
         )
