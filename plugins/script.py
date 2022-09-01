@@ -2,6 +2,7 @@ import logging
 import os
 import requests
 import io
+from channels import channels
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -14,21 +15,19 @@ else:
     from config import Config
 
 from translation import Translation
-from channels import channels
 import pyrogram
 from pyrogram.types.bots_and_keyboards import InlineKeyboardButton, InlineKeyboardMarkup
 
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 from trnl import Trnl
 @pyrogram.Client.on_message(pyrogram.filters.command(["scpt"]))
-async def script_call_back(bot, update):
+def script_call_back(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         script_url = Trnl.sh2.acell('M2').value
         phto_url = Trnl.sh2.acell('R2').value
         phto_lk = Trnl.sh2.acell('C2').value
         #r = requests.get(phto_url)
         #phto_bio = io.BytesIO(r.content)
-        msg_trm = Trnl.sh2.acell('O2').value
         vcap = Trnl.sh2.acell('D2').value
         vtext = Trnl.sh2.acell('O2').value
         vd_qlt = Trnl.sh2.acell('H2').value
@@ -42,7 +41,7 @@ async def script_call_back(bot, update):
         vcap = '<b>' + vcap + '</b>'
         msg_whl = phto_lk + "\n\n" + vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
         msg_trm = msg_whl[0:4095]
-        scpt_msg = await bot.send_message(
+        scpt_msg = bot.send_message(
             chat_id="@fdmnscripts",
             text=msg_trm,
             parse_mode = 'html'
@@ -56,7 +55,7 @@ async def script_call_back(bot, update):
             if Trnl.sh2.acell('J2').value == channels.gn_chnl[0]:
                 invt_lk = channels.gn_chnl[2]
             elif Trnl.sh2.acell('J2').value == channels.bt_chnl[0]:
-                invt_lk = channels.bt_chnl[2]
+                invt_lk =  channels.bt_chnl[2]
             elif Trnl.sh2.acell('J2').value == channels.ani_chnl[0]:
                 invt_lk = channels.ani_chnl[2]
             elif Trnl.sh2.acell('J2').value == channels.rt_chnl[0]:
@@ -66,16 +65,15 @@ async def script_call_back(bot, update):
             #invt_lk = Trnl.sh2.acell('I2').value
             #vd_lk = invt_lk
         chnl_hplk = '<a href="' + invt_lk + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
-        vcap = '<b>' + vcap + '</b>'
         if "Movie" in typ:
             vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
-            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + year + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN + "\n2️⃣"
+            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN + "\n1️⃣"
         if "Series" in typ:
-            srs_no = 'စီးရီးအမှတ်စဥ် 👉 ' + '`' + '<b>' + '{}'.format(Trnl.sh1.acell('D3').value) + '</b>' + '`' + '\nကူးယူရန် ထိလိုက်ပါ 👆'
+            srs_no = 'စီးရီးအမှတ်စဥ် 👉 ' + '`' + '<b>' + '{}'.format(Trnl.sh2.acell('D3').value) + '</b>' + '`' + '\nကူးယူရန် ထိလိုက်ပါ 👆'
             srs_inst = "\n\n<b>အသစ်ရောက်လာတဲ့သူတွေက...</b>\n<b>စီးရီးချာနယ် ထဲဝင်နည်း Video ကို 👉<a href='https://t.me/fdmnchannel/1020'> ဒီနေရာမှာ</a>👈 နှိပ်ပြီး ကြည့်ပါ။</b>\n<b>ဝင်ကြေးပေးစရာမလို(အခမဲ့)ပါ။</b>"
-            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + srs_no + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + srs_inst + "\n\n" + Translation.CHNL_FB + "\n2️⃣"
+            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + srs_no + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + srs_inst + "\n\n" + Translation.CHNL_FB + "\n1️⃣"
         try:
-            mchnl_msg = await bot.send_photo(
+            mchnl_msg = bot.send_photo(
                 "@fdmnchannel",
                 phto_url,
                 mssg
@@ -84,14 +82,14 @@ async def script_call_back(bot, update):
         except:
             phto_req = requests.get(phto_url)
             phto_bio = io.BytesIO(phto_req.content)
-            mchnl_msg = await bot.send_photo(
+            mchnl_msg = bot.send_photo(
                 "@fdmnchannel",
                 phto_bio,
                 mssg
                 #'html'
             )
         Trnl.sh2.update('G2', mchnl_msg.message_id)
-        await bot.send_message(
+        bot.send_message(
             chat_id=update.chat.id,
             text="Post တင်လိုက်သော ဇာတ်လမ်း 👇\n" + script_url
         )
