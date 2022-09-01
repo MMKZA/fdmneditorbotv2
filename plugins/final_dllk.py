@@ -298,7 +298,7 @@ def final_dllk(bot, update):
                             lk = epsd.split('|')[0].strip()
                             qlt = epsd.split('|')[1].strip()
                             sz = epsd.split('|')[2].strip()
-                            inline_keyboard.append([InlineKeyboardButton('Quality: {} ; Size: {} GB'.format(qlt,sz),callback_data=str(lk).encode("UTF-8"))])
+                            inline_keyboard.append([InlineKeyboardButton('Quality: {} ; Size: {}'.format(qlt,sz),callback_data=str(lk).encode("UTF-8"))])
                     reply_markup = InlineKeyboardMarkup(inline_keyboard)
                     try:
                         bot.send_message(
