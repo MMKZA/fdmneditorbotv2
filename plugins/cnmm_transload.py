@@ -53,4 +53,4 @@ async def cnmm_transload(bot, update):
                 chat_id=update.from_user.id,
                 text=text + final_link
             )
-        await asyncio.sleep(5)
+        await asyncio.sleep(20)
