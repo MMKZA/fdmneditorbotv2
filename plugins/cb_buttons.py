@@ -39,8 +39,8 @@ from PIL import Image
 @pyrogram.Client.on_callback_query()
 async def button(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        # logger.info(update)
         cb_data = update.data
+        logger.info(cb_data)
         if ":" in cb_data:
             # unzip formats
             extract_dir_path = Config.DOWNLOAD_LOCATION + \
@@ -125,5 +125,5 @@ async def button(bot, update):
             await youtube_dl_call_back(bot, update)
         elif "=" in cb_data:
             await ddl_call_back(bot, update)
-        elif 'yoteshinportal.cc' in cb_data:
+        if 'yoteshinportal.cc' in cb_data:
             await cnmm_transload(bot,update)
