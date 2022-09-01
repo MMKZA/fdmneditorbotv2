@@ -30,10 +30,9 @@ LOGGER = logging.getLogger(__name__)
 SP_LIT_ALGO_RITH_M = os.environ.get("SP_LIT_ALGO_RITH_M", "hjs")
 MAX_TG_SPLIT_FILE_SIZE = 1610612736
 
-async def split_large_files(input_file):
+def split_large_files(input_file):
     working_directory = os.path.dirname(os.path.abspath(input_file))
     new_working_directory = working_directory + "/fdmnsplits/"
-    new_working_directory = new_working_directory.replace('/workspace','.')
     # create download directory, if not exist
     if not os.path.isdir(new_working_directory):
         os.makedirs(new_working_directory)
@@ -72,11 +71,11 @@ async def split_large_files(input_file):
                 str(base_name), str(i).zfill(5), str(input_extension)
             )
 
-            output_file = os.path.join(new_working_directory, parted_file_name).replace('/workspace','.')
+            output_file = os.path.join(new_working_directory, parted_file_name)
             LOGGER.info(input_file)
             LOGGER.info(output_file)
             LOGGER.info(
-                await cult_small_video(
+                cult_small_video(
                     input_file, output_file, str(start_time), str(end_time)
                 )
             )
@@ -105,7 +104,7 @@ async def split_large_files(input_file):
             input_file,
             o_d_t,
         ]
-        await run_comman_d(file_genertor_command)
+        run_comman_d(file_genertor_command)
 
     elif SP_LIT_ALGO_RITH_M.lower() == "rar":
         o_d_t = os.path.join(
@@ -121,7 +120,7 @@ async def split_large_files(input_file):
             o_d_t,
             input_file,
         ]
-        await run_comman_d(file_genertor_command)
+        run_comman_d(file_genertor_command)
     try:
         os.remove(input_file)
     except Exception as r:
@@ -129,7 +128,7 @@ async def split_large_files(input_file):
     return new_working_directory
 
 
-async def cult_small_video(video_file, out_put_file_name, start_time, end_time):
+def cult_small_video(video_file, out_put_file_name, start_time, end_time):
     file_genertor_command = [
         "ffmpeg",
         "-hide_banner",
@@ -147,29 +146,29 @@ async def cult_small_video(video_file, out_put_file_name, start_time, end_time):
         "copy",
         out_put_file_name,
     ]
-    process = await asyncio.create_subprocess_exec(
+    process = asyncio.create_subprocess_exec(
         *file_genertor_command,
         # stdout must a pipe to be accessible as process.stdout
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
     )
     # Wait for the subprocess to finish
-    stdout, stderr = await process.communicate()
+    stdout, stderr = process.communicate()
     e_response = stderr.decode().strip()
     t_response = stdout.decode().strip()
     LOGGER.info(t_response)
     return out_put_file_name
 
 
-async def run_comman_d(command_list):
-    process = await asyncio.create_subprocess_exec(
+def run_comman_d(command_list):
+    process = asyncio.create_subprocess_exec(
         *command_list,
         # stdout must a pipe to be accessible as process.stdout
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
     )
     # Wait for the subprocess to finish
-    stdout, stderr = await process.communicate()
+    stdout, stderr = process.communicate()
     e_response = stderr.decode().strip()
     t_response = stdout.decode().strip()
     return t_response, e_response
