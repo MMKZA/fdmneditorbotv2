@@ -249,7 +249,7 @@ def ffmpegstp_tool(bot, update):
 @pyrogram.Client.on_message(pyrogram.filters.command(["jsdl"]))
 def jsdl_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        zip_file_url = update.reply_to_message.text
+        zip_file_url = Trnl.sh2.acell('U2').value
         r = requests.get(zip_file_url)
         z = zipfile.ZipFile(io.BytesIO(r.content))
         dl_dir = Config.DOWNLOAD_LOCATION + "/myjsons"
