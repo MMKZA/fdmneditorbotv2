@@ -4,7 +4,7 @@ import asyncio
 from plugins.ytsn_dllk import ytsn_dllk
 from plugins.gdrvclean import gdrvclean
 from plugins.transloader import transloader
-from plugins.echo_auto import echo_auto
+from plugins.echo_echo import echo_echo
 import os
 if bool(os.environ.get("WEBHOOK", False)):
     from sample_config import Config
@@ -35,21 +35,21 @@ async def cnmm_transload(bot, update):
         fl_ext = os.path.splitext(final_link)[1]
         if fl_ext in arc_kw:
             text = "Archive ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 🗃️SFile ကိုရွေးချယ်ပါ 👇\n"
-            bot.send_message(
+            await bot.send_message(
                 chat_id=update.from_user.id,
                 text=text + final_link
             )
-            asyncio.run(echo_auto(bot,update,final_link))
+            echo_echo(bot,update,final_link)
         elif fl_ext in vd_kw:
             text = "Video ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 📺SVideo ကိုရွေးချယ်ပါ 👇\n"
-            bot.send_message(
+            await bot.send_message(
                 chat_id=update.from_user.id,
                 text=text + final_link
             )
-            asyncio.run(echo_auto(bot,update,final_link))
+            echo_echo(bot,update,final_link)
         else:
             text = "Link အမှားအယွင်းရှိနိုင်ပါတယ်၊ သေချာစစ်ကြည့်ပါ ⚠️\n"
-            bot.send_message(
+            await bot.send_message(
                 chat_id=update.from_user.id,
                 text=text + final_link
             )
