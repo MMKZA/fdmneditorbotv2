@@ -9,6 +9,9 @@ import time
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from logging.handlers import RotatingFileHandler
+import subprocess
+import io
+import locale
 
 logging.basicConfig(
     level=logging.DEBUG,
@@ -146,29 +149,27 @@ def cult_small_video(video_file, out_put_file_name, start_time, end_time):
         "copy",
         out_put_file_name,
     ]
-    process = asyncio.create_subprocess_exec(
+    process = subprocess.Popen(
         *file_genertor_command,
         # stdout must a pipe to be accessible as process.stdout
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
     )
     # Wait for the subprocess to finish
-    stdout, stderr = process.communicate()
-    e_response = stderr.decode().strip()
-    t_response = stdout.decode().strip()
+    e_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stderr,encoding=locale.getpreferredencoding(False),errors='strict')])
+    t_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict')])
     LOGGER.info(t_response)
     return out_put_file_name
 
 
 def run_comman_d(command_list):
-    process = asyncio.create_subprocess_exec(
+    process = subprocess.Popen(
         *command_list,
         # stdout must a pipe to be accessible as process.stdout
         stdout=asyncio.subprocess.PIPE,
         stderr=asyncio.subprocess.PIPE,
     )
     # Wait for the subprocess to finish
-    stdout, stderr = process.communicate()
-    e_response = stderr.decode().strip()
-    t_response = stdout.decode().strip()
+    e_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stderr,encoding=locale.getpreferredencoding(False),errors='strict')])
+    t_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict')])
     return t_response, e_response
