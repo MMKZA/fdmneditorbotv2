@@ -338,7 +338,7 @@ def echo_echo(bot, update, url, mssg):
                 Config.CHUNK_SIZE,
                 None,  # bot,
                 Translation.DOWNLOAD_START,
-                mssgid,
+                mssg.message_id,
                 update.from_user.id
             )
             if os.path.exists(thumb_image_path):
