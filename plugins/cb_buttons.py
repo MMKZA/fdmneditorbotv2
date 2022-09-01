@@ -34,6 +34,7 @@ from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 
 from plugins.cnmm_transload import cnmm_transload
+from plugins.gldchnl_transload import gldchnl_transload
 # https://stackoverflow.com/a/37631799/4723940
 from PIL import Image
 
