@@ -11,8 +11,7 @@ if bool(os.environ.get("WEBHOOK", False)):
 else:
     from config import Config
     
-@pyrogram.Client.on_callback_query()
-async def cnmm_cb(bot, update):
+async def cnmm_transload(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         lk = update.data
         if "yoteshinportal.cc" in lk:
