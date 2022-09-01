@@ -308,7 +308,7 @@ def youtube_dl_call_back(bot, update):
                     except:
                         clip = VideoFileClip(dwnl_dir)
                         screen_time = random.randint(120,600)
-                        clip.save_frame(Config.DOWNLOAD_LOCATION + "/" + f'{nfh}' + "/" + "thbnl1.jpg", t = screen_time)
+                        clip.save_frame(tmp_directory_for_each_user + "/" + "thbnl1.jpg", t = screen_time)
                         ssimg = tmp_directory_for_each_user + "/" + "thbnl1.jpg"
                     upmssg = bot.edit_message_text(
                         text=Translation.UPLOAD_START + f"\n<code>{ba_se_file_name} Part {i_th}</code>",
@@ -406,7 +406,7 @@ def youtube_dl_call_back(bot, update):
                 except:
                     clip = VideoFileClip(download_directory)
                     screen_time = random.randint(120,600)
-                    clip.save_frame(Config.DOWNLOAD_LOCATION + "/" + f'{nfh}' + "/" + "thbnl1.jpg", t = screen_time)
+                    clip.save_frame(tmp_directory_for_each_user + "/" + "thbnl1.jpg", t = screen_time)
                     ssimg = tmp_directory_for_each_user + "/" + "thbnl1.jpg"
                 upmssg = bot.edit_message_text(
                     text=Translation.UPLOAD_START + '\n<code>{}</code>'.format(vcap),
