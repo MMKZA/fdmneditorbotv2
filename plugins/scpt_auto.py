@@ -41,7 +41,7 @@ def scpt_auto(bot, update):
         vcap = '<b>' + vcap + '</b>'
         msg_whl = phto_lk + "\n\n" + vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
         msg_trm = msg_whl[0:4095]
-        scpt_msg = await bot.send_message(
+        scpt_msg = bot.send_message(
             chat_id="@fdmnscripts",
             text=msg_trm,
             parse_mode = 'html'
@@ -73,7 +73,7 @@ def scpt_auto(bot, update):
             srs_inst = "\n\n<b>အသစ်ရောက်လာတဲ့သူတွေက...</b>\n<b>စီးရီးချာနယ် ထဲဝင်နည်း Video ကို 👉<a href='https://t.me/fdmnchannel/1020'> ဒီနေရာမှာ</a>👈 နှိပ်ပြီး ကြည့်ပါ။</b>\n<b>ဝင်ကြေးပေးစရာမလို(အခမဲ့)ပါ။</b>"
             mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n\n" + srs_no + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + srs_inst + "\n\n" + Translation.CHNL_FB + "\n1️⃣"
         try:
-            mchnl_msg = await bot.send_photo(
+            mchnl_msg = bot.send_photo(
                 "@fdmnchannel",
                 phto_url,
                 mssg
@@ -82,14 +82,14 @@ def scpt_auto(bot, update):
         except:
             phto_req = requests.get(phto_url)
             phto_bio = io.BytesIO(phto_req.content)
-            mchnl_msg = await bot.send_photo(
+            mchnl_msg = bot.send_photo(
                 "@fdmnchannel",
                 phto_bio,
                 mssg
                 #'html'
             )
         Trnl.sh2.update('G2', mchnl_msg.message_id)
-        await bot.send_message(
+        bot.send_message(
             chat_id=update.from_user.id,
             text="Post တင်လိုက်သော ဇာတ်လမ်း 👇\n" + script_url
         )
