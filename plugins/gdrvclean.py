@@ -4,6 +4,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 from trnl import Trnl
 import json
 import requests
+import os
 if bool(os.environ.get("WEBHOOK", False)):
     from sample_config import Config
 else:
