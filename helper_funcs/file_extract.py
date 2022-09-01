@@ -27,9 +27,9 @@ def rar_extract(inpath,outpath):
         rar_file.extractall(path=outpath)
 
 @pyrogram.Client.on_message(pyrogram.filters.command(["fldl"]))
-async def file_extract(bot,update):
+def file_extract(bot,update):
     if update.from_user.id in Config.AUTH_USERS:
-        inpath = Trnl.sh2.acell('I3').value
+        inpath = Trnl.sh1.acell('I3').value
         fl_ext = os.path.splitext(inpath)[1]
         outpath = os.path.splitext(inpath)[0] + '/'
         if not os.path.isdir(outpath):
@@ -48,13 +48,13 @@ async def file_extract(bot,update):
                         fl_lst.append(filepath)
         if len(fl_lst) != 0:
             for fl in fl_lst:
-                await bot.send_message(
+                bot.send_message(
                     text='<code>{}</code>'.format(fl),
                     chat_id=update.message.chat.id,
                     parse_mode="html",
                 )
         if len(fl_lst) == 0:
-            await bot.send_message(
+            bot.send_message(
                     text='<code>{}</code>'.format("ဘာဖိုင်မှ မရှိပါ ⚠️"),
                     chat_id=update.message.chat.id,
                     parse_mode="html",
