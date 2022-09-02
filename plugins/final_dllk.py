@@ -168,15 +168,33 @@ def final_dllk(bot, update):
             Trnl.sh2.update('P3', "Movie")
             if "https://shweflix.org/" in web_url:
                 func_scpt(web_url)
-                rtrn = shweflix(web_url)
+                all_lst = shweflix(web_url)
                 bot.send_message(
                     chat_id=update.chat.id,
-                    text="Links အားလုံး👇\n" + rtrn[0]
+                    text="Links အားလုံး👇"
                 )
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text="Size အကြီးဆုံး Link👇\n" + rtrn[1]
-                )
+                inline_keyboard = []
+                for al in all_lst:  
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text=al,
+                        disable_web_page_preview=True
+                    )
+                    lk = al.split('|')[0].strip()
+                    qlt = al.split('|')[1].strip()
+                    sz = al.split('|')[2].strip()
+                    inline_keyboard.append([InlineKeyboardButton('Quality: {} ; Size: {}'.format(qlt,sz),url=str(lk))])
+                reply_markup = InlineKeyboardMarkup(inline_keyboard)
+                try:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text="တင်မယ့် Quality ရွေးပါ 👇",
+                        reply_markup=reply_markup,
+                        parse_mode="html",
+                        reply_to_message_id=update.message_id
+                    )
+                except:
+                    pass
             if "https://burmesesubtitles.com/" in web_url:
                 func_scpt(web_url)
                 if web_url in Trnl.sh2.acell('L3').value:
