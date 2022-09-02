@@ -15,7 +15,7 @@ def shweflix(web_url):
         for a in soup.select('div > div.entry-content > div.wp-block-essential-blocks-advanced-tabs.alignwide > div > div > div.eb-tabs-contents > div:nth-child(3) > div > div > div > a'):
             urls_lst.append(a['href'])
         txt_lst = []
-        for x in tree.xpath('///div/div[3]/div[2]/div/div/div[2]/div[3]/div/div/div/a'):
+        for x in tree.xpath('/html/body/div[1]/div[2]/main/article/div/div[3]/div[3]/div/div/div[2]/div[3]/div/div/div/a'):
             txt_lst.append(x.text)
         qlt_lst = []
         sz_lst = []
@@ -34,26 +34,20 @@ def shweflix(web_url):
            for m in mb_lst:
               if szunt in m:
                  szgb_lst.append(float("{:.2f}".format(float(v.replace(szunt, "").strip()) / 1024)))
-        all_lst = list(range(0,len(szgb_lst)))
+        url_lst = []
+        for url in urls_lst:
+            web_req = requests.get(url)
+            web_req.encoding = web_req.apparent_encoding
+            web_html = web_req.text
+            soup = BeautifulSoup(web_html, 'html.parser')
+            hrf_lst = []
+            for s in soup.find_all('a', href=True):
+                hrf_lst.append(s)
+            for h in hrf_lst:
+                if 'gdtot.sbs/file/' in str(h):
+                    url_lst.append(h['href'])
+        all_lst = list(range(0,len(url_lst)))
         for i in all_lst:
-            all_lst[i] = ("{} | {} | {}".format(urls_lst[i],qlt_lst[i],str(szgb_lst[i])+"GB"))
-        avlb_lk = '\n'.join(['<code>{}</code> | {} | {}'.format(str(lk).split('|')[0],str(lk).split('|')[1],str(lk).split('|')[2]) for lk in all_lst])
-        indices = [v for i, v in enumerate(szgb_lst) if v < 2]
-        max_sz = float("{:.2f}".format(max(indices)))
-        for m in szgb_lst:
-            if max_sz == m:
-                index = szgb_lst.index(m)
-        max_qlt = qlt_lst[index]
-        Trnl.sh2.update('H2', max_qlt)
-        lk0 = urls_lst[index]
-        web_req = requests.get(lk0)
-        web_req.encoding = web_req.apparent_encoding
-        web_html = web_req.text
-        soup = BeautifulSoup(web_html, 'html.parser')
-        hrf_lst = []
-        for s in soup.find_all('a', href=True):
-            hrf_lst.append(s)
-        for h in hrf_lst:
-            if 'gdtot.sbs/file/' in str(h):
-                lk1 = h['href']
-        return [avlb_lk, lk1]
+            all_lst[i] = '{} | {} | {} GB'.format(url_lst[i],qlt_lst[i],szgb_lst[i])
+        return all_lst
+
