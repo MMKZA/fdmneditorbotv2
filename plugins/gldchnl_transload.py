@@ -46,4 +46,3 @@ def gldchnl_transload(bot, update):
                 chat_id=update.from_user.id,
                 text=text + final_link
             )
-        asyncio.sleep(20)
