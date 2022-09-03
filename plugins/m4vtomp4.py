@@ -7,7 +7,7 @@ def mp4(url, base):
     print(base_host)
     kwd = urllib.parse.unquote_plus(url.split('/')[-1])
     print(kwd)
-    ext_lst = ['.m4v','.mkv']
+    ext_lst = ['.m4v','.mkv','.mov']
     for e in ext_lst:
         if e in kwd:
             nw_nm = kwd.replace(e,'.mp4')
