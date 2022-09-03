@@ -224,7 +224,7 @@ def ytdlpdl_tool(bot, update):
             text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်"
         )
 
-@pyrogram.Client.on_message(pyrogram.filters.command(["ffmpegdl"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["ffmpeg"]))
 def ffmpegdl_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         zip_file_url = 'https://github.com/kkroening/ffmpeg-python/archive/refs/heads/master.zip'
@@ -232,13 +232,6 @@ def ffmpegdl_tool(bot, update):
         z = zipfile.ZipFile(io.BytesIO(r.content))
         dl_dir = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/ffmpeg"
         z.extractall(dl_dir)
-        bot.send_message(
-            chat_id=update.chat.id,
-            text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်"
-        )
-@pyrogram.Client.on_message(pyrogram.filters.command(["ffmpegstp"]))
-def ffmpegstp_tool(bot, update):
-    if update.from_user.id in Config.AUTH_USERS:
         cd_dir  = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/ffmpeg/ffmpeg-python-master/"
         with cd(cd_dir):
              process = subprocess.run(['python', 'setup.py', 'install'],shell=False)
@@ -246,6 +239,7 @@ def ffmpegstp_tool(bot, update):
             chat_id=update.chat.id,
             text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်"
         )
+
 @pyrogram.Client.on_message(pyrogram.filters.command(["jsdl"]))
 def jsdl_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
