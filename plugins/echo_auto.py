@@ -36,7 +36,9 @@ async def echo_auto(bot, update, url):
         #url = update.text
         await asyncio.sleep(2)
         #url = Trnl.sh2.acell('L2').value
-        if ('.m4v' in url) or ('.mkv' in url):
+        vd_kw = ['.m4v','.mkv','.mov']
+        vd_ext = os.path.splitext(url.split('/')[-1])[1]
+        if vd_ext in vd_kw:
             base = Trnl.sh2.acell('K2').value
             rtrn = mp4(url, base)
             logger.info(rtrn)
