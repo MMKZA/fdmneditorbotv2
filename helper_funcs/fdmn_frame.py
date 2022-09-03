@@ -59,10 +59,17 @@ def fdmn_frame(vlink):
         with open('fdmn_thumb_frame.png', 'wb') as out_file:
             shutil.copyfileobj(thumb_response.raw, out_file)
         del thumb_response
-    response = requests.get(vlink, stream=True)
-    with open('mv_poster.png', 'wb') as out_file:
-        shutil.copyfileobj(response.raw, out_file)
-    del response
+    try:
+        response = requests.get(vlink, stream=True)
+        with open('mv_poster.png', 'wb') as out_file:
+            shutil.copyfileobj(response.raw, out_file)
+        del response
+    except:
+        vlink = Trnl.sh2.acell('C4').value
+        response = requests.get(vlink, stream=True)
+        with open('mv_poster.png', 'wb') as out_file:
+            shutil.copyfileobj(response.raw, out_file)
+        del response
     
     #OPENING POSTER PHOTO
     poster_org = Image.open('mv_poster.png', 'r')
