@@ -3,6 +3,10 @@ from bs4 import BeautifulSoup
 import re
 from trnl import Trnl
 from lxml import html
+import logging
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 def shweflix(web_url):
     web_req = requests.get(web_url)
@@ -12,10 +16,11 @@ def shweflix(web_url):
     soup = BeautifulSoup(web_html, 'html.parser')
     if "shweflix" in web_url:
         urls_lst = []
-        for a in soup.select('div > div.entry-content > div.wp-block-essential-blocks-advanced-tabs.alignwide > div > div > div.eb-tabs-contents > div:nth-child(3) > div > div > div > a'):
-            urls_lst.append(a['href'])
+        for x in soup.select('div > div > div.wp-block-essential-blocks-advanced-tabs.alignwide > div > div > div.eb-tabs-contents > div:nth-child(3) > div > div > div > a'):
+            urls_lst.append(x['href'])
+        logger.info(urls_lst)
         txt_lst = []
-        for x in tree.xpath('/html/body/div[1]/div[2]/main/article/div/div[3]/div[3]/div/div/div[2]/div[3]/div/div/div/a'):
+        for x in soup.select('div > div > div.wp-block-essential-blocks-advanced-tabs.alignwide > div > div > div.eb-tabs-contents > div:nth-child(3) > div > div > div'):
             txt_lst.append(x.text)
         qlt_lst = []
         sz_lst = []
@@ -46,8 +51,10 @@ def shweflix(web_url):
             for h in hrf_lst:
                 if 'gdtot.sbs/file/' in str(h):
                     url_lst.append(h['href'])
+        logger.info(url_lst)
         all_lst = list(range(0,len(url_lst)))
         for i in all_lst:
             all_lst[i] = '{} | {} | {} GB'.format(url_lst[i],qlt_lst[i],szgb_lst[i])
+        logger.info(all_lst)
         return all_lst
 
