@@ -43,6 +43,7 @@ from pyrogram.types.bots_and_keyboards import InlineKeyboardButton, InlineKeyboa
 from pyrogram import Client
 from pyrogram.handlers import MessageHandler
 from helper_funcs.display_progress import progress_for_pyrogram, humanbytes
+from helper_funcs.get_duration import get_duration
 #from helper_funcs.download_progress import download_progress
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
@@ -276,6 +277,8 @@ def youtube_dl_call_back(bot, update):
             )
             file_extract(bot,update)
         if fl_ext not in arc_kw:
+            rntm = get_duration(download_directory)
+            Trnl.sh2.update('M4',rntm)
             if file_size > Config.TG_MAX_FILE_SIZE:
                 d_f_s = humanbytes(os.path.getsize(download_directory))
                 i_m_s_g = bot.edit_message_text(
