@@ -224,7 +224,7 @@ def youtube_dl_call_back(bot, update):
                     round(float(prcnt.replace('%','')), 2))
                 try:
                     a.edit_text(Translation.DOWNLOAD_START + '\n<code>{}</code>\n{}\n{}'.format(vcap,progress,text))
-                    time.sleep(0.02)
+                    time.sleep(0.1)
                 except:
                     pass
     #process.communicate()
