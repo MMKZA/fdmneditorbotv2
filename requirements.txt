@@ -29,5 +29,5 @@ zipfile-deflate64
 multiprocess
 rarfile
 patool
-ffmpeg
+opencv-python
 asgiref
