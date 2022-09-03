@@ -129,7 +129,7 @@ def youtube_dl_call_back(bot, update):
     if not os.path.isdir(tmp_directory_for_each_user):
         os.makedirs(tmp_directory_for_each_user)
     download_directory = tmp_directory_for_each_user + "/" + custom_file_name
-    if '.php' download_directory:
+    if '.php' in download_directory:
         download_directory = download_directory.replace('.php','.mp4')
     command_to_exec = []
     if tg_send_type == "audio":
