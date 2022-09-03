@@ -37,7 +37,9 @@ def echo_echo(bot, update, url, mssg, mssgid):
     if update.from_user.id in Config.AUTH_USERS:
         logger.info(update.from_user)
         #url = Trnl.sh2.acell('L2').value
-        if ('.m4v' in url) or ('.mkv' in url):
+        vd_kw = ['.m4v','.mkv','.mov']
+        vd_ext = os.path.splitext(url.split('/')[-1])[1]
+        if vd_ext in vd_kw:
             base = Trnl.sh2.acell('K2').value
             rtrn = mp4(url, base)
             logger.info(rtrn)
