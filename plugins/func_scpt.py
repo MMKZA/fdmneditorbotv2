@@ -37,8 +37,15 @@ def func_scpt(script_url):
     search = Search()
     genre = Genre()
     if "shweflix" in script_url:
-        for all in soup.select('div > div.entry-header > h1'):
-            vcap = all.text
+        vcap = ''
+        try:
+            for all in soup.select('div > div.entry-header > h1'):
+                vcap = all.text
+        except:
+            pass
+        if vcap == '':
+            for all in soup.select('div > header > h1'):
+                vcap = all.text
         year = ''
         try:
             year = re.findall(r'(\d+)', vcap)[len(re.findall(r'(\d+)', vcap)) - 1]
