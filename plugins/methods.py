@@ -34,13 +34,13 @@ def methods(bot, update):
         )
 def transload_method(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        gdrv_id = Trnl.sh1.acell('L4').value
+        gdrv_id = Trnl.sh2.acell('L4').value
         gdrv_lk = 'https://drive.google.com/file/d/{}/view?usp=sharing'.format(gdrv_id)
         logger.info(gdrv_lk)
-        base = Trnl.sh1.acell('K2').value
+        base = Trnl.sh2.acell('K2').value
         final_link = transloader(base, gdrv_lk)
         logger.info(final_link)
-        Trnl.sh1.update('L2', final_link)
+        Trnl.sh2.update('L2', final_link)
         arc_kw = ['.zip','.rar','.7z']
         vd_kw = ['.mp4','.mkv','.mov','.m4v']
         fl_ext = os.path.splitext(final_link)[1]
@@ -67,10 +67,10 @@ def transload_method(bot, update):
 
 def plhh_method(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        gdrv_id = Trnl.sh1.acell('L4').value
+        gdrv_id = Trnl.sh2.acell('L4').value
         gdrv_lk = 'https://drive.google.com/file/d/{}/view?usp=sharing'.format(gdrv_id)
         final_link = plhh_gdrive(gdrv_lk)
-        Trnl.sh1.update('L2', final_link)
+        Trnl.sh2.update('L2', final_link)
         if 'public.php?' in final_link:
             text = "📺SVideo or 🗃️SFile မှန်ရာကိုရွေးချယ်ပါ 👇\n"
             mssg = bot.send_message(
@@ -81,10 +81,10 @@ def plhh_method(bot, update):
             
 def direct_method(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        gdrv_id = Trnl.sh1.acell('L4').value
+        gdrv_id = Trnl.sh2.acell('L4').value
         gdrv_lk = 'https://drive.google.com/file/d/{}/view?usp=sharing'.format(gdrv_id)
         final_link = gdrv_lk
-        Trnl.sh1.update('L2', final_link)
+        Trnl.sh2.update('L2', final_link)
         text = "📺SVideo or 🗃️SFile မှန်ရာကိုရွေးချယ်ပါ 👇\n"
         mssg = bot.send_message(
             chat_id=update.from_user.id,
