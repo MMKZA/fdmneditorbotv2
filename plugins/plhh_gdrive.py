@@ -1,13 +1,12 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
-from selenium.webdriver import FirefoxOptions
+from selenium.webdriver.chrome.service import Service
+from chromedriver_py import binary_path
 
 def plhh_gdrive(gdrv_lk):
-    #gdrv_lk = 'https://drive.google.com/file/d/1c7a1RTj9D0f7cLetIHtcUAZSizkT6iSi/view?usp=sharing'
-    opts = FirefoxOptions()
-    opts.add_argument("--headless")
-    driver = webdriver.Firefox(options=opts)
+    service_object = Service(binary_path)
+    driver = webdriver.Chrome(service=service_object)
     driver.get("https://publiclinks.hashhackers.com/")
     driveid = driver.find_element(By.XPATH, '//*[@id="driveid"]')
     driveid.click()
