@@ -4,7 +4,7 @@ from selenium.webdriver.common.by import By
 
 
 def plhh_gdrive(gdrv_lk):
-    driver = webdriver.Edge()
+    driver = webdriver.Chrome(executable_path='/app/.chromedriver/bin/chromedriver')
     driver.get("https://publiclinks.hashhackers.com/")
     driveid = driver.find_element(By.XPATH, '//*[@id="driveid"]')
     driveid.click()
