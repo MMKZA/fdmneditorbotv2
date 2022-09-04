@@ -6,8 +6,8 @@ from selenium.webdriver.chrome.service import Service
 
 def plhh_gdrive(gdrv_lk):
     service_object = Service(binary_path)
-    #driver = webdriver.Chrome(service=service_object)
-    driver = webdriver.Chrome(executable_path=binary_path)
+    driver = webdriver.Chrome(service=service_object)
+    #driver = webdriver.Chrome(executable_path=binary_path)
     driver.get("https://publiclinks.hashhackers.com/")
     driveid = driver.find_element(By.XPATH, '//*[@id="driveid"]')
     driveid.click()
