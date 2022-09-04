@@ -2,12 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.options import Options
+from chromedriver_py import binary_path
 
 def plhh_gdrive(gdrv_lk):
     options = Options()
     options.add_argument('--headless')
     options.add_argument('--disable-gpu')
-    driver = webdriver.Chrome(chrome_options=options)
+    service_object = Service(binary_path)
+    driver = webdriver.Chrome(service=service_object,chrome_options=options)
     driver.get("https://publiclinks.hashhackers.com/")
     driveid = driver.find_element(By.XPATH, '//*[@id="driveid"]')
     driveid.click()
