@@ -1,9 +1,13 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.common.by import By
+from chromedriver_py import binary_path
+from selenium.webdriver.chrome.service import Service
 
 def plhh_gdrive(gdrv_lk):
-    driver = webdriver.Chrome()#executable_path='/usr/local/bin/chromedriver')
+    service_object = Service(binary_path)
+    #driver = webdriver.Chrome(service=service_object)
+    driver = webdriver.Chrome(executable_path=binary_path)
     driver.get("https://publiclinks.hashhackers.com/")
     driveid = driver.find_element(By.XPATH, '//*[@id="driveid"]')
     driveid.click()
