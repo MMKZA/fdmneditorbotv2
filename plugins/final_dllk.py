@@ -6,13 +6,13 @@ import logging
 from trnl import Trnl
 from plugins.ytsn_dllk import ytsn_dllk
 from plugins.gdrvclean import gdrvclean
-from plugins.transloader import transloader
 from plugins.func_scpt import func_scpt
 from plugins.series import series
 from plugins.blc import blc
 from plugins.bs import bs
 from plugins.shweflix import shweflix
 from plugins.echo_auto import echo_auto
+from plugins.methods import methods
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import os
 import re
@@ -420,32 +420,9 @@ def final_dllk(bot, update):
                 gdrv_lk = lk
             elif "burmesesubtitles.com" in lk:
                 gdrv_lk = lk
-            base = Trnl.sh2.acell('K2').value
-            final_link = transloader(base, gdrv_lk)
-            Trnl.sh2.update('L2', final_link)
-            arc_kw = ['.zip','.rar','.7z']
-            vd_kw = ['.mp4','.mkv','.mov','.m4v']
-            fl_ext = os.path.splitext(final_link)[1]
-            if fl_ext in arc_kw:
-                text = "Archive ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 🗃️SFile ကိုရွေးချယ်ပါ 👇\n"
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text=text + final_link
-                )
-                asyncio.run(echo_auto(bot,update,final_link))
-            elif fl_ext in vd_kw:
-                text = "Video ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 📺SVideo ကိုရွေးချယ်ပါ 👇\n"
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text=text + final_link
-                )
-                asyncio.run(echo_auto(bot,update,final_link))
-            else:
-                text = "Link အမှားအယွင်းရှိနိုင်ပါတယ်၊ သေချာစစ်ကြည့်ပါ ⚠️\n"
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text=text + final_link
-                )
+            gdrv_id = gdrv_lk.split('/')[5]
+            Trnl.sh2.update('L4',gdrv_id)
+            methods(bot,update)
                 
         if 'https://t.me/c' in web_url:
             vd_id = web_url.split("/")[-1]
