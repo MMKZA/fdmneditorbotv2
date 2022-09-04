@@ -32,4 +32,4 @@ patool
 opencv-python-headless
 asgiref
 selenium==4.1.0
-chromedriver_autoinstaller
+chromedriver_py
