@@ -32,4 +32,3 @@ patool
 opencv-python-headless
 asgiref
 selenium
-chromedriver-py
