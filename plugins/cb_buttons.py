@@ -33,8 +33,8 @@ from plugins.dl_button import ddl_call_back
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 
-from plugins.cnmm_transload import cnmm_transload
-from plugins.gldchnl_transload import gldchnl_transload 
+from plugins.gdrv_id_save import cnmm_gdrv_id_save,gldchnl_gdrv_id_save
+from plugins.methods import plhh_method,transload_method,direct_method
 # https://stackoverflow.com/a/37631799/4723940
 from PIL import Image
 
@@ -43,7 +43,7 @@ def button(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         cb_data = update.data
         logger.info(cb_data)
-        if (":" in cb_data) and ('yoteshinportal.cc' not in cb_data) and ('drive.google.com' not in cb_data):
+        if (":" in cb_data) and ('yoteshinportal.cc' not in cb_data) and ('drive.google.com' not in cb_data) and ('method=' not in cb_data):
             # unzip formats
             extract_dir_path = Config.DOWNLOAD_LOCATION + \
                 "/" + str(update.from_user.id) + "zipped" + "/"
@@ -123,11 +123,18 @@ def button(bot, update):
                     text=Translation.ZIP_UPLOADED_STR.format("1", "0"),
                     message_id=update.message.message_id
                 )
-        elif ("|" in cb_data) and ('yoteshinportal.cc' not in cb_data) and ('drive.google.com' not in cb_data):
+        elif ("|" in cb_data) and ('yoteshinportal.cc' not in cb_data) and ('drive.google.com' not in cb_data) and ('method=' not in cb_data):
             youtube_dl_call_back(bot, update)
-        elif ("=" in cb_data) and ('yoteshinportal.cc' not in cb_data) and ('drive.google.com' not in cb_data):
+        elif ("=" in cb_data) and ('yoteshinportal.cc' not in cb_data) and ('drive.google.com' not in cb_data) and ('method=' not in cb_data):
             ddl_call_back(bot, update)
-        if 'yoteshinportal.cc' in cb_data:
-            cnmm_transload(bot,update)
-        if 'drive.google.com' in cb_data:
-            gldchnl_transload(bot,update)
+        if ('yoteshinportal.cc' in cb_data) and ('method=' not in cb_data):
+            cnmm_gdrv_id_save(bot,update)
+        if ('drive.google.com' in cb_data) and ('method=' not in cb_data):
+            gldchnl_gdrv_id_save(bot,update)
+        if 'method=' in cb_data:
+            if 'method=PLM' == cb_data:
+                plhh_method(bot, update)
+            elif 'method=TM' == cb_data:
+                transload_method(bot, update)
+            elif 'method=DM' == cb_data:
+                direct_method(bot, update)
