@@ -5,7 +5,7 @@ from selenium.webdriver.firefox.options import Options
 
 def plhh_gdrive(gdrv_lk):
     options = Options()
-    options.headless = True
+    options.set_headless(headless=True)
     driver = webdriver.Firefox(options=options)
     driver.get("https://publiclinks.hashhackers.com/")
     driveid = driver.find_element(By.XPATH, '//*[@id="driveid"]')
