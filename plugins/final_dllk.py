@@ -420,7 +420,10 @@ def final_dllk(bot, update):
                 gdrv_lk = lk
             elif "burmesesubtitles.com" in lk:
                 gdrv_lk = lk
-            gdrv_id = gdrv_lk.split('/')[5]
+            try:
+                gdrv_id = gdrv_lk.split('/')[5]
+            except:
+                gdrv_id = gdrv_lk.split('/')[3].split('=')[1]
             Trnl.sh2.update('L4',gdrv_id)
             methods(bot,update)
                 
