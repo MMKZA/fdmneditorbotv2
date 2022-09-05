@@ -174,7 +174,7 @@ def youtube_dl_call_back(bot, update):
     # command_to_exec.append("--quiet")
     logger.info(command_to_exec)
     start = datetime.now()
-    process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,universal_newlines=False)
+    process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,encoding="utf-8",universal_newlines=False)
     while process.poll() is None:
         #for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict'):
             #nline = line.rstrip()
