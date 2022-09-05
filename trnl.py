@@ -30,8 +30,20 @@ class Trnl(object):
     sh2 = sh.worksheet("Sheet2")
     sh3 = sh.worksheet("Sheet3")
     sh4 = sh.worksheet("Sheet4")
+    #JSDL
     zip_file_url = sh1.acell('U2').value
     r = requests.get(zip_file_url)
     z = zipfile.ZipFile(io.BytesIO(r.content))
     dl_dir = Config.DOWNLOAD_LOCATION + "/myjsons"
     z.extractall(dl_dir)
+    del r
+    #YTDLP
+    zip_file_url = 'https://github.com/yt-dlp/yt-dlp/archive/refs/heads/master.zip'
+    r = requests.get(zip_file_url)
+    z = zipfile.ZipFile(io.BytesIO(r.content))
+    dl_dir = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/ytdlp"
+    z.extractall(dl_dir)
+    cd_dir  = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/ytdlp/yt-dlp-master/"
+    with cd(cd_dir):
+         process = subprocess.run(['python', 'setup.py', 'install'],shell=False)
+    del r
