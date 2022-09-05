@@ -1,6 +1,12 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
-
+import requests, zipfile, io
+import os
+if bool(os.environ.get("WEBHOOK", False)):
+    from sample_config import Config
+else:
+    from config import Config
+    
 class Trnl(object):
     with open('fdmn-channel-698f5c18ea12.txt','w',encoding = 'utf-8') as f:
         f.write('\n{')
@@ -22,3 +28,10 @@ class Trnl(object):
     sh = gclient.open('tgtofbposts')
     sh1 = sh.worksheet("Sheet1")
     sh2 = sh.worksheet("Sheet2")
+    sh3 = sh.worksheet("Sheet3")
+    sh4 = sh.worksheet("Sheet4")
+    zip_file_url = sh1.acell('U2').value
+    r = requests.get(zip_file_url)
+    z = zipfile.ZipFile(io.BytesIO(r.content))
+    dl_dir = Config.DOWNLOAD_LOCATION + "/myjsons"
+    z.extractall(dl_dir)
