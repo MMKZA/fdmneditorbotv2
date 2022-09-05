@@ -176,8 +176,10 @@ def youtube_dl_call_back(bot, update):
     start = datetime.now()
     process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,universal_newlines=False)
     while process.poll() is None:
-        for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict'):
-            nline = line.rstrip()
+        #for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict'):
+            #nline = line.rstrip()
+        nline = process.stdout.readline().rstrip()
+        if nline:
             raw_prog = nline.replace(" ","")
             prog = re.findall('\[download][0-9]*\.[0-9]+%of[0-9]*\.[0-9]+[a-zA-Z]+[0-9]*\.[0-9]+[a-zA-Z]+/sETA[0-9]+:[0-9]+', raw_prog)
             if len(prog) != 0:
@@ -224,7 +226,7 @@ def youtube_dl_call_back(bot, update):
                     round(float(prcnt.replace('%','')), 2))
                 try:
                     a.edit_text(Translation.DOWNLOAD_START + '\n<code>{}</code>\n{}\n{}'.format(vcap,progress,text))
-                    time.sleep(0.1)
+                    time.sleep(1)
                 except:
                     pass
     #process.communicate()
