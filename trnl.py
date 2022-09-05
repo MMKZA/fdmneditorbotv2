@@ -6,7 +6,8 @@ if bool(os.environ.get("WEBHOOK", False)):
     from sample_config import Config
 else:
     from config import Config
-    
+import subprocess
+
 class Trnl(object):
     with open('fdmn-channel-698f5c18ea12.txt','w',encoding = 'utf-8') as f:
         f.write('\n{')
@@ -41,9 +42,9 @@ class Trnl(object):
     zip_file_url = 'https://github.com/yt-dlp/yt-dlp/archive/refs/heads/master.zip'
     r = requests.get(zip_file_url)
     z = zipfile.ZipFile(io.BytesIO(r.content))
-    dl_dir = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/ytdlp"
+    dl_dir = Config.DOWNLOAD_LOCATION + "/ytdlp"
     z.extractall(dl_dir)
-    cd_dir  = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + "/ytdlp/yt-dlp-master/"
+    cd_dir  = Config.DOWNLOAD_LOCATION + "/ytdlp/yt-dlp-master/"
     with cd(cd_dir):
          process = subprocess.run(['python', 'setup.py', 'install'],shell=False)
     del r
