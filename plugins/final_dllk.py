@@ -28,7 +28,10 @@ logger = logging.getLogger(__name__)
 def final_dllk(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         base = Trnl.sh2.acell('K2').value
-        web_url = update.text
+        try:
+            web_url = re.search("(?P<url>https?://[^\s]+)", update.text).group("url")
+        except:
+            web_url = update.text
         
         srs_kw_lst = ['tvshows']
         act_srs_kw = ''
