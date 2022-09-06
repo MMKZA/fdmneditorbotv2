@@ -395,6 +395,7 @@ def final_dllk(bot, update):
                 imdb_id = imdb_lk.split('/')[-2]
             except:
                 imdb_id = imdb_lk
+            Trnl.sh2.update('N7','open')
             Trnl.sh2.update('M7',imdb_id)
             script_url = Trnl.sh2.acell('M2').value
             func_scpt(script_url)
@@ -402,6 +403,7 @@ def final_dllk(bot, update):
                 chat_id=update.chat.id,
                 message_ids=update.message_id
             )
+            Trnl.sh2.update('N7','close')
         if (act_trsl_kw != '') and (act_trsl_kw in web_url) and ('https://t.me/c' not in web_url):
             if '|' in web_url:
                 lk = web_url.split("|")[0].strip()
