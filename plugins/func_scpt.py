@@ -453,16 +453,16 @@ def func_scpt(script_url):
             year = rls_date.year
         omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(vcap) + '&y=' + str(year) + '&apikey=39ecaf7'
         omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
-        imdb_id = ''
-        if ('Error' not in omdb_req) and ('imdbID' in omdb_req) and (str(omdb_req['imdbID']) != 'N/A') and (imdb_id == ''):
-            imdb_id = omdb_req['imdbID']
-        if imdb_id == '':
-            imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
-            Trnl.sh2.update('L3', imdb_wrn)
-            try:
-                imdb_id = google('{} {} imdb'.format(vcap,year))
-            except:
-                imdb_id = Trnl.sh2.acell('M7').value
+        if Trnl.sh2.acell('N7').value == 'close':
+            imdb_id = ''
+            if ('Error' not in omdb_req) and ('imdbID' in omdb_req) and (str(omdb_req['imdbID']) != 'N/A') and (imdb_id == ''):
+                imdb_id = omdb_req['imdbID']
+            if imdb_id == '':
+                imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
+                Trnl.sh2.update('L3', imdb_wrn)
+                imdb_id = google('{} {} imdb'.format(title,year))
+        if Trnl.sh2.acell('N7').value == 'open':
+            imdb_id = Trnl.sh2.acell('M7').value
         imdb_url = 'https://www.imdb.com/title/' + imdb_id
         if 'Error' in omdb_req:
             omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
