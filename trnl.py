@@ -42,19 +42,21 @@ class Trnl(object):
     sh3 = sh.worksheet("Sheet3")
     sh4 = sh.worksheet("Sheet4")
     #JSDL
-    zip_file_url = sh1.acell('U2').value
-    r = requests.get(zip_file_url)
-    z = zipfile.ZipFile(io.BytesIO(r.content))
-    dl_dir = Config.DOWNLOAD_LOCATION + "/myjsons"
-    z.extractall(dl_dir)
-    del r
+    dl_js_dir = Config.DOWNLOAD_LOCATION + "/myjsons"
+    if not os.path.isdir(dl_js_dir):
+        zip_file_url = sh1.acell('U2').value
+        r = requests.get(zip_file_url)
+        z = zipfile.ZipFile(io.BytesIO(r.content))
+        z.extractall(dl_js_dir)
+        del r
     #YTDLP
-    zip_file_url = 'https://github.com/yt-dlp/yt-dlp/archive/refs/heads/master.zip'
-    r = requests.get(zip_file_url)
-    z = zipfile.ZipFile(io.BytesIO(r.content))
     dl_dir = Config.DOWNLOAD_LOCATION + "/ytdlp"
-    z.extractall(dl_dir)
-    cd_dir  = Config.DOWNLOAD_LOCATION + "/ytdlp/yt-dlp-master/"
-    with cd(cd_dir):
-         process = subprocess.run(['python', 'setup.py', 'install'],shell=False)
-    del r
+    if not os.path.isdir(dl_dir):
+        zip_file_url = 'https://github.com/yt-dlp/yt-dlp/archive/refs/heads/master.zip'
+        r = requests.get(zip_file_url)
+        z = zipfile.ZipFile(io.BytesIO(r.content))
+        z.extractall(dl_dir)
+        cd_dir  = Config.DOWNLOAD_LOCATION + "/ytdlp/yt-dlp-master/"
+        with cd(cd_dir):
+            process = subprocess.run(['python', 'setup.py', 'install'],shell=False)
+        del r
