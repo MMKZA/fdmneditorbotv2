@@ -761,7 +761,7 @@ def func_scpt(script_url):
                 phto_url = 'https://image.tmdb.org/t/p/original' + result.poster_path
         except:
             phto_url = ""
-    if phto_url == "":
+    if (phto_url == "") or ('N/A' in phto_url):
         try:
             imdb_req = requests.get(imdb_url)
             imdb_req.encoding = imdb_req.apparent_encoding
