@@ -578,5 +578,6 @@ def youtube_dl_call_back(bot, update):
                 )
                 typ = Trnl.sh2.acell('P3').value
                 Trnl.sh2.update('C3','close')
+                Trnl.sh2.update('N7','close')
                 if typ == 'Movie':
                     scpt_auto(bot, update)
