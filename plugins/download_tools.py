@@ -25,6 +25,7 @@ import requests, zipfile, io
 import subprocess
 import json
 from bs4 import BeautifulSoup
+import re
 
 class cd:
     """Context manager for changing the current working directory"""
