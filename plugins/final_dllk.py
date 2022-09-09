@@ -213,7 +213,7 @@ def final_dllk(bot, update):
                         chat_id=update.chat.id,
                         text="Links အားလုံး👇\n"
                     )
-                    for bs in bs_rtrn[0],
+                    for bs in bs_rtrn[0]:
                         bot.send_message(
                             chat_id=update.chat.id,
                             text=bs
@@ -223,7 +223,7 @@ def final_dllk(bot, update):
                         chat_id=update.chat.id,
                         text="Links အားလုံး👇\n"
                     )
-                    for bs in bs_rtrn[0],
+                    for bs in bs_rtrn[0]:
                         bot.send_message(
                             chat_id=update.chat.id,
                             text=bs
