@@ -344,8 +344,8 @@ def youtube_dl_call_back(bot, update):
                         width = metadata.get("width")
                         height = metadata.get("height")
                     except:
-                        width = clip.w
-                        height = clip.h
+                        width = ssimg.w
+                        height = ssimg.h
                     if 864 < width < 1296:
                         vd_qlt = '720p HD'
                     elif 1536 < width < 2304:
@@ -522,8 +522,8 @@ def youtube_dl_call_back(bot, update):
                         width = metadata.get("width")
                         height = metadata.get("height")
                     except:
-                        width = clip.w
-                        height = clip.h
+                        width = ssimg.w
+                        height = ssimg.h
                     if 864 < width < 1296:
                         vd_qlt = '720p HD'
                     elif 1536 < width < 2304:
