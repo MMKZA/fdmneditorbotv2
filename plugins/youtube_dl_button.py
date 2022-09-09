@@ -21,6 +21,7 @@ from pprint import pprint
 import math
 from moviepy.editor import *
 from asgiref.sync import async_to_sync
+from PIL import Image
 
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
@@ -344,8 +345,8 @@ def youtube_dl_call_back(bot, update):
                         width = metadata.get("width")
                         height = metadata.get("height")
                     except:
-                        width = ssimg.w
-                        height = ssimg.h
+                        img = Image.open(ssimg)
+                        width,height = img.size
                     if 864 < width < 1296:
                         vd_qlt = '720p HD'
                     elif 1536 < width < 2304:
@@ -522,8 +523,8 @@ def youtube_dl_call_back(bot, update):
                         width = metadata.get("width")
                         height = metadata.get("height")
                     except:
-                        width = ssimg.w
-                        height = ssimg.h
+                        img = Image.open(ssimg)
+                        width,height = img.size
                     if 864 < width < 1296:
                         vd_qlt = '720p HD'
                     elif 1536 < width < 2304:
