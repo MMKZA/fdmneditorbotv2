@@ -321,9 +321,20 @@ def imdb_google(bot, update):
         year = ''
         year = re.findall(r'(\d+)', vcap)[len(re.findall(r'(\d+)', vcap)) - 1]
         title = vcap.replace('(' + year + ')', '').strip()
-    imdb_id = google('{} {} imdb'.format(title,year))
+    imdb_rtrn = google('{} {} imdb'.format(title,year))
+    imdb_id = imdb_rtrn[0]
+    imdb_lst = imdb_rtrn[1]
     imdb_url = 'https://www.imdb.com/title/' + imdb_id
     bot.send_message(
         chat_id=update.chat.id,
-        text=imdb_url
+        text="Result အားလုံး 👇"
+    )  
+    for imdb in imdb_lst:
+        bot.send_message(
+            chat_id=update.chat.id,
+            text=imdb
+        )        
+    bot.send_message(
+        chat_id=update.chat.id,
+        text="အဖြစ်နိုင်ဆုံး 👇"+imdb_url
     )
