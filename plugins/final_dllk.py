@@ -39,7 +39,7 @@ def final_dllk(bot, update):
             if srs_kw in web_url:
                 act_srs_kw = srs_kw
                 
-        source_kw_lst = ['https://channelmyanmar.org/','https://goldchannel.net/','https://shweflix.org/']
+        source_kw_lst = ['https://channelmyanmar.org/','https://goldchannel.net/','https://shweflix.org/','https://burmesesubtitles.com/','https://old.burmesesubtitles.com/']
         act_source_kw = ''
         for source_kw in source_kw_lst:
             if source_kw in web_url:
@@ -198,7 +198,7 @@ def final_dllk(bot, update):
                     )
                 except:
                     pass
-            if "https://burmesesubtitles.com/" in web_url:
+            if "burmesesubtitles.com" in web_url:
                 func_scpt(web_url)
                 if web_url in Trnl.sh2.acell('L3').value:
                     bot.send_message(
