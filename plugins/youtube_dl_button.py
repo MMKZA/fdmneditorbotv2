@@ -232,7 +232,7 @@ def youtube_dl_call_back(bot, update):
                     a.edit_text(Translation.DOWNLOAD_START + '\n<code>{}</code>\n{}\n{}'.format(vcap,progress,text))
                     time.sleep(0.05)
                 except:
-                    pass
+                    continue
     #process.communicate()
     #process = asyncio.create_subprocess_exec(
         #*command_to_exec,
