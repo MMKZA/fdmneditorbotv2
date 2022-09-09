@@ -92,7 +92,7 @@ def imdb_info(imdb_id):
     imdb2 = "".join([str(lk) for lk in imdb2_hrf])
     phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
     fdmn_frame(phto_url)
-    Trnl.sh2.update('M4', rntm)
+    #Trnl.sh2.update('M4', rntm)
     Trnl.sh2.update('M3', mv_gnr)
     Trnl.sh2.update('M5', year)
     Trnl.sh2.update('M6', ctry)
