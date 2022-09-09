@@ -46,6 +46,8 @@ async def extract_upload(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         if update.reply_to_message is not None:
             download_directory = update.reply_to_message.text
+            rntm = get_duration(download_directory)
+            Trnl.sh2.update('M4',rntm)
             tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
             thumb_image_path = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
             typ = Trnl.sh2.acell('P3').value
