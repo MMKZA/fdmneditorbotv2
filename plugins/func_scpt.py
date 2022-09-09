@@ -310,6 +310,10 @@ def func_scpt(script_url):
         bd_soup = soup.select('#info > div.wp-content')
         for all in bd_soup:
             bd_lks.append(all.text)
+        if len(bd_lks) == 0:
+            bd_soup = soup.select('#cap1 > p')
+            for all in bd_soup:
+                bd_lks.append(all.text)
         if len(bd_lks) !=0:
             vtext = "\n".join([str(txt) for txt in bd_lks])
         else:
