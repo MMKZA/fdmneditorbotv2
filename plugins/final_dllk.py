@@ -32,14 +32,14 @@ def final_dllk(bot, update):
             web_url = re.search("(?P<url>https?://[^\s]+)", update.text).group("url")
         except:
             web_url = update.text
-        
+
         srs_kw_lst = ['tvshows']
         act_srs_kw = ''
         for srs_kw in srs_kw_lst:
             if srs_kw in web_url:
                 act_srs_kw = srs_kw
                 
-        source_kw_lst = ['https://channelmyanmar.org/','https://goldchannel.net/','https://shweflix.org/','https://burmesesubtitles.com/','https://old.burmesesubtitles.com/']
+        source_kw_lst = ['https://channelmyanmar.org/','https://goldchannel.net/','https://shweflix.org/','https://old.burmesesubtitles.com','https://burmesesubtitles.com']
         act_source_kw = ''
         for source_kw in source_kw_lst:
             if source_kw in web_url:
@@ -210,21 +210,23 @@ def final_dllk(bot, update):
                 if len(bs_rtrn) == 1:
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text="Links အားလုံး👇\n" + avlb_lk
+                        text="Links အားလုံး👇\n"
                     )
-                    bot.send_message(
-                        chat_id=update.chat.id,
-                        text="Size အကြီးဆုံး Links များ 👇\n" + bs_rtrn[0]
-                    )
+                    for bs in bs_rtrn[0],
+                        bot.send_message(
+                            chat_id=update.chat.id,
+                            text=bs
+                        )
                 if len(bs_rtrn) == 2:
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text="Links အားလုံး👇\n" + avlb_lk
+                        text="Links အားလုံး👇\n"
                     )
-                    bot.send_message(
-                        chat_id=update.chat.id,
-                        text="Size အကြီးဆုံး Links များ 👇\n" + bs_rtrn[0]
-                    )
+                    for bs in bs_rtrn[0],
+                        bot.send_message(
+                            chat_id=update.chat.id,
+                            text=bs
+                        )
                     gdrv_lk = bs_rtrn[1]
                     final_link = transloader(base, gdrv_lk)
                     Trnl.sh2.update('L2', final_link)
@@ -406,7 +408,7 @@ def final_dllk(bot, update):
                 chat_id=update.chat.id,
                 message_ids=update.message_id
             )
-            Trnl.sh2.update('N7','close')
+            #Trnl.sh2.update('N7','close')
         if (act_trsl_kw != '') and (act_trsl_kw in web_url) and ('https://t.me/c' not in web_url):
             if '|' in web_url:
                 lk = web_url.split("|")[0].strip()
