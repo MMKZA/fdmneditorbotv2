@@ -311,3 +311,19 @@ def open_vlink(bot, update):
         chat_id=update.chat.id,
         text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်"
     )
+@pyrogram.Client.on_message(pyrogram.filters.command(["imdbgoogle"]))
+def imdb_google(bot, update):
+    try:
+        title = Trnl.sh2.acell('D4').value
+        year = Trnl.sh2.acell('D5').value
+    except:
+        vcap = Trnl.sh2.acell('D2').value
+        year = ''
+        year = re.findall(r'(\d+)', vcap)[len(re.findall(r'(\d+)', vcap)) - 1]
+        title = vcap.replace('(' + year + ')', '').strip()
+    imdb_id = google('{} {} imdb'.format(title,year))
+    imdb_url = 'https://www.imdb.com/title/' + imdb_id
+    bot.send_message(
+        chat_id=update.chat.id,
+        text=imdb_url
+    )
