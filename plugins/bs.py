@@ -82,8 +82,8 @@ def bs(web_url):
         if 'mediafire.com' in m:
             max_avlb.append(m)
     #max_lks = '\n'.join(['{} | {} | {} | {}'.format(str(lk).split("|", 4)[0],str(lk).split("|", 4)[1],str(lk).split("|", 4)[2],str(lk).split("|", 4)[3]) for lk in max_avlb])
-    Trnl.sh1.update('Q2', avlb_lk)
-    Trnl.sh1.update('H2', max_qlt)
+    Trnl.sh2.update('Q2', avlb_lk)
+    Trnl.sh2.update('H2', max_qlt)
     if "old.burmesesubtitles" in web_url:
         return max_avlb
     else:
