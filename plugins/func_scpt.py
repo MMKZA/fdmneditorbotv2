@@ -70,7 +70,7 @@ def func_scpt(script_url):
             if imdb_id == '':
                 imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
                 Trnl.sh2.update('L3', imdb_wrn)
-                imdb_id = google('{} {} imdb'.format(title,year))
+                imdb_id = google('{} {} imdb'.format(title,year))[0]
         if Trnl.sh2.acell('N7').value == 'open':
                 imdb_id = Trnl.sh2.acell('M7').value
         imdb_url = 'https://www.imdb.com/title/' + imdb_id
@@ -199,7 +199,7 @@ def func_scpt(script_url):
             if imdb_id == '':
                 imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
                 Trnl.sh2.update('L3', imdb_wrn)
-                imdb_id = google('{} {} imdb'.format(title,year))
+                imdb_id = google('{} {} imdb'.format(title,year))[0]
             imdb_id = Trnl.sh2.update('M7',imdb_id)
         if 'open' in Trnl.sh2.acell('N7').value:
             imdb_id = Trnl.sh2.acell('M7').value
@@ -480,7 +480,7 @@ def func_scpt(script_url):
             if imdb_id == '':
                 imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
                 Trnl.sh2.update('L3', imdb_wrn)
-                imdb_id = google('{} {} imdb'.format(title,year))
+                imdb_id = google('{} {} imdb'.format(title,year))[0]
         if Trnl.sh2.acell('N7').value == 'open':
             imdb_id = Trnl.sh2.acell('M7').value
         imdb_url = 'https://www.imdb.com/title/' + imdb_id
@@ -628,7 +628,7 @@ def func_scpt(script_url):
             if imdb_id == '':
                 imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
                 Trnl.sh2.update('L3', imdb_wrn)
-                imdb_id = google('{} {} imdb'.format(title,year))
+                imdb_id = google('{} {} imdb'.format(title,year))[0]
         if 'open' in Trnl.sh2.acell('N7').value:
             imdb_id = Trnl.sh2.acell('M7').value
         logger.info(imdb_id)
