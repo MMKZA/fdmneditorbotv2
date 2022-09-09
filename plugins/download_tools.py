@@ -21,6 +21,7 @@ from plugins.gdrvclean import poster_gdrvclean
 from plugins.func_scpt import func_scpt
 from plugins.series import series
 from plugins.echo_auto import echo_auto
+from helper_funcs.fdmn_frame import fdmn_frame
 import requests, zipfile, io
 import subprocess
 import json
@@ -295,6 +296,7 @@ def openauto_vlink(bot, update):
         imdb2_hrf.append(all)
     imdb2 = "".join([str(lk) for lk in imdb2_hrf])
     phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
+    fdmn_frame(phto_url)
     Trnl.sh2.update('C4',phto_url)
     web_url = Trnl.sh2.acell('M2').value
     func_scpt(web_url)
