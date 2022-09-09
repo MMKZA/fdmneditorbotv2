@@ -339,9 +339,13 @@ def youtube_dl_call_back(bot, update):
                             width = metadata.get("width")
                         if metadata.has("height"):
                             height = metadata.get("height")
-                    metadata = extractMetadata(createParser(ssimg))
-                    width = metadata.get("width")
-                    height = metadata.get("height")
+                    try:
+                        metadata = extractMetadata(createParser(ssimg))
+                        width = metadata.get("width")
+                        height = metadata.get("height")
+                    except:
+                        width = clip.w
+                        height = clip.h
                     if 864 < width < 1296:
                         vd_qlt = '720p HD'
                     elif 1536 < width < 2304:
@@ -513,9 +517,13 @@ def youtube_dl_call_back(bot, update):
                         )
                     )
                 elif tg_send_type == "video":
-                    metadata = extractMetadata(createParser(ssimg))
-                    width = metadata.get("width")
-                    height = metadata.get("height")
+                    try:
+                        metadata = extractMetadata(createParser(ssimg))
+                        width = metadata.get("width")
+                        height = metadata.get("height")
+                    except:
+                        width = clip.w
+                        height = clip.h
                     if 864 < width < 1296:
                         vd_qlt = '720p HD'
                     elif 1536 < width < 2304:
