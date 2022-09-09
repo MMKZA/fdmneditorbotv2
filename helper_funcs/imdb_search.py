@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 import urllib
 from lxml import html
 import re
-from trnl import Trnl
 
 headers_Get = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64; rv:49.0) Gecko/20100101 Firefox/49.0',
@@ -30,8 +29,9 @@ def google(q):
     imdb_lst = []
     for h in href:
         imdb_lst.append(re.search("(?P<url>https?://[^\s]+)", h).group("url"))
+    all_lst = []
     for i in imdb_lst:
-        imdb_tt_link = re.findall('[a-zA-Z]+://www\.imdb\.com/title/tt[0-9]+/',i)[0]
-        imdb_id = imdb_tt_link.split('/')[-2]
-        Trnl.sh2.update('M7',imdb_id)
-    return imdb_id
+        all_lst.append(re.findall('[a-zA-Z]+://www.imdb.com/title/tt[0-9]+/',i)[0])
+    avlb_lst = list(dict.fromkeys(all_lst))
+    imdb_id = avlb_lst[0].split('/')[-2]
+    return [imdb_id,avlb_lst]
