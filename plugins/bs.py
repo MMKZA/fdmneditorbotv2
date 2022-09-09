@@ -85,7 +85,7 @@ def bs(web_url):
     Trnl.sh2.update('Q2', avlb_lk)
     Trnl.sh2.update('H2', max_qlt)
     if "old.burmesesubtitles" in web_url:
-        return max_avlb
+        return [max_avlb]
     else:
         try:
             gdrv = max_avlb[1].split("|",4)[0].strip()
@@ -101,4 +101,4 @@ def bs(web_url):
                     max_lk = h
             return [max_avlb, max_lk]
         except:
-            return max_avlb
+            return [max_avlb]
