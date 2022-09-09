@@ -137,6 +137,7 @@ async def extract_upload(bot, update):
                     vd_name =  "<code>{} | Part {}</code> @fdmnchannel".format(vd_name,i_th)
                     start_time = time.time()
                     start_one = datetime.now()
+                    ssimg = 'thumb_poster.jpg'
                     vdf_msg = await bot.send_video(
                         # chat_id=update.message.chat.id,
                         chat_id=chnl_id,
@@ -238,6 +239,7 @@ async def extract_upload(bot, update):
                     else:
                         chnl_id = int(Trnl.sh2.acell('J2').value)
                     vd_name = '<code>{}</code> @fdmnchannel'.format(vd_name)
+                    ssimg = 'thumb_poster.jpg'
                     vdf_msg = await bot.send_video(
                         # chat_id=update.message.chat.id,
                         chat_id=chnl_id,
