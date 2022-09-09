@@ -138,6 +138,7 @@ def youtube_dl_call_back(bot, update):
         command_to_exec = [
             "yt-dlp",
             "-c",
+            "--format", "mp4",
             #"--max-filesize", str(4294967296),#"--max-filesize", str(Config.TG_MAX_FILE_SIZE),
             "--prefer-ffmpeg",
             "--extract-audio",
@@ -154,6 +155,7 @@ def youtube_dl_call_back(bot, update):
         command_to_exec = [
             "yt-dlp",
             "-c",
+            "--format", "mp4",
             #"--max-filesize", str(4294967296), #"--max-filesize", str(Config.TG_MAX_FILE_SIZE),
             "--embed-subs",
             "-f", minus_f_format,
@@ -175,6 +177,7 @@ def youtube_dl_call_back(bot, update):
     # command_to_exec.append("--quiet")
     logger.info(command_to_exec)
     start = datetime.now()
+    #process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,universal_newlines=False)
     process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,encoding="utf-8",universal_newlines=False)
     while process.poll() is None:
         #for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict'):
