@@ -58,7 +58,7 @@ def func_scpt(script_url):
                 title = title.replace(r, '').strip()
         omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(title) + '&y=' + year + '&apikey=39ecaf7'
         omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
-        if Trnl.sh2.acell('N7').value == 'close':
+        if Trnl.sh1.acell('N7').value == 'close':
             imdb_hrf = []
             for h in soup.find_all('a', href=True):
                 imdb_hrf.append(h['href'])
@@ -69,15 +69,15 @@ def func_scpt(script_url):
                 imdb_id = omdb_req['imdbID']
             if imdb_id == '':
                 imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
-                Trnl.sh2.update('L3', imdb_wrn)
+                Trnl.sh1.update('L3', imdb_wrn)
                 imdb_id = google('{} {} imdb'.format(title,year))
-        if Trnl.sh2.acell('N7').value == 'open':
-                imdb_id = Trnl.sh2.acell('M7').value
+        if Trnl.sh1.acell('N7').value == 'open':
+                imdb_id = Trnl.sh1.acell('M7').value
         imdb_url = 'https://www.imdb.com/title/' + imdb_id
         if 'Error' in omdb_req:
             omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
             omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
-        if 'Movie' in Trnl.sh2.acell('P3').value:
+        if 'Movie' in Trnl.sh1.acell('P3').value:
             results = search.movies({"query": title, "year": year})
             gnr = []
             mv_gnr = ''
@@ -103,18 +103,18 @@ def func_scpt(script_url):
             except:
                 mv_gnr = '⁉'
         if "Adult" in mv_gnr:
-            Trnl.sh2.update('J2', channels.rt_chnl[0])
-            Trnl.sh2.update('I2', channels.rt_chnl[1])
+            Trnl.sh1.update('J2', channels.rt_chnl[0])
+            Trnl.sh1.update('I2', channels.rt_chnl[1])
         elif "Animation" in mv_gnr:
-            Trnl.sh2.update('J2', channels.ani_chnl[0])
-            Trnl.sh2.update('I2', channels.ani_chnl[1])
+            Trnl.sh1.update('J2', channels.ani_chnl[0])
+            Trnl.sh1.update('I2', channels.ani_chnl[1])
         elif "Bollywood" in mv_gnr:
-            Trnl.sh2.update('J2', channels.bt_chnl[0])
-            Trnl.sh2.update('I2', channels.bt_chnl[1])
+            Trnl.sh1.update('J2', channels.bt_chnl[0])
+            Trnl.sh1.update('I2', channels.bt_chnl[1])
         else:
-            Trnl.sh2.update('J2', channels.gn_chnl[0])
-            Trnl.sh2.update('I2', channels.gn_chnl[1])
-            Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
+            Trnl.sh1.update('J2', channels.gn_chnl[0])
+            Trnl.sh1.update('I2', channels.gn_chnl[1])
+            Trnl.sh1.update('H3', "⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
         try:
             rntm = omdb_req['Runtime'].split(' ', 2)[0]
             rntm = "{} နာရီ : {} မိနစ်".format(*divmod(int(rntm), 60))
@@ -138,8 +138,8 @@ def func_scpt(script_url):
         if ctry == '':
             ctry = '⁉'
         if "India" in ctry:
-            Trnl.sh2.update('J2', channels.bt_chnl[0])
-            Trnl.sh2.update('I2', channels.bt_chnl[1])
+            Trnl.sh1.update('J2', channels.bt_chnl[0])
+            Trnl.sh1.update('I2', channels.bt_chnl[1])
         bd_lks = []
         bd_soup = soup.select('div > div.entry-content > p') + soup.select(
             '#post-1140 > div > div.entry-content > ul > li')
@@ -161,30 +161,63 @@ def func_scpt(script_url):
         phto_url = vlink
         credit = 'ShweFlix'
     if "burmesesubtitles" in script_url:
-        for all in soup.select('#single > div.content > div.sheader > div.data > h1'):
-            vcap = all.text
         try:
-            year = re.findall(r'(\d+)', vcap)[len(re.findall(r'(\d+)', vcap)) - 1]
+            for all in soup.select('#single > div.content > div.sheader > div.data > h1'):
+                vcap = all.text
+            try:
+                year = re.findall(r'(\d+)', vcap)[len(re.findall(r'(\d+)', vcap))-1]
+            except:
+                for all in soup.select('#uwee > div.data > p.meta > span:nth-child(1) > a'):
+                    year=all.text
+            title = vcap.replace('('+year+')','').strip()
         except:
-            for all in soup.select('#uwee > div.data > p.meta > span:nth-child(1) > a'):
-                year = all.text
-        title = vcap.replace('(' + year + ')', '').strip()
-        rmv = ['(21+)', '{21+}', '[21+]', '(18+)', '{18+}', '[18+]']
+            for all in soup.select('#uwee > div.data > h1'):
+                vcap = all.text
+            try:
+                year = re.findall(r'(\d+)', vcap)[len(re.findall(r'(\d+)', vcap))-1]
+            except:
+                for all in soup.select('#uwee > div.data > p.meta > span:nth-child(1) > a'):
+                    year=all.text
+            title = vcap.replace('('+year+')','').strip()
+        rmv = ['(21+)','{21+}','[21+]','(18+)','{18+}','[18+]']
         for r in rmv:
             if r in title:
-                title = title.replace(r, '').strip()
+                title = title.replace(r,'').strip()
         print(title)
         print(year)
         omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(title) + '&y=' + year + '&apikey=39ecaf7'
         omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
-        if 'Movie' in Trnl.sh2.acell('P3').value:
+        if 'close' in Trnl.sh1.acell('N7').value:
+            imdb_id = ''    
+            imdb_hrf = []
+            for h in soup.find_all('a',href=True):
+                imdb_hrf.append(h['href'])
+            for h in imdb_hrf:
+                if "https://www.imdb.com/title/t" in h:
+                    imdb_url = h
+                    imdb_id = imdb_url.split('/',5)[4]
+            if imdb_id == '':
+                imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
+                Trnl.sh1.update('L3', imdb_wrn)
+                imdb_id = google('{} {} imdb'.format(title,year))
+            imdb_id = Trnl.sh1.update('M7',imdb_id)
+        if 'open' in Trnl.sh1.acell('N7').value:
+            imdb_id = Trnl.sh1.acell('M7').value
+        imdb_url = 'https://www.imdb.com/title/' + imdb_id
+        if 'Error' in omdb_req:
+            omdb_url = 'https://www.omdbapi.com/?i=' + str(imdb_id) + '&apikey=39ecaf7'
+            omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
+        if 'Movie' in Trnl.sh1.acell('P3').value:
             results = search.movies({"query": title, "year": year})
             gnr = []
-            for all in soup.select('#single > div.content > div.sheader > div.data > div.sgeneros > a'):
+            for all in soup.select('#single > div.content > div.sheader > div.data > div.sgeneros > a'):            
                 gnr.append(all)
+            if len(gnr) == 0:
+                for all in soup.select('#uwee > div.data > p.meta > i'):            
+                    gnr.append(all)
             gnr_lst = []
             for g in gnr:
-                gnr_lst.append(g.text)
+                 gnr_lst.append(g.text)
             mv_gnr = ", ".join(str(g) for g in gnr_lst)
             if "Uncategorized" in mv_gnr:
                 try:
@@ -203,19 +236,19 @@ def func_scpt(script_url):
                     except:
                         mv_gnr = '⁉'
             if "Adult" in mv_gnr:
-                Trnl.sh2.update('J2', channels.rt_chnl[0])
-                Trnl.sh2.update('I2', channels.rt_chnl[1])
+                Trnl.sh1.update('J2', '-1001750623132')
+                Trnl.sh1.update('I2', 'https://t.me/c/1750623132/')
             elif "Animation" in mv_gnr:
-                Trnl.sh2.update('J2', channels.ani_chnl[0])
-                Trnl.sh2.update('I2', channels.ani_chnl[1])
+                Trnl.sh1.update('J2', '-1001389311243')
+                Trnl.sh1.update('I2', 'https://t.me/c/1389311243/')
             elif "Bollywood" in mv_gnr:
-                Trnl.sh2.update('J2', channels.bt_chnl[0])
-                Trnl.sh2.update('I2', channels.bt_chnl[1])
+                Trnl.sh1.update('J2', '-1001718578294')
+                Trnl.sh1.update('I2', 'https://t.me/c/1718578294/')
             else:
-                Trnl.sh2.update('J2', channels.gn_chnl[0])
-                Trnl.sh2.update('I2', channels.gn_chnl[1])
-                Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
-        if 'Series' in Trnl.sh2.acell('P3').value:
+                Trnl.sh1.update('J2', '-1001785695486')
+                Trnl.sh1.update('I2', 'https://t.me/c/1785695486/')
+                Trnl.sh1.update('H3',"⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
+        if 'Series' in Trnl.sh1.acell('P3').value:
             genres = genre.tv_list()
             try:
                 mv_gnr = omdb_req['Genre']
@@ -236,47 +269,26 @@ def func_scpt(script_url):
                 except:
                     mv_gnr = '⁉'
         try:
-            imdb_hrf = []
-            for h in soup.find_all('a', href=True):
-                imdb_hrf.append(h['href'])
-            for h in imdb_hrf:
-                if "https://www.imdb.com/title/t" in h:
-                    imdb_url = h
-                    imdb_id = imdb_url.split('/', 5)[4]
-        except:
-            imdb_id = omdb_req['imdbID']
-            if (len(imdb_id) != 0) and ('NA' not in imdb_id):
-                imdb_url = 'https://www.imdb.com/title/' + imdb_id
-        try:
-            omdb_req = omdb_req
-        except:
-            hrf_lks = []
-            for all in soup.find_all('a', href=True):
-                hrf_lks.append(all['href'])
-            for h in hrf_lks:
-                omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
-                omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
-        try:
             if "India" in omdb_req['Country']:
-                Trnl.sh2.update('J2', channels.bt_chnl[0])
-                Trnl.sh2.update('I2', channels.bt_chnl[1])
+                Trnl.sh1.update('J2', '-1001718578294')
+                Trnl.sh1.update('I2', 'https://t.me/c/1718578294/')
         except:
             pass
         try:
-            rntm = omdb_req['Runtime'].split(' ', 2)[0]
-            rntm = "{} နာရီ : {} မိနစ်".format(*divmod(int(rntm), 60))
+            rntm = omdb_req['Runtime'].split(' ',2)[0]
+            rntm = "{} နာရီ:{} မိနစ်".format(*divmod(int(rntm), 60))
         except:
             rntm = ""
         if rntm == "":
             try:
                 for r in soup.select('#single > div.content > div.sheader > div.data > div.extra > span.runtime'):
                     rntm = r.text
-                    rntm = "{} နာရီ : {} မိနစ်".format(*divmod(int(rntm), 60))
+                    rntm = "{} နာရီ:{} မိနစ်".format(*divmod(int(rntm), 60))
             except:
                 rntm = ""
         if rntm == "":
             rntm = '⁉'
-        ctry = ''
+        ctry = ''    
         for all in soup.select('#single > div.content > div.sheader > div.data > div.extra > span.country'):
             ctry = all.text
         if ctry == "":
@@ -287,18 +299,18 @@ def func_scpt(script_url):
                 ctry = '⁉'
         if len(ctry) != 0:
             if "India" in ctry:
-                Trnl.sh2.update('J2', channels.bt_chnl[0])
-                Trnl.sh2.update('I2', channels.bt_chnl[1])
+                Trnl.sh1.update('J2', '-1001718578294')
+                Trnl.sh1.update('I2', 'https://t.me/c/1718578294/')
         if 'Country' in omdb_req:
             if len(omdb_req['Country']) != 0:
                 if "India" in omdb_req['Country']:
-                    Trnl.sh2.update('J2', channels.bt_chnl[0])
-                    Trnl.sh2.update('I2', channels.bt_chnl[1])
+                    Trnl.sh1.update('J2', '-1001718578294')
+                    Trnl.sh1.update('I2', 'https://t.me/c/1718578294/')
         bd_lks = []
         bd_soup = soup.select('#info > div.wp-content')
         for all in bd_soup:
             bd_lks.append(all.text)
-        if len(bd_lks) != 0:
+        if len(bd_lks) !=0:
             vtext = "\n".join([str(txt) for txt in bd_lks])
         else:
             if 'tvshows' in script_url:
@@ -315,6 +327,10 @@ def func_scpt(script_url):
         all_lks = []
         for all in soup.select('#single > div.content > div.sheader > div.poster > img'):
             all_lks.append(all['src'])
+        if len(all_lks) == 0:
+            for all in soup.select('#uwee > div.imagen > div > img'):
+                all_lks.append(all['src'])
+        print(all_lks)
         vlink = all_lks[0]
         phto_splt = vlink.split('/')
         credit = 'Burmese Subtitles'
@@ -337,10 +353,10 @@ def func_scpt(script_url):
         omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(vcap) + '&y=' + year + '&apikey=39ecaf7'
         omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
         # TMDB
-        if 'Movie' in Trnl.sh2.acell('P3').value:
+        if 'Movie' in Trnl.sh1.acell('P3').value:
             results = search.movies({"query": vcap, "year": year})
             genres = genre.movie_list()
-        if 'Series' in Trnl.sh2.acell('P3').value:
+        if 'Series' in Trnl.sh1.acell('P3').value:
             results = search.tv_shows({"query": vcap, "year": year})
             genres = genre.tv_list()
         # SCRIPT
@@ -383,30 +399,30 @@ def func_scpt(script_url):
                 mv_gnr = "⁉"
         # GENRE_RELATED
         if "Adult" in mv_gnr:
-            Trnl.sh2.update('J2', channels.rt_chnl[0])
-            Trnl.sh2.update('I2', channels.rt_chnl[1])
+            Trnl.sh1.update('J2', channels.rt_chnl[0])
+            Trnl.sh1.update('I2', channels.rt_chnl[1])
         elif "Animation" in mv_gnr:
-            Trnl.sh2.update('J2', channels.ani_chnl[0])
-            Trnl.sh2.update('I2', channels.ani_chnl[1])
+            Trnl.sh1.update('J2', channels.ani_chnl[0])
+            Trnl.sh1.update('I2', channels.ani_chnl[1])
         elif "Bollywood" in mv_gnr:
-            Trnl.sh2.update('J2', channels.bt_chnl[0])
-            Trnl.sh2.update('I2', channels.bt_chnl[1])
+            Trnl.sh1.update('J2', channels.bt_chnl[0])
+            Trnl.sh1.update('I2', channels.bt_chnl[1])
         else:
-            Trnl.sh2.update('J2', channels.gn_chnl[0])
-            Trnl.sh2.update('I2', channels.gn_chnl[1])
-            Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
+            Trnl.sh1.update('J2', channels.gn_chnl[0])
+            Trnl.sh1.update('I2', channels.gn_chnl[1])
+            Trnl.sh1.update('H3', "⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
         # COUNTRY
         ctry = soup.find("th", text="reCountry").find_next_sibling("td").text
         # COUNTRY_RELATED
         if len(ctry) != 0:
             if "India" in ctry:
-                Trnl.sh2.update('J2', channels.bt_chnl[0])
-                Trnl.sh2.update('I2', channels.bt_chnl[1])
+                Trnl.sh1.update('J2', channels.bt_chnl[0])
+                Trnl.sh1.update('I2', channels.bt_chnl[1])
         if 'Country' in omdb_req:
             if len(omdb_req['Country']) != 0:
                 if "India" in omdb_req['Country']:
-                    Trnl.sh2.update('J2', channels.bt_chnl[0])
-                    Trnl.sh2.update('I2', channels.bt_chnl[1])
+                    Trnl.sh1.update('J2', channels.bt_chnl[0])
+                    Trnl.sh1.update('I2', channels.bt_chnl[1])
         # POSTER
         try:
             phto_url = omdb_req["Poster"].replace('_SX300', '_FMjpg_UX1000_')
@@ -453,24 +469,24 @@ def func_scpt(script_url):
             year = rls_date.year
         omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(vcap) + '&y=' + str(year) + '&apikey=39ecaf7'
         omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
-        if Trnl.sh2.acell('N7').value == 'close':
+        if Trnl.sh1.acell('N7').value == 'close':
             imdb_id = ''
             if ('Error' not in omdb_req) and ('imdbID' in omdb_req) and (str(omdb_req['imdbID']) != 'N/A') and (imdb_id == ''):
                 imdb_id = omdb_req['imdbID']
             if imdb_id == '':
                 imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
-                Trnl.sh2.update('L3', imdb_wrn)
+                Trnl.sh1.update('L3', imdb_wrn)
                 imdb_id = google('{} {} imdb'.format(title,year))
-        if Trnl.sh2.acell('N7').value == 'open':
-            imdb_id = Trnl.sh2.acell('M7').value
+        if Trnl.sh1.acell('N7').value == 'open':
+            imdb_id = Trnl.sh1.acell('M7').value
         imdb_url = 'https://www.imdb.com/title/' + imdb_id
         if 'Error' in omdb_req:
             omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
             omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
-        if 'Movie' in Trnl.sh2.acell('P3').value:
+        if 'Movie' in Trnl.sh1.acell('P3').value:
             results = search.movies({"query": vcap, "year": year})
             genres = genre.movie_list()
-        if 'Series' in Trnl.sh2.acell('P3').value:
+        if 'Series' in Trnl.sh1.acell('P3').value:
             results = search.tv_shows({"query": vcap, "year": year})
             genres = genre.tv_list()
         ctry = ''
@@ -533,26 +549,26 @@ def func_scpt(script_url):
                     chck_rtd = y.text
             except:
                 chck_rtd = 'Not Rated'
-        Trnl.sh2.update('J2', channels.gn_chnl[0])
-        Trnl.sh2.update('I2', channels.gn_chnl[1])
-        Trnl.sh2.update('H3', "⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v1.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
+        Trnl.sh1.update('J2', channels.gn_chnl[0])
+        Trnl.sh1.update('I2', channels.gn_chnl[1])
+        Trnl.sh1.update('H3', "⚠️အောက်ကဇာတ်ကားအတွက် ပို့မည့် v1.0 Channel ရွေးချယ်ဖို့ လိုအပ်နေပါတယ်⚠️\n" + script_url)
         if len(chck_rtd) != 0:
             if ("Not Rated" not in chck_rtd) or ("R" == chck_rtd):
-                Trnl.sh2.update('J2', channels.rt_chnl[0])
-                Trnl.sh2.update('I2', channels.rt_chnl[1])
+                Trnl.sh1.update('J2', channels.rt_chnl[0])
+                Trnl.sh1.update('I2', channels.rt_chnl[1])
         if len(ctry) != 0:
             if "India" in ctry:
-                Trnl.sh2.update('J2', channels.bt_chnl[0])
-                Trnl.sh2.update('I2', channels.bt_chnl[1])
+                Trnl.sh1.update('J2', channels.bt_chnl[0])
+                Trnl.sh1.update('I2', channels.bt_chnl[1])
         if 'Country' in omdb_req:
             if len(omdb_req['Country']) != 0:
                 if "India" in omdb_req['Country']:
-                    Trnl.sh2.update('J2', channels.bt_chnl[0])
-                    Trnl.sh2.update('I2', channels.bt_chnl[1])
+                    Trnl.sh1.update('J2', channels.bt_chnl[0])
+                    Trnl.sh1.update('I2', channels.bt_chnl[1])
         if len(mv_gnr) != 0:
             if "Animation" in mv_gnr:
-                Trnl.sh2.update('J2', channels.ani_chnl[0])
-                Trnl.sh2.update('I2', channels.ani_chnl[1])
+                Trnl.sh1.update('J2', channels.ani_chnl[0])
+                Trnl.sh1.update('I2', channels.ani_chnl[1])
         for all in soup.select('#single > div.content.right > div.sheader > div.poster > img'):
             vlink = all['src']
         phto_splt = vlink.split('/')
@@ -595,7 +611,7 @@ def func_scpt(script_url):
                 title = title.replace(r, '').strip()
         omdb_url = 'https://www.omdbapi.com/?t=' + urllib.parse.quote_plus(title) + '&y=' + year + '&apikey=39ecaf7'
         omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
-        if Trnl.sh2.acell('N7').value == 'close':
+        if 'close' in Trnl.sh1.acell('N7').value:
             imdb_id = ''
             imdb_lst = []
             for s in soup.find_all('a', href=True):
@@ -607,15 +623,17 @@ def func_scpt(script_url):
             #imdb_id = omdb_req['imdbID']
             if imdb_id == '':
                 imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
-                Trnl.sh2.update('L3', imdb_wrn)
+                Trnl.sh1.update('L3', imdb_wrn)
                 imdb_id = google('{} {} imdb'.format(title,year))
-        if Trnl.sh2.acell('N7').value == 'open':
-            imdb_id = Trnl.sh2.acell('M7').value
+        if 'open' in Trnl.sh1.acell('N7').value:
+            imdb_id = Trnl.sh1.acell('M7').value
+        logger.info(imdb_id)
         imdb_url = 'https://www.imdb.com/title/' + imdb_id
+        imdb_id = Trnl.sh1.update('M7',imdb_id)
         if 'Error' in omdb_req:
-            omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
+            omdb_url = 'https://www.omdbapi.com/?i=' + str(imdb_id) + '&apikey=39ecaf7'
             omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
-        if 'Movie' in Trnl.sh2.acell('P3').value:
+        if 'Movie' in Trnl.sh1.acell('P3').value:
             results = search.movies({"query": title, "year": year})
             gnr = []
             for g in soup.select('p.meta > i'):
@@ -639,19 +657,19 @@ def func_scpt(script_url):
                     except:
                         mv_gnr = '⁉️'
             if "Adult" in mv_gnr:
-                Trnl.sh2.update('J2', channels.rt_chnl[0])
-                Trnl.sh2.update('I2', channels.rt_chnl[1])
+                Trnl.sh1.update('J2', channels.rt_chnl[0])
+                Trnl.sh1.update('I2', channels.rt_chnl[1])
             elif "Animation" in mv_gnr:
-                Trnl.sh2.update('J2', channels.ani_chnl[0])
-                Trnl.sh2.update('I2', channels.ani_chnl[1])
+                Trnl.sh1.update('J2', channels.ani_chnl[0])
+                Trnl.sh1.update('I2', channels.ani_chnl[1])
             elif "Bollywood" in mv_gnr:
-                Trnl.sh2.update('J2', channels.bt_chnl[0])
-                Trnl.sh2.update('I2', channels.bt_chnl[1])
+                Trnl.sh1.update('J2', channels.bt_chnl[0])
+                Trnl.sh1.update('I2', channels.bt_chnl[1])
             else:
-                Trnl.sh2.update('J2', channels.gn_chnl[0])
-                Trnl.sh2.update('I2', channels.gn_chnl[1])
-                Trnl.sh2.update('H3',"⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
-        if 'Series' in Trnl.sh2.acell('P3').value:
+                Trnl.sh1.update('J2', channels.gn_chnl[0])
+                Trnl.sh1.update('I2', channels.gn_chnl[1])
+                Trnl.sh1.update('H3',"⚠️အောက်ကဇာတ်ကားကို v1 ဇာတ်လမ်းစုံ ကို ပို့ပါမယ်⚠️\n" + script_url)
+        if 'Series' in Trnl.sh1.acell('P3').value:
             genres = genre.tv_list()
             try:
                 mv_gnr = omdb_req['Genre']
@@ -673,8 +691,8 @@ def func_scpt(script_url):
                     mv_gnr = '⁉️'
         try:
             if "India" in omdb_req['Country']:
-                Trnl.sh2.update('J2', channels.bt_chnl[0])
-                Trnl.sh2.update('I2', channels.bt_chnl[1])
+                Trnl.sh1.update('J2', channels.bt_chnl[0])
+                Trnl.sh1.update('I2', channels.bt_chnl[1])
         except:
             pass
         try:
@@ -709,8 +727,8 @@ def func_scpt(script_url):
         if ctry == '':
             ctry = '⁉'
         if "India" in ctry:
-            Trnl.sh2.update('J2', channels.bt_chnl[0])
-            Trnl.sh2.update('I2', channels.bt_chnl[1])
+            Trnl.sh1.update('J2', channels.bt_chnl[0])
+            Trnl.sh1.update('I2', channels.bt_chnl[1])
         bd_lks = []
         bd_soup = soup.select('#cap1 > p')
         for all in bd_soup:
@@ -784,15 +802,15 @@ def func_scpt(script_url):
             phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
         except:
             phto_url = vlink
-    if 'close' in Trnl.sh2.acell('C3').value:
+    if 'close' in Trnl.sh1.acell('C3').value:
         try:
-            omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
+            omdb_url = 'https://www.omdbapi.com/?i=' + str(imdb_id) + '&apikey=39ecaf7'
             omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
             phto_url = omdb_req["Poster"].replace('_SX300', '_FMjpg_UX1000_')
         except:
             pass
-    if 'open' in Trnl.sh2.acell('C3').value:
-        phto_url = Trnl.sh2.acell('C4').value
+    if 'open' in Trnl.sh1.acell('C3').value:
+        phto_url = Trnl.sh1.acell('C4').value
     fdmn_frame(phto_url)
     imdb_rt = ''
     imdb_vt = ''
@@ -810,18 +828,17 @@ def func_scpt(script_url):
     imdb = imdb_rt + '/10 (' + imdb_vt + ' Votes)'
     if imdb_rt == '':
         imdb = '⁉️'
-    vd_qlt = Trnl.sh2.acell('H2').value
-    typ = Trnl.sh2.acell('P3').value
-    Trnl.sh2.update('M4', rntm)
-    Trnl.sh2.update('M7', imdb_id)
-    Trnl.sh2.update('M3', mv_gnr)
-    Trnl.sh2.update('M5', year)
-    Trnl.sh2.update('M6', ctry)
-    Trnl.sh2.update('M8', imdb)
-    Trnl.sh2.update('C2', phto_url)
-    Trnl.sh2.update('D2', vcap)
-    Trnl.sh2.update('F2', credit)
+    vd_qlt = Trnl.sh1.acell('H2').value
+    typ = Trnl.sh1.acell('P3').value
+    Trnl.sh1.update('M4', rntm)
+    Trnl.sh1.update('M3', mv_gnr)
+    Trnl.sh1.update('M5', year)
+    Trnl.sh1.update('M6', ctry)
+    Trnl.sh1.update('M8', imdb)
+    Trnl.sh1.update('C2', phto_url)
+    Trnl.sh1.update('D2', vcap)
+    Trnl.sh1.update('F2', credit)
     vtext = vtext.strip()
-    Trnl.sh2.update('O2', vtext)
+    Trnl.sh1.update('O2', vtext)
     vcap_hsh = ''.join(e for e in vcap if e.isalnum())
-    Trnl.sh2.update('E2', vcap_hsh)
+    Trnl.sh1.update('E2', vcap_hsh)
