@@ -88,8 +88,6 @@ def ytsn_dllk(ytsn_lk):
         }
     get = session.get(get_ytsn_lk,headers=headers,cookies=cookies,allow_redirects=False)
     logger.info(get)
-    get_text = get.text
-    Trnl.sh2.update('A5',get_text)
     soup = BeautifulSoup(get.content,'lxml')
     id_loc = soup.find_all('a', {'class':"butt text-decoration-none disabled"})
     for x in id_loc:
