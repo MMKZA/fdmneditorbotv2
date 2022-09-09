@@ -18,6 +18,8 @@ else:
 # the Strings used for this "thing"
 from translation import Translation
 from plugins.m4vtomp4 import mp4
+import io
+import locale
 
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
@@ -30,8 +32,6 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from trnl import Trnl
 import asyncio
 import subprocess
-import io
-import locale
 
 def echo_echo(bot, update, url, mssg, mssgid):
     if update.from_user.id in Config.AUTH_USERS:
@@ -194,7 +194,6 @@ def echo_echo(bot, update, url, mssg, mssgid):
         # Wait for the subprocess to finish
         #stdout, stderr = process.communicate()
         e_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stderr,encoding=locale.getpreferredencoding(False),errors='strict')])
-        # logger.info(e_response)
         t_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict')])
         logger.info(t_response)
         # https://github.com/rg3/youtube-dl/issues/2630#issuecomment-38635239
