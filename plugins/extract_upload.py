@@ -38,6 +38,7 @@ from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from PIL import Image
 from helper_funcs.help_Nekmo_ffmpeg import generate_screen_shots
+from helper_funcs.get_duration import get_duration
 from trnl import Trnl
 from datetime import datetime
 
