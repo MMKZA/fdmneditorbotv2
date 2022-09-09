@@ -27,6 +27,9 @@ def imdb_info(imdb_id):
         gnr_lst = []
         for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-2a827f80-2.kqTacj > div.sc-2a827f80-10.fVYbpg > div.sc-2a827f80-4.bWdgcV > div.sc-16ede01-8.hXeKyz.sc-2a827f80-11.kSXeJ > div > div.ipc-chip-list__scroller > a > span'):
             gnr_lst.append(x.text)
+        if len(gnr_lst) == 0:
+            for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-2a827f80-6.jXSdID > div.sc-2a827f80-10.fVYbpg > div.sc-2a827f80-8.indUzh > div.sc-16ede01-9.bbiYSi.sc-2a827f80-11.kSXeJ > div.ipc-chip-list--baseAlt.ipc-chip-list.sc-16ede01-5.ggbGKe > div.ipc-chip-list__scroller > a'):
+                gnr_lst.append(x.text)
         mv_gnr = ", ".join(g for g in gnr_lst)
     if 'Series' in typ:
         for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-80d4314-1.fbQftq > h1'):
