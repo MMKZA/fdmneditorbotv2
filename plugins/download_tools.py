@@ -53,11 +53,7 @@ def trsl_tool(bot, update):
                 gdrv_lk = ytsn_dllk(lk)
             else:
                 gdrv_lk = gdrv_retrn
-        elif "mega.nz" in lk:
-            gdrv_lk = lk
-        elif "https://drive.google.com/" in lk:
-            gdrv_lk = lk
-        elif "burmesesubtitles.com" in lk:
+        else:
             gdrv_lk = lk
         base = Trnl.sh2.acell('K2').value
         final_link = transloader(base, gdrv_lk)
