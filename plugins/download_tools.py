@@ -22,6 +22,7 @@ from plugins.func_scpt import func_scpt
 from plugins.series import series
 from plugins.echo_auto import echo_auto
 from helper_funcs.fdmn_frame import fdmn_frame
+from helper_funcs.imdb_search import google
 import requests, zipfile, io
 import subprocess
 import json
