@@ -92,10 +92,13 @@ def imdb_info(imdb_id):
     imdb2 = "".join([str(lk) for lk in imdb2_hrf])
     phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
     fdmn_frame(phto_url)
-    #Trnl.sh2.update('M4', rntm)
-    Trnl.sh2.update('M3', mv_gnr)
+    if Trnl.sh2.acell('M4').value == '⁉️':
+        Trnl.sh2.update('M4', rntm)
+    if Trnl.sh2.acell('M3').value == '⁉️':
+        Trnl.sh2.update('M3', mv_gnr)
     Trnl.sh2.update('M5', year)
-    Trnl.sh2.update('M6', ctry)
+    if Trnl.sh2.acell('M6').value == '⁉️':
+        Trnl.sh2.update('M6', ctry)
     Trnl.sh2.update('C2', phto_url)
     Trnl.sh2.update('D2', vcap)
     Trnl.sh2.update('M8', imdb)
