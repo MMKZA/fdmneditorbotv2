@@ -218,8 +218,8 @@ async def echo(bot, update):
                 disable_web_page_preview=True
             )
             return False
-        t_response = 1
-        if t_response == 1:
+        response = 1
+        if response == 1:
             # logger.info(t_response)
             x_reponse = t_response
             if "\n" in x_reponse:
