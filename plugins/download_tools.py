@@ -23,6 +23,7 @@ from plugins.series import series
 from plugins.echo_auto import echo_auto
 from helper_funcs.fdmn_frame import fdmn_frame
 from helper_funcs.imdb_search import google
+from googletrans import Translator
 import requests, zipfile, io
 import subprocess
 import json
