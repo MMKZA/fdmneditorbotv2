@@ -6,6 +6,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import logging
 import zipfile_deflate64 as zipfile
 import rarfile
+import py7zr
 #import patoolib
 
 logging.basicConfig(level=logging.DEBUG,
@@ -25,6 +26,11 @@ def rar_extract(inpath,outpath):
     #patoolib.extract_archive(inpath, outdir=outpath)
     with rarfile.RarFile(inpath, 'r') as rar_file:
         rar_file.extractall(path=outpath)
+        
+def _7z_extract(inpath,outpath):
+    #patoolib.extract_archive(inpath, outdir=outpath)
+    with py7zr.SevenZipFile(inpath, mode='r') as _7z_file:
+        _7z_file.extractall(path=outpath)
 
 @pyrogram.Client.on_message(pyrogram.filters.command(["fldl"]))
 def file_extract(bot,update):
@@ -34,8 +40,10 @@ def file_extract(bot,update):
         outpath = os.path.splitext(inpath)[0] + '/'
         if not os.path.isdir(outpath):
             os.makedirs(outpath)
-        if (fl_ext == '.zip') or (fl_ext == '.7z'):
+        if fl_ext == '.zip':
             zip_extract(inpath,outpath)
+        elif fl_ext == '.7z':
+            _7z_extract(inpath,outpath)
         elif fl_ext == '.rar':
             rar_extract(inpath,outpath)
         fl_lst = []
