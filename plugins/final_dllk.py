@@ -398,7 +398,7 @@ def final_dllk(bot, update):
         if (act_imdb_kw != '') and (act_imdb_kw in web_url) and ('https://t.me/c' not in web_url):
             imdb_lk = web_url
             try:
-                imdb_id = imdb_lk.split('/')[-2]
+                imdb_id = imdb_lk.split('/')[4]
             except:
                 imdb_id = imdb_lk
             Trnl.sh2.update('N7','open')
