@@ -33,3 +33,4 @@ opencv-python-headless
 asgiref
 selenium
 chromedriver-py==104.0.5112.79
+py7zr
