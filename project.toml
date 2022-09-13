@@ -1,0 +1,23 @@
+[project]
+id = "b5e8106c-dadf-4b74-a8fc-7a3301590913"
+name = "FDMN EDITOR V3"
+version = "1.0.0"
+
+[build]
+  builder = "heroku/buildpacks:20"
+  
+[[build.buildpacks]]
+  uri = "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+  uri = "https://github.com/hasibulkabir/heroku-buildpack-rarlab.git"
+  uri = "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
+  uri = "https://github.com/heroku/heroku-buildpack-google-chrome"
+  uri = "https://github.com/heroku/heroku-buildpack-chromedriver"
+  uri = "heroku/python"
+
+[env]
+  API_HASH="8aed5be0ffdb91988a9e0b04ebedf853"
+  APP_ID="12388674"
+  AUTH_USERS="1700943365"
+  CHUNK_SIZE="128"
+  TG_BOT_TOKEN="5400805078:AAHMhlDWcfW65sODYa9569N5_ktW2eYQyQU"
+  WEBHOOK="ANYTHING"
