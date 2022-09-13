@@ -853,4 +853,5 @@ def func_scpt(script_url):
     vcap_hsh = ''.join(e for e in vcap if e.isalnum())
     Trnl.sh2.update('E2', vcap_hsh)
     if '⁉️' in [mv_gnr,year,ctry]:
+        imdb_id = Trnl.sh2.acell('M7').value
         imdb_info(imdb_id)
