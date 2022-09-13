@@ -861,7 +861,7 @@ def func_scpt(script_url):
                 if c == t:
                     ctry_all.append(c)
         ctry = ", ".join(g for g in ctry_all)
-    if len(str(abs(int(year)))) < 4:
+    if len(str(abs(int(''.join(re.findall(r'\b\d+\b',year)))))) < 4:
         if 'Movie' in typ:
             for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-80d4314-1.fbQftq > div > ul > li:nth-child(1) > span'):
                 year = x.text
