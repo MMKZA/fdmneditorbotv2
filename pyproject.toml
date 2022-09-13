@@ -1,3 +1,5 @@
+#!/bin/sh
+
 [project]
 id = "b5e8106c-dadf-4b74-a8fc-7a3301590913"
 name = "instinctive-knowledge"
