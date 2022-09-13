@@ -129,6 +129,7 @@ async def convert_to_video(bot, update):
             else:
                 chnl_id = int(Trnl.sh2.acell('J2').value)
             vd_name = the_real_download_location.split('/')[-1].replace('.mp4','') + ' | {} @fdmnchannel'.format(vd_qlt)
+            ssimg = 'thumb_poster.jpg'
             vdf_msg = await bot.send_video(
                 chat_id=chnl_id,
                 video=the_real_download_location,
@@ -138,7 +139,7 @@ async def convert_to_video(bot, update):
                 height=V_HEIGHT,
                 supports_streaming=True,
                 # reply_markup=reply_markup,
-                thumb=Config.DOWNLOAD_LOCATION + "/" + f'{nfh}' + "/" + "thbnl1.jpg",
+                thumb=ssimg,
                 reply_to_message_id=update.reply_to_message.message_id,
                 progress=progress_for_pyrogram,
                 progress_args=(
