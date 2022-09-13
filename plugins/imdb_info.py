@@ -59,7 +59,7 @@ def imdb_info(imdb_id):
             if c == t:
                 ctry_all.append(c)
     vcap_hsh = '⁉️'
-    if vcap != '⁉️' or vcap != '' or year != '⁉️' or year != ''):
+    if vcap != '⁉️' or vcap != '' or year != '⁉️' or year != '':
         vcap_hsh = ''.join(e for e in vcap+year if e.isalnum())
     ctry = ", ".join(g for g in ctry_all)
     web_url = Trnl.sh2.acell('M2').value
