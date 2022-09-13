@@ -8,10 +8,15 @@ version = "1.0.0"
   
 [[build.buildpacks]]
   uri = "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest"
+[[build.buildpacks]]
   uri = "https://github.com/hasibulkabir/heroku-buildpack-rarlab.git"
+[[build.buildpacks]]
   uri = "https://github.com/opendoor-labs/heroku-buildpack-p7zip"
+[[build.buildpacks]]
   uri = "https://github.com/heroku/heroku-buildpack-google-chrome"
+[[build.buildpacks]]
   uri = "https://github.com/heroku/heroku-buildpack-chromedriver"
+[[build.buildpacks]]
   uri = "heroku/python"
 
 [env]
