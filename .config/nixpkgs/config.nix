@@ -1,3 +1,1 @@
-  environment.systemPackages = [
-    pkgs.google-chrome
-  ];
+nix-env -iA nixpkgs.google-chrome
