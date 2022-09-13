@@ -89,6 +89,9 @@ def ytsn_dllk(ytsn_lk):
     get = session.get(get_ytsn_lk,headers=headers,cookies=cookies,allow_redirects=False)
     logger.info(get)
     soup = BeautifulSoup(get.content,'lxml')
+    for x in soup.select('body > section:nth-child(3) > div.row.justify-content-center > div.col-sm-8.col-md-8.col-lg-6 > div > div.card-body.p-4 > h4'):
+        fl_fll_nm = x.text
+    Trnl.sh2.update('D6',fl_fll_nm)
     id_loc = soup.find_all('a', {'class':"butt text-decoration-none disabled"})
     for x in id_loc:
         if re.match('app.saveToGoogleDrive',x['onclick']):
