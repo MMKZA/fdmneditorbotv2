@@ -5,12 +5,14 @@ from trnl import Trnl
 from lxml import html
 from translation import Translation
 from helper_funcs.fdmn_frame import fdmn_frame
+import time
 
 def imdb_info(imdb_id):
     typ = Trnl.sh2.acell('P3').value
     imdb_url = 'https://www.imdb.com/title/' + imdb_id
     headers = {"Accept-Language": "en-US,en;q=0.5"}
     imdb_req = requests.get(imdb_url,headers=headers)
+    time.sleep(5)
     imdb_req.encoding = imdb_req.apparent_encoding
     imdb_html = imdb_req.text
     imdb_soup = BeautifulSoup(imdb_html, 'html.parser')
@@ -97,8 +99,7 @@ def imdb_info(imdb_id):
     if Trnl.sh2.acell('M3').value == '⁉️':
         Trnl.sh2.update('M3', mv_gnr)
     Trnl.sh2.update('M5', year)
-    if Trnl.sh2.acell('M6').value == '⁉️':
-        Trnl.sh2.update('M6', ctry)
+    Trnl.sh2.update('M6', ctry)
     Trnl.sh2.update('C2', phto_url)
     Trnl.sh2.update('D2', vcap)
     Trnl.sh2.update('M8', imdb)
