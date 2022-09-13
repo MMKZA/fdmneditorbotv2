@@ -130,9 +130,13 @@ def youtube_dl_call_back(bot, update):
     tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
     if not os.path.isdir(tmp_directory_for_each_user):
         os.makedirs(tmp_directory_for_each_user)
-    if 'public.php' in youtube_dl_url:
+    if typ == 'Series':
         fl_fll_nm = Trnl.sh2.acell('D6').value
-        download_directory = tmp_directory_for_each_user + "/" + fl_fll_nm
+        vcap = os.path.splitext(fl_fll_nm)[0]
+        if 'public.php' in youtube_dl_url:
+            download_directory = tmp_directory_for_each_user + "/" + fl_fll_nm
+        else:
+            download_directory = tmp_directory_for_each_user + "/" + custom_file_name
     else:
         download_directory = tmp_directory_for_each_user + "/" + custom_file_name
     command_to_exec = []
