@@ -13,6 +13,7 @@ filetype
 tldextract
 psycopg2-binary
 sqlalchemy
+youtube-dl
 gspread
 oauth2client
 urllib3
@@ -29,8 +30,7 @@ zipfile-deflate64
 multiprocess
 rarfile
 patool
-opencv-python-headless
 asgiref
+opencv-python-headless
 selenium
-chromedriver-py==104.0.5112.79
 py7zr
