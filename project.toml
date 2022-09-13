@@ -7,7 +7,7 @@ version = "1.0.0"
 #  builder = "heroku/buildpacks:20"
   
 [[build.buildpacks]]
-  uri = "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest.git"
+  uri = "https://github.com/jonathanong/heroku-buildpack-ffmpeg-latest/archive/refs/heads/master.zip"
 [[build.buildpacks]]
   uri = "https://github.com/hasibulkabir/heroku-buildpack-rarlab.git"
 [[build.buildpacks]]
