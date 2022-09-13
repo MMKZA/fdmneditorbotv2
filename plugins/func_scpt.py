@@ -13,6 +13,7 @@ from lxml import html
 from channels import channels
 from helper_funcs.imdb_search import google
 from helper_funcs.fdmn_frame import fdmn_frame
+from plugins.imdb_info import imdb_info
 
 logging.getLogger('chardet.charsetprober').setLevel(logging.INFO)
 logging.basicConfig(level=logging.DEBUG,
@@ -101,7 +102,7 @@ def func_scpt(script_url):
                             gnr_lst.append(g.name)
                 mv_gnr = ", ".join(g for g in gnr_lst)
             except:
-                mv_gnr = '⁉'
+                mv_gnr = '⁉️️'
         if "Adult" in mv_gnr:
             Trnl.sh2.update('J2', channels.rt_chnl[0])
             Trnl.sh2.update('I2', channels.rt_chnl[1])
@@ -129,14 +130,14 @@ def func_scpt(script_url):
             except:
                 rntm = ""
         if rntm == "":
-            rntm = '⁉'
+            rntm = '⁉️'
         ctry = ''
         try:
             ctry = omdb_req['Country']
         except:
             ctry = ''
         if ctry == '':
-            ctry = '⁉'
+            ctry = '⁉️'
         if "India" in ctry:
             Trnl.sh2.update('J2', channels.bt_chnl[0])
             Trnl.sh2.update('I2', channels.bt_chnl[1])
@@ -203,7 +204,7 @@ def func_scpt(script_url):
             imdb_id = Trnl.sh2.update('M7',imdb_id)
         if 'open' in Trnl.sh2.acell('N7').value:
             imdb_id = Trnl.sh2.acell('M7').value
-        imdb_url = 'https://www.imdb.com/title/' + imdb_id
+        imdb_url = 'https://www.imdb.com/title/' + str(imdb_id)
         if 'Error' in omdb_req:
             omdb_url = 'https://www.omdbapi.com/?i=' + str(imdb_id) + '&apikey=39ecaf7'
             omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
@@ -234,7 +235,7 @@ def func_scpt(script_url):
                                     gnr_lst.append(g.name)
                         mv_gnr = ", ".join(g for g in gnr_lst)
                     except:
-                        mv_gnr = '⁉'
+                        mv_gnr = '⁉️'
             if "Adult" in mv_gnr:
                 Trnl.sh2.update('J2', '-1001750623132')
                 Trnl.sh2.update('I2', 'https://t.me/c/1750623132/')
@@ -263,11 +264,11 @@ def func_scpt(script_url):
                             if g.id in result.genre_ids:
                                 gnr_lst.append(g.name)
                     if len(gnr_lst) > 5:
-                        mv_gnr = '⁉'
+                        mv_gnr = '⁉️'
                     if len(gnr_lst) < 5:
                         mv_gnr = ", ".join(g for g in gnr_lst)
                 except:
-                    mv_gnr = '⁉'
+                    mv_gnr = '⁉️'
         try:
             if "India" in omdb_req['Country']:
                 Trnl.sh2.update('J2', '-1001718578294')
@@ -287,7 +288,7 @@ def func_scpt(script_url):
             except:
                 rntm = ""
         if rntm == "":
-            rntm = '⁉'
+            rntm = '⁉️'
         ctry = ''    
         for all in soup.select('#single > div.content > div.sheader > div.data > div.extra > span.country'):
             ctry = all.text
@@ -296,7 +297,7 @@ def func_scpt(script_url):
                 if 'Country' in omdb_req:
                     ctry = omdb_req['Country']
             except:
-                ctry = '⁉'
+                ctry = '⁉️'
         if len(ctry) != 0:
             if "India" in ctry:
                 Trnl.sh2.update('J2', '-1001718578294')
@@ -376,7 +377,7 @@ def func_scpt(script_url):
                 rntm = omdb_req['Runtime'].split(' ', 2)[0]
                 rntm = "{} နာရီ : {} မိနစ်".format(*divmod(int(rntm), 60))
             except:
-                rntm = '⁉'
+                rntm = '⁉️'
         # GENRE
         try:
             if 'Genre' in omdb_req:
@@ -400,7 +401,7 @@ def func_scpt(script_url):
                             gnr_lst.append(g.name)
                 mv_gnr = ", ".join(g for g in gnr_lst)
             except:
-                mv_gnr = "⁉"
+                mv_gnr = "⁉️"
         # GENRE_RELATED
         if "Adult" in mv_gnr:
             Trnl.sh2.update('J2', channels.rt_chnl[0])
@@ -497,7 +498,7 @@ def func_scpt(script_url):
         for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.country'):
             ctry = all.text
         if ctry == '':
-            ctry = '⁉️'
+            ctry = '⁉️️'
         mv_gnr = ""
         try:
             if 'Genre' in omdb_req:
@@ -521,7 +522,7 @@ def func_scpt(script_url):
             except:
                 mv_gnr = ""
         if mv_gnr == "":
-            mv_gnr = "⁉️"
+            mv_gnr = "⁉️️"
         rntm = ""
         try:
             if 'tvshows' in script_url:
@@ -542,7 +543,7 @@ def func_scpt(script_url):
             except:
                 rntm = ""
         if rntm == "":
-            rntm = '⁉️'
+            rntm = '⁉️️'
         chck_rtd = ''
         for x in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.CR.rated'):
             chck_rtd = x.text
@@ -593,7 +594,7 @@ def func_scpt(script_url):
                 end1 = '    Original title'
             vtext = (sscpt.split(start1))[1].split(end1)[0]
         if len(vtext) == 0:
-            vtext = "⁉"
+            vtext = "⁉️"
         credit = 'Gold Channel Movies'
     if "channelmyanmar" in script_url:
         start3 = 'https://www.imdb.com/title/t'
@@ -659,7 +660,7 @@ def func_scpt(script_url):
                                     gnr_lst.append(g.name)
                         mv_gnr = ", ".join(g for g in gnr_lst)
                     except:
-                        mv_gnr = '⁉️'
+                        mv_gnr = '⁉️️'
             if "Adult" in mv_gnr:
                 Trnl.sh2.update('J2', channels.rt_chnl[0])
                 Trnl.sh2.update('I2', channels.rt_chnl[1])
@@ -688,11 +689,11 @@ def func_scpt(script_url):
                             if g.id in result.genre_ids:
                                 gnr_lst.append(g.name)
                     if len(gnr_lst) > 5:
-                        mv_gnr = '⁉️'
+                        mv_gnr = '⁉️️'
                     if len(gnr_lst) < 5:
                         mv_gnr = ", ".join(g for g in gnr_lst)
                 except:
-                    mv_gnr = '⁉️'
+                    mv_gnr = '⁉️️'
         try:
             if "India" in omdb_req['Country']:
                 Trnl.sh2.update('J2', channels.bt_chnl[0])
@@ -711,7 +712,7 @@ def func_scpt(script_url):
             except:
                 rntm = ""
         if rntm == "":
-            rntm = '⁉️'
+            rntm = '⁉️️'
         all_lks = []
         for all in soup.select('div > img'):
             all_lks.append(all['src'])
@@ -729,7 +730,7 @@ def func_scpt(script_url):
                             mv_ctry.append(y)
             ctry = ", ".join(c for c in mv_ctry)
         if ctry == '':
-            ctry = '⁉'
+            ctry = '⁉️'
         if "India" in ctry:
             Trnl.sh2.update('J2', channels.bt_chnl[0])
             Trnl.sh2.update('I2', channels.bt_chnl[1])
@@ -831,7 +832,7 @@ def func_scpt(script_url):
         imdb_vt = i.text
     imdb = imdb_rt + '/10 (' + imdb_vt + ' Votes)'
     if imdb_rt == '':
-        imdb = '⁉️'
+        imdb = '⁉️️'
     vd_qlt = Trnl.sh2.acell('H2').value
     typ = Trnl.sh2.acell('P3').value
     Trnl.sh2.update('M4', rntm)
@@ -841,6 +842,13 @@ def func_scpt(script_url):
     Trnl.sh2.update('M8', imdb)
     Trnl.sh2.update('C2', phto_url)
     Trnl.sh2.update('D2', vcap)
+    if '⁉️' in [mv_gnr,year,ctry]:
+        imdb_info(imdb_id)
+    try:
+        Trnl.sh2.update('D4',title)
+        Trnl.sh2.update('D5',year)
+    except:
+        pass
     Trnl.sh2.update('F2', credit)
     vtext = vtext.strip()
     Trnl.sh2.update('O2', vtext)
