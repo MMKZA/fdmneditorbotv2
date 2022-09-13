@@ -6,13 +6,14 @@ from plugins.gdrvclean import gdrvclean
 from plugins.transloader import transloader
 from plugins.echo_echo import echo_echo
 from plugins.plhh_gdrive import plhh_gdrive
-
 import os
 if bool(os.environ.get("WEBHOOK", False)):
     from sample_config import Config
 else:
     from config import Config
 import logging
+import requests
+from bs4 import BeautifulSoup
 
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -70,6 +71,12 @@ def plhh_method(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         gdrv_id = Trnl.sh2.acell('L4').value
         gdrv_lk = 'https://drive.google.com/file/d/{}/view?usp=sharing'.format(gdrv_id)
+        req = requests.get(gdrv_lk)
+        soup = BeautifulSoup(req.content, 'lxml')
+        for s in soup.select('head > title'):
+            fl_fll_nm = s.text.split(' - ')[0]
+        Trnl.sh2.update('D6',fl_fll_nm)
+        del req
         final_link = plhh_gdrive(gdrv_lk)
         Trnl.sh2.update('L2', final_link)
         if 'public.php?' in final_link:
@@ -84,6 +91,12 @@ def direct_method(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         gdrv_id = Trnl.sh2.acell('L4').value
         gdrv_lk = 'https://drive.google.com/file/d/{}/view?usp=sharing'.format(gdrv_id)
+        req = requests.get(gdrv_lk)
+        soup = BeautifulSoup(req.content, 'lxml')
+        for s in soup.select('head > title'):
+            fl_fll_nm = s.text.split(' - ')[0]
+        Trnl.sh2.update('D6',fl_fll_nm)
+        del req
         final_link = gdrv_lk
         Trnl.sh2.update('L2', final_link)
         text = "📺SVideo or 🗃️SFile မှန်ရာကိုရွေးချယ်ပါ 👇\n"
