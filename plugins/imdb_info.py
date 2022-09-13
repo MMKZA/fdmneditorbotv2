@@ -112,5 +112,5 @@ def imdb_info(imdb_id):
     Trnl.sh2.update('M8', imdb)
     Trnl.sh2.update('F2', credit)
     Trnl.sh2.update('C4',phto_url)
-    if vcap_hsh = '⁉️':
+    if vcap_hsh != '⁉️':
         Trnl.sh2.update('E2', vcap_hsh)
