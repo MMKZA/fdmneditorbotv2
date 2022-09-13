@@ -233,7 +233,6 @@ def youtube_dl_call_back(bot, update):
                     time.sleep(0.05)
                 except:
                     continue
-    process.communicate()
     #process = asyncio.create_subprocess_exec(
         #*command_to_exec,
         # stdout must a pipe to be accessible as process.stdout
@@ -243,7 +242,7 @@ def youtube_dl_call_back(bot, update):
     # Wait for the subprocess to finish
     #stdout, stderr = process.communicate()
     #e_response = stderr.decode().strip()
-    #t_response = stdout.decode().strip()
+    t_response = process.stdout.decode().strip()
     #logger.info(e_response)
     #logger.info(t_response)
     #ad_string_to_replace = "please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
@@ -255,8 +254,7 @@ def youtube_dl_call_back(bot, update):
             #text=error_message
         #)
         #return False
-    t_response = 1
-    if t_response == 1:
+    if t_response:
         # logger.info(t_response)
         os.remove(save_ytdl_json_path)
         end = datetime.now()
