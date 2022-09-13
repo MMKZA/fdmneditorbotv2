@@ -17,10 +17,10 @@ def imdb_info(imdb_id):
     imdb_html = imdb_req.text
     imdb_soup = BeautifulSoup(imdb_html, 'html.parser')
     if 'Movie' in typ:
-        vcap = ⁉️
+        vcap = '⁉️'
         for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-80d4314-1.fbQftq > h1'):
             vcap = x.text
-        year = ⁉️
+        year = '⁉️'
         for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-80d4314-1.fbQftq > div > ul > li:nth-child(1) > span'):
             year = x.text
         rntm = '⁉️'
@@ -37,10 +37,10 @@ def imdb_info(imdb_id):
                 gnr_lst.append(x.text)
         mv_gnr = ", ".join(g for g in gnr_lst)
     if 'Series' in typ:
-        vcap = ⁉️
+        vcap = '⁉️'
         for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-80d4314-1.fbQftq > h1'):
             vcap = x.text
-        year = ⁉️
+        year = '⁉️'
         for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-80d4314-1.fbQftq > div > ul > li:nth-child(2) > span'):
             year = x.text
         rntm = '⁉️'
