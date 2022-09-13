@@ -9,7 +9,7 @@ import time
 
 def imdb_info(imdb_id):
     typ = Trnl.sh2.acell('P3').value
-    imdb_url = 'https://www.imdb.com/title/' + imdb_id
+    imdb_url = 'https://www.imdb.com/title/' + str(imdb_id)
     headers = {"Accept-Language": "en-US,en;q=0.5"}
     imdb_req = requests.get(imdb_url,headers=headers)
     time.sleep(5)
