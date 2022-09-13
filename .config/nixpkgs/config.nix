@@ -1,4 +1,3 @@
-{ nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) [
-    "google-chrome"
-    ];
-}
+  environment.systemPackages = [
+    pkgs.google-chrome
+  ];
