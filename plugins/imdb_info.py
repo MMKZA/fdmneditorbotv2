@@ -17,11 +17,12 @@ def imdb_info(imdb_id):
     imdb_html = imdb_req.text
     imdb_soup = BeautifulSoup(imdb_html, 'html.parser')
     if 'Movie' in typ:
+        vcap = ⁉️
         for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-80d4314-1.fbQftq > h1'):
             vcap = x.text
+        year = ⁉️
         for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-80d4314-1.fbQftq > div > ul > li:nth-child(1) > span'):
             year = x.text
-        vcap_hsh = ''.join(e for e in vcap+year if e.isalnum())
         rntm = '⁉️'
         for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-80d4314-1.fbQftq > div > ul > li:nth-child(3)'):
             rntm = x.text
@@ -36,11 +37,12 @@ def imdb_info(imdb_id):
                 gnr_lst.append(x.text)
         mv_gnr = ", ".join(g for g in gnr_lst)
     if 'Series' in typ:
+        vcap = ⁉️
         for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-80d4314-1.fbQftq > h1'):
             vcap = x.text
+        year = ⁉️
         for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-80d4314-1.fbQftq > div > ul > li:nth-child(2) > span'):
             year = x.text
-        vcap_hsh = ''.join(e for e in vcap+year if e.isalnum())
         rntm = '⁉️'
         for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-80d4314-1.fbQftq > div > ul > li:nth-child(4)'):
             rntm = x.text
@@ -56,6 +58,9 @@ def imdb_info(imdb_id):
         for t in ctry_txt:
             if c == t:
                 ctry_all.append(c)
+    vcap_hsh = '⁉️'
+    if vcap != '⁉️' or vcap != '' or year != '⁉️' or year != ''):
+        vcap_hsh = ''.join(e for e in vcap+year if e.isalnum())
     ctry = ", ".join(g for g in ctry_all)
     web_url = Trnl.sh2.acell('M2').value
     credit_lst = {'channelmyanmar':'Channel Myanmar','goldchannel':'Gold Channel Movies','burmesesubtitles':'Burmese Subtitles','shweflix':'ShweFlix'}
@@ -98,11 +103,14 @@ def imdb_info(imdb_id):
         Trnl.sh2.update('M4', rntm)
     if Trnl.sh2.acell('M3').value == '⁉️':
         Trnl.sh2.update('M3', mv_gnr)
-    Trnl.sh2.update('M5', year)
+    if year != '⁉️' or year != '':
+        Trnl.sh2.update('M5', year)
     Trnl.sh2.update('M6', ctry)
     Trnl.sh2.update('C2', phto_url)
-    Trnl.sh2.update('D2', vcap)
+    if vcap != '⁉️' or vcap != '':
+        Trnl.sh2.update('D2', vcap)
     Trnl.sh2.update('M8', imdb)
     Trnl.sh2.update('F2', credit)
     Trnl.sh2.update('C4',phto_url)
-    Trnl.sh2.update('E2', vcap_hsh)
+    if vcap_hsh = '⁉️':
+        Trnl.sh2.update('E2', vcap_hsh)
