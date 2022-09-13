@@ -1,0 +1,47 @@
+# fly.toml file generated for fdmnchannel on 2022-09-11T23:08:47+07:00
+
+app = "fdmnchannel"
+kill_signal = "SIGINT"
+kill_timeout = 5
+processes = []
+
+[build]
+  builder = "heroku/buildpacks:20"
+
+[env]
+API_HASH="8aed5be0ffdb91988a9e0b04ebedf853"
+APP_ID="12388674"
+AUTH_USERS="1700943365"
+CHUNK_SIZE="128"
+TG_BOT_TOKEN="5400805078:AAHMhlDWcfW65sODYa9569N5_ktW2eYQyQU"
+WEBHOOK="ANYTHING"
+
+[experimental]
+  allowed_public_ports = []
+  auto_rollback = true
+
+[[services]]
+  http_checks = []
+  internal_port = 8080
+  processes = ["app"]
+  protocol = "tcp"
+  script_checks = []
+  [services.concurrency]
+    hard_limit = 25
+    soft_limit = 20
+    type = "connections"
+
+  [[services.ports]]
+    force_https = true
+    handlers = ["http"]
+    port = 80
+
+  [[services.ports]]
+    handlers = ["tls", "http"]
+    port = 443
+
+  [[services.tcp_checks]]
+    grace_period = "1s"
+    interval = "15s"
+    restart_limit = 0
+    timeout = "2s"
