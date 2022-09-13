@@ -842,8 +842,6 @@ def func_scpt(script_url):
     Trnl.sh2.update('M8', imdb)
     Trnl.sh2.update('C2', phto_url)
     Trnl.sh2.update('D2', vcap)
-    if '⁉️' in [mv_gnr,year,ctry]:
-        imdb_info(imdb_id)
     try:
         Trnl.sh2.update('D4',title)
         Trnl.sh2.update('D5',year)
@@ -854,3 +852,5 @@ def func_scpt(script_url):
     Trnl.sh2.update('O2', vtext)
     vcap_hsh = ''.join(e for e in vcap if e.isalnum())
     Trnl.sh2.update('E2', vcap_hsh)
+    if '⁉️' in [mv_gnr,year,ctry]:
+        imdb_info(imdb_id)
