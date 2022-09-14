@@ -325,7 +325,7 @@ def youtube_dl_call_back(bot, update):
                         clip.save_frame(tmp_directory_for_each_user + "/" + "thbnl1.jpg", t = screen_time)
                         ssimg = tmp_directory_for_each_user + "/" + "thbnl1.jpg"
                     upmssg = bot.edit_message_text(
-                        text=Translation.UPLOAD_START + f"\n<code>{ba_se_file_name} Part {i_th}</code>",
+                        text=Translation.UPLOAD_START + f"\n<code>{ba_se_file_name} Part {i_th} of {number_of_files}</code>",
                         chat_id=update.message.chat.id,
                         message_id=update.message.message_id
                     )
@@ -367,9 +367,9 @@ def youtube_dl_call_back(bot, update):
                         chnl_id = int(Trnl.sh2.acell('J2').value)
                     vcap = Trnl.sh2.acell('D2').value
                     if typ == 'Series':
-                        vd_name = '{} | Part {} @fdmnchannel'.format(vcap.replace('.',' ').replace('_',' '),i_th)
+                        vd_name = '{} | Part {} of {} @fdmnchannel'.format(vcap.replace('.',' ').replace('_',' '),i_th,number_of_files)
                     if typ == 'Movie':
-                        vd_name = "{} | {} | Part {} @fdmnchannel".format(vcap,vd_qlt,i_th)
+                        vd_name = "{} | {} | Part {} of {} @fdmnchannel".format(vcap,vd_qlt,i_th,number_of_files)
                     ssimg = 'thumb_poster.jpg'
                     start_time = time.time()
                     start_one = datetime.now()
@@ -387,7 +387,7 @@ def youtube_dl_call_back(bot, update):
                         # reply_to_message_id=update.message.reply_to_message.message_id,
                         progress=progress_for_pyrogram,
                         progress_args=(
-                            Translation.UPLOAD_START + f"\n<code>{ba_se_file_name} Part {i_th}</code>",
+                            Translation.UPLOAD_START + f"\n<code>{ba_se_file_name} Part {i_th} of {number_of_files}</code>",
                             upmssg,
                             start_time
                         )
