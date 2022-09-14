@@ -119,8 +119,6 @@ def youtube_dl_call_back(bot, update):
     if "fulltitle" in response_json:
         description = response_json["fulltitle"][0:1021]
         # escape Markdown and special characters
-    if typ == 'Series':
-        vcap = description
     a = bot.edit_message_text(
         text=Translation.DOWNLOAD_START, #+ '\n<code>{}</code>'.format(vcap),
         chat_id=update.message.chat.id,
@@ -131,9 +129,12 @@ def youtube_dl_call_back(bot, update):
     if not os.path.isdir(tmp_directory_for_each_user):
         os.makedirs(tmp_directory_for_each_user)
     if 'public.php' in youtube_dl_url:
-        fl_fll_nm = Trnl.sh2.acell('D6').value
-        vcap = os.path.splitext(fl_fll_nm)[0]
-        download_directory = tmp_directory_for_each_user + "/" + fl_fll_nm
+        if typ == 'Series':
+            fl_fll_nm = Trnl.sh2.acell('D6').value
+            vcap = os.path.splitext(fl_fll_nm)[0]
+            download_directory = tmp_directory_for_each_user + "/" + fl_fll_nm
+        elif typ == 'Movie':
+            download_directory = tmp_directory_for_each_user + "/" + custom_file_name
     else:
         download_directory = tmp_directory_for_each_user + "/" + custom_file_name
     command_to_exec = []
