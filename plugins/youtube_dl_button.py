@@ -129,12 +129,12 @@ def youtube_dl_call_back(bot, update):
     if not os.path.isdir(tmp_directory_for_each_user):
         os.makedirs(tmp_directory_for_each_user)
     if 'public.php' in youtube_dl_url:
+        fl_fll_nm = Trnl.sh2.acell('D6').value
         if typ == 'Series':
-            fl_fll_nm = Trnl.sh2.acell('D6').value
             vcap = os.path.splitext(fl_fll_nm)[0]
             download_directory = tmp_directory_for_each_user + "/" + fl_fll_nm
         elif typ == 'Movie':
-            download_directory = tmp_directory_for_each_user + "/" + custom_file_name
+            download_directory = tmp_directory_for_each_user + "/" + fl_fll_nm
     else:
         download_directory = tmp_directory_for_each_user + "/" + custom_file_name
     command_to_exec = []
