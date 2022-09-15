@@ -146,7 +146,7 @@ def func_scpt(script_url):
         bd_soup = soup.select('div > div.entry-content > p') + soup.select(
             '#post-1140 > div > div.entry-content > ul > li')
         for all in bd_soup:
-            bd_lks.append(all.text)
+            bd_lks.append(all.get_text(strip=True))
         if len(bd_lks) != 0:
             vtext = "\n".join([str(txt) for txt in bd_lks])
         all_lks = []
@@ -315,7 +315,7 @@ def func_scpt(script_url):
         if len(bd_lks) == 0:
             bd_soup = soup.select('#cap1 > p')
             for all in bd_soup:
-                bd_lks.append(all.text)
+                bd_lks.append(all.get_text(strip=True))
         if len(bd_lks) !=0:
             vtext = "\n".join([str(txt) for txt in bd_lks])
         else:
@@ -583,7 +583,7 @@ def func_scpt(script_url):
             bd_lks = []
             bd_soup = soup.select('#info > div.wp-content')
             for all in bd_soup:
-                bd_lks.append(all.text)
+                bd_lks.append(all.get_text(strip=True))
             if len(bd_lks) != 0:
                 vtext = "\n".join([str(txt) for txt in bd_lks])
         except:
@@ -738,7 +738,7 @@ def func_scpt(script_url):
         bd_lks = []
         bd_soup = soup.select('#cap1 > p')
         for all in bd_soup:
-            bd_lks.append(all.text)
+            bd_lks.append(all.get_text(strip=True))
         if len(bd_lks) != 0:
             vtext = "\n".join([str(txt) for txt in bd_lks])
         else:
@@ -818,10 +818,18 @@ def func_scpt(script_url):
     if 'open' in Trnl.sh2.acell('C3').value:
         phto_url = Trnl.sh2.acell('C4').value
     fdmn_frame(phto_url)
-    detector = ZawgyiDetector()
-    score = detector.get_zawgyi_probability(vtext)
-    if score == 1:
-        vtext = converter.convert(vtext, 'zawgyi', 'unicode')
+    bf_lst = vtext.split('\n')
+    af_lst = []
+    for bf_line in bf_lst:
+        if bf_line != '':
+            detector = ZawgyiDetector()
+            score = detector.get_zawgyi_probability(bf_line)
+            if score == 1:
+                af_line = converter.convert(bf_line, 'zawgyi', 'unicode')
+                af_lst.append(af_line)
+            else:
+                af_lst.append(bf_line)
+    vtext = '\n'.join(af_lst)
     imdb_rt = ''
     imdb_vt = ''
     imdb = ''
