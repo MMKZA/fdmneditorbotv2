@@ -34,3 +34,5 @@ asgiref
 opencv-python-headless
 selenium
 py7zr
+myanmartools
+python-myanmar
