@@ -75,6 +75,10 @@ def plhh_method(bot, update):
         soup = BeautifulSoup(req.content, 'lxml')
         for s in soup.select('head > title'):
             fl_fll_nm = s.text.split(' - ')[0]
+        vd_kw = ['.mkv','.m4a','.mov','.avi']
+        vd_ext = os.path.splitext(fl_fll_nm)[1]
+        if vd_ext in vd_kw:
+            fl_fll_nm = fl_fll_nm.replace(vd_ext,'.mp4')
         Trnl.sh2.update('D6',fl_fll_nm)
         del req
         final_link = plhh_gdrive(gdrv_lk)
@@ -95,6 +99,10 @@ def direct_method(bot, update):
         soup = BeautifulSoup(req.content, 'lxml')
         for s in soup.select('head > title'):
             fl_fll_nm = s.text.split(' - ')[0]
+        vd_kw = ['.mkv','.m4a','.mov','.avi']
+        vd_ext = os.path.splitext(fl_fll_nm)[1]
+        if vd_ext in vd_kw:
+            fl_fll_nm = fl_fll_nm.replace(vd_ext,'.mp4')
         Trnl.sh2.update('D6',fl_fll_nm)
         del req
         final_link = gdrv_lk
