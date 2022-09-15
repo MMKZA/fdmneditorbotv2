@@ -85,11 +85,11 @@ def finish(bot, update):
     chat = bot.get_chat(chat_id=update.chat.id)
     text = "{} ဇာတ်လမ်းတွဲ တင်ဆက်မှု ဒီမှာပဲ ပြီးဆုံးသွားပါပြီ 🔚\n\nတခြားသောဇာတ်လမ်းတွေကို 👉<a href='https://www.facebook.com/fdmntelegram'>FDMN Facebook Page</a>👈 နဲ့ 👉<a href='https://t.me/fdmnchannel'>FDMN Telegram Channel</a>👈 တို့ကနေ စောင့်ကြည့်နိုင်ပါတယ်။\n\nကြည့်ရှုအားပေးတဲ့သူအားလုံးနဲ့ ဘာသာပြန်တင်ဆက်ပေးတဲ့ မူရင်း source အားလုံးကို FDMN Channel မှ ကျေးဇူးတင်ရှိပါတယ်...".format(chat['title'])
     bot.delete_messages(
-        chat_id=full_id,
+        chat_id=update.chat.id,
         message_ids=update.message_id    
     )
-   bot.send_message(
-        chat_id = full_id,
-        text = text,
+    bot.send_message(
+        chat_id=update.chat.id,
+        text=text,
         parse_mode="html"
     )
