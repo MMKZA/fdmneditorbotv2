@@ -14,6 +14,8 @@ from channels import channels
 from helper_funcs.imdb_search import google
 from helper_funcs.fdmn_frame import fdmn_frame
 from plugins.imdb_info import imdb_info
+from myanmartools import ZawgyiDetector
+from myanmar import converter
 
 logging.getLogger('chardet.charsetprober').setLevel(logging.INFO)
 logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -816,6 +818,10 @@ def func_scpt(script_url):
     if 'open' in Trnl.sh2.acell('C3').value:
         phto_url = Trnl.sh2.acell('C4').value
     fdmn_frame(phto_url)
+    detector = ZawgyiDetector()
+    score = detector.get_zawgyi_probability(vtext)
+    if score == 1:
+        vtext = converter.convert(vtext, 'zawgyi', 'unicode')
     imdb_rt = ''
     imdb_vt = ''
     imdb = ''
