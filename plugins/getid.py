@@ -64,7 +64,11 @@ def setpic(bot, update):
     )
 @pyrogram.Client.on_message(pyrogram.filters.command(["id2"]))
 def sendid(bot, update):
+    chat = bot.get_chat(chat_id=update.chat.id)
     full_id = update.chat.id
+    srs_name = chat['title']
+    srs_row = Trnl.sh3.findall(srs_name)[0].row
+    Trnl.sh3.update('D{}'.format(srs_row),'ပြသဆဲ...')
     Trnl.sh2.update('J2',full_id)
     Trnl.sh2.update('P3','Series')
     bot.delete_messages(
@@ -83,6 +87,9 @@ def audio(bot, update):
 @pyrogram.Client.on_message(pyrogram.filters.command(["ed2"]))
 def finish(bot, update):
     chat = bot.get_chat(chat_id=update.chat.id)
+    srs_name = chat['title']
+    srs_row = Trnl.sh3.findall(srs_name)[0].row
+    Trnl.sh3.update('D{}'.format(srs_row),'ဇာတ်သိမ်းပြီး...')
     text = "{} ဇာတ်လမ်းတွဲ တင်ဆက်မှု ဒီမှာပဲ ပြီးဆုံးသွားပါပြီ 🔚\n\nတခြားသောဇာတ်လမ်းတွေကို 👉<a href='https://www.facebook.com/fdmntelegram'>FDMN Facebook Page</a>👈 နဲ့ 👉<a href='https://t.me/fdmnchannel'>FDMN Telegram Channel</a>👈 တို့ကနေ စောင့်ကြည့်နိုင်ပါတယ်။\n\nကြည့်ရှုအားပေးတဲ့သူအားလုံးနဲ့ ဘာသာပြန်တင်ဆက်ပေးတဲ့ မူရင်း source အားလုံးကို FDMN Channel မှ ကျေးဇူးတင်ရှိပါတယ်...".format(chat['title'])
     bot.delete_messages(
         chat_id=update.chat.id,
