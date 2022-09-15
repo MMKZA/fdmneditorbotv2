@@ -91,5 +91,6 @@ def finish(bot, update):
     bot.send_message(
         chat_id=update.chat.id,
         text=text,
-        parse_mode="html"
+        parse_mode="html",
+        disable_web_page_preview=True
     )
