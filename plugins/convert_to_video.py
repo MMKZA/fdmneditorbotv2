@@ -107,7 +107,7 @@ async def convert_to_video(bot, update):
             if metadata is not None:
                 if metadata.has("duration"):
                     duration = metadata.get('duration').seconds
-            if width = 0 and height = 0:
+            if width == 0 and height == 0:
                 try:
                     metadata = extractMetadata(createParser(ssimg))
                     width = metadata.get("width")
