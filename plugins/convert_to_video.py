@@ -50,7 +50,6 @@ async def convert_to_video(bot, update):
         vlink = Trnl.sh2.acell('C2').value
         nfh = random_char(5)
         download_location = Config.DOWNLOAD_LOCATION + "/" + f'{nfh}' + "/"
-        tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
         dwnl_mssg = await bot.send_message(
             chat_id=update.chat.id,
             text=Translation.DOWNLOAD_FILE,
@@ -82,7 +81,7 @@ async def convert_to_video(bot, update):
                 is_w_f = False
                 images = await generate_screen_shots(
                     the_real_download_location,
-                    tmp_directory_for_each_user,
+                    download_location,
                     is_w_f,
                     Config.DEF_WATER_MARK_FILE,
                     30,
@@ -96,10 +95,10 @@ async def convert_to_video(bot, update):
                 height = 0
                 clip = VideoFileClip(the_real_download_location)
                 screen_time = random.randint(120,600)
-                clip.save_frame(tmp_directory_for_each_user + "/" + "thbnl1.jpg", t = screen_time)
+                clip.save_frame(download_location + "thbnl1.jpg", t = screen_time)
                 width = clip.w
                 height = clip.h
-                ssimg = tmp_directory_for_each_user + "/" + "thbnl1.jpg"
+                ssimg = download_location + "thbnl1.jpg"
             duration = 0
             metadata = extractMetadata(createParser(the_real_download_location))
             if metadata is not None:
@@ -124,8 +123,6 @@ async def convert_to_video(bot, update):
             else:
                 vd_qlt = 'HD'
             Trnl.sh2.update('H2',vd_qlt)
-            if metadata.has("duration"):
-                duration = metadata.get('duration').seconds
             #thumb_image_path = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
             #if not os.path.exists(thumb_image_path):
                 #thumb_image_path = None
