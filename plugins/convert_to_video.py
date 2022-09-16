@@ -29,6 +29,7 @@ from helper_funcs.display_progress import progress_for_pyrogram
 from helper_funcs.ran_text import random_char
 from helper_funcs.fdmn_frame import fdmn_frame
 from helper_funcs.help_Nekmo_ffmpeg import generate_screen_shots
+from helper_funcs.get_duration import get_duration
 
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
@@ -76,6 +77,8 @@ async def convert_to_video(bot, update):
             )
             
             logger.info(the_real_download_location)
+            rntm = get_duration(the_real_download_location)
+            Trnl.sh2.update('M4',rntm)
             ssimg = None
             width = 0
             height = 0
