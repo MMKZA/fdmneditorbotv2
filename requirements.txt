@@ -36,3 +36,4 @@ selenium
 py7zr
 myanmartools
 python-myanmar
+pyvirtualdisplay
