@@ -154,6 +154,10 @@ async def convert_to_video(bot, update):
             else:
                 chnl_id = int(Trnl.sh2.acell('J2').value)
             vd_name = the_real_download_location.split('/')[-1].replace('.mp4','') + ' | {} @fdmnchannel'.format(vd_qlt)
+            typ = Trnl.sh2.acell('P3').value
+            if typ == 'Movie':
+                vcap = Trnl.sh2.acell('D2').value
+                vd_name = '{} | {} @fdmnchannel'.format(vcap, vd_qlt)
             ssimg = 'thumb_poster.jpg'
             vdf_msg = await bot.send_video(
                 chat_id=chnl_id,
