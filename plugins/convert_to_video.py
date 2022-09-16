@@ -77,6 +77,8 @@ async def convert_to_video(bot, update):
             
             logger.info(the_real_download_location)
             ssimg = None
+            width = 0
+            height = 0
             try:
                 is_w_f = False
                 images = await generate_screen_shots(
@@ -91,8 +93,6 @@ async def convert_to_video(bot, update):
             except:
                 pass
             if ssimg is None:
-                width = 0
-                height = 0
                 clip = VideoFileClip(the_real_download_location)
                 screen_time = random.randint(120,600)
                 clip.save_frame(download_location + "thbnl1.jpg", t = screen_time)
@@ -104,13 +104,14 @@ async def convert_to_video(bot, update):
             if metadata is not None:
                 if metadata.has("duration"):
                     duration = metadata.get('duration').seconds
-            try:
-                metadata = extractMetadata(createParser(ssimg))
-                width = metadata.get("width")
-                height = metadata.get("height")
-            except:
-                img = Image.open(ssimg)
-                width,height = img.size
+            if width = 0 and height = 0:
+                try:
+                    metadata = extractMetadata(createParser(ssimg))
+                    width = metadata.get("width")
+                    height = metadata.get("height")
+                except:
+                    img = Image.open(ssimg)
+                    width,height = img.size
             fdmn_frame(vlink,width,height)
             if 576 < width < 864:
                 vd_qlt = '480p SD'
