@@ -76,5 +76,6 @@ class Trnl(object):
         subprocess.run(['sudo', 'apt-get', 'update'],shell=False)
         subprocess.run(['sudo', 'apt-get', 'upgrade'],shell=False)
         subprocess.run(['sudo', 'apt', '-y', '--fix-broken', 'install'],shell=False)
+        subprocess.run(['sudo', 'apt-get', '-y', 'install', 'xvfb'],shell=False)
         subprocess.run(['sudo', 'apt', '-y', 'install', 'google-chrome-stable'],shell=False)
         #subprocess.run(['sudo', 'apt-get', 'install', 'chromium-browser'],shell=False)
