@@ -47,7 +47,7 @@ async def convert_to_video(bot, update):
         )
         return
     if update.reply_to_message is not None:
-        vlink = Trnl.sh4.acell('C2').value
+        vlink = Trnl.sh2.acell('C2').value
         nfh = random_char(5)
         download_location = Config.DOWNLOAD_LOCATION + "/" + f'{nfh}' + "/"
         tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
@@ -77,6 +77,7 @@ async def convert_to_video(bot, update):
             )
             
             logger.info(the_real_download_location)
+            ssimg = None
             try:
                 is_w_f = False
                 images = await generate_screen_shots(
@@ -89,22 +90,16 @@ async def convert_to_video(bot, update):
                 )
                 ssimg = images[random.randint(0, 2)]
             except:
+                pass
+            if ssimg is None:
+                width = 0
+                height = 0
                 clip = VideoFileClip(the_real_download_location)
                 screen_time = random.randint(120,600)
                 clip.save_frame(tmp_directory_for_each_user + "/" + "thbnl1.jpg", t = screen_time)
+                width = clip.w
+                height = clip.h
                 ssimg = tmp_directory_for_each_user + "/" + "thbnl1.jpg"
-            width = 0
-            height = 0
-            duration = 0
-            metadata = extractMetadata(createParser(the_real_download_location))
-            clip = VideoFileClip(the_real_download_location)
-            screen_time = random.randint(120,600)
-            clip.save_frame(Config.DOWNLOAD_LOCATION + "/" + f'{nfh}' + "/" + "thbnl1.jpg", t = screen_time)
-            width = clip.w
-            height = clip.h
-            fdmn_frame(vlink,width,height)
-            width = 0
-            height = 0
             duration = 0
             metadata = extractMetadata(createParser(the_real_download_location))
             if metadata is not None:
@@ -128,7 +123,7 @@ async def convert_to_video(bot, update):
                 vd_qlt = '4K'
             else:
                 vd_qlt = 'HD'
-            Trnl.sh4.update('H2',vd_qlt)
+            Trnl.sh2.update('H2',vd_qlt)
             if metadata.has("duration"):
                 duration = metadata.get('duration').seconds
             #thumb_image_path = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
@@ -153,10 +148,10 @@ async def convert_to_video(bot, update):
                 # https://pillow.readthedocs.io/en/3.1.x/reference/Image.html#create-thumbnails
             # try to upload file
             c_time = time.time()
-            if "@" in str(Trnl.sh4.acell('J2').value):
+            if "@" in str(Trnl.sh2.acell('J2').value):
                 chnl_id = update.message.chat.id
             else:
-                chnl_id = int(Trnl.sh4.acell('J2').value)
+                chnl_id = int(Trnl.sh2.acell('J2').value)
             vd_name = the_real_download_location.split('/')[-1].replace('.mp4','') + ' | {} @fdmnchannel'.format(vd_qlt)
             ssimg = 'thumb_poster.jpg'
             vdf_msg = await bot.send_video(
@@ -177,7 +172,7 @@ async def convert_to_video(bot, update):
                     c_time
                 )
             )
-            Trnl.sh4.update('P2',str(vdf_msg.message_id))
+            Trnl.sh2.update('P2',str(vdf_msg.message_id))
             try:
                 os.remove(the_real_download_location)
                 os.remove(thumb_image_path)
