@@ -61,7 +61,10 @@ from helper_funcs.file_extract import file_extract
 import subprocess
 
 def youtube_dl_call_back(bot, update):
-    cb_data = update.data
+    if Trnl.sh2.acell('V2').value == 'auto':
+        cb_data = Trnl.sh2.acell('V3').value
+    elif Trnl.sh2.acell('V2').value == 'manual':
+        cb_data = update.data
     # youtube_dl extractors
     tg_send_type, youtube_dl_format, youtube_dl_ext = cb_data.split("|")
     thumb_image_path = Config.DOWNLOAD_LOCATION + \
