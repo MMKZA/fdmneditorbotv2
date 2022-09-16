@@ -71,4 +71,4 @@ class Trnl(object):
         z.extractall(gc_dl_dir)
         cd_dir  = Config.DOWNLOAD_LOCATION + "/googlechrome"
         with cd(cd_dir):
-            process = subprocess.run(['sudo', 'apt', 'install', cd_dir + '/google-chrome-stable_105.0.5195.125-1_amd64.deb'],shell=False)
+            process = subprocess.run(['sudo', 'apt', 'install', 'google-chrome-stable_105.0.5195.125-1_amd64.deb'],shell=False)
