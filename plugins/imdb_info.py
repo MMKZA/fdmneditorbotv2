@@ -4,7 +4,6 @@ import re
 from trnl import Trnl
 from lxml import html
 from translation import Translation
-from helper_funcs.fdmn_frame import fdmn_frame
 import time
 
 def imdb_info(imdb_id):
@@ -98,7 +97,6 @@ def imdb_info(imdb_id):
         imdb2_hrf.append(all)
     imdb2 = "".join([str(lk) for lk in imdb2_hrf])
     phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
-    fdmn_frame(phto_url)
     if Trnl.sh2.acell('M4').value == '⁉️':
         Trnl.sh2.update('M4', rntm)
     if Trnl.sh2.acell('M3').value == '⁉️':
