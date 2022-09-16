@@ -130,6 +130,8 @@ def youtube_dl_call_back(bot, update):
         os.makedirs(tmp_directory_for_each_user)
     if 'public.php' in youtube_dl_url:
         fl_fll_nm = Trnl.sh2.acell('D6').value
+        if os.path.splitext(fl_fll_nm)[1] == '':
+            fl_fll_nm = fl_fll_nm + '.mp4'
         if typ == 'Series':
             vcap = os.path.splitext(fl_fll_nm)[0]
             download_directory = tmp_directory_for_each_user + "/" + fl_fll_nm
