@@ -12,7 +12,6 @@ from translation import Translation
 from lxml import html
 from channels import channels
 from helper_funcs.imdb_search import google
-from helper_funcs.fdmn_frame import fdmn_frame
 from plugins.imdb_info import imdb_info
 from myanmartools import ZawgyiDetector
 from myanmar import converter
@@ -817,7 +816,6 @@ def func_scpt(script_url):
             pass
     if 'open' in Trnl.sh2.acell('C3').value:
         phto_url = Trnl.sh2.acell('C4').value
-    fdmn_frame(phto_url)
     bf_lst = vtext.split('\n')
     af_lst = []
     for bf_line in bf_lst:
