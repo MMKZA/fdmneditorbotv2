@@ -51,8 +51,10 @@ from hachoir.parser import createParser
 # https://stackoverflow.com/a/37631799/4723940
 from PIL import Image
 from helper_funcs.help_Nekmo_ffmpeg import generate_screen_shots
+from helper_funcs.fdmn_frame import fdmn_frame
 from trnl import Trnl
 from plugins.scpt_auto import scpt_auto
+
 
 from helper_funcs.file_extract import file_extract
 
@@ -78,6 +80,7 @@ def youtube_dl_call_back(bot, update):
         return False
     vcap = Trnl.sh2.acell('D2').value
     typ = Trnl.sh2.acell('P3').value
+    vlink = Trnl.sh2.acell('C2').value
     youtube_dl_url = Trnl.sh2.acell('L2').value
     # youtube_dl_url = update.message.reply_to_message.text
     custom_file_name = str(response_json.get("title")) + \
@@ -185,7 +188,7 @@ def youtube_dl_call_back(bot, update):
     start = datetime.now()
     #process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,universal_newlines=False)
     process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,encoding="utf-8",universal_newlines=False)
-    while process.poll() is None and download_directory is None:
+    while process.poll() is None:
         #for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict'):
             #nline = line.rstrip()
         nline = process.stdout.readline().rstrip()
@@ -260,7 +263,7 @@ def youtube_dl_call_back(bot, update):
             #text=error_message
         #)
         #return False
-    if download_directory is not None:
+    if process.poll() is not None:
         # logger.info(t_response)
         os.remove(save_ytdl_json_path)
         end = datetime.now()
@@ -354,6 +357,7 @@ def youtube_dl_call_back(bot, update):
                     except:
                         img = Image.open(ssimg)
                         width,height = img.size
+                    fdmn_frame(vlink,width,height)
                     if 864 < width < 1296:
                         vd_qlt = '720p HD'
                     elif 1536 < width < 2304:
@@ -532,6 +536,7 @@ def youtube_dl_call_back(bot, update):
                     except:
                         img = Image.open(ssimg)
                         width,height = img.size
+                    fdmn_frame(vlink,width,height)
                     if 864 < width < 1296:
                         vd_qlt = '720p HD'
                     elif 1536 < width < 2304:
