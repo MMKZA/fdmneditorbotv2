@@ -356,7 +356,7 @@ def manual_manual(bot, update):
         chat_id=update.chat.id,
         message_ids=update.message_id
     )
-@pyrogram.Client.on_message(pyrogram.filters.command(["methodPLM"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["autoplm"]))
 def auto_plm(bot, update):
     Trnl.sh2.update('W2','auto')
     Trnl.sh2.update('W3','method=PLM')
@@ -364,7 +364,7 @@ def auto_plm(bot, update):
         chat_id=update.chat.id,
         message_ids=update.message_id
     )
-@pyrogram.Client.on_message(pyrogram.filters.command(["methodTM"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["autotm"]))
 def auto_tm(bot, update):
     Trnl.sh2.update('W2','auto')
     Trnl.sh2.update('W3','method=TM')
@@ -372,7 +372,7 @@ def auto_tm(bot, update):
         chat_id=update.chat.id,
         message_ids=update.message_id
     )
-@pyrogram.Client.on_message(pyrogram.filters.command(["methodDM"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["autodm"]))
 def auto_dm(bot, update):
     Trnl.sh2.update('W2','auto')
     Trnl.sh2.update('W3','method=DM')
