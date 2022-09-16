@@ -188,7 +188,7 @@ def youtube_dl_call_back(bot, update):
     start = datetime.now()
     #process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,universal_newlines=False)
     process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,encoding="utf-8",universal_newlines=False)
-    while process.poll() is None:
+    while process.poll() is None and download_directory is None:
         #for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict'):
             #nline = line.rstrip()
         nline = process.stdout.readline().rstrip()
@@ -263,7 +263,7 @@ def youtube_dl_call_back(bot, update):
             #text=error_message
         #)
         #return False
-    if process.poll() is not None:
+    if download_directory is not None:
         # logger.info(t_response)
         os.remove(save_ytdl_json_path)
         end = datetime.now()
