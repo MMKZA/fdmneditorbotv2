@@ -23,7 +23,8 @@ def setup(bot, update):
         chat_id=full_id,
         message_ids=update.message_id
     )
-    r = requests.get(Trnl.sh2.acell('C2').value)
+    phto_url = Trnl.sh2.acell('C2').value
+    r = requests.get(phto_url)
     inmemoryfile = io.BytesIO(r.content)
     bot.set_chat_photo(
         chat_id=full_id,
@@ -50,6 +51,8 @@ def setup(bot, update):
     Trnl.sh2.update('D3',srs_no)
     Trnl.sh3.update('B{}'.format(index),chat['invite_link'])
     Trnl.sh3.update('C{}'.format(index),chat['title'])
+    Trnl.sh3.update('D{}'.format(index),'တင်ဆက်ဆဲ...')
+    Trnl.sh3.update('E{}'.format(index),phto_url)
 @pyrogram.Client.on_message(pyrogram.filters.command(["pic2"]))
 def setpic(bot, update):
     r = requests.get(Trnl.sh2.acell('C2').value)
@@ -66,15 +69,17 @@ def setpic(bot, update):
 def sendid(bot, update):
     chat = bot.get_chat(chat_id=update.chat.id)
     full_id = update.chat.id
-    srs_name = chat['title']
-    srs_row = Trnl.sh3.findall(srs_name)[0].row
-    Trnl.sh3.update('D{}'.format(srs_row),'ပြသဆဲ...')
     Trnl.sh2.update('J2',full_id)
     Trnl.sh2.update('P3','Series')
     bot.delete_messages(
         chat_id=full_id,
         message_ids=update.message_id
     )
+    srs_name = chat['title']
+    srs_row = Trnl.sh3.findall(srs_name)[0].row
+    Trnl.sh3.update('D{}'.format(srs_row),'တင်ဆက်ဆဲ...')
+    phto_url = Trnl.sh3.acell('E{}'.format(srs_row)).value
+    Trnl.sh2.update('C2',phto_url)
 @pyrogram.Client.on_message(pyrogram.filters.command(["ad2"]))
 def audio(bot, update):
     full_id = update.chat.id
@@ -89,7 +94,7 @@ def finish(bot, update):
     chat = bot.get_chat(chat_id=update.chat.id)
     srs_name = chat['title']
     srs_row = Trnl.sh3.findall(srs_name)[0].row
-    Trnl.sh3.update('D{}'.format(srs_row),'ဇာတ်သိမ်းပြီး...')
+    Trnl.sh3.update('D{}'.format(srs_row),'ပြီးစီး...')
     text = "{} ဇာတ်လမ်းတွဲ တင်ဆက်မှု ဒီမှာပဲ ပြီးဆုံးသွားပါပြီ 🔚\n\nတခြားသောဇာတ်လမ်းတွေကို 👉<a href='https://www.facebook.com/fdmntelegram'>FDMN Facebook Page</a>👈 နဲ့ 👉<a href='https://t.me/fdmnchannel'>FDMN Telegram Channel</a>👈 တို့ကနေ စောင့်ကြည့်နိုင်ပါတယ်။\n\nကြည့်ရှုအားပေးတဲ့သူအားလုံးနဲ့ ဘာသာပြန်တင်ဆက်ပေးတဲ့ မူရင်း source အားလုံးကို FDMN Channel မှ ကျေးဇူးတင်ရှိပါတယ်...".format(chat['title'])
     bot.delete_messages(
         chat_id=update.chat.id,
