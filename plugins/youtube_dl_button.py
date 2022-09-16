@@ -292,6 +292,53 @@ def youtube_dl_call_back(bot, update):
         if fl_ext not in arc_kw:
             rntm = get_duration(download_directory)
             Trnl.sh2.update('M4',rntm)
+            ssimg = None
+            width = 0
+            height = 0
+            try:
+                is_w_f = False
+                images = async_to_sync(generate_screen_shots)(
+                    download_directory,
+                    tmp_directory_for_each_user,
+                    is_w_f,
+                    Config.DEF_WATER_MARK_FILE,
+                    30,
+                    9
+                )
+                ssimg = images[random.randint(0, 2)]
+            except:
+                pass
+            if ssimg is None:
+                clip = VideoFileClip(download_directory)
+                screen_time = random.randint(120,600)
+                clip.save_frame(tmp_directory_for_each_user + "/thbnl1.jpg", t = screen_time)
+                width = clip.w
+                height = clip.h
+                ssimg = tmp_directory_for_each_user + "/thbnl1.jpg"
+            if width == 0 and height == 0:
+                try:
+                    metadata = extractMetadata(createParser(ssimg))
+                    width = metadata.get("width")
+                    height = metadata.get("height")
+                except:
+                    img = Image.open(ssimg)
+                    width,height = img.size
+            fdmn_frame(vlink,width,height)
+            if 576 < width < 864:
+                vd_qlt = '480p SD'
+            elif 864 < width < 1296:
+                vd_qlt = '720p HD'
+            elif 1536 < width < 2304:
+                vd_qlt = '1080p FHD'
+            elif 3072 < width < 4608:
+                vd_qlt = '4K'
+            else:
+                vd_qlt = 'HD'
+            Trnl.sh2.update('H2',vd_qlt)
+            if "@" in str(Trnl.sh2.acell('J2').value):
+                chnl_id = update.message.chat.id
+            else:
+                chnl_id = int(Trnl.sh2.acell('J2').value)
             if file_size > Config.TG_MAX_FILE_SIZE:
                 d_f_s = humanbytes(os.path.getsize(download_directory))
                 i_m_s_g = bot.edit_message_text(
@@ -313,67 +360,17 @@ def youtube_dl_call_back(bot, update):
                 for le_file in totlaa_sleif:
                     i_th = totlaa_sleif.index(le_file) + 1
                     dwnl_dir = tmp_directory_for_each_user + "/fdmnsplits/" + le_file
-                    try:
-                        is_w_f = False
-                        images = async_to_sync(generate_screen_shots)(
-                            dwnl_dir,
-                            tmp_directory_for_each_user,
-                            is_w_f,
-                            Config.DEF_WATER_MARK_FILE,
-                            30,
-                            9
-                        )
-                        ssimg = images[random.randint(0, 2)]
-                    except:
-                        clip = VideoFileClip(dwnl_dir)
-                        screen_time = random.randint(120,600)
-                        clip.save_frame(tmp_directory_for_each_user + "/" + "thbnl1.jpg", t = screen_time)
-                        ssimg = tmp_directory_for_each_user + "/" + "thbnl1.jpg"
                     upmssg = bot.edit_message_text(
                         text=Translation.UPLOAD_START + f"\n<code>{ba_se_file_name} Part {i_th} of {number_of_files}</code>",
                         chat_id=update.message.chat.id,
                         message_id=update.message.message_id
                     )
-                    width = 0
-                    height = 0
                     duration = 0
                     if tg_send_type != "file":
                         metadata = extractMetadata(createParser(dwnl_dir))
                         if metadata is not None:
                             if metadata.has("duration"):
                                 duration = metadata.get('duration').seconds
-                    if os.path.exists(thumb_image_path):
-                        width = 0
-                        height = 0
-                        metadata = extractMetadata(createParser(thumb_image_path))
-                        if metadata.has("width"):
-                            width = metadata.get("width")
-                        if metadata.has("height"):
-                            height = metadata.get("height")
-                    try:
-                        metadata = extractMetadata(createParser(ssimg))
-                        width = metadata.get("width")
-                        height = metadata.get("height")
-                    except:
-                        img = Image.open(ssimg)
-                        width,height = img.size
-                    fdmn_frame(vlink,width,height)
-                    if 576 < width < 864:
-                        vd_qlt = '480p SD'
-                    elif 864 < width < 1296:
-                        vd_qlt = '720p HD'
-                    elif 1536 < width < 2304:
-                        vd_qlt = '1080p FHD'
-                    elif 3072 < width < 4608:
-                        vd_qlt = '4K'
-                    else:
-                        vd_qlt = 'HD'
-                    Trnl.sh2.update('H2',vd_qlt)
-                    if "@" in str(Trnl.sh2.acell('J2').value):
-                        chnl_id = update.message.chat.id
-                    else:
-                        chnl_id = int(Trnl.sh2.acell('J2').value)
-                    vcap = Trnl.sh2.acell('D2').value
                     if typ == 'Series':
                         vd_name = '{} | Part {} of {} @fdmnchannel'.format(vcap.replace('.',' ').replace('_',' '),i_th,number_of_files)
                     if typ == 'Movie':
@@ -418,31 +415,11 @@ def youtube_dl_call_back(bot, update):
                     disable_web_page_preview=True
                 )
             if file_size < Config.TG_MAX_FILE_SIZE:
-                try:
-                    is_w_f = False
-                    images = async_to_sync(generate_screen_shots)(
-                    download_directory,
-                    tmp_directory_for_each_user,
-                    is_w_f,
-                    Config.DEF_WATER_MARK_FILE,
-                    30,
-                    9
-                    )
-                    ssimg = images[random.randint(0, 2)]
-                except:
-                    clip = VideoFileClip(download_directory)
-                    screen_time = random.randint(120,600)
-                    clip.save_frame(tmp_directory_for_each_user + "/" + "thbnl1.jpg", t = screen_time)
-                    ssimg = tmp_directory_for_each_user + "/" + "thbnl1.jpg"
                 upmssg = bot.edit_message_text(
                     text=Translation.UPLOAD_START + '\n<code>{}</code>'.format(vcap),
                     chat_id=update.message.chat.id,
                     message_id=update.message.message_id
                 )
-                # get the correct width, height, and duration for videos greater than 10MB
-                # ref: message from @BotSupport
-                width = 0
-                height = 0
                 duration = 0
                 if tg_send_type != "file":
                     metadata = extractMetadata(createParser(download_directory))
@@ -531,29 +508,6 @@ def youtube_dl_call_back(bot, update):
                         )
                     )
                 elif tg_send_type == "video":
-                    try:
-                        metadata = extractMetadata(createParser(ssimg))
-                        width = metadata.get("width")
-                        height = metadata.get("height")
-                    except:
-                        img = Image.open(ssimg)
-                        width,height = img.size
-                    fdmn_frame(vlink,width,height)
-                    if 576 < width < 864:
-                        vd_qlt = '480p SD'
-                    elif 864 < width < 1296:
-                        vd_qlt = '720p HD'
-                    elif 1536 < width < 2304:
-                        vd_qlt = '1080p FHD'
-                    elif 3072 < width < 4608:
-                        vd_qlt = '4K'
-                    else:
-                        vd_qlt = 'HD'
-                    Trnl.sh2.update('H2',vd_qlt)
-                    if "@" in str(Trnl.sh2.acell('J2').value):
-                        chnl_id = update.message.chat.id
-                    else:
-                        chnl_id = int(Trnl.sh2.acell('J2').value)
                     if typ == 'Series':
                         vd_name = '{} @fdmnchannel'.format(vcap.replace('.',' ').replace('_',' '))
                     if typ == 'Movie':
