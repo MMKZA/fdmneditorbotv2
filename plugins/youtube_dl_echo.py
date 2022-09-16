@@ -29,6 +29,8 @@ from hachoir.parser import createParser
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from trnl import Trnl
 import asyncio
+from plugins.youtube_dl_button import youtube_dl_call_back
+
 #@pyrogram.Client.on_message(pyrogram.filters.regex(pattern="\A{}".format(Trnl.KEYWORD)))
 @pyrogram.Client.on_message(pyrogram.filters.command(["dwnl"]))
 async def echo(bot, update):
@@ -354,13 +356,23 @@ async def echo(bot, update):
                 im.save(thumb_image_path.replace(".webp", ".jpg"), "jpeg")
             else:
                 thumb_image_path = None
-            await bot.send_message(
-                chat_id=update.chat.id,
-                text=Translation.FORMAT_SELECTION.format(thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
-                reply_markup=reply_markup,
-                parse_mode="html",
-                reply_to_message_id=update.message_id
-            )
+            if Trnl.sh2.acell('V2').value == 'auto':
+                arc_kw = ['.zip','.rar','.7z']
+                vd_kw = ['.mp4','.mkv','.mov','.m4v']
+                fl_ext = os.path.splitext(url)[1]
+                if fl_ext in arc_kw or format_ext in arc_kw:
+                    Trnl.sh2.update('V2',(cb_string_file).encode("UTF-8"))
+                elif fl_ext in vd_kw or format_ext in vd_kw:
+                    Trnl.sh2.update('V2',(cb_string_video).encode("UTF-8"))
+                youtube_dl_call_back(bot, update)
+            elif Trnl.sh2.acell('V2').value == 'manual':
+                await bot.send_message(
+                    chat_id=update.chat.id,
+                    text=Translation.FORMAT_SELECTION.format(thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
+                    reply_markup=reply_markup,
+                    parse_mode="html",
+                    reply_to_message_id=update.message_id
+                )
         else:
             # fallback for nonnumeric port a.k.a seedbox.io
             inline_keyboard = []
