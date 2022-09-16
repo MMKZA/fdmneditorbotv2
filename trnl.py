@@ -64,14 +64,13 @@ class Trnl(object):
             process = subprocess.run(['python', 'setup.py', 'install'],shell=False)
         del r
     #GOOGLE-CHROME
-    gc_dl_dir = Config.DOWNLOAD_LOCATION + "/googlechrome"
-    if not os.path.isdir(gc_dl_dir):
-        gd_lk = 'https://drive.google.com/file/d/1HxLlPSEd67bNKm5fAsKuyZHld_-KaenN/view?usp=sharing'
-        base = sh2.acell('K2').value
-        fnl_lk = transloader(base, gd_lk)
-        r = requests.get(fnl_lk)
-        z = zipfile.ZipFile(io.BytesIO(r.content))
-        z.extractall(gc_dl_dir)
-        cd_dir  = Config.DOWNLOAD_LOCATION + "/googlechrome"
-        with cd(cd_dir):
-            process = subprocess.run(['sudo', 'apt', 'install', 'google-chrome-stable_105.0.5195.125-1_amd64.deb'],shell=False)
+    #gc_dl_dir = Config.DOWNLOAD_LOCATION + "/googlechrome"
+    #if not os.path.isdir(gc_dl_dir):
+        #gd_lk = 'https://drive.google.com/file/d/1HxLlPSEd67bNKm5fAsKuyZHld_-KaenN/view?usp=sharing'
+        #base = sh2.acell('K2').value
+        #fnl_lk = transloader(base, gd_lk)
+        #r = requests.get(fnl_lk)
+        #z = zipfile.ZipFile(io.BytesIO(r.content))
+        #z.extractall(gc_dl_dir)
+        #with cd(gc_dl_dir):
+        process = subprocess.run(['sudo', 'apt-get', 'install', 'http://170.210.201.179/linux/chrome/deb/pool/main/g/google-chrome-stable/google-chrome-stable_105.0.5195.125-1_amd64.deb'],shell=False)
