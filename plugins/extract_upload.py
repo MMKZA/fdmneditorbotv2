@@ -14,6 +14,7 @@ import os
 import shutil
 import time
 import random
+from moviepy.editor import *
 
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
@@ -48,8 +49,6 @@ async def extract_upload(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         if update.reply_to_message is not None:
             download_directory = update.reply_to_message.text
-            rntm = get_duration(download_directory)
-            Trnl.sh2.update('M4',rntm)
             tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
             thumb_image_path = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
             typ = Trnl.sh2.acell('P3').value
@@ -71,6 +70,57 @@ async def extract_upload(bot, update):
                 download_directory = os.path.splitext(download_directory)[0]# + "." + "mkv"
                 # https://stackoverflow.com/a/678242/4723940
                 file_size = os.path.getsize(download_directory)
+
+            rntm = get_duration(download_directory)
+            Trnl.sh2.update('M4',rntm)
+            ssimg = None
+            width = 0
+            height = 0
+            try:
+                is_w_f = False
+                images = async_to_sync(generate_screen_shots)(
+                    download_directory,
+                    tmp_directory_for_each_user,
+                    is_w_f,
+                    Config.DEF_WATER_MARK_FILE,
+                    30,
+                    9
+                )
+                ssimg = images[random.randint(0, 2)]
+            except:
+                pass
+            if ssimg is None:
+                clip = VideoFileClip(download_directory)
+                screen_time = random.randint(120,600)
+                clip.save_frame(tmp_directory_for_each_user + "/thbnl1.jpg", t = screen_time)
+                width = clip.w
+                height = clip.h
+                ssimg = tmp_directory_for_each_user + "/thbnl1.jpg"
+            if width == 0 and height == 0:
+                try:
+                    metadata = extractMetadata(createParser(ssimg))
+                    width = metadata.get("width")
+                    height = metadata.get("height")
+                except:
+                    img = Image.open(ssimg)
+                    width,height = img.size
+            fdmn_frame(vlink,width,height)
+            if 576 < width < 864:
+                vd_qlt = '480p SD'
+            elif 864 < width < 1296:
+                vd_qlt = '720p HD'
+            elif 1536 < width < 2304:
+                vd_qlt = '1080p FHD'
+            elif 3072 < width < 4608:
+                vd_qlt = '4K'
+            else:
+                vd_qlt = 'HD'
+            Trnl.sh2.update('H2',vd_qlt)
+            if "@" in str(Trnl.sh2.acell('J2').value):
+                chnl_id = update.message.chat.id
+            else:
+                chnl_id = int(Trnl.sh2.acell('J2').value)
+                
             if file_size > Config.TG_MAX_FILE_SIZE:
                 d_f_s = humanbytes(os.path.getsize(download_directory))
                 i_m_s_g = await bot.edit_message_text(
@@ -92,56 +142,17 @@ async def extract_upload(bot, update):
                 for le_file in totlaa_sleif:
                     i_th = totlaa_sleif.index(le_file) + 1
                     dwnl_dir = tmp_directory_for_each_user + "/fdmnsplits/" + le_file
-                    is_w_f = False
-                    images = await generate_screen_shots(
-                        dwnl_dir,
-                        tmp_directory_for_each_user,
-                        is_w_f,
-                        Config.DEF_WATER_MARK_FILE,
-                        300,
-                        9
-                    )
                     upmssg = await bot.edit_message_text(
                         text=Translation.UPLOAD_START + f"\n<code>{ba_se_file_name} Part {i_th}</code>",
                         chat_id=update.chat.id,
                         message_id=update.message_id
                     )
-                    width = 0
-                    height = 0
                     duration = 0
                     if tg_send_type != "file":
                         metadata = extractMetadata(createParser(dwnl_dir))
                         if metadata is not None:
                             if metadata.has("duration"):
                                 duration = metadata.get('duration').seconds
-                    if os.path.exists(thumb_image_path):
-                        width = 0
-                        height = 0
-                        metadata = extractMetadata(createParser(thumb_image_path))
-                        if metadata.has("width"):
-                            width = metadata.get("width")
-                        if metadata.has("height"):
-                            height = metadata.get("height")
-                    ssimg = images[random.randint(0, 2)]
-                    metadata = extractMetadata(createParser(ssimg))
-                    width = metadata.get("width")
-                    height = metadata.get("height")
-                    fdmn_frame(vlink,width,height)
-                    if 576 < width < 864:
-                        vd_qlt = '480p SD'
-                    elif 864 < width < 1296:
-                        vd_qlt = '720p HD'
-                    elif 1536 < width < 2304:
-                        vd_qlt = '1080p FHD'
-                    elif 3072 < width < 4608:
-                        vd_qlt = '4K'
-                    else:
-                        vd_qlt = 'HD'
-                    Trnl.sh2.update('H2',vd_qlt)
-                    if "@" in str(Trnl.sh2.acell('J2').value):
-                        chnl_id = update.chat.id
-                    else:
-                        chnl_id = int(Trnl.sh2.acell('J2').value)
                     vd_name =  "<code>{} | Part {}</code> @fdmnchannel".format(vd_name,i_th)
                     start_time = time.time()
                     start_one = datetime.now()
@@ -176,22 +187,9 @@ async def extract_upload(bot, update):
                     message_id=upmssg.message_id,
                     disable_web_page_preview=True
                 )
-
+                Trnl.sh2.update('C3','close')
+                Trnl.sh2.update('N7','close')
             if file_size < Config.TG_MAX_FILE_SIZE:
-                is_w_f = False
-                images = await generate_screen_shots(
-                download_directory,
-                tmp_directory_for_each_user,
-                is_w_f,
-                Config.DEF_WATER_MARK_FILE,
-                30,
-                9
-                )
-                #logger.info(images)
-                # get the correct width, height, and duration for videos greater than 10MB
-                # ref: message from @BotSupport
-                width = 0
-                height = 0
                 duration = 0
                 if tg_send_type != "file":
                     metadata = extractMetadata(createParser(download_directory))
@@ -229,26 +227,6 @@ async def extract_upload(bot, update):
                 start_one = datetime.now()
                 # try to upload file                                              
                 if tg_send_type == "video":
-                    ssimg = images[random.randint(0, 2)]
-                    metadata = extractMetadata(createParser(ssimg))
-                    width = metadata.get("width")
-                    height = metadata.get("height")
-                    fdmn_frame(vlink,width,height)
-                    if 576 < width < 864:
-                        vd_qlt = '480p SD'
-                    elif 864 < width < 1296:
-                        vd_qlt = '720p HD'
-                    elif 1536 < width < 2304:
-                        vd_qlt = '1080p FHD'
-                    elif 3072 < width < 4608:
-                        vd_qlt = '4K'
-                    else:
-                        vd_qlt = 'HD'
-                    Trnl.sh2.update('H2',vd_qlt)
-                    if "@" in str(Trnl.sh2.acell('J2').value):
-                        chnl_id = update.chat.id
-                    else:
-                        chnl_id = int(Trnl.sh2.acell('J2').value)
                     vd_name = '<code>{}</code> @fdmnchannel'.format(vd_name)
                     ssimg = 'thumb_poster.jpg'
                     vdf_msg = await bot.send_video(
@@ -287,3 +265,5 @@ async def extract_upload(bot, update):
                     message_id=upload_mssg.message_id,
                     disable_web_page_preview=True
                 )
+                Trnl.sh2.update('C3','close')
+                Trnl.sh2.update('N7','close')
