@@ -7,6 +7,8 @@ if bool(os.environ.get("WEBHOOK", False)):
 else:
     from config import Config
 import subprocess
+import time
+
 class cd:
     """Context manager for changing the current working directory"""
     def __init__(self, newPath):
@@ -60,13 +62,14 @@ class Trnl(object):
         with cd(cd_dir):
             process = subprocess.run(['python', 'setup.py', 'install'],shell=False)
         del r
-        cmd0 = ['apt-get', 'install', 'wget']
+        cmd0 = ['sudo', 'apt-get', 'install', 'wget']
         subprocess.run(cmd0,shell=False)
-        cmd1 = ['wget', '-q', '-O', '- https://dl-ssl.google.com/linux/linux_signing_key.pub', '| apt-key add -']
+        time.sleep(10)
+        cmd1 = ['sudo', 'wget', '-q', '-O', '- https://dl-ssl.google.com/linux/linux_signing_key.pub', '| apt-key add -']
         subprocess.run(cmd1,shell=False)
-        cmd2 = ['sh', '-c', "'echo", '"deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"', ">> /etc/apt/sources.list.d/google-chrome.list'"]
+        cmd2 = ['sudo', 'sh', '-c', "'echo", '"deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"', ">> /etc/apt/sources.list.d/google-chrome.list'"]
         subprocess.run(cmd2,shell=False)
-        cmd3 = ['apt-get', '-y', 'update']
+        cmd3 = ['sudo', 'apt-get', '-y', 'update']
         subprocess.run(cmd3,shell=False)
-        cmd4 = ['apt-get', 'install', '-y', 'google-chrome-stable']
+        cmd4 = ['sudo', 'apt-get', 'install', '-y', 'google-chrome-stable']
         subprocess.run(cmd4,shell=False)
