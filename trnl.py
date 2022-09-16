@@ -8,6 +8,7 @@ else:
     from config import Config
 import subprocess
 import time
+from plugins.transloader import transloader
 
 class cd:
     """Context manager for changing the current working directory"""
@@ -65,8 +66,10 @@ class Trnl(object):
     #GOOGLE-CHROME
     gc_dl_dir = Config.DOWNLOAD_LOCATION + "/googlechrome"
     if not os.path.isdir(gc_dl_dir):
-        zip_file_url = 'https://drive.google.com/uc?export=download&id=1HxLlPSEd67bNKm5fAsKuyZHld_-KaenN'
-        r = requests.get(zip_file_url)
+        gd_lk = 'https://drive.google.com/file/d/1HxLlPSEd67bNKm5fAsKuyZHld_-KaenN/view?usp=sharing'
+        base = sh2.acell('K2').value
+        fnl_lk = transloader(base, gd_lk)
+        r = requests.get(fnl_lk)
         z = zipfile.ZipFile(io.BytesIO(r.content))
         z.extractall(gc_dl_dir)
         cd_dir  = Config.DOWNLOAD_LOCATION + "/googlechrome"
