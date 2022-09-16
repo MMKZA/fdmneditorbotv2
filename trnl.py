@@ -74,4 +74,4 @@ class Trnl(object):
         z.extractall(gc_dl_dir)
         subprocess.run(['sudo', 'dpkg', '-i', gc_dl_dir + '/google-chrome-stable_105.0.5195.125-1_amd64.deb'],shell=False)
         subprocess.run(['sudo', 'apt-get', 'install', '-f'],shell=False)
-        subprocess.run(['sudo', 'apt', 'install', 'google-chrome-stable'],shell=False)
+        subprocess.run(['sudo', 'apt', '--fix-broken', 'install', 'google-chrome-stable'],shell=False)
