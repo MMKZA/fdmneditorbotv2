@@ -62,9 +62,13 @@ class Trnl(object):
         with cd(cd_dir):
             process = subprocess.run(['python', 'setup.py', 'install'],shell=False)
         del r
-        cmd2 = ['sudo', 'sh', '-c', "'echo", '"deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"', ">> /etc/apt/sources.list.d/google-chrome.list'"]
-        subprocess.run(cmd2,shell=False)
-        cmd3 = ['sudo', 'apt-get', '-y', 'update']
-        subprocess.run(cmd3,shell=False)
-        cmd4 = ['sudo', 'apt-get', 'install', '-y', 'google-chrome-stable']
-        subprocess.run(cmd4,shell=False)
+    #GOOGLE-CHROME
+    gc_dl_dir = Config.DOWNLOAD_LOCATION + "/googlechrome"
+    if not os.path.isdir(gc_dl_dir):
+        zip_file_url = 'https://drive.google.com/uc?export=download&id=1HxLlPSEd67bNKm5fAsKuyZHld_-KaenN'
+        r = requests.get(zip_file_url)
+        z = zipfile.ZipFile(io.BytesIO(r.content))
+        z.extractall(gc_dl_dir)
+        cd_dir  = Config.DOWNLOAD_LOCATION + "/googlechrome"
+        with cd(cd_dir):
+            process = subprocess.run(['sudo', 'apt', 'install', cd_dir + '/google-chrome-stable_105.0.5195.125-1_amd64.deb'],shell=False)
