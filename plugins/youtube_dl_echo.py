@@ -362,9 +362,9 @@ async def echo(bot, update):
                 fl_fll_nm = Trnl.sh2.acell('D6').value
                 fl_ext = os.path.splitext(fl_fll_nm)[1]
                 if fl_ext in arc_kw or format_ext in arc_kw:
-                    Trnl.sh2.update('V2',(cb_string_file).encode("UTF-8"))
+                    Trnl.sh2.update('V2',cb_string_file)
                 elif fl_ext in vd_kw or format_ext in vd_kw:
-                    Trnl.sh2.update('V2',(cb_string_video).encode("UTF-8"))
+                    Trnl.sh2.update('V2',cb_string_video)
                 youtube_dl_call_back(bot, update)
             elif Trnl.sh2.acell('V2').value == 'manual':
                 await bot.send_message(
