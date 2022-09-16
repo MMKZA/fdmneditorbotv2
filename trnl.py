@@ -62,10 +62,6 @@ class Trnl(object):
         with cd(cd_dir):
             process = subprocess.run(['python', 'setup.py', 'install'],shell=False)
         del r
-        cmd0 = ['sudo', 'apt-get', 'install', 'wget']
-        subprocess.run(cmd0,shell=False)
-        time.sleep(10)
-        cmd1 = ['sudo', 'wget', '-q', '-O', '- https://dl-ssl.google.com/linux/linux_signing_key.pub', '| apt-key add -']
         subprocess.run(cmd1,shell=False)
         cmd2 = ['sudo', 'sh', '-c', "'echo", '"deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"', ">> /etc/apt/sources.list.d/google-chrome.list'"]
         subprocess.run(cmd2,shell=False)
