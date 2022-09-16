@@ -134,17 +134,15 @@ def youtube_dl_call_back(bot, update):
     tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
     if not os.path.isdir(tmp_directory_for_each_user):
         os.makedirs(tmp_directory_for_each_user)
-    if 'public.php' in youtube_dl_url:
-        fl_fll_nm = Trnl.sh2.acell('D6').value
-        if os.path.splitext(fl_fll_nm)[1] == '':
-            fl_fll_nm = fl_fll_nm + '.mp4'
-        if typ == 'Series':
-            vcap = os.path.splitext(fl_fll_nm)[0]
-            download_directory = tmp_directory_for_each_user + "/" + fl_fll_nm
-        elif typ == 'Movie':
-            download_directory = tmp_directory_for_each_user + "/" + fl_fll_nm
-    else:
-        download_directory = tmp_directory_for_each_user + "/" + custom_file_name
+    fl_fll_nm = Trnl.sh2.acell('D6').value
+    if os.path.splitext(fl_fll_nm)[1] == '':
+        fl_fll_nm = fl_fll_nm + '.mp4'
+    if typ == 'Series':
+        download_directory = tmp_directory_for_each_user + "/" + fl_fll_nm
+        vcap = os.path.splitext(fl_fll_nm)[0]
+    elif typ == 'Movie':
+        download_directory = tmp_directory_for_each_user + "/" + fl_fll_nm
+    #download_directory = tmp_directory_for_each_user + "/" + custom_file_name
     command_to_exec = []
     if tg_send_type == "audio":
         command_to_exec = [
