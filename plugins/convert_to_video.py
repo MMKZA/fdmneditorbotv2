@@ -27,7 +27,8 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 from helper_funcs.display_progress import progress_for_pyrogram
 from helper_funcs.ran_text import random_char
-
+from helper_funcs.fdmn_frame import fdmn_frame
+from helper_funcs.help_Nekmo_ffmpeg import generate_screen_shots
 
 from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
@@ -46,8 +47,10 @@ async def convert_to_video(bot, update):
         )
         return
     if update.reply_to_message is not None:
+        vlink = Trnl.sh2.acell('C2').value
         nfh = random_char(5)
         download_location = Config.DOWNLOAD_LOCATION + "/" + f'{nfh}' + "/"
+        tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
         dwnl_mssg = await bot.send_message(
             chat_id=update.chat.id,
             text=Translation.DOWNLOAD_FILE,
@@ -74,8 +77,22 @@ async def convert_to_video(bot, update):
             )
             
             logger.info(the_real_download_location)
-            # get the correct width, height, and duration for videos greater than 10MB
-            # ref: message from @BotSupport
+            try:
+                is_w_f = False
+                images = generate_screen_shots(
+                    the_real_download_location,
+                    tmp_directory_for_each_user,
+                    is_w_f,
+                    Config.DEF_WATER_MARK_FILE,
+                    30,
+                    9
+                )
+                ssimg = images[random.randint(0, 2)]
+            except:
+                clip = VideoFileClip(the_real_download_location)
+                screen_time = random.randint(120,600)
+                clip.save_frame(tmp_directory_for_each_user + "/" + "thbnl1.jpg", t = screen_time)
+                ssimg = tmp_directory_for_each_user + "/" + "thbnl1.jpg"
             width = 0
             height = 0
             duration = 0
@@ -83,13 +100,31 @@ async def convert_to_video(bot, update):
             clip = VideoFileClip(the_real_download_location)
             screen_time = random.randint(120,600)
             clip.save_frame(Config.DOWNLOAD_LOCATION + "/" + f'{nfh}' + "/" + "thbnl1.jpg", t = screen_time)
-            V_WIDTH = clip.w
-            V_HEIGHT = clip.h
-            if 864 < V_WIDTH < 1296:
+            width = clip.w
+            height = clip.h
+            fdmn_frame(vlink,width,height)
+            width = 0
+            height = 0
+            duration = 0
+            metadata = extractMetadata(createParser(the_real_download_location))
+            if metadata is not None:
+                if metadata.has("duration"):
+                    duration = metadata.get('duration').seconds
+            try:
+                metadata = extractMetadata(createParser(ssimg))
+                width = metadata.get("width")
+                height = metadata.get("height")
+            except:
+                img = Image.open(ssimg)
+                width,height = img.size
+            fdmn_frame(vlink,width,height)
+            if 576 < width < 864:
+                vd_qlt = '480p SD'
+            elif 864 < width < 1296:
                 vd_qlt = '720p HD'
-            elif 1536 < V_WIDTH < 2304:
+            elif 1536 < width < 2304:
                 vd_qlt = '1080p FHD'
-            elif 3072 < V_WIDTH < 4608:
+            elif 3072 < width < 4608:
                 vd_qlt = '4K'
             else:
                 vd_qlt = 'HD'
@@ -129,8 +164,8 @@ async def convert_to_video(bot, update):
                 video=the_real_download_location,
                 caption=vd_name,
                 duration=duration,
-                width=V_WIDTH,
-                height=V_HEIGHT,
+                width=width,
+                height=height,
                 supports_streaming=True,
                 # reply_markup=reply_markup,
                 thumb=ssimg,
