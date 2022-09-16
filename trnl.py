@@ -60,3 +60,11 @@ class Trnl(object):
         with cd(cd_dir):
             process = subprocess.run(['python', 'setup.py', 'install'],shell=False)
         del r
+        cmd1 = ['RUN', 'wget', '-q', '-O', '- https://dl-ssl.google.com/linux/linux_signing_key.pub', '| apt-key add -']
+        subprocess.run(cmd1,shell=False)
+        cmd2 = ['RUN', 'sh', '-c', "'echo", '"deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main"', ">> /etc/apt/sources.list.d/google-chrome.list'"]
+        subprocess.run(cmd2,shell=False)
+        cmd3 = ['RUN', 'apt-get', '-y', 'update']
+        subprocess.run(cmd3,shell=False)
+        cmd4 = ['RUN', 'apt-get', 'install', '-y', 'google-chrome-stable']
+        subprocess.run(cmd4,shell=False)
