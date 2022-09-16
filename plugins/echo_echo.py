@@ -347,6 +347,7 @@ def echo_echo(bot, update, url, mssg, mssgid):
             else:
                 thumb_image_path = None
             if Trnl.sh2.acell('V2').value == 'auto':
+                mssg.delete()
                 arc_kw = ['.zip','.rar','.7z']
                 vd_kw = ['.mp4','.mkv','.mov','.m4v']
                 fl_fll_nm = Trnl.sh2.acell('D6').value
