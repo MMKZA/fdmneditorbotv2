@@ -340,3 +340,43 @@ def imdb_google(bot, update):
         chat_id=update.chat.id,
         text="အဖြစ်နိုင်ဆုံး 👇"+imdb_url
     )
+@pyrogram.Client.on_message(pyrogram.filters.command(["autoauto"]))
+def auto_auto(bot, update):
+    Trnl.sh2.update('V2','auto')
+    Trnl.sh2.update('W2','auto')
+    bot.delete_messages(
+        chat_id=update.chat.id,
+        message_ids=update.message_id
+    )
+@pyrogram.Client.on_message(pyrogram.filters.command(["manualmanual"]))
+def manual_manual(bot, update):
+    Trnl.sh2.update('V2','manual')
+    Trnl.sh2.update('W2','manual')
+    bot.delete_messages(
+        chat_id=update.chat.id,
+        message_ids=update.message_id
+    )
+@pyrogram.Client.on_message(pyrogram.filters.command(["methodPLM"]))
+def auto_plm(bot, update):
+    Trnl.sh2.update('W2','auto')
+    Trnl.sh2.update('W3','method=PLM')
+    bot.delete_messages(
+        chat_id=update.chat.id,
+        message_ids=update.message_id
+    )
+@pyrogram.Client.on_message(pyrogram.filters.command(["methodTM"]))
+def auto_tm(bot, update):
+    Trnl.sh2.update('W2','auto')
+    Trnl.sh2.update('W3','method=TM')
+    bot.delete_messages(
+        chat_id=update.chat.id,
+        message_ids=update.message_id
+    )
+@pyrogram.Client.on_message(pyrogram.filters.command(["methodDM"]))
+def auto_dm(bot, update):
+    Trnl.sh2.update('W2','auto')
+    Trnl.sh2.update('W3','method=DM')
+    bot.delete_messages(
+        chat_id=update.chat.id,
+        message_ids=update.message_id
+    )
