@@ -32,6 +32,7 @@ from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from trnl import Trnl
 import asyncio
 import subprocess
+from plugins.youtube_dl_button import youtube_dl_call_back
 
 def echo_echo(bot, update, url, mssg, mssgid):
     if update.from_user.id in Config.AUTH_USERS:
@@ -345,11 +346,22 @@ def echo_echo(bot, update, url, mssg, mssgid):
                 im.save(thumb_image_path.replace(".webp", ".jpg"), "jpeg")
             else:
                 thumb_image_path = None
-            mssg.edit_text(
-                text=mssg.text + '\n' + Translation.FORMAT_SELECTION.format(thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
-                parse_mode="html",
-                reply_markup=reply_markup
-            )
+            if Trnl.sh2.acell('V2').value == 'auto':
+                arc_kw = ['.zip','.rar','.7z']
+                vd_kw = ['.mp4','.mkv','.mov','.m4v']
+                fl_ext = os.path.splitext(url)[1]
+                if fl_ext in arc_kw or format_ext in arc_kw:
+                    Trnl.sh2.update('V2',(cb_string_file).encode("UTF-8"))
+                elif fl_ext in vd_kw or format_ext in vd_kw:
+                    Trnl.sh2.update('V2',(cb_string_video).encode("UTF-8"))
+                youtube_dl_call_back(bot, update)
+            elif Trnl.sh2.acell('V2').value == 'manual':
+                mssg.edit_text(
+                    text=mssg.text + '\n' + Translation.FORMAT_SELECTION.format(thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
+                    parse_mode="html",
+                    reply_markup=reply_markup
+                )
+
             #bot.send_message(
                 #chat_id=update.from_user.id,
                 #text=Translation.FORMAT_SELECTION.format(thumbnail) + "\n" + Translation.SET_CUSTOM_USERNAME_PASSWORD,
