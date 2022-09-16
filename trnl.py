@@ -73,4 +73,4 @@ class Trnl(object):
         z = zipfile.ZipFile(io.BytesIO(r.content))
         z.extractall(gc_dl_dir)
         subprocess.run(['sudo', 'dpkg', '-i', gc_dl_dir + '/google-chrome-stable_105.0.5195.125-1_amd64.deb'],shell=False)
-        subprocess.run(['sudo', 'apt', 'install', 'google-chrome-stable'],shell=False)
+        subprocess.run(['sudo', 'apt', 'install', '-f', 'google-chrome-stable'],shell=False)
