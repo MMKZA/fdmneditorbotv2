@@ -358,7 +358,9 @@ def youtube_dl_call_back(bot, update):
                         img = Image.open(ssimg)
                         width,height = img.size
                     fdmn_frame(vlink,width,height)
-                    if 864 < width < 1296:
+                    if 576 < width < 864:
+                        vd_qlt = '480p SD'
+                    elif 864 < width < 1296:
                         vd_qlt = '720p HD'
                     elif 1536 < width < 2304:
                         vd_qlt = '1080p FHD'
@@ -537,7 +539,9 @@ def youtube_dl_call_back(bot, update):
                         img = Image.open(ssimg)
                         width,height = img.size
                     fdmn_frame(vlink,width,height)
-                    if 864 < width < 1296:
+                    if 576 < width < 864:
+                        vd_qlt = '480p SD'
+                    elif 864 < width < 1296:
                         vd_qlt = '720p HD'
                     elif 1536 < width < 2304:
                         vd_qlt = '1080p FHD'
