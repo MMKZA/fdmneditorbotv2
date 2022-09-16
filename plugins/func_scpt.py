@@ -844,6 +844,24 @@ def func_scpt(script_url):
     imdb = imdb_rt + '/10 (' + imdb_vt + ' Votes)'
     if imdb_rt == '':
         imdb = '⁉️️'
+    response = requests.get(phto_url, stream=True)
+    if response.status_code == 404:
+        imdb_hrf = []
+        for x in imdb_soup.find_all('a', href=True):
+            imdb_hrf.append(x['href'])
+        for i in imdb_hrf:
+            if '/?ref_=tt_ov_i' in i:
+                imdb2_url = 'https://www.imdb.com' + i
+        imdb2_req = requests.get(imdb2_url)
+        imdb2_req.encoding = imdb2_req.apparent_encoding
+        imdb2_html = imdb2_req.text
+        imdb2_soup = BeautifulSoup(imdb2_html, 'html.parser')
+        imdb2_hrf = []
+        for all in imdb2_soup.find_all('meta'):
+            imdb2_hrf.append(all)
+        imdb2 = "".join([str(lk) for lk in imdb2_hrf])
+        phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
+    del response
     vd_qlt = Trnl.sh2.acell('H2').value
     typ = Trnl.sh2.acell('P3').value
     Trnl.sh2.update('M4', rntm)
