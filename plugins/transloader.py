@@ -6,7 +6,6 @@ import requests
 from bs4 import BeautifulSoup
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
-from trnl import Trnl
 
 import logging
 
