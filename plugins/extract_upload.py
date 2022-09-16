@@ -38,6 +38,7 @@ from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 from PIL import Image
 from helper_funcs.help_Nekmo_ffmpeg import generate_screen_shots
+from helper_funcs.fdmn_frame import fdmn_frame
 from helper_funcs.get_duration import get_duration
 from trnl import Trnl
 from datetime import datetime
@@ -52,6 +53,7 @@ async def extract_upload(bot, update):
             tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
             thumb_image_path = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
             typ = Trnl.sh2.acell('P3').value
+            vlink = Trnl.sh2.acell('C2').value
             vd_name = os.path.splitext(download_directory.split('/')[-1])[0]
             upload_mssg = await bot.send_message(
                 chat_id=update.chat.id,
@@ -124,7 +126,10 @@ async def extract_upload(bot, update):
                     metadata = extractMetadata(createParser(ssimg))
                     width = metadata.get("width")
                     height = metadata.get("height")
-                    if 864 < width < 1296:
+                    fdmn_frame(vlink,width,height)
+                    if 576 < width < 864:
+                        vd_qlt = '480p SD'
+                    elif 864 < width < 1296:
                         vd_qlt = '720p HD'
                     elif 1536 < width < 2304:
                         vd_qlt = '1080p FHD'
@@ -228,7 +233,10 @@ async def extract_upload(bot, update):
                     metadata = extractMetadata(createParser(ssimg))
                     width = metadata.get("width")
                     height = metadata.get("height")
-                    if 864 < width < 1296:
+                    fdmn_frame(vlink,width,height)
+                    if 576 < width < 864:
+                        vd_qlt = '480p SD'
+                    elif 864 < width < 1296:
                         vd_qlt = '720p HD'
                     elif 1536 < width < 2304:
                         vd_qlt = '1080p FHD'
