@@ -881,38 +881,5 @@ def func_scpt(script_url):
     Trnl.sh2.update('O2', vtext)
     vcap_hsh = ''.join(e for e in vcap if e.isalnum())
     Trnl.sh2.update('E2', vcap_hsh)
-    if '⁉️' in ctry:
-        ctry_txt = []
-        for x in imdb_soup.findAll('a',{'class':'ipc-metadata-list-item__list-content-item ipc-metadata-list-item__list-content-item--link'}):
-            ctry_txt.append(x.text)
-        ctry_all = []
-        for c in Translation.ctry_lst:
-            for t in ctry_txt:
-                if c == t:
-                    ctry_all.append(c)
-        ctry = ", ".join(g for g in ctry_all)
-    if len(str(abs(int(''.join(re.findall(r'\b\d+\b',year)))))) < 4:
-        if 'Movie' in typ:
-            for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-80d4314-1.fbQftq > div > ul > li:nth-child(1) > span'):
-                year = x.text
-        if 'Series' in typ:
-            year = '⁉️'
-            for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-80d4314-1.fbQftq > div > ul > li:nth-child(2) > span'):
-                year = x.text
-    if '⁉️' in mv_gnr:
-        if 'Movie' in typ:
-            gnr_lst = []
-            for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-2a827f80-2.kqTacj > div.sc-2a827f80-10.fVYbpg > div.sc-2a827f80-4.bWdgcV > div.sc-16ede01-8.hXeKyz.sc-2a827f80-11.kSXeJ > div > div.ipc-chip-list__scroller > a > span'):
-                gnr_lst.append(x.text)
-            if len(gnr_lst) == 0:
-                for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-2a827f80-6.jXSdID > div.sc-2a827f80-10.fVYbpg > div.sc-2a827f80-8.indUzh > div.sc-16ede01-9.bbiYSi.sc-2a827f80-11.kSXeJ > div.ipc-chip-list--baseAlt.ipc-chip-list.sc-16ede01-5.ggbGKe > div.ipc-chip-list__scroller > a'):
-                    gnr_lst.append(x.text)
-            mv_gnr = ", ".join(g for g in gnr_lst)
-        if 'Series' in typ:
-            rntm = '⁉️'
-            for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-80d4314-1.fbQftq > div > ul > li:nth-child(4)'):
-                rntm = x.text
-            gnr_lst = []
-            for x in imdb_soup.select('#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-2a827f80-2.kqTacj > div.sc-2a827f80-10.fVYbpg > div.sc-2a827f80-4.bWdgcV > div.sc-16ede01-8.hXeKyz.sc-2a827f80-11.kSXeJ > div > div.ipc-chip-list__scroller > a'):
-                gnr_lst.append(x.text)
-            mv_gnr = ", ".join(g for g in gnr_lst)
+    if '⁉️' in ctry or '⁉️' in mv_gnr or len(str(abs(int(''.join(re.findall(r'\b\d+\b',year)))))) < 4:
+        imdb_info(imdb_id)
