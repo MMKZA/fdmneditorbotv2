@@ -829,6 +829,7 @@ def func_scpt(script_url):
             else:
                 af_lst.append(bf_line)
     vtext = '\n'.join(af_lst)
+    movie_id = str(imdb_id).replace('tt','')
     movie = imdb_data(imdb_id)
     title = movie.data['title']
     kind = movie.data['kind']
