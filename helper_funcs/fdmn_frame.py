@@ -43,7 +43,7 @@ def crop_height(enl_h,tf_h):
     if top + tf_h < enl_h:
         return top
 
-def fdmn_frame(vlink,width,height):
+def fdmn_frame(vlink,thumb_poster,width,height):
     if not os.path.exists('fdmn_post_frame.png'):
         base = Trnl.sh2.acell('K2').value
         post_url = Trnl.sh2.acell('S2').value
@@ -105,5 +105,5 @@ def fdmn_frame(vlink,width,height):
     bottom = top + 2160
     po_stf.paste(po_top,(left,top,right,bottom))
     po_tf_s320 = po_stf.resize((320,int(height*320/width)))
-    po_tf_s320.save('thumb_poster.jpg')
+    po_tf_s320.save(thumb_poster)
     #po_tf_s320.show()
