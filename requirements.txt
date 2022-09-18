@@ -37,3 +37,5 @@ py7zr
 myanmartools
 python-myanmar
 pyvirtualdisplay
+cinemagoer
+si_prefix
