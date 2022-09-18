@@ -8,13 +8,13 @@ from si_prefix import si_format
 import re
 
 def imdb_data(imdb_id):
-    imdb_id = re.findall(r'\b\d+\b', str(imdb_id))[0]
+    imdb_id = str(imdb_id).replace('tt','')
     ia = imdbpy.Cinemagoer()
     movie = ia.get_movie(imdb_id)
     return movie
 
 def imdb_info(imdb_id):
-    imdb_id = re.findall(r'\b\d+\b', str(imdb_id))[0]
+    imdb_id = str(imdb_id).replace('tt','')
     ia = imdbpy.Cinemagoer()
     movie = ia.get_movie(imdb_id)
     title = movie.data['title']
