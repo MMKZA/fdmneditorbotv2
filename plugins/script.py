@@ -37,15 +37,16 @@ async def script_call_back(bot, update):
         ctry = Trnl.sh2.acell('M6').value
         imdb = Trnl.sh2.acell('M8').value
         typ = Trnl.sh2.acell('P3').value
+        kind = Trnl.sh2.acell('P4').value
         credit = Trnl.sh2.acell('F2').value
         if "Movie" in typ:
-            Trnl.sh2.update('A2', vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n👑 " + credit + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
+            Trnl.sh2.update('A2', vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + kind + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n👑 " + credit + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
             vcap = '<b>' + vcap + '</b>'
-            msg_whl = phto_lk + "\n\n" + vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n👑 " + credit + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
+            msg_whl = phto_lk + "\n\n" + vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + kind + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n👑 " + credit + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
         if "Series" in typ:
-            Trnl.sh2.update('A2', vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + " (တစ်ပိုင်းလျှင်)\n👑 " + credit + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
+            Trnl.sh2.update('A2', vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + kind + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + " (တစ်ပိုင်းလျှင်)\n👑 " + credit + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip())
             vcap = '<b>' + vcap + '</b>'
-            msg_whl = phto_lk + "\n\n" + vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + " (တစ်ပိုင်းလျှင်)\n👑 " + credit + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
+            msg_whl = phto_lk + "\n\n" + vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + kind + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + " (တစ်ပိုင်းလျှင်)\n👑 " + credit + "\n\nဇာတ်ညွှန်း 📜\n\n" + vtext.strip()
         msg_trm = msg_whl[0:4095]
         scpt_msg = await bot.send_message(
             chat_id="@fdmnscripts",
@@ -73,11 +74,11 @@ async def script_call_back(bot, update):
         chnl_hplk = '<a href="' + invt_lk + '">👉 Channel Join ရန်နှိပ်ပါ 🔗</a>'
         if "Movie" in typ:
             vd_hplk = '<a href="' + vd_lk + '">👉 ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ 🍿</a>'
-            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n👑 " + credit + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN + "\n2️⃣"
+            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + kind + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + "\n👑 " + credit + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + "\n\n" + vd_hplk + "\n\n" + Translation.CHNL_JOIN + "\n2️⃣"
         if "Series" in typ:
             srs_no = 'စီးရီးအမှတ်စဥ် 👉 ' + '`' + '<b>' + '{}'.format(Trnl.sh2.acell('D3').value) + '</b>' + '`' + '\nကူးယူရန် ထိလိုက်ပါ 👆'
             srs_inst = "\n\n<b>အသစ်ရောက်လာတဲ့သူတွေက...</b>\n<b>စီးရီးချာနယ် ထဲဝင်နည်း Video ကို 👉<a href='https://t.me/fdmnchannel/1020'> ဒီနေရာမှာ</a>👈 နှိပ်ပြီး ကြည့်ပါ။</b>\n<b>ဝင်ကြေးပေးစရာမလို(အခမဲ့)ပါ။</b>"
-            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + typ + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + " (တစ်ပိုင်းလျှင်)\n👑 " + credit + "\n\n" + srs_no + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + srs_inst + "\n\n" + Translation.CHNL_FB + "\n2️⃣"
+            mssg = vcap + "\n\n⭐IMDB: " + imdb + "\n🎬 " + mv_gnr + "\n🗓️ " + str(year) + " 🎞️ " + kind + " 📺 " + vd_qlt + "\n🌎 " + ctry + "\n⏰ " + rntm + " (တစ်ပိုင်းလျှင်)\n👑 " + credit + "\n\n" + srs_no + "\n\n" + chnl_hplk + "\n\n" + vtext_hplk + srs_inst + "\n\n" + Translation.CHNL_FB + "\n2️⃣"
         try:
             mchnl_msg = await bot.send_photo(
                 "@fdmnchannel",
