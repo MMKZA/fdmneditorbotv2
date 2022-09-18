@@ -81,10 +81,6 @@ def youtube_dl_call_back(bot, update):
             revoke=True
         )
         return False
-    bot.send_message(
-        chat_id=update.chat.id,
-        text='Now Initializing...'
-    )
     vcap = Trnl.sh2.acell('D2').value
     typ = Trnl.sh2.acell('P3').value
     vlink = Trnl.sh2.acell('C2').value
@@ -129,11 +125,18 @@ def youtube_dl_call_back(bot, update):
     if "fulltitle" in response_json:
         description = response_json["fulltitle"][0:1021]
         # escape Markdown and special characters
-    a = bot.edit_message_text(
-        text=Translation.DOWNLOAD_START, #+ '\n<code>{}</code>'.format(vcap),
-        chat_id=update.message.chat.id,
-        message_id=update.message.message_id,
-    )
+    try:
+        a = bot.edit_message_text(
+            text=Translation.DOWNLOAD_START, #+ '\n<code>{}</code>'.format(vcap),
+            chat_id=update.message.chat.id,
+            message_id=update.message.message_id,
+        )
+    except:
+        a = bot.edit_message_text(
+            text=Translation.DOWNLOAD_START, #+ '\n<code>{}</code>'.format(vcap),
+            chat_id=update.from_user.id,
+            message_id=update.message_id,
+        )
     aud_ext = Trnl.sh2.acell('E3').value
     tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
     if not os.path.isdir(tmp_directory_for_each_user):
