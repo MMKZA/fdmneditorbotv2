@@ -872,6 +872,7 @@ def func_scpt(script_url):
                 rntm = '{} နာရီ {} မိနစ် {} စက္ကန့်'.format(hrs,mnt,scd)
     if 'open' in Trnl.sh2.acell('C3').value:
         kind = Trnl.sh2.acell('P3').value
+        phto_url = vlink
     vcap_hsh = ''.join(e for e in vcap if e.isalnum())
     Trnl.sh2.update('P4', kind)
     Trnl.sh2.update('M4', rntm)
