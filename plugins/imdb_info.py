@@ -7,13 +7,13 @@ import math
 from si_prefix import si_format
 
 def imdb_data(imdb_id):
-    imdb_id = str(imdb_id)
+    imdb_id = re.findall(r'\b\d+\b', str(imdb_id))[0]
     ia = imdbpy.Cinemagoer()
     movie = ia.get_movie(imdb_id.replace('tt',''))
     return movie
 
 def imdb_info(imdb_id):
-    imdb_id = str(imdb_id)
+    imdb_id = re.findall(r'\b\d+\b', str(imdb_id))[0]
     ia = imdbpy.Cinemagoer()
     movie = ia.get_movie(imdb_id.replace('tt',''))
     title = movie.data['title']
