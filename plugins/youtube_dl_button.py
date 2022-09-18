@@ -324,7 +324,7 @@ def youtube_dl_call_back(bot, update):
                 except:
                     img = Image.open(ssimg)
                     width,height = img.size
-            thumb_poster = os.path.splitext(vlink.split('/')[-1])[0] + '.jpeg'
+            thumb_poster = tmp_directory_for_each_user + '/' + os.path.splitext(vlink.split('/')[-1])[0] + '.jpeg'
             if not os.path.exists(thumb_poster):
                 fdmn_frame(vlink,thumb_poster,width,height)
             if 576 < width < 864:
