@@ -11,14 +11,14 @@ def imdb_data(imdb_id):
     movie_id = str(imdb_id).replace('tt','')
     logger.info(movie_id)
     ia = imdbpy.Cinemagoer()
-    movie = ia.get_movie(int(movie_id))
+    movie = ia.get_movie(movie_id)
     return movie
 
 def imdb_info(imdb_id):
     movie_id = str(imdb_id).replace('tt','')
     logger.info(movie_id)
     ia = imdbpy.Cinemagoer()
-    movie = ia.get_movie(int(movie_id))
+    movie = ia.get_movie(movie_id)
     title = movie.data['title']
     kind = movie.data['kind']
     if 'series' in kind:
