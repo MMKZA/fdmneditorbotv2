@@ -824,6 +824,7 @@ def func_scpt(script_url):
         Trnl.sh2.update('M7',str(imdb_id))
     except:
         pass
+    imdb = '⁉️'
     if 'close' in Trnl.sh2.acell('C3').value:
         imdb_id = Trnl.sh2.acell('M7').value
         movie_id = str(imdb_id).replace('tt','')
