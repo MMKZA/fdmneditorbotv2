@@ -295,6 +295,9 @@ def youtube_dl_call_back(bot, update):
             )
             file_extract(bot,update)
         if fl_ext not in arc_kw:
+            c = b.edit_text(
+                text="Now Initializing..."
+            )
             rntm = get_duration(download_directory)
             Trnl.sh2.update('M4',rntm)
             ssimg = None
@@ -348,7 +351,7 @@ def youtube_dl_call_back(bot, update):
                 chnl_id = int(Trnl.sh2.acell('J2').value)
             if file_size > Config.TG_MAX_FILE_SIZE:
                 d_f_s = humanbytes(os.path.getsize(download_directory))
-                i_m_s_g = b.edit_text(
+                i_m_s_g = c.edit_text(
                     text="𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢 𝙎𝙪𝙥𝙥𝙤𝙧𝙩𝙨 2𝙂𝘽 𝙈𝙖𝙭\n𝘿𝙚𝙩𝙚𝙘𝙩𝙚𝙙 𝙁𝙞𝙡𝙚 𝙎𝙞𝙯𝙚: {} \n𝙩𝙧𝙮𝙞𝙣𝙜 𝙩𝙤 𝙨𝙥𝙡𝙞𝙩 𝙩𝙝𝙚 𝙛𝙞𝙡𝙚𝙨".format(d_f_s)
                 )
                 splitted_dir = async_to_sync(split_large_files)(download_directory)
@@ -415,7 +418,7 @@ def youtube_dl_call_back(bot, update):
                     disable_web_page_preview=True
                 )
             if file_size < Config.TG_MAX_FILE_SIZE:
-                upmssg = b.edit_text(
+                upmssg = c.edit_text(
                     text=Translation.UPLOAD_START + '\n<code>{}</code>'.format(vcap)
                 )
                 duration = 0
