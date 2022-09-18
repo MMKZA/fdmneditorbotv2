@@ -76,8 +76,8 @@ def youtube_dl_call_back(bot, update):
             response_json = json.load(f)
     except (FileNotFoundError) as e:
         bot.delete_messages(
-            chat_id=update.message.chat.id,
-            message_ids=update.message.message_id,
+            chat_id=act_chatid,
+            message_ids=act_messageid,
             revoke=True
         )
         return False
@@ -126,16 +126,19 @@ def youtube_dl_call_back(bot, update):
         description = response_json["fulltitle"][0:1021]
         # escape Markdown and special characters
     try:
+        act_chatid=update.message.chat.id
+        act_messageid=update.message.message_id
         a = bot.edit_message_text(
-            text=Translation.DOWNLOAD_START, #+ '\n<code>{}</code>'.format(vcap),
-            chat_id=update.message.chat.id,
-            message_id=update.message.message_id,
+            text=Translation.DOWNLOAD_START,
+            chat_id=act_chatid,
+            message_id=act_messageid,
         )
     except:
-        a = bot.edit_message_text(
-            text=Translation.DOWNLOAD_START, #+ '\n<code>{}</code>'.format(vcap),
-            chat_id=update.from_user.id,
-            message_id=update.message_id,
+        act_chatid=update.chat.id
+        act_messageid=update.message_id
+        a = bot.send_message(
+            chat_id=act_chatid,
+            text='Now Initializing...'
         )
     aud_ext = Trnl.sh2.acell('E3').value
     tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
@@ -266,8 +269,8 @@ def youtube_dl_call_back(bot, update):
     #if e_response and ad_string_to_replace in e_response:
         #error_message = e_response.replace(ad_string_to_replace, "")
         #bot.edit_message_text(
-            #chat_id=update.message.chat.id,
-            #message_id=update.message.message_id,
+            #chat_id=act_chatid,
+            #message_id=act_messageid,
             #text=error_message
         #)
         #return False
@@ -293,8 +296,8 @@ def youtube_dl_call_back(bot, update):
             Trnl.sh2.update('I3',download_directory)
             bot.edit_message_text(
                 text="ဖိုင်ကို Extract လုပ်နေပါတယ်...ဒါပြီးရင် Upload တင်မည့်ဖိုင်ကို /upload ဖြင့် Reply လုပ်ပါ 👇",
-                chat_id=update.message.chat.id,
-                message_id=update.message.message_id
+                chat_id=act_chatid,
+                message_id=act_messageid
             )
             file_extract(bot,update)
         if fl_ext not in arc_kw:
@@ -346,15 +349,15 @@ def youtube_dl_call_back(bot, update):
                 vd_qlt = 'HD'
             Trnl.sh2.update('H2',vd_qlt)
             if "@" in str(Trnl.sh2.acell('J2').value):
-                chnl_id = update.message.chat.id
+                chnl_id = act_chatid
             else:
                 chnl_id = int(Trnl.sh2.acell('J2').value)
             if file_size > Config.TG_MAX_FILE_SIZE:
                 d_f_s = humanbytes(os.path.getsize(download_directory))
                 i_m_s_g = bot.edit_message_text(
                     text="𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢 𝙎𝙪𝙥𝙥𝙤𝙧𝙩𝙨 2𝙂𝘽 𝙈𝙖𝙭\n𝘿𝙚𝙩𝙚𝙘𝙩𝙚𝙙 𝙁𝙞𝙡𝙚 𝙎𝙞𝙯𝙚: {} \n𝙩𝙧𝙮𝙞𝙣𝙜 𝙩𝙤 𝙨𝙥𝙡𝙞𝙩 𝙩𝙝𝙚 𝙛𝙞𝙡𝙚𝙨".format(d_f_s),
-                    chat_id=update.message.chat.id,
-                    message_id=update.message.message_id
+                    chat_id=act_chatid,
+                    message_id=act_messageid
                 )
                 splitted_dir = async_to_sync(split_large_files)(download_directory)
                 totlaa_sleif = os.listdir(splitted_dir)
@@ -372,8 +375,8 @@ def youtube_dl_call_back(bot, update):
                     dwnl_dir = tmp_directory_for_each_user + "/fdmnsplits/" + le_file
                     upmssg = bot.edit_message_text(
                         text=Translation.UPLOAD_START + f"\n<code>{ba_se_file_name} Part {i_th} of {number_of_files}</code>",
-                        chat_id=update.message.chat.id,
-                        message_id=update.message.message_id
+                        chat_id=act_chatid,
+                        message_id=act_messageid
                     )
                     duration = 0
                     if tg_send_type != "file":
@@ -420,15 +423,15 @@ def youtube_dl_call_back(bot, update):
                 bot.edit_message_text(
                     text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS.format(time_taken_for_download,
                                                                                 time_taken_for_upload),
-                    chat_id=update.message.chat.id,
+                    chat_id=act_chatid,
                     message_id=upmssg.message_id,
                     disable_web_page_preview=True
                 )
             if file_size < Config.TG_MAX_FILE_SIZE:
                 upmssg = bot.edit_message_text(
                     text=Translation.UPLOAD_START + '\n<code>{}</code>'.format(vcap),
-                    chat_id=update.message.chat.id,
-                    message_id=update.message.message_id
+                    chat_id=act_chatid,
+                    message_id=act_messageid
                 )
                 duration = 0
                 if tg_send_type != "file":
@@ -469,7 +472,7 @@ def youtube_dl_call_back(bot, update):
                 # try to upload file
                 if tg_send_type == "audio":
                     bot.send_audio(
-                        chat_id=update.message.chat.id,
+                        chat_id=act_chatid,
                         audio=download_directory,
                         caption=description,
                         parse_mode="HTML",
@@ -488,7 +491,7 @@ def youtube_dl_call_back(bot, update):
                     )
                 elif tg_send_type == "file":
                     bot.send_document(
-                        chat_id=update.message.chat.id,
+                        chat_id=act_chatid,
                         document=download_directory,
                         thumb=thumb_image_path,
                         caption=description,
@@ -504,7 +507,7 @@ def youtube_dl_call_back(bot, update):
                     )
                 elif tg_send_type == "vm":
                     bot.send_video_note(
-                        chat_id=update.message.chat.id,
+                        chat_id=act_chatid,
                         video_note=download_directory,
                         duration=duration,
                         length=width,
@@ -523,7 +526,7 @@ def youtube_dl_call_back(bot, update):
                     if typ == 'Movie':
                         vd_name = "{} | {} @fdmnchannel".format(vcap,vd_qlt)
                     vdf_msg = bot.send_video(
-                        # chat_id=update.message.chat.id,
+                        # chat_id=act_chatid,
                         chat_id=chnl_id,
                         video=download_directory,
                         caption=vd_name,
@@ -545,7 +548,7 @@ def youtube_dl_call_back(bot, update):
                     Trnl.sh2.update('P2',str(vdf_msg.message_id))
                     # vdf_msg = bot.forward_messages(
                     # chat_id=int("-1001785695486"),
-                    # from_chat_id=update.message.chat.id,
+                    # from_chat_id=act_chatid,
                     # message_ids=vd_msg.message_id
                     # )
                 else:
@@ -560,7 +563,7 @@ def youtube_dl_call_back(bot, update):
                 bot.edit_message_text(
                     text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS.format(time_taken_for_download,
                                                                                 time_taken_for_upload),
-                    chat_id=update.message.chat.id,
+                    chat_id=act_chatid,
                     message_id=upmssg.message_id,
                     disable_web_page_preview=True
                 )
