@@ -6,6 +6,11 @@ import datetime
 import math
 from si_prefix import si_format
 import re
+import logging
+
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 
 def imdb_data(movie_id):
     logger.info(movie_id)
