@@ -21,6 +21,7 @@ from plugins.gdrvclean import poster_gdrvclean
 from plugins.func_scpt import func_scpt
 from plugins.series import series
 from plugins.echo_auto import echo_auto
+from plugins.methods import methods,plhh_method,transload_method,direct_method
 from helper_funcs.fdmn_frame import fdmn_frame
 from helper_funcs.imdb_search import google
 from googletrans import Translator
@@ -380,3 +381,32 @@ def auto_dm(bot, update):
         chat_id=update.chat.id,
         message_ids=update.message_id
     )
+
+@pyrogram.Client.on_message(pyrogram.filters.command(["upld"]))
+def upld_tool(bot, update):
+    if update.from_user.id in Config.AUTH_USERS:
+        if '|' in update.reply_to_message.text:
+            lk = update.reply_to_message.text.split("|")[0].strip()
+        else:
+            lk = update.reply_to_message.text
+        if "yoteshinportal.cc" in lk:
+            gdrv_retrn = ytsn_dllk(lk)
+            if "error" in gdrv_retrn:
+                gdrvclean(gdrv_retrn)
+                gdrv_lk = ytsn_dllk(lk)
+            else:
+                gdrv_lk = gdrv_retrn
+        else:
+            gdrv_lk = lk
+        gdrv_id = gdrv_lk.split('/')[5]
+        logger.info(gdrv_id)
+        Trnl.sh2.update('L4',gdrv_id)
+        if Trnl.sh2.acell('W2').value == 'manual':
+            methods(bot,update)
+        elif Trnl.sh2.acell('W2').value == 'auto':
+            if 'method=PLM' in Trnl.sh2.acell('W3').value:
+                plhh_method(bot, update)
+            elif 'method=TM' in Trnl.sh2.acell('W3').value:
+                transload_method(bot, update)
+            elif 'method=DM' in Trnl.sh2.acell('W3').value:
+                direct_method(bot, update)
