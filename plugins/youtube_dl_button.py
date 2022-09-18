@@ -126,18 +126,14 @@ def youtube_dl_call_back(bot, update):
         description = response_json["fulltitle"][0:1021]
         # escape Markdown and special characters
     try:
-        act_chatid=update.message.chat.id
-        act_messageid=update.message.message_id
         a = bot.edit_message_text(
             text=Translation.DOWNLOAD_START,
-            chat_id=act_chatid,
-            message_id=act_messageid,
+            chat_id=update.message.chat.id,
+            message_id=update.message.message_id
         )
     except:
-        act_chatid=update.chat.id
-        act_messageid=update.message_id
         a = bot.send_message(
-            chat_id=act_chatid,
+            chat_id=update.chat.id,
             text='Now Initializing...'
         )
     aud_ext = Trnl.sh2.acell('E3').value
@@ -249,7 +245,7 @@ def youtube_dl_call_back(bot, update):
                     ''.join(['░' for i in range(20 - math.floor(float(prcnt.replace('%','')) / 5))]),
                     round(float(prcnt.replace('%','')), 2))
                 try:
-                    a.edit_text(Translation.DOWNLOAD_START + '\n<code>{}</code>\n{}\n{}'.format(vcap,progress,text))
+                    b = a.edit_text(Translation.DOWNLOAD_START + '\n<code>{}</code>\n{}\n{}'.format(vcap,progress,text))
                     time.sleep(0.05)
                 except:
                     continue
@@ -294,10 +290,8 @@ def youtube_dl_call_back(bot, update):
         arc_kw = ['.zip','.rar','.7z']
         if fl_ext in arc_kw:
             Trnl.sh2.update('I3',download_directory)
-            bot.edit_message_text(
-                text="ဖိုင်ကို Extract လုပ်နေပါတယ်...ဒါပြီးရင် Upload တင်မည့်ဖိုင်ကို /upload ဖြင့် Reply လုပ်ပါ 👇",
-                chat_id=act_chatid,
-                message_id=act_messageid
+            c = b.edit_text(
+                text="ဖိုင်ကို Extract လုပ်နေပါတယ်...ဒါပြီးရင် Upload တင်မည့်ဖိုင်ကို /upload ဖြင့် Reply လုပ်ပါ 👇"
             )
             file_extract(bot,update)
         if fl_ext not in arc_kw:
@@ -349,15 +343,13 @@ def youtube_dl_call_back(bot, update):
                 vd_qlt = 'HD'
             Trnl.sh2.update('H2',vd_qlt)
             if "@" in str(Trnl.sh2.acell('J2').value):
-                chnl_id = act_chatid
+                chnl_id = update.from_user.id
             else:
                 chnl_id = int(Trnl.sh2.acell('J2').value)
             if file_size > Config.TG_MAX_FILE_SIZE:
                 d_f_s = humanbytes(os.path.getsize(download_directory))
-                i_m_s_g = bot.edit_message_text(
-                    text="𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢 𝙎𝙪𝙥𝙥𝙤𝙧𝙩𝙨 2𝙂𝘽 𝙈𝙖𝙭\n𝘿𝙚𝙩𝙚𝙘𝙩𝙚𝙙 𝙁𝙞𝙡𝙚 𝙎𝙞𝙯𝙚: {} \n𝙩𝙧𝙮𝙞𝙣𝙜 𝙩𝙤 𝙨𝙥𝙡𝙞𝙩 𝙩𝙝𝙚 𝙛𝙞𝙡𝙚𝙨".format(d_f_s),
-                    chat_id=act_chatid,
-                    message_id=act_messageid
+                i_m_s_g = b.edit_text(
+                    text="𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢 𝙎𝙪𝙥𝙥𝙤𝙧𝙩𝙨 2𝙂𝘽 𝙈𝙖𝙭\n𝘿𝙚𝙩𝙚𝙘𝙩𝙚𝙙 𝙁𝙞𝙡𝙚 𝙎𝙞𝙯𝙚: {} \n𝙩𝙧𝙮𝙞𝙣𝙜 𝙩𝙤 𝙨𝙥𝙡𝙞𝙩 𝙩𝙝𝙚 𝙛𝙞𝙡𝙚𝙨".format(d_f_s)
                 )
                 splitted_dir = async_to_sync(split_large_files)(download_directory)
                 totlaa_sleif = os.listdir(splitted_dir)
@@ -373,10 +365,8 @@ def youtube_dl_call_back(bot, update):
                 for le_file in totlaa_sleif:
                     i_th = totlaa_sleif.index(le_file) + 1
                     dwnl_dir = tmp_directory_for_each_user + "/fdmnsplits/" + le_file
-                    upmssg = bot.edit_message_text(
-                        text=Translation.UPLOAD_START + f"\n<code>{ba_se_file_name} Part {i_th} of {number_of_files}</code>",
-                        chat_id=act_chatid,
-                        message_id=act_messageid
+                    upmssg = i_m_s_g.edit_text(
+                        text=Translation.UPLOAD_START + f"\n<code>{ba_se_file_name} Part {i_th} of {number_of_files}</code>"
                     )
                     duration = 0
                     if tg_send_type != "file":
@@ -420,18 +410,13 @@ def youtube_dl_call_back(bot, update):
                     os.remove(thumb_image_path)
                 except:
                     pass
-                bot.edit_message_text(
-                    text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS.format(time_taken_for_download,
-                                                                                time_taken_for_upload),
-                    chat_id=act_chatid,
-                    message_id=upmssg.message_id,
+                vdf_msg.edit_text(
+                    text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS.format(time_taken_for_download,time_taken_for_upload),
                     disable_web_page_preview=True
                 )
             if file_size < Config.TG_MAX_FILE_SIZE:
-                upmssg = bot.edit_message_text(
-                    text=Translation.UPLOAD_START + '\n<code>{}</code>'.format(vcap),
-                    chat_id=act_chatid,
-                    message_id=act_messageid
+                upmssg = b.edit_text(
+                    text=Translation.UPLOAD_START + '\n<code>{}</code>'.format(vcap)
                 )
                 duration = 0
                 if tg_send_type != "file":
@@ -560,11 +545,8 @@ def youtube_dl_call_back(bot, update):
                     os.remove(thumb_image_path)
                 except:
                     pass
-                bot.edit_message_text(
-                    text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS.format(time_taken_for_download,
-                                                                                time_taken_for_upload),
-                    chat_id=act_chatid,
-                    message_id=upmssg.message_id,
+                vdf_msg.edit_text(
+                    text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS.format(time_taken_for_download,time_taken_for_upload),
                     disable_web_page_preview=True
                 )
                 typ = Trnl.sh2.acell('P3').value
