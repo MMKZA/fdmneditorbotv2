@@ -14,6 +14,7 @@ from plugins.shweflix import shweflix
 from plugins.echo_auto import echo_auto
 from plugins.methods import methods
 from plugins.imdb_info import imdb_info
+from plugins.methods import methods,plhh_method,transload_method,direct_method
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import os
 import re
