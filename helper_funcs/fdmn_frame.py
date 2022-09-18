@@ -18,7 +18,7 @@ logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
 
-
+tmp_directory = Config.DOWNLOAD_LOCATION + "/1700943365/"
 
 
 def gdrvupload(image):
@@ -44,34 +44,34 @@ def crop_height(enl_h,tf_h):
         return top
 
 def fdmn_frame(vlink,thumb_poster,width,height):
-    if not os.path.exists('fdmn_post_frame.png'):
+    if not os.path.exists(tmp_directory + 'fdmn_post_frame.png'):
         base = Trnl.sh2.acell('K2').value
         post_url = Trnl.sh2.acell('S2').value
         post_link = transloader(base, post_url)
         post_response = requests.get(post_link, stream=True)
-        with open('fdmn_post_frame.png', 'wb') as out_file:
+        with open(tmp_directory + 'fdmn_post_frame.png', 'wb') as out_file:
             shutil.copyfileobj(post_response.raw, out_file)
         del post_response
         #
         thumb_url = Trnl.sh2.acell('T2').value
         thumb_link = transloader(base, thumb_url)
         thumb_response = requests.get(thumb_link, stream=True)
-        with open('fdmn_thumb_frame.png', 'wb') as out_file:
+        with open(tmp_directory + 'fdmn_thumb_frame.png', 'wb') as out_file:
             shutil.copyfileobj(thumb_response.raw, out_file)
         del thumb_response
     response = requests.get(vlink, stream=True)
     if response.status_code == 404:
         vlink = Trnl.sh2.acell('C4').value
         response = requests.get(vlink, stream=True)
-    with open('mv_poster.png', 'wb') as out_file:
+    with open(tmp_directory + 'mv_poster.png', 'wb') as out_file:
         shutil.copyfileobj(response.raw, out_file)
     del response
     
     #OPENING POSTER PHOTO
-    poster_org = Image.open('mv_poster.png', 'r')
+    poster_org = Image.open(tmp_directory + 'mv_poster.png', 'r')
     #OPENING FRAME PHOTOS
-    post_frame = Image.open('fdmn_post_frame.png', 'r')
-    thumb_frame = Image.open('fdmn_thumb_frame.png', 'r')
+    post_frame = Image.open(tmp_directory + 'fdmn_post_frame.png', 'r')
+    thumb_frame = Image.open(tmp_directory + 'fdmn_thumb_frame.png', 'r')
     #GETTING PHOTO SIZES
     po_w, po_h = poster_org.size
     pf_w, pf_h = post_frame.size
@@ -88,9 +88,9 @@ def fdmn_frame(vlink,thumb_poster,width,height):
     offset = (int((pf_w-pp_w)/2), int((pf_h-pp_h)/2))
     blank_frame.paste(pp,offset)
     blank_frame.paste(post_frame, (0,0),mask=post_frame)
-    blank_frame.save('post_poster_v2.jpg')
+    blank_frame.save(tmp_directory + 'post_poster_v2.jpg')
     #UPLOADING TO GOOGLE DRIVE
-    gdrvupload('post_poster_v2.jpg')
+    gdrvupload(tmp_directory + 'post_poster_v2.jpg')
     #blank_frame.show()
     #CREATING THUMB POSTER
     left = 0
