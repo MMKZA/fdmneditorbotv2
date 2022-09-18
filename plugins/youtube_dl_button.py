@@ -81,6 +81,10 @@ def youtube_dl_call_back(bot, update):
             revoke=True
         )
         return False
+    bot.send_message(
+        chat_id=update.chat.id,
+        text='Now Initializing...'
+    )
     vcap = Trnl.sh2.acell('D2').value
     typ = Trnl.sh2.acell('P3').value
     vlink = Trnl.sh2.acell('C2').value
