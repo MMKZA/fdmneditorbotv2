@@ -829,7 +829,8 @@ def func_scpt(script_url):
             else:
                 af_lst.append(bf_line)
     vtext = '\n'.join(af_lst)
-    movie_id = re.findall(r'\d+',str(imdb_id))[0]
+    imdb_id = Trnl.sh2.acell('M7').value
+    movie_id = str(imdb_id).replace('tt','')
     movie = imdb_data(movie_id)
     title = movie.data['title']
     kind = movie.data['kind']
