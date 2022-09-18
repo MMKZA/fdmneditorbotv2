@@ -324,7 +324,9 @@ def youtube_dl_call_back(bot, update):
                 except:
                     img = Image.open(ssimg)
                     width,height = img.size
-            fdmn_frame(vlink,width,height)
+            thumb_poster = os.path.splitext(vlink.split('/')[-1])[0] + '.jpeg'
+            if not os.path.exists(thumb_poster):
+                fdmn_frame(vlink,thumb_poster,width,height)
             if 576 < width < 864:
                 vd_qlt = '480p SD'
             elif 864 < width < 1296:
@@ -376,7 +378,7 @@ def youtube_dl_call_back(bot, update):
                         vd_name = '{} | Part {} of {} @fdmnchannel'.format(vcap.replace('.',' ').replace('_',' '),i_th,number_of_files)
                     if typ == 'Movie':
                         vd_name = "{} | {} | Part {} of {} @fdmnchannel".format(vcap,vd_qlt,i_th,number_of_files)
-                    ssimg = 'thumb_poster.jpg'
+                    ssimg = thumb_poster
                     start_time = time.time()
                     start_one = datetime.now()
                     vdf_msg = bot.send_video(
@@ -389,7 +391,7 @@ def youtube_dl_call_back(bot, update):
                         height=height,
                         supports_streaming=True,
                         # reply_markup=reply_markup,
-                        thumb=ssimg,
+                        thumb=thumb_poster,
                         # reply_to_message_id=update.message.reply_to_message.message_id,
                         progress=progress_for_pyrogram,
                         progress_args=(
@@ -513,7 +515,6 @@ def youtube_dl_call_back(bot, update):
                         vd_name = '{} @fdmnchannel'.format(vcap.replace('.',' ').replace('_',' '))
                     if typ == 'Movie':
                         vd_name = "{} | {} @fdmnchannel".format(vcap,vd_qlt)
-                    ssimg = 'thumb_poster.jpg'
                     vdf_msg = bot.send_video(
                         # chat_id=update.message.chat.id,
                         chat_id=chnl_id,
@@ -525,7 +526,7 @@ def youtube_dl_call_back(bot, update):
                         height=height,
                         supports_streaming=True,
                         # reply_markup=reply_markup,
-                        thumb=ssimg,
+                        thumb=thumb_poster,
                         # reply_to_message_id=update.message.reply_to_message.message_id,
                         progress=progress_for_pyrogram,
                         progress_args=(
