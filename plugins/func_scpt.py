@@ -74,7 +74,7 @@ def func_scpt(script_url):
                 Trnl.sh2.update('L3', imdb_wrn)
                 imdb_id = google('{} {} imdb'.format(title,year))[0]
         if Trnl.sh2.acell('N7').value == 'open':
-                imdb_id = Trnl.sh2.acell('M7').value
+            imdb_id = Trnl.sh2.acell('M7').value
         imdb_url = 'https://www.imdb.com/title/' + imdb_id
         if 'Error' in omdb_req:
             omdb_url = 'https://www.omdbapi.com/?i=' + imdb_id + '&apikey=39ecaf7'
@@ -808,16 +808,6 @@ def func_scpt(script_url):
             phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
         except:
             phto_url = vlink
-    imdb_id = Trnl.sh2.update('M7',imdb_id)
-    if 'close' in Trnl.sh2.acell('C3').value:
-        try:
-            omdb_url = 'https://www.omdbapi.com/?i=' + str(imdb_id) + '&apikey=39ecaf7'
-            omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
-            phto_url = omdb_req["Poster"].replace('_SX300', '_FMjpg_UX1000_')
-        except:
-            pass
-    if 'open' in Trnl.sh2.acell('C3').value:
-        phto_url = Trnl.sh2.acell('C4').value
     bf_lst = vtext.split('\n')
     af_lst = []
     for bf_line in bf_lst:
@@ -830,50 +820,56 @@ def func_scpt(script_url):
             else:
                 af_lst.append(bf_line)
     vtext = '\n'.join(af_lst)
-    imdb_id = Trnl.sh2.acell('M7').value
-    movie_id = str(imdb_id).replace('tt','')
-    movie = imdb_data(movie_id)
-    title = movie.data['title']
-    kind = movie.data['kind']
-    if len(str(abs(int(''.join(re.findall(r'\b\d+\b',year)))))) < 4 or '⁉️' in year:
-        if 'series' in kind:
-            year = movie.data['series years']
-            if str(year)[-1] == '-':
-                year = '{}{}'.format(year,datetime.date.today().year)
-        else:
-            year = movie.data['year']
-    vcap = '{} ({})'.format(title,year)
+    try:
+        Trnl.sh2.update('M7',str(imdb_id))
+    except:
+        pass
+    if 'close' in Trnl.sh2.acell('C3').value:
+        imdb_id = Trnl.sh2.acell('M7').value
+        movie_id = str(imdb_id).replace('tt','')
+        logger.info(movie_id)
+        movie = imdb_data(movie_id)
+        title = movie.data['title']
+        kind = movie.data['kind']
+        if len(str(abs(int(''.join(re.findall(r'\b\d+\b',year)))))) < 4 or '⁉️' in year:
+            if 'series' in kind:
+                year = movie.data['series years']
+                if str(year)[-1] == '-':
+                    year = '{}{}'.format(year,datetime.date.today().year)
+            else:
+                year = movie.data['year']
+        vcap = '{} ({})'.format(title,year)
+        response = requests.get(phto_url, stream=True)
+        if response.status_code == 404:
+            if 'cover url' in movie.data.keys():
+                phto_lst = movie.data['cover url'].split('.')
+                phto_lst[-2] = '_V1_FMjpg_UX1000_'
+                phto_url = '.'.join(phto_lst)
+        del response
+        imdb = '⁉️'
+        if 'rating' in movie.data.keys() and 'votes' in movie.data.keys():
+            imdb_rt = movie.data['rating']
+            imdb_vt = si_format(movie.data['votes'],0)
+            imdb = '{}/10 ({} Votes)'.format(imdb_rt,imdb_vt)
+        if '⁉️' in ctry:
+            if 'countries' in movie.data.keys():
+                ctry = ', '.join(movie.data['countries'])
+        if '⁉️' in mv_gnr:
+            if 'genres' in movie.data.keys():
+                mv_gnr = ', '.join(movie.data['genres'])
+        if 'runtimes' in movie.data.keys():
+            seconds = int(movie.data['runtimes'][0])*60
+            duration = str(datetime.timedelta(seconds=seconds))
+            hrs = duration.split(':')[0]
+            mnt = duration.split(':')[1]
+            scd = duration.split(':')[2]
+            if seconds < 60:
+                rntm = '{} စက္ကန့်'.format(scd)
+            elif 3600 > seconds >= 60:
+                rntm = '{} မိနစ် {} စက္ကန့်'.format(mnt,scd)
+            elif seconds >= 3600:
+                rntm = '{} နာရီ {} မိနစ် {} စက္ကန့်'.format(hrs,mnt,scd)
     vcap_hsh = ''.join(e for e in vcap if e.isalnum())
-    response = requests.get(phto_url, stream=True)
-    if response.status_code == 404:
-        if 'cover url' in movie.data.keys():
-            phto_lst = movie.data['cover url'].split('.')
-            phto_lst[-2] = '_V1_FMjpg_UX1000_'
-            phto_url = '.'.join(phto_lst)
-    del response
-    imdb = '⁉️'
-    if 'rating' in movie.data.keys() and 'votes' in movie.data.keys():
-        imdb_rt = movie.data['rating']
-        imdb_vt = si_format(movie.data['votes'],0)
-        imdb = '{}/10 ({} Votes)'.format(imdb_rt,imdb_vt)
-    if '⁉️' in ctry:
-        if 'countries' in movie.data.keys():
-            ctry = ', '.join(movie.data['countries'])
-    if '⁉️' in mv_gnr:
-        if 'genres' in movie.data.keys():
-            mv_gnr = ', '.join(movie.data['genres'])
-    if 'runtimes' in movie.data.keys():
-        seconds = int(movie.data['runtimes'][0])*60
-        duration = str(datetime.timedelta(seconds=seconds))
-        hrs = duration.split(':')[0]
-        mnt = duration.split(':')[1]
-        scd = duration.split(':')[2]
-        if seconds < 60:
-            rntm = '{} စက္ကန့်'.format(scd)
-        elif 3600 > seconds >= 60:
-            rntm = '{} မိနစ် {} စက္ကန့်'.format(mnt,scd)
-        elif seconds >= 3600:
-            rntm = '{} နာရီ {} မိနစ် {} စက္ကန့်'.format(hrs,mnt,scd)
     Trnl.sh2.update('P4', kind)
     Trnl.sh2.update('M4', rntm)
     Trnl.sh2.update('M3', mv_gnr)
