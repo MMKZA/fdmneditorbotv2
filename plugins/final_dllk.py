@@ -431,7 +431,20 @@ def final_dllk(bot, update):
             except:
                 gdrv_id = gdrv_lk.split('/')[3].split('=')[1]
             Trnl.sh2.update('L4',gdrv_id)
-            methods(bot,update)
+            if Trnl.sh2.acell('W2').value == 'manual':
+                methods(bot,update)
+            elif Trnl.sh2.acell('W2').value == 'auto':
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text='Now Initializing...'
+                )
+                if 'method=PLM' in Trnl.sh2.acell('W3').value:
+                    plhh_method(bot, update)
+                elif 'method=TM' in Trnl.sh2.acell('W3').value:
+                    transload_method(bot, update)
+                elif 'method=DM' in Trnl.sh2.acell('W3').value:
+                    direct_method(bot, update)
+
                 
         if 'https://t.me/c' in web_url:
             vd_id = web_url.split("/")[-1]
