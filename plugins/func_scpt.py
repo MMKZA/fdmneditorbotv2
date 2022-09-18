@@ -808,6 +808,7 @@ def func_scpt(script_url):
             phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
         except:
             phto_url = vlink
+    imdb_id = Trnl.sh2.update('M7',imdb_id)
     if 'close' in Trnl.sh2.acell('C3').value:
         try:
             omdb_url = 'https://www.omdbapi.com/?i=' + str(imdb_id) + '&apikey=39ecaf7'
