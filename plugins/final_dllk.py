@@ -404,7 +404,7 @@ def final_dllk(bot, update):
                 imdb_id = imdb_lk
             Trnl.sh2.update('N7','open')
             Trnl.sh2.update('M7',imdb_id)
-            movie_id = str(imdb_id).replace('tt','')
+            movie_id = re.findall(r'\d+',str(imdb_id))[0]
             imdb_info(movie_id)
             bot.delete_messages(
                 chat_id=update.chat.id,
