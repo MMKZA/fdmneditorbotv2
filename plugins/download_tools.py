@@ -24,11 +24,11 @@ from plugins.echo_auto import echo_auto
 from plugins.methods import methods,plhh_method,transload_method,direct_method
 from helper_funcs.fdmn_frame import fdmn_frame
 from helper_funcs.imdb_search import google
-from googletrans import Translator
 import requests, zipfile, io
 import subprocess
 import json
 from bs4 import BeautifulSoup
+from googletrans import Translator
 import re
 
 class cd:
@@ -84,7 +84,7 @@ def trsl_tool(bot, update):
                 chat_id=update.chat.id,
                 text=text + final_link
             )
-        
+            
 @pyrogram.Client.on_message(pyrogram.filters.command(["gtsh"]))
 def gtsh_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -271,49 +271,23 @@ def poster_clean(bot, update):
         chat_id=update.chat.id,
         message_ids=update.message_id
     )
-@pyrogram.Client.on_message(pyrogram.filters.command(["openauto"]))
-def openauto_vlink(bot, update):
+
+@pyrogram.Client.on_message(pyrogram.filters.command(["openimdb"]))
+def open_imdb(bot, update):
     Trnl.sh2.update('C3','open')
-    imdb_id = Trnl.sh2.acell('M7').value
-    imdb_url = 'https://www.imdb.com/title/' + imdb_id
-    imdb_req = requests.get(imdb_url)
-    imdb_req.encoding = imdb_req.apparent_encoding
-    imdb_html = imdb_req.text
-    imdb_soup = BeautifulSoup(imdb_html, 'html.parser')
-    imdb_hrf = []
-    for all in imdb_soup.find_all('a', href=True):
-        imdb_hrf.append(all['href'])
-    for i in imdb_hrf:
-        if '/?ref_=tt_ov_i' in i:
-            imdb2_url = 'https://www.imdb.com' + i
-    imdb2_req = requests.get(imdb2_url)
-    imdb2_req.encoding = imdb2_req.apparent_encoding
-    imdb2_html = imdb2_req.text
-    imdb2_soup = BeautifulSoup(imdb2_html, 'html.parser')
-    imdb2_hrf = []
-    for all in imdb2_soup.find_all('meta'):
-        imdb2_hrf.append(all)
-    imdb2 = "".join([str(lk) for lk in imdb2_hrf])
-    phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
-    fdmn_frame(phto_url)
-    Trnl.sh2.update('C4',phto_url)
-    web_url = Trnl.sh2.acell('M2').value
-    func_scpt(web_url)
-    bot.send_message(
+    bot.delete_messages(
         chat_id=update.chat.id,
-        text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်"
+        message_ids=update.message_id
     )
-@pyrogram.Client.on_message(pyrogram.filters.command(["open"]))
-def open_vlink(bot, update):
-    Trnl.sh2.update('C3','open')
-    phto_url = update.reply_to_message.text
-    Trnl.sh2.update('C4',phto_url)
-    web_url = Trnl.sh2.acell('M2').value
-    func_scpt(web_url)
-    bot.send_message(
+    
+@pyrogram.Client.on_message(pyrogram.filters.command(["closeimdb"]))
+def close_imdb(bot, update):
+    Trnl.sh2.update('C3','close')
+    bot.delete_messages(
         chat_id=update.chat.id,
-        text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်"
+        message_ids=update.message_id
     )
+    
 @pyrogram.Client.on_message(pyrogram.filters.command(["imdbgoogle"]))
 def imdb_google(bot, update):
     try:
@@ -381,7 +355,7 @@ def auto_dm(bot, update):
         chat_id=update.chat.id,
         message_ids=update.message_id
     )
-
+    
 @pyrogram.Client.on_message(pyrogram.filters.command(["upld"]))
 def upld_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
