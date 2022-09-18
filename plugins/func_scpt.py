@@ -12,9 +12,10 @@ from translation import Translation
 from lxml import html
 from channels import channels
 from helper_funcs.imdb_search import google
-from plugins.imdb_info import imdb_info
+from plugins.imdb_info import imdb_data
 from myanmartools import ZawgyiDetector
 from myanmar import converter
+from si_prefix import si_format
 
 logging.getLogger('chardet.charsetprober').setLevel(logging.INFO)
 logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -828,42 +829,49 @@ def func_scpt(script_url):
             else:
                 af_lst.append(bf_line)
     vtext = '\n'.join(af_lst)
-    imdb_rt = ''
-    imdb_vt = ''
-    imdb = ''
-    imdb_req = requests.get(imdb_url,headers={'Connection':'close'})
-    imdb_req.encoding = imdb_req.apparent_encoding
-    imdb_html = imdb_req.text
-    imdb_soup = BeautifulSoup(imdb_html, 'html.parser')
-    for i in imdb_soup.select(
-            '#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-db8c1937-0.eGmDjE.sc-80d4314-3.iBtAhY > div > div:nth-child(1) > a > div > div > div.sc-7ab21ed2-0.fAePGh > div.sc-7ab21ed2-2.kYEdvH > span.sc-7ab21ed2-1.jGRxWM'):
-        imdb_rt = i.text
-    for i in imdb_soup.select(
-            '#__next > main > div > section.ipc-page-background.ipc-page-background--base.sc-ca85a21c-0.efoFqn > section > div:nth-child(4) > section > section > div.sc-80d4314-0.fjPRnj > div.sc-db8c1937-0.eGmDjE.sc-80d4314-3.iBtAhY > div > div:nth-child(1) > a > div > div > div.sc-7ab21ed2-0.fAePGh > div.sc-7ab21ed2-3.dPVcnq'):
-        imdb_vt = i.text
-    imdb = imdb_rt + '/10 (' + imdb_vt + ' Votes)'
-    if imdb_rt == '':
-        imdb = '⁉️️'
+    movie = imdb_data(imdb_id)
+    title = movie.data['title']
+    kind = movie.data['kind']
+    if len(str(abs(int(''.join(re.findall(r'\b\d+\b',year)))))) < 4 or '⁉️' in year:
+        if 'series' in kind:
+            year = movie.data['series years']
+            if str(year)[-1] == '-':
+                year = '{}{}'.format(year,datetime.date.today().year)
+        else:
+            year = movie.data['year']
+    vcap = '{} ({})'.format(title,year)
+    vcap_hsh = ''.join(e for e in vcap if e.isalnum())
     response = requests.get(phto_url, stream=True)
     if response.status_code == 404:
-        imdb_hrf = []
-        for x in imdb_soup.find_all('a', href=True):
-            imdb_hrf.append(x['href'])
-        for i in imdb_hrf:
-            if '/?ref_=tt_ov_i' in i:
-                imdb2_url = 'https://www.imdb.com' + i
-        imdb2_req = requests.get(imdb2_url)
-        imdb2_req.encoding = imdb2_req.apparent_encoding
-        imdb2_html = imdb2_req.text
-        imdb2_soup = BeautifulSoup(imdb2_html, 'html.parser')
-        imdb2_hrf = []
-        for all in imdb2_soup.find_all('meta'):
-            imdb2_hrf.append(all)
-        imdb2 = "".join([str(lk) for lk in imdb2_hrf])
-        phto_url = re.search("(?P<url>https?://[^\s]+)", imdb2).group("url").replace('"', '')
+        if 'cover url' in movie.data.keys():
+            phto_lst = movie.data['cover url'].split('.')
+            phto_lst[-2] = '_V1_FMjpg_UX1000_'
+            phto_url = '.'.join(phto_lst)
     del response
-    vd_qlt = Trnl.sh2.acell('H2').value
-    typ = Trnl.sh2.acell('P3').value
+    imdb = '⁉️'
+    if 'rating' in movie.data.keys() and 'votes' in movie.data.keys():
+        imdb_rt = movie.data['rating']
+        imdb_vt = si_format(movie.data['votes'],0)
+        imdb = '{}/10 ({} Votes)'.format(imdb_rt,imdb_vt)
+    if '⁉️' in ctry:
+        if 'countries' in movie.data.keys():
+            ctry = ', '.join(movie.data['countries'])
+    if '⁉️' in mv_gnr:
+        if 'genres' in movie.data.keys():
+            mv_gnr = ', '.join(movie.data['genres'])
+    if 'runtimes' in movie.data.keys():
+        seconds = int(movie.data['runtimes'][0])*60
+        duration = str(datetime.timedelta(seconds=seconds))
+        hrs = duration.split(':')[0]
+        mnt = duration.split(':')[1]
+        scd = duration.split(':')[2]
+        if seconds < 60:
+            rntm = '{} စက္ကန့်'.format(scd)
+        elif 3600 > seconds >= 60:
+            rntm = '{} မိနစ် {} စက္ကန့်'.format(mnt,scd)
+        elif seconds >= 3600:
+            rntm = '{} နာရီ {} မိနစ် {} စက္ကန့်'.format(hrs,mnt,scd)
+    Trnl.sh2.update('P4', kind)
     Trnl.sh2.update('M4', rntm)
     Trnl.sh2.update('M3', mv_gnr)
     Trnl.sh2.update('M5', year)
@@ -879,7 +887,4 @@ def func_scpt(script_url):
     Trnl.sh2.update('F2', credit)
     vtext = vtext.strip()
     Trnl.sh2.update('O2', vtext)
-    vcap_hsh = ''.join(e for e in vcap if e.isalnum())
     Trnl.sh2.update('E2', vcap_hsh)
-    if '⁉️' in ctry or '⁉️' in mv_gnr or len(str(abs(int(''.join(re.findall(r'\b\d+\b',year)))))) < 4:
-        imdb_info(imdb_id)
