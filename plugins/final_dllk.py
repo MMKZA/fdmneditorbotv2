@@ -434,10 +434,6 @@ def final_dllk(bot, update):
             if Trnl.sh2.acell('W2').value == 'manual':
                 methods(bot,update)
             elif Trnl.sh2.acell('W2').value == 'auto':
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text='Now Initializing...'
-                )
                 if 'method=PLM' in Trnl.sh2.acell('W3').value:
                     plhh_method(bot, update)
                 elif 'method=TM' in Trnl.sh2.acell('W3').value:
