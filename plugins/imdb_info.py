@@ -5,6 +5,7 @@ import imdb as imdbpy
 import datetime
 import math
 from si_prefix import si_format
+import re
 
 def imdb_data(imdb_id):
     imdb_id = re.findall(r'\b\d+\b', str(imdb_id))[0]
