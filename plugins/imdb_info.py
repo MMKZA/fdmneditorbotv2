@@ -9,13 +9,13 @@ from si_prefix import si_format
 def imdb_data(imdb_id):
     imdb_id = re.findall(r'\b\d+\b', str(imdb_id))[0]
     ia = imdbpy.Cinemagoer()
-    movie = ia.get_movie(imdb_id.replace('tt',''))
+    movie = ia.get_movie(imdb_id)
     return movie
 
 def imdb_info(imdb_id):
     imdb_id = re.findall(r'\b\d+\b', str(imdb_id))[0]
     ia = imdbpy.Cinemagoer()
-    movie = ia.get_movie(imdb_id.replace('tt',''))
+    movie = ia.get_movie(imdb_id)
     title = movie.data['title']
     kind = movie.data['kind']
     if 'series' in kind:
