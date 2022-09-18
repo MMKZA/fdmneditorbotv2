@@ -202,7 +202,6 @@ def func_scpt(script_url):
                 imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
                 Trnl.sh2.update('L3', imdb_wrn)
                 imdb_id = google('{} {} imdb'.format(title,year))[0]
-            imdb_id = Trnl.sh2.update('M7',imdb_id)
         if 'open' in Trnl.sh2.acell('N7').value:
             imdb_id = Trnl.sh2.acell('M7').value
         imdb_url = 'https://www.imdb.com/title/' + str(imdb_id)
@@ -635,7 +634,6 @@ def func_scpt(script_url):
             imdb_id = Trnl.sh2.acell('M7').value
         logger.info(imdb_id)
         imdb_url = 'https://www.imdb.com/title/' + imdb_id
-        imdb_id = Trnl.sh2.update('M7',imdb_id)
         if 'Error' in omdb_req:
             omdb_url = 'https://www.omdbapi.com/?i=' + str(imdb_id) + '&apikey=39ecaf7'
             omdb_req = json.loads(requests.get(omdb_url).content.decode('utf8'))
@@ -821,7 +819,7 @@ def func_scpt(script_url):
                 af_lst.append(bf_line)
     vtext = '\n'.join(af_lst)
     try:
-        Trnl.sh2.update('M7',str(imdb_id))
+        Trnl.sh2.update('M7',imdb_id)
     except:
         pass
     imdb = '⁉️'
