@@ -7,15 +7,13 @@ import math
 from si_prefix import si_format
 import re
 
-def imdb_data(imdb_id):
-    movie_id = str(imdb_id).replace('tt','')
+def imdb_data(movie_id):
     logger.info(movie_id)
     ia = imdbpy.Cinemagoer()
     movie = ia.get_movie(movie_id)
     return movie
 
-def imdb_info(imdb_id):
-    movie_id = str(imdb_id).replace('tt','')
+def imdb_info(movie_id):
     logger.info(movie_id)
     ia = imdbpy.Cinemagoer()
     movie = ia.get_movie(movie_id)
