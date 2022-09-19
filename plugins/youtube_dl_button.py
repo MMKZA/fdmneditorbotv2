@@ -316,8 +316,6 @@ def youtube_dl_call_back(bot, update):
                 )
                 ssimg = images[random.randint(0, 2)]
             except:
-                pass
-            if ssimg is None:
                 clip = VideoFileClip(download_directory)
                 screen_time = random.randint(120,600)
                 clip.save_frame(tmp_directory_for_each_user + "/thbnl1.jpg", t = screen_time)
