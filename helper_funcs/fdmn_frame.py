@@ -44,21 +44,21 @@ def crop_height(enl_h,tf_h):
         return top
 
 def fdmn_frame(vlink,thumb_poster,width,height):
-    if not os.path.exists(tmp_directory + 'fdmn_post_frame.png'):
-        if not os.path.isdir(tmp_directory):
-            os.makedirs(tmp_directory)
+    if not os.path.isdir(tmp_directory):
+        os.makedirs(tmp_directory)
+    if not os.path.exists('fdmn_post_frame.png'):
         base = Trnl.sh2.acell('K2').value
         post_url = Trnl.sh2.acell('S2').value
         post_link = transloader(base, post_url)
         post_response = requests.get(post_link, stream=True)
-        with open(tmp_directory + 'fdmn_post_frame.png', 'wb') as out_file:
+        with open('fdmn_post_frame.png', 'wb') as out_file:
             shutil.copyfileobj(post_response.raw, out_file)
         del post_response
         #
         thumb_url = Trnl.sh2.acell('T2').value
         thumb_link = transloader(base, thumb_url)
         thumb_response = requests.get(thumb_link, stream=True)
-        with open(tmp_directory + 'fdmn_thumb_frame.png', 'wb') as out_file:
+        with open('fdmn_thumb_frame.png', 'wb') as out_file:
             shutil.copyfileobj(thumb_response.raw, out_file)
         del thumb_response
     response = requests.get(vlink, stream=True)
@@ -72,8 +72,8 @@ def fdmn_frame(vlink,thumb_poster,width,height):
     #OPENING POSTER PHOTO
     poster_org = Image.open(tmp_directory + 'mv_poster.png', 'r')
     #OPENING FRAME PHOTOS
-    post_frame = Image.open(tmp_directory + 'fdmn_post_frame.png', 'r')
-    thumb_frame = Image.open(tmp_directory + 'fdmn_thumb_frame.png', 'r')
+    post_frame = Image.open('fdmn_post_frame.png', 'r')
+    thumb_frame = Image.open('fdmn_thumb_frame.png', 'r')
     #GETTING PHOTO SIZES
     po_w, po_h = poster_org.size
     pf_w, pf_h = post_frame.size
