@@ -71,6 +71,10 @@ def fdmn_frame(vlink,thumb_poster,width,height):
     
     #OPENING POSTER PHOTO
     poster_org = Image.open(tmp_directory + 'mv_poster.png', 'r')
+    try:
+        poster_org = poster_org.convert('RGB')
+    except:
+        pass
     #OPENING FRAME PHOTOS
     post_frame = Image.open('fdmn_post_frame.png', 'r')
     thumb_frame = Image.open('fdmn_thumb_frame.png', 'r')
