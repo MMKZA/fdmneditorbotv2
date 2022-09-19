@@ -54,16 +54,31 @@ def file_extract(bot,update):
                 for vd in vd_kw:
                     if filepath.endswith(vd):
                         fl_lst.append(filepath)
-        if len(fl_lst) != 0:
-            for fl in fl_lst:
+        try:
+            if len(fl_lst) != 0:
+                for fl in fl_lst:
+                    bot.send_message(
+                        text='<code>{}</code>'.format(fl),
+                        chat_id=update.message.chat.id,
+                        parse_mode="html",
+                    )
+            if len(fl_lst) == 0:
                 bot.send_message(
-                    text='<code>{}</code>'.format(fl),
-                    chat_id=update.message.chat.id,
-                    parse_mode="html",
+                        text='<code>{}</code>'.format("ဘာဖိုင်မှ မရှိပါ ⚠️"),
+                        chat_id=update.message.chat.id,
+                        parse_mode="html",
                 )
-        if len(fl_lst) == 0:
-            bot.send_message(
-                    text='<code>{}</code>'.format("ဘာဖိုင်မှ မရှိပါ ⚠️"),
-                    chat_id=update.message.chat.id,
-                    parse_mode="html",
+        except:
+            if len(fl_lst) != 0:
+                for fl in fl_lst:
+                    bot.send_message(
+                        text='<code>{}</code>'.format(fl),
+                        chat_id=update.chat.id,
+                        parse_mode="html",
+                    )
+            if len(fl_lst) == 0:
+                bot.send_message(
+                        text='<code>{}</code>'.format("ဘာဖိုင်မှ မရှိပါ ⚠️"),
+                        chat_id=update.chat.id,
+                        parse_mode="html",
                 )
