@@ -69,6 +69,11 @@ async def convert_to_video(bot, update):
         )
         # don't care about the extension
         if the_real_download_location is not None:
+            vd_name = os.path.splitext(the_real_download_location.split('/')[-1])[0]
+            try:
+                vd_name = vd_name.replace('.',' ').replace('_',' ')
+            except:
+                pass
             time.sleep(2)
             await dwnl_mssg.delete()
             up = await bot.send_message(
@@ -115,7 +120,9 @@ async def convert_to_video(bot, update):
                 except:
                     img = Image.open(ssimg)
                     width,height = img.size
-            fdmn_frame(vlink,width,height)
+            thumb_poster = download_location + os.path.splitext(vlink.split('/')[-1])[0] + '.jpeg'
+            if not os.path.exists(thumb_poster):
+                fdmn_frame(vlink,thumb_poster,width,height)
             if 576 < width < 864:
                 vd_qlt = '480p SD'
             elif 864 < width < 1296:
@@ -153,12 +160,12 @@ async def convert_to_video(bot, update):
                 chnl_id = update.message.chat.id
             else:
                 chnl_id = int(Trnl.sh2.acell('J2').value)
-            vd_name = the_real_download_location.split('/')[-1].replace('.mp4','') + ' | {} @fdmnchannel'.format(vd_qlt)
             typ = Trnl.sh2.acell('P3').value
             if typ == 'Movie':
                 vcap = Trnl.sh2.acell('D2').value
                 vd_name = '{} | {} @fdmnchannel'.format(vcap, vd_qlt)
-            ssimg = 'thumb_poster.jpg'
+            else:
+                vd_name = '{} | {} @fdmnchannel'.format(vd_name, vd_qlt)
             vdf_msg = await bot.send_video(
                 chat_id=chnl_id,
                 video=the_real_download_location,
@@ -168,7 +175,7 @@ async def convert_to_video(bot, update):
                 height=height,
                 supports_streaming=True,
                 # reply_markup=reply_markup,
-                thumb=ssimg,
+                thumb=thumb_poster,
                 reply_to_message_id=update.reply_to_message.message_id,
                 progress=progress_for_pyrogram,
                 progress_args=(
