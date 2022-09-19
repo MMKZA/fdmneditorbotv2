@@ -63,7 +63,7 @@ async def extract_upload(bot, update):
             try:
                 vd_name = vd_name.replace('.',' ').replace('_',' ')
             except:
-                vd_name = vd_name
+                pass
             try:
                 file_size = os.path.getsize(download_directory)
             except FileNotFoundError as exc:
@@ -104,7 +104,9 @@ async def extract_upload(bot, update):
                 except:
                     img = Image.open(ssimg)
                     width,height = img.size
-            fdmn_frame(vlink,width,height)
+            thumb_poster = tmp_directory_for_each_user + '/' + os.path.splitext(vlink.split('/')[-1])[0] + '.jpeg'
+            if not os.path.exists(thumb_poster):
+                fdmn_frame(vlink,thumb_poster,width,height)
             if 576 < width < 864:
                 vd_qlt = '480p SD'
             elif 864 < width < 1296:
@@ -153,10 +155,13 @@ async def extract_upload(bot, update):
                         if metadata is not None:
                             if metadata.has("duration"):
                                 duration = metadata.get('duration').seconds
-                    vd_name =  "<code>{} | Part {}</code> @fdmnchannel".format(vd_name,i_th)
+                    if typ == 'Movie':
+                        vcap = Trnl.sh2.acell('D2').value
+                        vd_name = '{} | {} | Part {} @fdmnchannel'.format(vcap, vd_qlt, i_th)
+                    else:
+                        vd_name =  "<code>{} | Part {}</code> @fdmnchannel".format(vd_name,i_th)
                     start_time = time.time()
                     start_one = datetime.now()
-                    ssimg = 'thumb_poster.jpg'
                     vdf_msg = await bot.send_video(
                         # chat_id=update.message.chat.id,
                         chat_id=chnl_id,
@@ -168,7 +173,7 @@ async def extract_upload(bot, update):
                         height=height,
                         supports_streaming=True,
                         # reply_markup=reply_markup,
-                        thumb=ssimg,
+                        thumb=thumb_poster,
                         # reply_to_message_id=update.message.reply_to_message.message_id,
                         progress=progress_for_pyrogram,
                         progress_args=(
@@ -227,8 +232,11 @@ async def extract_upload(bot, update):
                 start_one = datetime.now()
                 # try to upload file                                              
                 if tg_send_type == "video":
-                    vd_name = '<code>{}</code> @fdmnchannel'.format(vd_name)
-                    ssimg = 'thumb_poster.jpg'
+                    if typ == 'Movie':
+                        vcap = Trnl.sh2.acell('D2').value
+                        vd_name = '{} | {} @fdmnchannel'.format(vcap, vd_qlt)
+                    else:
+                        vd_name = '<code>{}</code> @fdmnchannel'.format(vd_name)
                     vdf_msg = await bot.send_video(
                         # chat_id=update.message.chat.id,
                         chat_id=chnl_id,
@@ -240,7 +248,7 @@ async def extract_upload(bot, update):
                         height=height,
                         supports_streaming=True,
                         # reply_markup=reply_markup,
-                        thumb=ssimg,
+                        thumb=thumb_poster,
                         # reply_to_message_id=update.message.reply_to_message.message_id,
                         progress=progress_for_pyrogram,
                         progress_args=(
