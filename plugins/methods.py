@@ -72,12 +72,19 @@ def plhh_method(bot, update):
         req = requests.get(gdrv_lk)
         soup = BeautifulSoup(req.content, 'lxml')
         for s in soup.select('head > title'):
-            fl_fll_nm = s.text.split(' - ')[0]
+            gdrv_fl_fll_nm = s.text.split(' - ')[0]
+        ytsn_fl_fll_nm = Trnl.sh2.acell('D6').value
         vd_kw = ['.mkv','.m4a','.mov','.avi']
-        vd_ext = os.path.splitext(fl_fll_nm)[1]
-        if vd_ext in vd_kw:
-            fl_fll_nm = fl_fll_nm.replace(vd_ext,'.mp4')
-        Trnl.sh2.update('D6',fl_fll_nm)
+        if gdrv_fl_fll_nm not in ytsn_fl_fll_nm:
+            vd_ext = os.path.splitext(fl_fll_nm)[1]
+            if vd_ext in vd_kw or vd_ext == '':
+                fl_fll_nm = fl_fll_nm.replace(vd_ext,'.mp4')
+                Trnl.sh2.update('D6',fl_fll_nm)
+        else:
+            vd_ext = os.path.splitext(ytsn_fl_fll_nm)[1]
+            if vd_ext in vd_kw or vd_ext == '':
+                fl_fll_nm = ytsn_fl_fll_nm.replace(vd_ext,'.mp4')
+                Trnl.sh2.update('D6',fl_fll_nm)
         del req
         final_link = plhh_gdrive(gdrv_lk)
         Trnl.sh2.update('L2', final_link)
@@ -96,12 +103,19 @@ def direct_method(bot, update):
         req = requests.get(gdrv_lk)
         soup = BeautifulSoup(req.content, 'lxml')
         for s in soup.select('head > title'):
-            fl_fll_nm = s.text.split(' - ')[0]
+            gdrv_fl_fll_nm = s.text.split(' - ')[0]
+        ytsn_fl_fll_nm = Trnl.sh2.acell('D6').value
         vd_kw = ['.mkv','.m4a','.mov','.avi']
-        vd_ext = os.path.splitext(fl_fll_nm)[1]
-        if vd_ext in vd_kw:
-            fl_fll_nm = fl_fll_nm.replace(vd_ext,'.mp4')
-        Trnl.sh2.update('D6',fl_fll_nm)
+        if gdrv_fl_fll_nm not in ytsn_fl_fll_nm:
+            vd_ext = os.path.splitext(fl_fll_nm)[1]
+            if vd_ext in vd_kw or vd_ext == '':
+                fl_fll_nm = fl_fll_nm.replace(vd_ext,'.mp4')
+                Trnl.sh2.update('D6',fl_fll_nm)
+        else:
+            vd_ext = os.path.splitext(ytsn_fl_fll_nm)[1]
+            if vd_ext in vd_kw or vd_ext == '':
+                fl_fll_nm = ytsn_fl_fll_nm.replace(vd_ext,'.mp4')
+                Trnl.sh2.update('D6',fl_fll_nm)
         del req
         final_link = gdrv_lk
         Trnl.sh2.update('L2', final_link)
