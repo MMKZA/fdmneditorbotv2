@@ -210,7 +210,9 @@ async def echo_auto(bot, update, url):
                 disable_web_page_preview=True
             )
             return False
-        if t_response:
+        response = 1
+        #if t_response:
+        if response == 1:
             # logger.info(t_response)
             x_reponse = t_response
             if "\n" in x_reponse:
