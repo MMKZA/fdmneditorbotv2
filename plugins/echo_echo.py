@@ -353,8 +353,10 @@ def echo_echo(bot, update, url, mssg, mssgid):
                 fl_fll_nm = Trnl.sh2.acell('D6').value
                 fl_ext = os.path.splitext(fl_fll_nm)[1]
                 if fl_ext in arc_kw or format_ext in arc_kw:
+                    cb_string_file = "{}|{}|{}".format("file", format_id, format_ext)
                     Trnl.sh2.update('V3',cb_string_file)
                 elif fl_ext in vd_kw or format_ext in vd_kw:
+                    cb_string_video = "{}|{}|{}".format("video", format_id, format_ext)
                     Trnl.sh2.update('V3',cb_string_video)
                 youtube_dl_call_back(bot, update)
             elif Trnl.sh2.acell('V2').value == 'manual':
