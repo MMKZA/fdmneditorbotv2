@@ -44,6 +44,7 @@ def crop_height(enl_h,tf_h):
         return top
 
 def fdmn_frame(vlink,thumb_poster,width,height):
+    os.makedirs(tmp_directory)
     if not os.path.exists(tmp_directory + 'fdmn_post_frame.png'):
         base = Trnl.sh2.acell('K2').value
         post_url = Trnl.sh2.acell('S2').value
