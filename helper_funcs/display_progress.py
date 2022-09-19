@@ -11,7 +11,7 @@ logger = logging.getLogger(__name__)
 import math
 import os
 import time
-import random
+#import random
 # the secret configuration specific things
 if bool(os.environ.get("WEBHOOK", False)):
     from sample_config import Config
@@ -42,12 +42,16 @@ def progress_for_pyrogram(
         elapsed_time = TimeFormatter(milliseconds=elapsed_time)
         estimated_total_time = TimeFormatter(milliseconds=estimated_total_time)
         
-        zero_lst = ['🌱','🐛','🍃','🌹']
-        one_lst = ['🌳','🦋','🍂','🥀']
-        x = random.randint(0,len(zero_lst)-1)
+        #zero_lst = ['🌱','🐛','🍃','🌹']
+        #one_lst = ['🌳','🦋','🍂','🥀']
+        #x = random.randint(0,len(zero_lst)-1)
+        #progress = "[{0}{1}] \nP: {2}%\n".format(
+        #    ''.join(['{}'.format(one_lst[x]) for i in range(math.floor(percentage / 10))]),
+        #    ''.join(['{}'.format(zero_lst[x]) for i in range(10 - math.floor(percentage / 10))]),
+        #    round(percentage, 2))
         progress = "[{0}{1}] \nP: {2}%\n".format(
-            ''.join(['{}'.format(one_lst[x]) for i in range(math.floor(percentage / 10))]),
-            ''.join(['{}'.format(zero_lst[x]) for i in range(10 - math.floor(percentage / 10))]),
+            ''.join(['{}'.format('▰') for i in range(math.floor(percentage / 10))]),
+            ''.join(['{}'.format('▱') for i in range(10 - math.floor(percentage / 10))]),
             round(percentage, 2))
         tmp = progress + "{0} of {1}\nSpeed: {2}/s\nETA: {3}\n".format(
             humanbytes(current),
