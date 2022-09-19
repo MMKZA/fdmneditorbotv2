@@ -195,7 +195,7 @@ def youtube_dl_call_back(bot, update):
     start = datetime.now()
     #process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,universal_newlines=False)
     process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,encoding="utf-8",universal_newlines=False)
-    while process.poll() is None:
+    while process.poll() is None or not os.path.exists(download_directory):
         #for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict'):
             #nline = line.rstrip()
         nline = process.stdout.readline().rstrip()
@@ -248,7 +248,7 @@ def youtube_dl_call_back(bot, update):
                     b = a.edit_text(Translation.DOWNLOAD_START + '\n<code>{}</code>\n{}\n{}'.format(vcap,progress,text))
                     time.sleep(0.05)
                 except:
-                    continue
+                    b = a.edit_text('Still Running...')
     #process = asyncio.create_subprocess_exec(
         #*command_to_exec,
         # stdout must a pipe to be accessible as process.stdout
@@ -270,7 +270,7 @@ def youtube_dl_call_back(bot, update):
             #text=error_message
         #)
         #return False
-    if not os.path.exists(download_directory):
+    if os.path.exists(download_directory):
     #if download_directory is not None:
         # logger.info(t_response)
         os.remove(save_ytdl_json_path)
