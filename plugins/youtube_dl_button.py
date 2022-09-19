@@ -270,7 +270,8 @@ def youtube_dl_call_back(bot, update):
             #text=error_message
         #)
         #return False
-    if download_directory is not None:
+    if not os.path.exists(download_directory):
+    #if download_directory is not None:
         # logger.info(t_response)
         os.remove(save_ytdl_json_path)
         end = datetime.now()
