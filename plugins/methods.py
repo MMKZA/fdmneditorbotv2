@@ -77,12 +77,12 @@ def plhh_method(bot, update):
         vd_kw = ['.mkv','.m4a','.mov','.avi']
         if gdrv_fl_fll_nm not in ytsn_fl_fll_nm:
             vd_ext = os.path.splitext(gdrv_fl_fll_nm)[1]
-            if vd_ext in vd_kw or vd_ext == '':
+            if vd_ext in vd_kw or vd_ext != '':
                 fl_fll_nm = gdrv_fl_fll_nm.replace(vd_ext,'.mp4')
                 Trnl.sh2.update('D6',fl_fll_nm)
         else:
             vd_ext = os.path.splitext(ytsn_fl_fll_nm)[1]
-            if vd_ext in vd_kw or vd_ext == '':
+            if vd_ext in vd_kw or vd_ext != '':
                 fl_fll_nm = ytsn_fl_fll_nm.replace(vd_ext,'.mp4')
                 Trnl.sh2.update('D6',fl_fll_nm)
         del req
@@ -108,12 +108,12 @@ def direct_method(bot, update):
         vd_kw = ['.mkv','.m4a','.mov','.avi']
         if gdrv_fl_fll_nm not in ytsn_fl_fll_nm:
             vd_ext = os.path.splitext(gdrv_fl_fll_nm)[1]
-            if vd_ext in vd_kw or vd_ext == '':
+            if vd_ext in vd_kw or vd_ext != '':
                 fl_fll_nm = gdrv_fl_fll_nm.replace(vd_ext,'.mp4')
                 Trnl.sh2.update('D6',fl_fll_nm)
         else:
             vd_ext = os.path.splitext(ytsn_fl_fll_nm)[1]
-            if vd_ext in vd_kw or vd_ext == '':
+            if vd_ext in vd_kw or vd_ext != '':
                 fl_fll_nm = ytsn_fl_fll_nm.replace(vd_ext,'.mp4')
                 Trnl.sh2.update('D6',fl_fll_nm)
         del req
