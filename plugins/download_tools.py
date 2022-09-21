@@ -389,7 +389,7 @@ def upld_tool(bot, update):
 def cnmm_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         mv_kw = update.reply_to_message.text
-        cnmm_lst = channelmyanmar('{} channelmyanmar'.format(mv_kw))
+        cnmm_lst = channelmyanmar(mv_kw)
         bot.send_message(
             chat_id=update.chat.id,
             text="တွေ့ရှိသည်များ 👇"
@@ -399,3 +399,7 @@ def cnmm_tool(bot, update):
                 chat_id=update.chat.id,
                 text=c
             )
+        bot.send_message(
+            chat_id=update.chat.id,
+            text="အဖြစ်နိုင်ဆုံး 👇\n" + cnmm_lst[0]
+        )
