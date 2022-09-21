@@ -35,3 +35,19 @@ def google(q):
     avlb_lst = list(dict.fromkeys(all_lst))
     imdb_id = avlb_lst[0].split('/')[-2]
     return [imdb_id,avlb_lst]
+
+def channelmyanmar(q):
+    s = requests.Session()
+    q = '+'.join(q.split())
+    url = 'https://www.google.com/search?q=' + urllib.parse.quote_plus(q) + '&sxsrf=ALiCzsbMQ9AgzAF9xpEvHzwZ-tA7dMO0WA%3A1661876002140&ei=IjcOY_CWCN2Q4-EPx_2rwAg&ved=0ahUKEwjwr5LG-u75AhVdyDgGHcf-CogQ4dUDCA4&uact=5&oq=Dr.+No+%281962%29+imdb&gs_lcp=Cgdnd3Mtd2l6EAMyBggAEB4QFjoFCAAQhgNKBAhBGABKBAhGGABQwQNY0QhgxAtoAHABeACAAcYDiAGTCJIBBzAuNC40LTGYAQCgAQHAAQE&sclient=gws-wiz'
+    r = s.get(url, headers=headers_Get)
+    tree = html.fromstring(r.content)
+    soup = BeautifulSoup(r.text, "html.parser")
+    href = []
+    for h in soup.find_all('a', href=True):
+        if 'https://channelmyanmar.org/' in h['href']:
+            href.append(h['href'])
+    cnmm_lst = []
+    for h in href:
+        cnmm_lst.append(re.search("(?P<url>https?://[^\s]+)", h).group("url").split('&ved=')[0])
+    return cnmm_lst
