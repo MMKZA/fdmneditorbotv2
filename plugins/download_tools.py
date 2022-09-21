@@ -23,7 +23,7 @@ from plugins.series import series
 from plugins.echo_auto import echo_auto
 from plugins.methods import methods,plhh_method,transload_method,direct_method
 from helper_funcs.fdmn_frame import fdmn_frame
-from helper_funcs.imdb_search import google
+from helper_funcs.imdb_search import google, channelmyanmar
 import requests, zipfile, io
 import subprocess
 import json
