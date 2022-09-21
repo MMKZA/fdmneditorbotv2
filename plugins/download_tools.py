@@ -384,3 +384,18 @@ def upld_tool(bot, update):
                 transload_method(bot, update)
             elif 'method=DM' in Trnl.sh2.acell('W3').value:
                 direct_method(bot, update)
+                
+@pyrogram.Client.on_message(pyrogram.filters.command(["cnmm"]))
+def cnmm_tool(bot, update):
+    if update.from_user.id in Config.AUTH_USERS:
+        mv_kw = update.reply_to_message.text
+        cnmm_lst = channelmyanmar('{} channelmyanmar'.format(mv_kw))
+        bot.send_message(
+            chat_id=update.chat.id,
+            text="တွေ့ရှိသည်များ 👇"
+        )
+        for c in cnmm_lst:
+            bot.send_message(
+                chat_id=update.chat.id,
+                text=c
+            )
