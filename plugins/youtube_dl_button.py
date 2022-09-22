@@ -295,8 +295,11 @@ def youtube_dl_call_back(bot, update):
             c = b.edit_text(
                 text="Now Initializing..."
             )
-            rntm = get_duration(download_directory)
-            Trnl.sh2.update('M4',rntm)
+            try:
+                rntm = get_duration(download_directory)
+                Trnl.sh2.update('M4',rntm)
+            except:
+                pass
             ssimg = None
             width = 0
             height = 0
