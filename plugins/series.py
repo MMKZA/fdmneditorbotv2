@@ -9,6 +9,7 @@ logger = logging.getLogger(__name__)
 logging.getLogger("requests").setLevel(logging.WARNING)
 logging.getLogger("urllib3").setLevel(logging.WARNING)
 logging.getLogger('chardet.universaldetector').setLevel(logging.INFO)
+logging.getLogger('chardet.charsetprober').setLevel(logging.INFO)
 
 def series(web_url):
     web_req = requests.get(web_url)
