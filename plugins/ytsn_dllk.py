@@ -5,12 +5,11 @@ from bs4 import BeautifulSoup
 import re
 from trnl import Trnl
 
-#import logging
-#logging.basicConfig(level=logging.DEBUG,
-#                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-#logger = logging.getLogger(__name__)
-#logging.getLogger("pyrogram").setLevel(logging.WARNING)
-#logging.getLogger('chardet.universaldetector').setLevel(logging.INFO)
+import logging
+logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+logging.getLogger("requests").setLevel(logging.WARNING)
+logging.getLogger('chardet.universaldetector').setLevel(logging.INFO)
 
 def ytsn_lgn(eml, pswd, csrf):
     url_login = 'https://yoteshinportal.cc/login'
