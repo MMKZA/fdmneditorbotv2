@@ -5,12 +5,12 @@ from bs4 import BeautifulSoup
 import re
 from trnl import Trnl
 
-import logging
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
-logging.getLogger("pyrogram").setLevel(logging.WARNING)
-logging.getLogger('chardet.universaldetector').setLevel(logging.INFO)
+#import logging
+#logging.basicConfig(level=logging.DEBUG,
+#                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#logger = logging.getLogger(__name__)
+#logging.getLogger("pyrogram").setLevel(logging.WARNING)
+#logging.getLogger('chardet.universaldetector').setLevel(logging.INFO)
 
 def ytsn_lgn(eml, pswd, csrf):
     url_login = 'https://yoteshinportal.cc/login'
@@ -49,7 +49,7 @@ def ytsn_lgn(eml, pswd, csrf):
         'remember': 'true'
         }
     res = r.post(url_login,headers=headers,data=payload,cookies=cookies,allow_redirects=False)
-    logger.info(res)
+    #logger.info(res)
     return [r,cookies]
 
 def ytsn_dllk(ytsn_lk):
@@ -87,7 +87,7 @@ def ytsn_dllk(ytsn_lk):
         'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/103.0.5060.114 Safari/537.36 Edg/103.0.1264.62'
         }
     get = session.get(get_ytsn_lk,headers=headers,cookies=cookies,allow_redirects=False)
-    logger.info(get)
+    #logger.info(get)
     soup = BeautifulSoup(get.content,'lxml')
     for x in soup.select('body > section:nth-child(3) > div.row.justify-content-center > div.col-sm-8.col-md-8.col-lg-6 > div > div.card-body.p-4 > h4'):
         fl_fll_nm = x.text
@@ -97,7 +97,7 @@ def ytsn_dllk(ytsn_lk):
         if re.match('app.saveToGoogleDrive',x['onclick']):
             id_flt = x['onclick']
             vd_id = id_flt.split("'")[1]
-    logger.info(vd_id)
+    #logger.info(vd_id)
     headers1 = {
         'accept': '*/*',
         'accept-encoding': 'utf-8',
@@ -119,11 +119,11 @@ def ytsn_dllk(ytsn_lk):
     req = session.post(sv_url,headers=headers1,json=payload1)
     info = req.content
     status = json.loads(info)['status']
-    logger.info(status)
+    #logger.info(status)
     if "success" in status:
         fileid = json.loads(info)['fileId']
         gdrv_lk = "https://drive.google.com/file/d/" + fileid + "/view?usp=sharing"
-        logger.info(gdrv_lk)
+        #logger.info(gdrv_lk)
         return gdrv_lk
     if "error" in status:
         return status
