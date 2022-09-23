@@ -3,10 +3,13 @@ from bs4 import BeautifulSoup
 import re
 from trnl import Trnl
 from lxml import html
+
 import logging
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+logging.getLogger("requests").setLevel(logging.WARNING)
+logging.getLogger("urllib3").setLevel(logging.WARNING)
+logging.getLogger('chardet.universaldetector').setLevel(logging.INFO)
 
 def shweflix(web_url):
     web_req = requests.get(web_url)
