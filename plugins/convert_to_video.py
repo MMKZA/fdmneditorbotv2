@@ -81,7 +81,7 @@ async def convert_to_video(bot, update):
                 text=Translation.UPLOAD_START
             )
             
-            logger.info(the_real_download_location)
+            #logger.info(the_real_download_location)
             rntm = get_duration(the_real_download_location)
             Trnl.sh2.update('M4',rntm)
             ssimg = None
