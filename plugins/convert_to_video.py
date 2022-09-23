@@ -82,8 +82,28 @@ async def convert_to_video(bot, update):
             )
             
             #logger.info(the_real_download_location)
-            rntm = get_duration(the_real_download_location)
-            Trnl.sh2.update('M4',rntm)
+            try:
+                rntm = get_duration(the_real_download_location)
+                Trnl.sh2.update('M4',rntm)
+            except:
+                repaired_directory = os.path.splitext(the_real_download_location)[0] + '_repaired' + os.path.splitext(the_real_download_location)[1]
+                cmd = [
+                    'ffmpeg',
+                    '-i',
+                    the_real_download_location,
+                    '-vcodec',
+                    'copy',
+                    '-acodec',
+                    'copy',
+                    '-movflags',
+                    'faststart',
+                    repaired_directory
+                ]
+                process = subprocess.Popen(cmd)
+                process.communicate()
+                the_real_download_location = repaired_directory
+                rntm = get_duration(the_real_download_location)
+                Trnl.sh2.update('M4',rntm)
             ssimg = None
             width = 0
             height = 0
