@@ -134,7 +134,7 @@ async def extract_upload(bot, update):
                 totlaa_sleif = os.listdir(splitted_dir)
                 totlaa_sleif.sort()
                 number_of_files = len(totlaa_sleif)
-                logger.info(totlaa_sleif)
+                #logger.info(totlaa_sleif)
                 ba_se_file_name = os.path.basename(download_directory)
                 await i_m_s_g.edit_text(
                     f"𝘿𝙚𝙩𝙚𝙘𝙩𝙚𝙙 𝙁𝙞𝙡𝙚 𝙎𝙞𝙯𝙚: {d_f_s} \n"
