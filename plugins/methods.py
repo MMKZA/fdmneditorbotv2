@@ -11,13 +11,13 @@ if bool(os.environ.get("WEBHOOK", False)):
     from sample_config import Config
 else:
     from config import Config
-import logging
 import requests
 from bs4 import BeautifulSoup
 
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+#import logging
+#logging.basicConfig(level=logging.DEBUG,
+#                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#logger = logging.getLogger(__name__)
 
 def methods(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -38,10 +38,10 @@ def transload_method(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         gdrv_id = Trnl.sh2.acell('L4').value
         gdrv_lk = 'https://drive.google.com/file/d/{}/view?usp=sharing'.format(gdrv_id)
-        logger.info(gdrv_lk)
+        #logger.info(gdrv_lk)
         base = Trnl.sh2.acell('K2').value
         final_link = transloader(base, gdrv_lk)
-        logger.info(final_link)
+        #logger.info(final_link)
         Trnl.sh2.update('L2', final_link)
         arc_kw = ['.zip','.rar','.7z']
         vd_kw = ['.mp4','.mkv','.mov','.m4v']
