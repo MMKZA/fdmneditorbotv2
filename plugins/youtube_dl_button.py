@@ -1,11 +1,11 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 # (c) Shrimadhav U K
-import logging
 
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+#import logging
+#logging.basicConfig(level=logging.DEBUG,
+#                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#logger = logging.getLogger(__name__)
 
 import asyncio
 import json
@@ -117,8 +117,8 @@ def youtube_dl_call_back(bot, update):
             youtube_dl_username = youtube_dl_username.strip()
         if youtube_dl_password is not None:
             youtube_dl_password = youtube_dl_password.strip()
-        logger.info(youtube_dl_url)
-        logger.info(custom_file_name)
+        #logger.info(youtube_dl_url)
+        #logger.info(custom_file_name)
     user = bot.get_me()
     mention = user["mention"]
     description = Translation.CUSTOM_CAPTION_UL_FILE.format(mention)
@@ -187,7 +187,7 @@ def youtube_dl_call_back(bot, update):
         command_to_exec.append(youtube_dl_password)
     command_to_exec.append("--no-warnings")
     # command_to_exec.append("--quiet")
-    logger.info(command_to_exec)
+    #logger.info(command_to_exec)
     start = datetime.now()
     #process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,universal_newlines=False)
     process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,encoding="utf-8",universal_newlines=False)
@@ -255,8 +255,8 @@ def youtube_dl_call_back(bot, update):
     #stdout, stderr = process.communicate()
     #e_response = stderr.decode().strip()
     #t_response = process.stdout.decode().strip()
-    #logger.info(e_response)
-    #logger.info(t_response)
+    ##logger.info(e_response)
+    ##logger.info(t_response)
     #ad_string_to_replace = "please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
     #if e_response and ad_string_to_replace in e_response:
         #error_message = e_response.replace(ad_string_to_replace, "")
@@ -268,7 +268,7 @@ def youtube_dl_call_back(bot, update):
         #return False
     if os.path.exists(download_directory):
     #if download_directory is not None:
-        # logger.info(t_response)
+        # #logger.info(t_response)
         os.remove(save_ytdl_json_path)
         end = datetime.now()
         time_taken_for_download = (end - start).seconds
@@ -356,7 +356,7 @@ def youtube_dl_call_back(bot, update):
                 totlaa_sleif = os.listdir(splitted_dir)
                 totlaa_sleif.sort()
                 number_of_files = len(totlaa_sleif)
-                logger.info(totlaa_sleif)
+                #logger.info(totlaa_sleif)
                 ba_se_file_name = os.path.basename(download_directory)
                 i_m_s_g.edit_text(
                     f"𝘿𝙚𝙩𝙚𝙘𝙩𝙚𝙙 𝙁𝙞𝙡𝙚 𝙎𝙞𝙯𝙚: {d_f_s} \n"
@@ -538,7 +538,7 @@ def youtube_dl_call_back(bot, update):
                     # message_ids=vd_msg.message_id
                     # )
                 else:
-                    logger.info("Did this happen? :\\")
+                    #logger.info("Did this happen? :\\")
                 end_one = datetime.now()
                 time_taken_for_upload = (end_one - start_one).seconds
                 try:
