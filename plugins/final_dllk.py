@@ -30,10 +30,14 @@ logger = logging.getLogger(__name__)
 def final_dllk(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         base = Trnl.sh2.acell('K2').value
+        if update.reply_to_message is not None:
+            web_url_text = update.reply_to_message.text
+        elif update.reply_to_message is None:
+            web_url_text = update.text
         try:
-            web_url = re.search("(?P<url>https?://[^\s]+)", update.text).group("url")
+            web_url = re.search("(?P<url>https?://[^\s]+)", web_url_text).group("url")
         except:
-            web_url = update.text
+            web_url = web_url_text
 
         srs_kw_lst = ['tvshows']
         act_srs_kw = ''
