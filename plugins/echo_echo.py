@@ -2,11 +2,6 @@
 # -*- coding: utf-8 -*-
 # (c) Shrimadhav U K | X-Noid
 
-# the logging things
-import logging
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
 import lk21, urllib.parse, filetype, shutil, time, tldextract, asyncio, json, math, os, requests
 from PIL import Image
 # the secret configuration specific things
@@ -22,7 +17,6 @@ import io
 import locale
 
 import pyrogram
-logging.getLogger("pyrogram").setLevel(logging.WARNING)
 from helper_funcs.display_progress import humanbytes
 from helper_funcs.help_uploadbot import DownLoadFile
 from helper_funcs.display_progress import progress_for_pyrogram
@@ -34,16 +28,23 @@ import asyncio
 import subprocess
 from plugins.youtube_dl_button import youtube_dl_call_back
 
+# the logging things
+#import logging
+#logging.basicConfig(level=logging.DEBUG,
+#                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#logger = logging.getLogger(__name__)
+#logging.getLogger("pyrogram").setLevel(logging.WARNING)
+
 def echo_echo(bot, update, url, mssg, mssgid):
     if update.from_user.id in Config.AUTH_USERS:
-        logger.info(update.from_user)
+        #logger.info(update.from_user)
         #url = Trnl.sh2.acell('L2').value
         vd_kw = ['.m4v','.mkv','.mov']
         vd_ext = os.path.splitext(url.split('/')[-1])[1]
         if vd_ext in vd_kw:
             base = Trnl.sh2.acell('K2').value
             rtrn = mp4(url, base)
-            logger.info(rtrn)
+            #logger.info(rtrn)
             url = rtrn
             Trnl.sh2.update('L2', url)
         youtube_dl_username = None
@@ -159,8 +160,8 @@ def echo_echo(bot, update, url, mssg, mssgid):
                 youtube_dl_username = youtube_dl_username.strip()
             if youtube_dl_password is not None:
                 youtube_dl_password = youtube_dl_password.strip()
-            logger.info(url)
-            logger.info(file_name)
+            #logger.info(url)
+            #logger.info(file_name)
         if Config.HTTP_PROXY != "":
             command_to_exec = [
                 "yt-dlp",
@@ -184,7 +185,7 @@ def echo_echo(bot, update, url, mssg, mssgid):
         if youtube_dl_password is not None:
             command_to_exec.append("--password")
             command_to_exec.append(youtube_dl_password)
-        # logger.info(command_to_exec)
+        # #logger.info(command_to_exec)
         #process = asyncio.create_subprocess_exec(
             #*command_to_exec,
             # stdout must a pipe to be accessible as process.stdout
@@ -196,7 +197,7 @@ def echo_echo(bot, update, url, mssg, mssgid):
         #stdout, stderr = process.communicate()
         e_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stderr,encoding=locale.getpreferredencoding(False),errors='strict')])
         t_response = '\n'.join([str(line) for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict')])
-        logger.info(t_response)
+        #logger.info(t_response)
         # https://github.com/rg3/youtube-dl/issues/2630#issuecomment-38635239
         if e_response and "nonnumeric port" not in e_response:
             # logger.warn("Status : FAIL", exc.returncode, exc.output)
@@ -212,7 +213,7 @@ def echo_echo(bot, update, url, mssg, mssgid):
             )
             return False
         if t_response:
-            # logger.info(t_response)
+            # #logger.info(t_response)
             x_reponse = t_response
             if "\n" in x_reponse:
                 x_reponse, _ = x_reponse.split("\n")
@@ -221,7 +222,7 @@ def echo_echo(bot, update, url, mssg, mssgid):
                 "/" + str(update.from_user.id) + ".json"
             with open(save_ytdl_json_path, "w", encoding="utf8") as outfile:
                 json.dump(response_json, outfile, ensure_ascii=False)
-            # logger.info(response_json)
+            # #logger.info(response_json)
             inline_keyboard = []
             duration = None
             if "duration" in response_json:
@@ -324,7 +325,7 @@ def echo_echo(bot, update, url, mssg, mssgid):
                     )
                 ])
             reply_markup = InlineKeyboardMarkup(inline_keyboard)
-            # logger.info(reply_markup)
+            # #logger.info(reply_markup)
             thumbnail = Config.DEF_THUMB_NAIL_VID_S
             thumbnail_image = Config.DEF_THUMB_NAIL_VID_S
             if "thumbnail" in response_json:
