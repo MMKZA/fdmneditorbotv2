@@ -71,8 +71,28 @@ async def extract_upload(bot, update):
                 # https://stackoverflow.com/a/678242/4723940
                 file_size = os.path.getsize(download_directory)
 
-            rntm = get_duration(download_directory)
-            Trnl.sh2.update('M4',rntm)
+            try:
+                rntm = get_duration(download_directory)
+                Trnl.sh2.update('M4',rntm)
+            except:
+                repaired_directory = os.path.splitext(download_directory)[0] + '_repaired' + os.path.splitext(download_directory)[1]
+                cmd = [
+                    'ffmpeg',
+                    '-i',
+                    download_directory,
+                    '-vcodec',
+                    'copy',
+                    '-acodec',
+                    'copy',
+                    '-movflags',
+                    'faststart',
+                    repaired_directory
+                ]
+                process = subprocess.Popen(cmd)
+                process.communicate()
+                download_directory = repaired_directory
+                rntm = get_duration(download_directory)
+                Trnl.sh2.update('M4',rntm)
             ssimg = None
             width = 0
             height = 0
