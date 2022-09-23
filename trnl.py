@@ -17,6 +17,7 @@ logging.getLogger("requests").setLevel(logging.WARNING)
 logging.getLogger("urllib3").setLevel(logging.WARNING)
 logging.getLogger('chardet.universaldetector').setLevel(logging.INFO)
 logging.getLogger("requests_cache").setLevel(logging.WARNING)
+logging.getLogger("google.auth.transport.requests").setLevel(logging.WARNING)
 
 class cd:
     """Context manager for changing the current working directory"""
