@@ -13,13 +13,13 @@ logging.basicConfig(level=logging.DEBUG,
 logger = logging.getLogger(__name__)
 
 def imdb_data(movie_id):
-    logger.info(movie_id)
+    #logger.info(movie_id)
     ia = imdbpy.Cinemagoer()
     movie = ia.get_movie(movie_id)
     return movie
 
 def imdb_info(movie_id):
-    logger.info(movie_id)
+    #logger.info(movie_id)
     ia = imdbpy.Cinemagoer()
     movie = ia.get_movie(movie_id)
     title = movie.data['title']
