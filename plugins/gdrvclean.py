@@ -10,6 +10,15 @@ if bool(os.environ.get("WEBHOOK", False)):
 else:
     from config import Config
     
+import logging
+logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+logging.getLogger("requests").setLevel(logging.WARNING)
+logging.getLogger("urllib3").setLevel(logging.WARNING)
+logging.getLogger('chardet.universaldetector').setLevel(logging.INFO)
+logging.getLogger("requests_cache").setLevel(logging.WARNING)
+logging.getLogger("google").setLevel(logging.WARNING)
+
 def gdrvauth():
     if "tharphyo" in Trnl.sh2.acell('N2').value:
         json_path = Config.DOWNLOAD_LOCATION + "/myjsons/drvtokens/tphatoken.json"
