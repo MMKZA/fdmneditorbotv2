@@ -3,6 +3,13 @@ from bs4 import BeautifulSoup
 import re
 from trnl import Trnl
 
+import logging
+logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+logging.getLogger("requests").setLevel(logging.WARNING)
+logging.getLogger("urllib3").setLevel(logging.WARNING)
+logging.getLogger('chardet.universaldetector').setLevel(logging.INFO)
+
 def gldchnl(gld_url):
     web_req = requests.get(gld_url)
     web_req.encoding = web_req.apparent_encoding
