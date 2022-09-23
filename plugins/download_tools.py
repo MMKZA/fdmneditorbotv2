@@ -373,7 +373,7 @@ def upld_tool(bot, update):
         else:
             gdrv_lk = lk
         gdrv_id = gdrv_lk.split('/')[5]
-        logger.info(gdrv_id)
+        #logger.info(gdrv_id)
         Trnl.sh2.update('L4',gdrv_id)
         if Trnl.sh2.acell('W2').value == 'manual':
             methods(bot,update)
