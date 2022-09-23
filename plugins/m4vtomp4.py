@@ -4,10 +4,8 @@ import urllib
 
 def mp4(url, base):
     base_host = base.split('/')[-2]
-    print(base_host)
     kwd = urllib.parse.unquote_plus(url.split('/')[-1])
-    print(kwd)
-    ext_lst = ['.m4v','.mkv','.mov']
+    ext_lst = ['.m4v','.mkv']
     for e in ext_lst:
         if e in kwd:
             nw_nm = kwd.replace(e,'.mp4')
@@ -18,7 +16,6 @@ def mp4(url, base):
     sp1 = soup.find_all('tr',{'title':kwd})
     sp2 = "".join([str(lk) for lk in sp1[0].find_all('input')])
     fl_id = sp2.split('"')[-2]
-    print(fl_id)
     payload = {
         'act': 'rename_go',
         'files[]': fl_id,
@@ -48,6 +45,5 @@ def mp4(url, base):
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/104.0.5112.102 Safari/537.36 Edg/104.0.1293.63'
     }
     res = r.post(base,headers=headers,data=payload)
-    print(res)
     nw_url = base + 'files/' + urllib.parse.quote_plus(nw_nm)
     return nw_url
