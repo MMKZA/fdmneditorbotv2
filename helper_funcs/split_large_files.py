@@ -46,40 +46,40 @@ async def split_large_files(input_file):
         if metadata.has("duration"):
             total_duration = metadata.get("duration").seconds
         # proprietary logic to get the seconds to trim (at)
-        LOGGER.info(total_duration)
+        #LOGGER.info(total_duration)
         total_file_size = os.path.getsize(input_file)
-        LOGGER.info(total_file_size)
+        #LOGGER.info(total_file_size)
         minimum_duration = (total_duration / total_file_size) * (MAX_TG_SPLIT_FILE_SIZE)
         # casting to int cuz float Time Stamp can cause errors
         minimum_duration = int(minimum_duration)
 
-        LOGGER.info(minimum_duration)
+        #LOGGER.info(minimum_duration)
         # END: proprietary
         start_time = 0
         end_time = minimum_duration
         base_name = os.path.basename(input_file)
         input_extension = base_name.split(".")[-1]
-        LOGGER.info(input_extension)
+        #LOGGER.info(input_extension)
 
         i = 0
         flag = False
 
         while end_time <= total_duration:
-            LOGGER.info(i)
+            #LOGGER.info(i)
             # file name generate
             parted_file_name = "{}_PART_{}.{}".format(
                 str(base_name), str(i).zfill(5), str(input_extension)
             )
 
             output_file = os.path.join(new_working_directory, parted_file_name)
-            LOGGER.info(input_file)
-            LOGGER.info(output_file)
-            LOGGER.info(
+            #LOGGER.info(input_file)
+            #LOGGER.info(output_file)
+            #LOGGER.info(
                 await cult_small_video(
                     input_file, output_file, str(start_time), str(end_time)
                 )
             )
-            LOGGER.info(f"Start time {start_time}, End time {end_time}, Itr {i}")
+            #LOGGER.info(f"Start time {start_time}, End time {end_time}, Itr {i}")
 
             # adding offset of 3 seconds to ensure smooth playback
             start_time = end_time - 3
@@ -111,7 +111,7 @@ async def split_large_files(input_file):
             new_working_directory,
             os.path.basename(input_file),
         )
-        LOGGER.info(o_d_t)
+        #LOGGER.info(o_d_t)
         file_genertor_command = [
             "rar",
             "a",
@@ -156,7 +156,7 @@ async def cult_small_video(video_file, out_put_file_name, start_time, end_time):
     stdout, stderr = await process.communicate()
     e_response = stderr.decode().strip()
     t_response = stdout.decode().strip()
-    LOGGER.info(t_response)
+    #LOGGER.info(t_response)
     return out_put_file_name
 
 
