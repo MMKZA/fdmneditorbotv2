@@ -538,7 +538,7 @@ def youtube_dl_call_back(bot, update):
                     # message_ids=vd_msg.message_id
                     # )
                 else:
-                    #logger.info("Did this happen? :\\")
+                    logger.info("Did this happen? :\\")
                 end_one = datetime.now()
                 time_taken_for_upload = (end_one - start_one).seconds
                 try:
