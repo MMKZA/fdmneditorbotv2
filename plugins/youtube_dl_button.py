@@ -2,11 +2,6 @@
 # -*- coding: utf-8 -*-
 # (c) Shrimadhav U K
 
-#import logging
-#logging.basicConfig(level=logging.DEBUG,
-#                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-#logger = logging.getLogger(__name__)
-
 import asyncio
 import json
 import math
@@ -37,6 +32,10 @@ from translation import Translation
 import pyrogram
 import re
 
+import logging
+logging.basicConfig(level=logging.DEBUG,
+                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 from pyrogram.types import InputMediaPhoto
