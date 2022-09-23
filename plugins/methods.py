@@ -75,14 +75,15 @@ def plhh_method(bot, update):
             gdrv_fl_fll_nm = s.text.split(' - ')[0]
         ytsn_fl_fll_nm = Trnl.sh2.acell('D6').value
         vd_kw = ['.mkv','.m4a','.mov','.avi']
+        arc_kw = ['.zip','.rar','.7z']
         if gdrv_fl_fll_nm not in ytsn_fl_fll_nm:
             vd_ext = os.path.splitext(gdrv_fl_fll_nm)[1]
-            if vd_ext in vd_kw or vd_ext != '':
+            if vd_ext != '' and vd_ext in vd_kw and vd_ext not in arc_kw:
                 fl_fll_nm = gdrv_fl_fll_nm.replace(vd_ext,'.mp4')
                 Trnl.sh2.update('D6',fl_fll_nm)
-        else:
+        elif gdrv_fl_fll_nm in ytsn_fl_fll_nm:
             vd_ext = os.path.splitext(ytsn_fl_fll_nm)[1]
-            if vd_ext in vd_kw or vd_ext != '':
+            if vd_ext != '' and vd_ext in vd_kw and vd_ext not in arc_kw:
                 fl_fll_nm = ytsn_fl_fll_nm.replace(vd_ext,'.mp4')
                 Trnl.sh2.update('D6',fl_fll_nm)
         del req
@@ -106,14 +107,15 @@ def direct_method(bot, update):
             gdrv_fl_fll_nm = s.text.split(' - ')[0]
         ytsn_fl_fll_nm = Trnl.sh2.acell('D6').value
         vd_kw = ['.mkv','.m4a','.mov','.avi']
+        arc_kw = ['.zip','.rar','.7z']
         if gdrv_fl_fll_nm not in ytsn_fl_fll_nm:
             vd_ext = os.path.splitext(gdrv_fl_fll_nm)[1]
-            if vd_ext in vd_kw or vd_ext != '':
+            if vd_ext != '' and vd_ext in vd_kw and vd_ext not in arc_kw:
                 fl_fll_nm = gdrv_fl_fll_nm.replace(vd_ext,'.mp4')
                 Trnl.sh2.update('D6',fl_fll_nm)
-        else:
+        elif gdrv_fl_fll_nm in ytsn_fl_fll_nm:
             vd_ext = os.path.splitext(ytsn_fl_fll_nm)[1]
-            if vd_ext in vd_kw or vd_ext != '':
+            if vd_ext != '' and vd_ext in vd_kw and vd_ext not in arc_kw:
                 fl_fll_nm = ytsn_fl_fll_nm.replace(vd_ext,'.mp4')
                 Trnl.sh2.update('D6',fl_fll_nm)
         del req
