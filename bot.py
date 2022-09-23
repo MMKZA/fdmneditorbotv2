@@ -14,6 +14,7 @@ else:
 
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
+logging.getLogger("py.warnings").setLevel(logging.WARNING)
 
 
 if __name__ == "__main__" :
