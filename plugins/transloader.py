@@ -40,7 +40,7 @@ def transloader(base, last_url):
         premium_pass=""
     )
     r = post(base + "index.php", data=data, headers=headers, verify=False)
-    logger.info(r)
+    #logger.info(r)
     # session = HTMLSession()
     # r = session.post(base+"/index.php",data=data,headers=headers,verify=False)
     soup = BeautifulSoup(r.text, "lxml")
@@ -49,7 +49,7 @@ def transloader(base, last_url):
     for a in all_:
         data.update({a["name"]: a["value"]})
     j = post(base + "index.php", data=data, headers=headers, verify=False)
-    logger.info(j)
+    #logger.info(j)
     # j = session.post(base+"/index.php",data=data,headers=headers,verify=False)
     final = BeautifulSoup(j.text, "lxml")
     d = final.find_all("a", href=True)
@@ -58,5 +58,5 @@ def transloader(base, last_url):
         final_link = final_link.replace('//files','/files')
     except:
         final_link = "THE_ERROR"
-    logger.info(final_link)
+    #logger.info(final_link)
     return final_link
