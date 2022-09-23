@@ -14,8 +14,8 @@ else:
 
 import pyrogram
 logging.getLogger("pyrogram").setLevel(logging.WARNING)
-logging.getLogger("py.warnings").setLevel(logging.WARNING)
-
+import warnings
+warnings.filterwarnings('ignore')
 
 if __name__ == "__main__" :
     # create download directory, if not exist
