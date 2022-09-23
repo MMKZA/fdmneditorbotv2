@@ -158,3 +158,32 @@ async def generate_screen_shots(
         return images
     else:
         return None
+      
+async def repair_moov_atom(download_directory):
+    repaired_directory = os.path.splitext(download_directory)[0] + '_repaired' + os.path.splitext(download_directory)[1]
+    repair_command = [
+        'ffmpeg',
+        '-i',
+        download_directory,
+        '-vcodec',
+        'copy',
+        '-acodec',
+        'copy',
+        '-movflags',
+        'faststart',
+        repaired_directory
+    ]
+    process = await asyncio.create_subprocess_exec(
+        *repair_command,
+        # stdout must a pipe to be accessible as process.stdout
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+    )
+    # Wait for the subprocess to finish
+    stdout, stderr = await process.communicate()
+    e_response = stderr.decode().strip()
+    t_response = stdout.decode().strip()
+    if os.path.lexists(repaired_directory):
+        return repaired_directory
+    else:
+        return None
