@@ -65,16 +65,10 @@ async def extract_upload(bot, update):
             except:
                 pass
             try:
-                file_size = os.path.getsize(download_directory)
-            except FileNotFoundError as exc:
-                download_directory = os.path.splitext(download_directory)[0]# + "." + "mkv"
-                # https://stackoverflow.com/a/678242/4723940
-                file_size = os.path.getsize(download_directory)
-
-            try:
                 rntm = get_duration(download_directory)
                 Trnl.sh2.update('M4',rntm)
             except:
+                upload_mssg.edit_text('Now Repairing...')
                 repaired_directory = os.path.splitext(download_directory)[0] + '_repaired' + os.path.splitext(download_directory)[1]
                 cmd = [
                     'ffmpeg',
@@ -93,6 +87,12 @@ async def extract_upload(bot, update):
                 download_directory = repaired_directory
                 rntm = get_duration(download_directory)
                 Trnl.sh2.update('M4',rntm)
+            try:
+                file_size = os.path.getsize(download_directory)
+            except FileNotFoundError as exc:
+                download_directory = os.path.splitext(download_directory)[0]# + "." + "mkv"
+                # https://stackoverflow.com/a/678242/4723940
+                file_size = os.path.getsize(download_directory)
             ssimg = None
             width = 0
             height = 0
