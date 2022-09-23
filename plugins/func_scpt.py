@@ -16,10 +16,12 @@ from myanmartools import ZawgyiDetector
 from myanmar import converter
 from si_prefix import si_format
 
-#import logging
-#logging.getLogger('chardet.charsetprober').setLevel(logging.INFO)
-#logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-#logger = logging.getLogger(__name__)
+import logging
+logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+logging.getLogger("requests").setLevel(logging.WARNING)
+logging.getLogger("urllib3").setLevel(logging.WARNING)
+logging.getLogger('chardet.universaldetector').setLevel(logging.INFO)
 
 def func_scpt(script_url):
     if "burmalinkchannel" in script_url:
