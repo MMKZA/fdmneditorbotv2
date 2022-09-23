@@ -11,10 +11,9 @@ if bool(os.environ.get("WEBHOOK", False)):
 else:
     from config import Config
 import logging
-
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
 
 def cnmm_gdrv_id_save(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
