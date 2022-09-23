@@ -10,13 +10,17 @@ if bool(os.environ.get("WEBHOOK", False)):
     from sample_config import Config
 else:
     from config import Config
-import logging
 from googleapiclient.http import MediaFileUpload
 import json
 
-logging.basicConfig(level=logging.DEBUG,
-                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+import logging
+logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+logging.getLogger("requests").setLevel(logging.WARNING)
+logging.getLogger("urllib3").setLevel(logging.WARNING)
+logging.getLogger('chardet.universaldetector').setLevel(logging.INFO)
+logging.getLogger('chardet.charsetprober').setLevel(logging.INFO)
+logging.getLogger('googleapiclient').setLevel(logging.INFO)
 
 tmp_directory = Config.DOWNLOAD_LOCATION + "/1700943365/"
 
