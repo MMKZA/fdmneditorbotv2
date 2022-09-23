@@ -11,6 +11,7 @@ import logging
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+logging.getLogger("imdbpy").setLevel(logging.WARNING)
 
 def imdb_data(movie_id):
     #logger.info(movie_id)
