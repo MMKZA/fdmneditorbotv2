@@ -42,7 +42,7 @@ from PIL import Image
 def button(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         cb_data = update.data
-        logger.info(cb_data)
+        #logger.info(cb_data)
         if (":" in cb_data) and ('yoteshinportal.cc' not in cb_data) and ('drive.google.com' not in cb_data) and ('method=' not in cb_data):
             # unzip formats
             extract_dir_path = Config.DOWNLOAD_LOCATION + \
