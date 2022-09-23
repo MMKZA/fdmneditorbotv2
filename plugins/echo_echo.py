@@ -28,12 +28,15 @@ import asyncio
 import subprocess
 from plugins.youtube_dl_button import youtube_dl_call_back
 
-# the logging things
-#import logging
-#logging.basicConfig(level=logging.DEBUG,
-#                    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-#logger = logging.getLogger(__name__)
-#logging.getLogger("pyrogram").setLevel(logging.WARNING)
+import logging
+logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+logger = logging.getLogger(__name__)
+logging.getLogger("pyrogram").setLevel(logging.WARNING)
+logging.getLogger("requests").setLevel(logging.WARNING)
+logging.getLogger("urllib3").setLevel(logging.WARNING)
+logging.getLogger('chardet.universaldetector').setLevel(logging.INFO)
+logging.getLogger('chardet.charsetprober').setLevel(logging.INFO)
+logging.getLogger('filelock').setLevel(logging.INFO)
 
 def echo_echo(bot, update, url, mssg, mssgid):
     if update.from_user.id in Config.AUTH_USERS:
