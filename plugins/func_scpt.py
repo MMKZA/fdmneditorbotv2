@@ -1,7 +1,6 @@
 import requests
 from bs4 import BeautifulSoup
 from trnl import Trnl
-import logging
 import re
 import json
 import urllib
@@ -17,9 +16,10 @@ from myanmartools import ZawgyiDetector
 from myanmar import converter
 from si_prefix import si_format
 
-logging.getLogger('chardet.charsetprober').setLevel(logging.INFO)
-logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-logger = logging.getLogger(__name__)
+#import logging
+#logging.getLogger('chardet.charsetprober').setLevel(logging.INFO)
+#logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+#logger = logging.getLogger(__name__)
 
 def func_scpt(script_url):
     if "burmalinkchannel" in script_url:
@@ -632,7 +632,7 @@ def func_scpt(script_url):
                 imdb_id = google('{} {} imdb'.format(title,year))[0]
         if 'open' in Trnl.sh2.acell('N7').value:
             imdb_id = Trnl.sh2.acell('M7').value
-        logger.info(imdb_id)
+        #logger.info(imdb_id)
         imdb_url = 'https://www.imdb.com/title/' + imdb_id
         if 'Error' in omdb_req:
             omdb_url = 'https://www.omdbapi.com/?i=' + str(imdb_id) + '&apikey=39ecaf7'
@@ -826,7 +826,7 @@ def func_scpt(script_url):
     if 'close' in Trnl.sh2.acell('C3').value:
         imdb_id = Trnl.sh2.acell('M7').value
         movie_id = str(imdb_id).replace('tt','')
-        logger.info(movie_id)
+        #logger.info(movie_id)
         movie = imdb_data(movie_id)
         title = movie.data['title']
         kind = movie.data['kind']
