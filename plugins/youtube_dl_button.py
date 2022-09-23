@@ -298,7 +298,24 @@ def youtube_dl_call_back(bot, update):
                 rntm = get_duration(download_directory)
                 Trnl.sh2.update('M4',rntm)
             except:
-                pass
+                repaired_directory = os.path.splitext(download_directory)[0] + '_repaired' + os.path.splitext(download_directory)[1]
+                cmd = [
+                    'ffmpeg',
+                    '-i',
+                    download_directory,
+                    '-vcodec',
+                    'copy',
+                    '-acodec',
+                    'copy',
+                    '-movflags',
+                    'faststart',
+                    repaired_directory
+                ]
+                process = subprocess.Popen(cmd)
+                process.communicate()
+                download_directory = repaired_directory
+                rntm = get_duration(download_directory)
+                Trnl.sh2.update('M4',rntm)
             ssimg = None
             width = 0
             height = 0
