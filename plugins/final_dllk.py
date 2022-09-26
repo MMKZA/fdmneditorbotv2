@@ -419,33 +419,36 @@ def final_dllk(bot, update):
                 lk = web_url.split("|")[0].strip()
             else:
                 lk = web_url
-            if "yoteshinportal.cc" in lk:
-                gdrv_retrn = ytsn_dllk(lk)
-                if "error" in gdrv_retrn:
-                    gdrvclean(gdrv_retrn)
-                    gdrv_lk = ytsn_dllk(lk)
-                else:
-                    gdrv_lk = gdrv_retrn
-            elif "mega.nz" in lk:
-                gdrv_lk = lk
-            elif "https://drive.google.com/" in lk:
-                gdrv_lk = lk
-            elif "burmesesubtitles.com" in lk:
-                gdrv_lk = lk
-            try:
-                gdrv_id = gdrv_lk.split('/')[5]
-            except:
-                gdrv_id = gdrv_lk.split('/')[3].split('=')[1]
-            Trnl.sh2.update('L4',gdrv_id)
-            if Trnl.sh2.acell('W2').value == 'manual':
-                methods(bot,update)
-            elif Trnl.sh2.acell('W2').value == 'auto':
-                if 'method=PLM' in Trnl.sh2.acell('W3').value:
-                    plhh_method(bot, update)
-                elif 'method=TM' in Trnl.sh2.acell('W3').value:
-                    transload_method(bot, update)
-                elif 'method=DM' in Trnl.sh2.acell('W3').value:
-                    direct_method(bot, update)
+            if 'rapidleech.gq' not in lk:
+                if "yoteshinportal.cc" in lk:
+                    gdrv_retrn = ytsn_dllk(lk)
+                    if "error" in gdrv_retrn:
+                        gdrvclean(gdrv_retrn)
+                        gdrv_lk = ytsn_dllk(lk)
+                    else:
+                        gdrv_lk = gdrv_retrn
+                elif "mega.nz" in lk:
+                    gdrv_lk = lk
+                elif "https://drive.google.com/" in lk:
+                    gdrv_lk = lk
+                elif "burmesesubtitles.com" in lk:
+                    gdrv_lk = lk
+                try:
+                    gdrv_id = gdrv_lk.split('/')[5]
+                except:
+                    gdrv_id = gdrv_lk.split('/')[3].split('=')[1]
+                Trnl.sh2.update('L4',gdrv_id)
+                if Trnl.sh2.acell('W2').value == 'manual':
+                    methods(bot,update)
+                elif Trnl.sh2.acell('W2').value == 'auto':
+                    if 'method=PLM' in Trnl.sh2.acell('W3').value:
+                        plhh_method(bot, update)
+                    elif 'method=TM' in Trnl.sh2.acell('W3').value:
+                        transload_method(bot, update)
+                    elif 'method=DM' in Trnl.sh2.acell('W3').value:
+                        direct_method(bot, update)
+            elif 'rapidleech.gq' in lk:
+                direct_method(bot, update)
 
                 
         if 'https://t.me/c' in web_url:
