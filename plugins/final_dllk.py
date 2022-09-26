@@ -12,6 +12,7 @@ from plugins.blc import blc
 from plugins.bs import bs
 from plugins.shweflix import shweflix
 from plugins.echo_auto import echo_auto
+from plugins.echo_echo import echo_echo
 from plugins.methods import methods
 from plugins.imdb_info import imdb_info
 from plugins.methods import methods,plhh_method,transload_method,direct_method
@@ -51,7 +52,7 @@ def final_dllk(bot, update):
             if source_kw in web_url:
                 act_source_kw = source_kw
         
-        trsl_kw_lst = ['https://yoteshinportal.cc/','https://drive.google.com/']
+        trsl_kw_lst = ['https://yoteshinportal.cc/','https://drive.google.com/','rapidleech.gq']
         act_trsl_kw = ''
         for trsl_kw in trsl_kw_lst:
             if trsl_kw in web_url:
@@ -448,8 +449,11 @@ def final_dllk(bot, update):
                     elif 'method=DM' in Trnl.sh2.acell('W3').value:
                         direct_method(bot, update)
             elif 'rapidleech.gq' in lk:
-                direct_method(bot, update)
-
+                mssg = bot.send_message(
+                    chat_id=update.from_user.id,
+                    text=text + lk
+                )
+                echo_echo(bot,update,lk,mssg,mssg.message_id)
                 
         if 'https://t.me/c' in web_url:
             vd_id = web_url.split("/")[-1]
