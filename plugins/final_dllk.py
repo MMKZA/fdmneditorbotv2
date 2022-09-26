@@ -449,6 +449,7 @@ def final_dllk(bot, update):
                     elif 'method=DM' in Trnl.sh2.acell('W3').value:
                         direct_method(bot, update)
             elif 'rapidleech.gq' in lk:
+                Trnl.sh2.update('L2',lk)
                 text = "📺SVideo or 🗃️SFile မှန်ရာကိုရွေးချယ်ပါ 👇\n"
                 mssg = bot.send_message(
                     chat_id=update.from_user.id,
