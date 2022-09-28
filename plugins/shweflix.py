@@ -19,11 +19,11 @@ def shweflix(web_url):
     soup = BeautifulSoup(web_html, 'html.parser')
     if "shweflix" in web_url:
         urls_lst = []
-        for x in soup.select('div > div > div.wp-block-essential-blocks-advanced-tabs.alignwide > div > div > div.eb-tabs-contents > div:nth-child(3) > div > div > div > a'):
+        for x in soup.select('div > div > div.wp-block-advgb-adv-tabs.advgb-tabs-wrapper.advgb-tab-vert-desktop.advgb-tab-vert-tablet.advgb-tab-horz-mobile.advgb-tabs-7019a604-8a5b-4203-81f8-705593012a55 > div > div:nth-child(3) > div.advgb-tab-_402eb0-42.advgb-tab-body > div > div > a'):
             urls_lst.append(x['href'])
         logger.info(urls_lst)
         txt_lst = []
-        for x in soup.select('div > div > div.wp-block-essential-blocks-advanced-tabs.alignwide > div > div > div.eb-tabs-contents > div:nth-child(3) > div > div > div'):
+        for x in soup.select('div > div > div.wp-block-advgb-adv-tabs.advgb-tabs-wrapper.advgb-tab-vert-desktop.advgb-tab-vert-tablet.advgb-tab-horz-mobile.advgb-tabs-7019a604-8a5b-4203-81f8-705593012a55 > div > div:nth-child(3) > div.advgb-tab-_402eb0-42.advgb-tab-body > div > div > a > span'):
             txt_lst.append(x.text)
         qlt_lst = []
         sz_lst = []
@@ -52,7 +52,7 @@ def shweflix(web_url):
             for s in soup.find_all('a', href=True):
                 hrf_lst.append(s)
             for h in hrf_lst:
-                if 'gdtot.sbs/file/' in str(h):
+                if 'gdtot' in str(h):
                     url_lst.append(h['href'])
         logger.info(url_lst)
         all_lst = list(range(0,len(url_lst)))
