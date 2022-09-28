@@ -53,6 +53,7 @@ def shweflix(web_url):
     for url in urls_lst:
         web_req = requests.get(url)
         url_lst.append(re.findall('https://[a-zA-Z]+\.gdtot\.[a-zA-Z]+/file/[0-9]+',web_req.text)[0])
+        del web_req
     all_lst = list(range(0,len(url_lst)))
     for i in all_lst:
         all_lst[i] = '{} | {} | {} GB'.format(url_lst[i],qlt_lst[i],szgb_lst[i])
