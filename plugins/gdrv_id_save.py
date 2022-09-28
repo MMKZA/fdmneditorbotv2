@@ -63,7 +63,7 @@ def gldchnl_gdrv_id_save(bot, update):
                 direct_method(bot, update)
 def gdtot_gdrv_id_save(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        index = update.data.split('|')[1]
+        index = int(update.data.split('|')[1])
         url_lst_txt = Trnl.sh2.acell('A6').value
         url_lst = url_lst_txt.split('\n')
         url = url_lst[index]
