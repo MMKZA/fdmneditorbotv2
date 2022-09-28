@@ -66,7 +66,7 @@ def gdtot_gdrv_id_save(bot, update):
         index = int(update.data.split('|')[1])
         url_lst_txt = Trnl.sh2.acell('A6').value
         url_lst = url_lst_txt.split('\n')
-        url = url_lst[index]
+        url = url_lst[index].split('|')[0]
         res = requests.get(url)
         gdtot_lk = re.findall('https://[a-zA-Z]+\.gdtot\.[a-zA-Z]+/file/[0-9]+',res.text)[0] 
         gdtot_info = gdtot_dl(gdtot_lk)
