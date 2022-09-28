@@ -17,12 +17,16 @@ def shweflix(web_url):
     web_req.encoding = web_req.apparent_encoding
     web_html = web_req.text
     soup = BeautifulSoup(web_html, 'html.parser')
-    urls_lst = []
-    for x in soup.select('div > div > div.wp-block-advgb-adv-tabs.advgb-tabs-wrapper.advgb-tab-vert-desktop.advgb-tab-vert-tablet.advgb-tab-horz-mobile.advgb-tabs-7019a604-8a5b-4203-81f8-705593012a55 > div > div:nth-child(3) > div.advgb-tab-_402eb0-42.advgb-tab-body > div > div > a'):
-        urls_lst.append(x['href'])
-    txt_lst = []
-    for x in soup.select('div > div > div.wp-block-advgb-adv-tabs.advgb-tabs-wrapper.advgb-tab-vert-desktop.advgb-tab-vert-tablet.advgb-tab-horz-mobile.advgb-tabs-7019a604-8a5b-4203-81f8-705593012a55 > div > div:nth-child(3) > div.advgb-tab-_402eb0-42.advgb-tab-body > div > div > a > span'):
-        txt_lst.append(x.text)
+    urls_lsts = []
+    for a in soup.findAll('a',href=True):
+        if 'https://shweflix.org/dl/?key=' in str(a):
+            urls_lsts.append(a['href'])
+    urls_lst = list(range(0,int((len(urls_lsts))/3)))
+    for i in urls_lst:
+        urls_lst[i] = urls_lsts[i+2*int((len(urls_lsts))/3)]
+    txt_lst = re.findall('<span>[0-9]+p \[[0-9]+ [a-zA-Z]+\]</span>',web_req.text)
+    for txt in txt_lst:
+        txt_lst[txt_lst.index(txt)] = re.findall('[0-9]+p \[[0-9]+ [a-zA-Z]+\]',txt)[0]
     qlt_lst = []
     sz_lst = []
     for t in txt_lst:
