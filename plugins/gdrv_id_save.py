@@ -5,11 +5,13 @@ from plugins.ytsn_dllk import ytsn_dllk
 from plugins.gdrvclean import gdrvclean
 from plugins.methods import methods
 from plugins.methods import plhh_method,transload_method,direct_method
+from plugins.gdtot_dl import gdtot_dl
 import os
 if bool(os.environ.get("WEBHOOK", False)):
     from sample_config import Config
 else:
     from config import Config
+    
 import logging
 logging.basicConfig(level=logging.DEBUG,format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -45,6 +47,23 @@ def cnmm_gdrv_id_save(bot, update):
 def gldchnl_gdrv_id_save(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         gdrv_id = update.data.split('|')[1]
+        Trnl.sh2.update('L4',gdrv_id)
+        methods(bot,update)
+        if Trnl.sh2.acell('W2').value == 'manual':
+            methods(bot,update)
+        elif Trnl.sh2.acell('W2').value == 'auto':
+            if 'method=PLM' in Trnl.sh2.acell('W3').value:
+                plhh_method(bot, update)
+            elif 'method=TM' in Trnl.sh2.acell('W3').value:
+                transload_method(bot, update)
+            elif 'method=DM' in Trnl.sh2.acell('W3').value:
+                direct_method(bot, update)
+def gdtot_gdrv_id_save(bot, update):
+    if update.from_user.id in Config.AUTH_USERS:
+        gdtot_lk = update.data
+        gdtot_info = gdtot_dl(gdtot_lk)
+        gdrv_lk = gdtot_info['gdrive_link']
+        gdrv_id = gdrv_lk.split('/')[3].split('=')[1]
         Trnl.sh2.update('L4',gdrv_id)
         methods(bot,update)
         if Trnl.sh2.acell('W2').value == 'manual':
