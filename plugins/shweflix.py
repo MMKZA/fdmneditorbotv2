@@ -24,16 +24,21 @@ def shweflix(web_url):
     urls_lst = list(range(0,int((len(urls_lsts))/3)))
     for i in urls_lst:
         urls_lst[i] = urls_lsts[i+2*int((len(urls_lsts))/3)]
-    txt_lst = re.findall('<span>[0-9]+p \[[0-9]+ [a-zA-Z]+\]</span>',web_req.text)
-    for txt in txt_lst:
-        txt_lst[txt_lst.index(txt)] = re.findall('[0-9]+p \[[0-9]+ [a-zA-Z]+\]',txt)[0]
+    txts_lst = re.findall(r'<span>(.*?)</span>', web_req.text)
+    gb_lst = ['GB', 'Gb', 'gb' 'gB']
+    mb_lst = ['MB', 'Mb', 'mb' 'mB']
+    txt_lst = []
+    for gb in gb_lst:
+        for mb in mb_lst:
+            for txt in txts_lst:
+                if gb in txt or mb in txt:
+                    txt_lst.append(txt)
+    txt_lst = list(dict.fromkeys(txt_lst))
     qlt_lst = []
     sz_lst = []
     for t in txt_lst:
         qlt_lst.append(t.split('[')[0].strip())
         sz_lst.append(t.split('[')[-1].replace(']',''))
-    gb_lst = ['GB', 'Gb', 'gb' 'gB']
-    mb_lst = ['MB', 'Mb', 'mb' 'mB']
     szgb_lst = []
     for v in sz_lst:
        szspl = re.findall('(\d+|[A-Za-z]+)', v)
