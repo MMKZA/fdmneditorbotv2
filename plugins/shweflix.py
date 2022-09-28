@@ -49,7 +49,7 @@ def shweflix(web_url):
        for m in mb_lst:
           if szunt in m:
              szgb_lst.append(float("{:.2f}".format(float(v.replace(szunt, "").strip()) / 1024)))
-    all_lst = list(range(0,len(url_lst)))
+    all_lst = list(range(0,len(urls_lst)))
     for i in all_lst:
         all_lst[i] = '{} | {} | {} GB'.format(urls_lst[i],qlt_lst[i],szgb_lst[i])
     return all_lst
