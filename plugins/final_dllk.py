@@ -193,7 +193,7 @@ def final_dllk(bot, update):
                     lk = al.split('|')[0].strip()
                     qlt = al.split('|')[1].strip()
                     sz = al.split('|')[2].strip()
-                    inline_keyboard.append([InlineKeyboardButton('Quality: {} ; Size: {}'.format(qlt,sz),url=str(lk))])
+                    inline_keyboard.append([InlineKeyboardButton('Quality: {} ; Size: {}'.format(qlt,sz),callback_data=str(lk))])
                 reply_markup = InlineKeyboardMarkup(inline_keyboard)
                 try:
                     bot.send_message(
