@@ -7,6 +7,9 @@ from plugins.methods import methods
 from plugins.methods import plhh_method,transload_method,direct_method
 from plugins.gdtot_dl import gdtot_dl
 import os
+import requests
+import re
+
 if bool(os.environ.get("WEBHOOK", False)):
     from sample_config import Config
 else:
@@ -60,7 +63,12 @@ def gldchnl_gdrv_id_save(bot, update):
                 direct_method(bot, update)
 def gdtot_gdrv_id_save(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        gdtot_lk = update.data
+        index = update.data.split('|')[1]
+        url_lst_txt = Trnl.sh2.acell('A6').value
+        url_lst = url_lst_txt.split('\n')
+        url = url_lst[index]
+        res = requests.get(url)
+        gdtot_lk = re.findall('https://[a-zA-Z]+\.gdtot\.[a-zA-Z]+/file/[0-9]+',res.text)[0] 
         gdtot_info = gdtot_dl(gdtot_lk)
         gdrv_lk = gdtot_info['gdrive_link']
         gdrv_id = gdrv_lk.split('/')[3].split('=')[1]
