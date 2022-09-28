@@ -184,18 +184,20 @@ def final_dllk(bot, update):
                     text="Links အားလုံး👇"
                 )
                 inline_keyboard = []
-                for al in all_lst:  
+                all_lst_txt = '\n'.join(all_lst)
+                Trnl.sh2.update('A6',all_lst_txt)
+                for al in all_lst:
                     bot.send_message(
                         chat_id=update.chat.id,
                         text=al,
                         disable_web_page_preview=True
                     )
-                    lk = al.split('|')[0].strip()
+                    index = all_lst.index(al)
                     qlt = al.split('|')[1].strip()
                     sz = al.split('|')[2].strip()
-                    inline_keyboard.append([InlineKeyboardButton('Quality: {} ; Size: {}'.format(qlt,sz),callback_data=str(lk))])
+                    inline_keyboard.append([InlineKeyboardButton('Quality: {} ; Size: {}'.format(qlt,sz),callback_data='gdtot|{}'.format(index))])
                 reply_markup = InlineKeyboardMarkup(inline_keyboard)
-                try:
+                if len(inline_keyboard) != 0:
                     bot.send_message(
                         chat_id=update.chat.id,
                         text="တင်မယ့် Quality ရွေးပါ 👇",
@@ -203,8 +205,6 @@ def final_dllk(bot, update):
                         parse_mode="html",
                         reply_to_message_id=update.message_id
                     )
-                except:
-                    pass
             if "burmesesubtitles.com" in web_url:
                 func_scpt(web_url)
                 if web_url in Trnl.sh2.acell('L3').value:
