@@ -66,7 +66,7 @@ def cnmm(web_url):
         max_lst = list(filter(lambda x: str(max_sz) + "GB" in x, all_lst))
         cnmm_lst = []
         avlb_lst = []
-        kwd_st = ['https://vip.yoteshinportal.cc/', 'https://yoteshinportal.cc/', 'https://mega.nz/file/']
+        kwd_st = ['https://vip.yoteshinportal.cc/', 'https://yoteshinportal.cc/', 'https://mega.nz/file/','https://megaup.net/']
         for k in kwd_st:
             for m in max_lst:
                 if k in m:
