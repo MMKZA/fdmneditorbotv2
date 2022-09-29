@@ -384,7 +384,7 @@ def upld_tool(bot, update):
                 transload_method(bot, update)
             elif 'method=DM' in Trnl.sh2.acell('W3').value:
                 direct_method(bot, update)
-                
+
 @pyrogram.Client.on_message(pyrogram.filters.command(["cnmm"]))
 def cnmm_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -403,3 +403,12 @@ def cnmm_tool(bot, update):
             chat_id=update.chat.id,
             text="အဖြစ်နိုင်ဆုံး 👇\n" + cnmm_lst[0]
         )
+
+@pyrogram.Client.on_message(pyrogram.filters.command(["poster"]))
+def poster_tool(bot, update):
+    if update.from_user.id in Config.AUTH_USERS:
+        vlink = Trnl.sh2.acell('C2').value
+        thumb_poster = Config.DOWNLOAD_LOCATION + "/1700943365/" + os.path.splitext(vlink.split('/')[-1])[0] + '.jpeg'
+        width = Trnl.sh2.acell('C5').value
+        height = Trnl.sh2.acell('C6').value
+        fdmn_frame(vlink,thumb_poster,width,height)
