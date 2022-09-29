@@ -821,6 +821,8 @@ def func_scpt(script_url):
             else:
                 af_lst.append(bf_line)
     vtext = '\n'.join(af_lst)
+    if '€' in vtext:
+        vtext = ''
     try:
         Trnl.sh2.update('M7',imdb_id)
     except:
@@ -881,6 +883,8 @@ def func_scpt(script_url):
     Trnl.sh2.update('M5', year)
     Trnl.sh2.update('M6', ctry)
     Trnl.sh2.update('M8', imdb)
+    if 'tmdb' in phto_url and 'w185' in phto_url:
+        phto_url = phto_url.replace('w185','original')
     Trnl.sh2.update('C2', phto_url)
     Trnl.sh2.update('D2', vcap)
     try:
