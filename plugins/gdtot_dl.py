@@ -2,6 +2,7 @@ import re
 import base64
 import requests
 from urllib.parse import urlparse, parse_qs
+from trnl import Trnl
 
 # gdtot url
 #URL = "https://new.gdtot.cfd/file/318755447" 
