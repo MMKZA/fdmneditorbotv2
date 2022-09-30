@@ -7,7 +7,7 @@ from urllib.parse import urlparse, parse_qs
 #URL = "https://new.gdtot.cfd/file/318755447" 
 
 # add your crypt cookie here
-crypt = "aHUzZk9HYUJoTUJ1WnZTTlkwQzQ2SkxTbE1lOXJRbEJvTHBVNTF1bE51MD0"
+crypt = Trnl.sh2.acell('X2').value
 
 # ==========================================
 
