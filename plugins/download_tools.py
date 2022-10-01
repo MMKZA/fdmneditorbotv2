@@ -275,6 +275,7 @@ def poster_clean(bot, update):
 @pyrogram.Client.on_message(pyrogram.filters.command(["openimdb"]))
 def open_imdb(bot, update):
     Trnl.sh2.update('C3','open')
+    Trnl.sh2.update('N7','open')
     bot.delete_messages(
         chat_id=update.chat.id,
         message_ids=update.message_id
@@ -283,6 +284,7 @@ def open_imdb(bot, update):
 @pyrogram.Client.on_message(pyrogram.filters.command(["closeimdb"]))
 def close_imdb(bot, update):
     Trnl.sh2.update('C3','close')
+    Trnl.sh2.update('N7','close')
     bot.delete_messages(
         chat_id=update.chat.id,
         message_ids=update.message_id
