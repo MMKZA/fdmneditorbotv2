@@ -272,18 +272,32 @@ def poster_clean(bot, update):
         message_ids=update.message_id
     )
 
-@pyrogram.Client.on_message(pyrogram.filters.command(["openimdb"]))
-def open_imdb(bot, update):
+@pyrogram.Client.on_message(pyrogram.filters.command(["offimdbpy"]))
+def open_imdbpy(bot, update):
     Trnl.sh2.update('C3','open')
+    bot.delete_messages(
+        chat_id=update.chat.id,
+        message_ids=update.message_id
+    )
+    
+@pyrogram.Client.on_message(pyrogram.filters.command(["onimdbpy"]))
+def close_imdbpy(bot, update):
+    Trnl.sh2.update('C3','close')
+    bot.delete_messages(
+        chat_id=update.chat.id,
+        message_ids=update.message_id
+    )
+
+@pyrogram.Client.on_message(pyrogram.filters.command(["deadimdbpy"]))
+def open_imdb(bot, update):
     Trnl.sh2.update('N7','open')
     bot.delete_messages(
         chat_id=update.chat.id,
         message_ids=update.message_id
     )
     
-@pyrogram.Client.on_message(pyrogram.filters.command(["closeimdb"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["refreshimdb"]))
 def close_imdb(bot, update):
-    Trnl.sh2.update('C3','close')
     Trnl.sh2.update('N7','close')
     bot.delete_messages(
         chat_id=update.chat.id,
