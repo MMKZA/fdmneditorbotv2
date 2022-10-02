@@ -17,6 +17,7 @@ from plugins.methods import methods
 from plugins.imdb_info import imdb_info
 from plugins.methods import methods,plhh_method,transload_method,direct_method
 from pyrogram.types import InlineKeyboardMarkup, InlineKeyboardButton
+from plugins.transloader import transloader
 import os
 import re
 import time
