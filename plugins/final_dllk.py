@@ -459,6 +459,8 @@ def final_dllk(bot, update):
                     )
                     echo_echo(bot,update,lk,mssg,mssg.message_id)
             elif 'megaup.net' in lk and '?download_token=' in lk:
+                fl_fll_nm = lk.split('/')[4].split('?download_token')[0]
+                Trnl.sh2.update('D6',fl_fll_nm)
                 base = Trnl.sh2.acell('K2').value
                 final_link = transloader(base, lk)
                 Trnl.sh2.update('L2', final_link)
