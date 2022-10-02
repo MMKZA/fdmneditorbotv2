@@ -72,7 +72,7 @@ def func_scpt(script_url):
                     imdb_id = h.split('/', 5)[4]
             if ('Error' not in omdb_req) and ('imdbID' in omdb_req) and (str(omdb_req['imdbID']) != 'N/A') and (imdb_id == ''):
                 imdb_id = omdb_req['imdbID']
-            if imdb_id == '':
+            if imdb_id == '' and 'close' in Trnl.sh2.acell('C3').value:
                 imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
                 Trnl.sh2.update('L3', imdb_wrn)
                 imdb_id = google('{} {} imdb'.format(title,year))[0]
@@ -201,7 +201,7 @@ def func_scpt(script_url):
                 if "https://www.imdb.com/title/t" in h:
                     imdb_url = h
                     imdb_id = imdb_url.split('/',5)[4]
-            if imdb_id == '':
+            if imdb_id == '' and 'close' in Trnl.sh2.acell('C3').value:
                 imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
                 Trnl.sh2.update('L3', imdb_wrn)
                 imdb_id = google('{} {} imdb'.format(title,year))[0]
@@ -481,7 +481,7 @@ def func_scpt(script_url):
             imdb_id = ''
             if ('Error' not in omdb_req) and ('imdbID' in omdb_req) and (str(omdb_req['imdbID']) != 'N/A') and (imdb_id == ''):
                 imdb_id = omdb_req['imdbID']
-            if imdb_id == '':
+            if imdb_id == '' and 'close' in Trnl.sh2.acell('C3').value:
                 imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
                 Trnl.sh2.update('L3', imdb_wrn)
                 imdb_id = google('{} {} imdb'.format(title,year))[0]
@@ -629,7 +629,7 @@ def func_scpt(script_url):
                     imdb_id = i.split('/')[-2]
         #if ('Error' not in omdb_req) and ('imdbID' in omdb_req) and (str(omdb_req['imdbID']) != 'N/A') and (imdb_id == ''):
             #imdb_id = omdb_req['imdbID']
-            if imdb_id == '':
+            if imdb_id == '' and 'close' in Trnl.sh2.acell('C3').value:
                 imdb_wrn = "⚠️အောက်ပါဇာတ်လမ်းအတွက် IMDB ID လိုအပ်နေပါတယ်⚠️👇\n" + script_url
                 Trnl.sh2.update('L3', imdb_wrn)
                 imdb_id = google('{} {} imdb'.format(title,year))[0]
