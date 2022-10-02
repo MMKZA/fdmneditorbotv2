@@ -52,7 +52,7 @@ def final_dllk(bot, update):
             if source_kw in web_url:
                 act_source_kw = source_kw
         
-        trsl_kw_lst = ['https://yoteshinportal.cc/','https://drive.google.com/','rapidleech.gq']
+        trsl_kw_lst = ['https://yoteshinportal.cc/','https://drive.google.com/','rapidleech.gq','megaup.net']
         act_trsl_kw = ''
         for trsl_kw in trsl_kw_lst:
             if trsl_kw in web_url:
@@ -420,42 +420,70 @@ def final_dllk(bot, update):
                 lk = web_url.split("|")[0].strip()
             else:
                 lk = web_url
-            if 'rapidleech.gq' not in lk:
-                if "yoteshinportal.cc" in lk:
-                    gdrv_retrn = ytsn_dllk(lk)
-                    if "error" in gdrv_retrn:
-                        gdrvclean(gdrv_retrn)
-                        gdrv_lk = ytsn_dllk(lk)
-                    else:
-                        gdrv_lk = gdrv_retrn
-                elif "mega.nz" in lk:
-                    gdrv_lk = lk
-                elif "https://drive.google.com/" in lk:
-                    gdrv_lk = lk
-                elif "burmesesubtitles.com" in lk:
-                    gdrv_lk = lk
-                try:
-                    gdrv_id = gdrv_lk.split('/')[5]
-                except:
-                    gdrv_id = gdrv_lk.split('/')[3].split('=')[1]
-                Trnl.sh2.update('L4',gdrv_id)
-                if Trnl.sh2.acell('W2').value == 'manual':
-                    methods(bot,update)
-                elif Trnl.sh2.acell('W2').value == 'auto':
-                    if 'method=PLM' in Trnl.sh2.acell('W3').value:
-                        plhh_method(bot, update)
-                    elif 'method=TM' in Trnl.sh2.acell('W3').value:
-                        transload_method(bot, update)
-                    elif 'method=DM' in Trnl.sh2.acell('W3').value:
-                        direct_method(bot, update)
-            elif 'rapidleech.gq' in lk:
-                Trnl.sh2.update('L2',lk)
-                text = "📺SVideo or 🗃️SFile မှန်ရာကိုရွေးချယ်ပါ 👇\n"
-                mssg = bot.send_message(
-                    chat_id=update.from_user.id,
-                    text=text + lk
-                )
-                echo_echo(bot,update,lk,mssg,mssg.message_id)
+            if 'megaup.net' not in lk:
+                if 'rapidleech.gq' not in lk:
+                    if "yoteshinportal.cc" in lk:
+                        gdrv_retrn = ytsn_dllk(lk)
+                        if "error" in gdrv_retrn:
+                            gdrvclean(gdrv_retrn)
+                            gdrv_lk = ytsn_dllk(lk)
+                        else:
+                            gdrv_lk = gdrv_retrn
+                    elif "mega.nz" in lk:
+                        gdrv_lk = lk
+                    elif "https://drive.google.com/" in lk:
+                        gdrv_lk = lk
+                    elif "burmesesubtitles.com" in lk:
+                        gdrv_lk = lk
+                    try:
+                        gdrv_id = gdrv_lk.split('/')[5]
+                    except:
+                        gdrv_id = gdrv_lk.split('/')[3].split('=')[1]
+                    Trnl.sh2.update('L4',gdrv_id)
+                    if Trnl.sh2.acell('W2').value == 'manual':
+                        methods(bot,update)
+                    elif Trnl.sh2.acell('W2').value == 'auto':
+                        if 'method=PLM' in Trnl.sh2.acell('W3').value:
+                            plhh_method(bot, update)
+                        elif 'method=TM' in Trnl.sh2.acell('W3').value:
+                            transload_method(bot, update)
+                        elif 'method=DM' in Trnl.sh2.acell('W3').value:
+                            direct_method(bot, update)
+                elif 'rapidleech.gq' in lk:
+                    Trnl.sh2.update('L2',lk)
+                    text = "📺SVideo or 🗃️SFile မှန်ရာကိုရွေးချယ်ပါ 👇\n"
+                    mssg = bot.send_message(
+                        chat_id=update.from_user.id,
+                        text=text + lk
+                    )
+                    echo_echo(bot,update,lk,mssg,mssg.message_id)
+            elif 'megaup.net' in lk and '?download_token=' in lk:
+                base = Trnl.sh2.acell('K2').value
+                final_link = transloader(base, lk)
+                Trnl.sh2.update('L2', final_link)
+                arc_kw = ['.zip','.rar','.7z']
+                vd_kw = ['.mp4','.mkv','.mov','.m4v']
+                fl_ext = os.path.splitext(final_link)[1]
+                if fl_ext in arc_kw:
+                    text = "Archive ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 🗃️SFile ကိုရွေးချယ်ပါ 👇\n"
+                    bot.send_message(
+                        chat_id=update.from_user.id,
+                        text=text + final_link
+                    )
+                    asyncio.run(echo_auto(bot,update,final_link))
+                elif fl_ext in vd_kw:
+                    text = "Video ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 📺SVideo ကိုရွေးချယ်ပါ 👇\n"
+                    bot.send_message(
+                        chat_id=update.from_user.id,
+                        text=text + final_link
+                    )
+                    asyncio.run(echo_auto(bot,update,final_link))
+                else:
+                    text = "Link အမှားအယွင်းရှိနိုင်ပါတယ်၊ သေချာစစ်ကြည့်ပါ ⚠️\n"
+                    bot.send_message(
+                        chat_id=update.from_user.id,
+                        text=text + final_link
+                    )
                 
         if 'https://t.me/c' in web_url:
             vd_id = web_url.split("/")[-1]
