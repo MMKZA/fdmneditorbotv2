@@ -43,7 +43,7 @@ def series(web_url):
         for l in url_lst:
             if 'yoteshinportal.cc' in l:
                 ytsn_lst.append(l)
-            elif 'mega.nz' in l:
+            elif 'megaup.net' in l:
                 mega_lst.append(l)
 
         ytsn_1080 = []
