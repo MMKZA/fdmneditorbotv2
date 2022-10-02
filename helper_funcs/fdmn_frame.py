@@ -110,6 +110,6 @@ def fdmn_frame(vlink,thumb_poster,width,height):
     right = left + 1465
     bottom = top + 2160
     po_stf.paste(po_top,(left,top,right,bottom))
-    po_tf_s320 = po_stf.resize((320,int(height*320/width)))
+    po_tf_s320 = po_stf.resize((320,int(int(height)*320/int(width))))
     po_tf_s320.save(thumb_poster)
     #po_tf_s320.show()
