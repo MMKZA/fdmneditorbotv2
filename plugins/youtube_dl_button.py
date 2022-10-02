@@ -118,9 +118,12 @@ def youtube_dl_call_back(bot, update):
             youtube_dl_password = youtube_dl_password.strip()
         #logger.info(youtube_dl_url)
         #logger.info(custom_file_name)
-    user = bot.get_me()
-    mention = user["mention"]
-    description = Translation.CUSTOM_CAPTION_UL_FILE.format(mention)
+    try:
+        user = bot.get_me()
+        mention = user["mention"]
+        description = Translation.CUSTOM_CAPTION_UL_FILE.format(mention)
+    except:
+        pass
     if "fulltitle" in response_json:
         description = response_json["fulltitle"][0:1021]
         # escape Markdown and special characters
