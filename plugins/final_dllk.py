@@ -460,6 +460,10 @@ def final_dllk(bot, update):
                     echo_echo(bot,update,lk,mssg,mssg.message_id)
             elif 'megaup.net' in lk and '?download_token=' in lk:
                 fl_fll_nm = lk.split('/')[4].split('?download_token')[0]
+                vd_kw = ['.mkv','.m4a','.mov','.avi']
+                vd_ext = os.path.splitext(fl_fll_nm)[1]
+                if vd_ext != '' and vd_ext in vd_kw:
+                    fl_fll_nm = fl_fll_nm.replace(vd_ext,'.mp4')
                 Trnl.sh2.update('D6',fl_fll_nm)
                 base = Trnl.sh2.acell('K2').value
                 final_link = transloader(base, lk)
