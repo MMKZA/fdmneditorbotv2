@@ -88,8 +88,9 @@ def ytsn_dllk(ytsn_lk):
     get = session.get(get_ytsn_lk,headers=headers,cookies=cookies,allow_redirects=False)
     #logger.info(get)
     soup = BeautifulSoup(get.content,'lxml')
-    for x in soup.select('body > section:nth-child(2) > div.container-fluid.mt-5 > div.row > div.col-sm-12.col-md-8 > div:nth-child(4) > div > h4'):
-        fl_fll_nm = x.text
+    #for x in soup.select('body > section:nth-child(2) > div.container-fluid.mt-5 > div.row > div.col-sm-12.col-md-8 > div:nth-child(4) > div > h4'):
+        #fl_fll_nm = x.text
+    fl_fll_nm = re.findall('<h4 class="mt-4">(.*?)</h4>',str(soup))[0]
     Trnl.sh2.update('D6',fl_fll_nm)
     id_loc = soup.find_all('a', {'class':"butt text-decoration-none disabled"})
     for x in id_loc:
