@@ -2,7 +2,7 @@ import pyrogram
 from trnl import Trnl
 import asyncio
 from plugins.ytsn_dllk import ytsn_dllk
-from plugins.gdrvclean import gdrvclean
+from plugins.gdrvclean import gdrvclean, gdtotclean
 from plugins.methods import methods
 from plugins.methods import plhh_method,transload_method,direct_method
 from plugins.gdtot_dl import gdtot_dl
@@ -70,6 +70,13 @@ def gdtot_gdrv_id_save(bot, update):
         res = requests.get(url)
         gdtot_lk = re.findall('https://[a-zA-Z]+\.gdtot\.[a-zA-Z]+/file/[0-9]+',res.text)[0] 
         gdtot_info = gdtot_dl(gdtot_lk)
+        if gdtot_info['error'] == True:
+            try:
+                status = 'error'
+                gdtotclean(status)
+                gdtot_info = gdtot_dl(gdtot_lk)
+            except:
+                pass
         gdrv_lk = gdtot_info['gdrive_link']
         gdrv_id = gdrv_lk.split('/')[3].split('=')[1]
         Trnl.sh2.update('L4',gdrv_id)
