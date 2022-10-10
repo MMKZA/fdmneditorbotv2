@@ -14,7 +14,7 @@ import pyrogram
 from trnl import Trnl
 import asyncio
 from plugins.ytsn_dllk import ytsn_dllk
-from plugins.gdrvclean import gdrvclean
+from plugins.gdrvclean import gdrvclean, gdtotclean
 from plugins.transloader import transloader
 from plugins.gdrvclean import gdrvclean
 from plugins.gdrvclean import poster_gdrvclean
@@ -259,6 +259,7 @@ def jsdl_tool(bot, update):
 def clean(bot, update):
     status = "error"
     gdrvclean(status)
+    gdtotclean(status)
     bot.delete_messages(
         chat_id=update.chat.id,
         message_ids=update.message_id
