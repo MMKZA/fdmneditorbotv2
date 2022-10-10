@@ -67,7 +67,19 @@ def gdrvclean(status):
         for a in ytsn_info:
             ytsn_id = u'{0}'.format(a['id'])
         service.files().delete(fileId=ytsn_id).execute()
-            
+def gdtotclean(status):
+    if "error" in status:
+        service = gdrvauth()
+        page_token = None
+        results = service.files().list(q="name contains 'GDToT'",
+                                        spaces='drive',
+                                        fields='nextPageToken, '
+                                            'files(id, name)',
+                                        pageToken=page_token).execute()
+        ytsn_info = results.get('files', [])
+        for a in ytsn_info:
+            ytsn_id = u'{0}'.format(a['id'])
+        service.files().delete(fileId=ytsn_id).execute()            
 def poster_gdrvclean():
     service = gdrvauth()
     page_token = None
