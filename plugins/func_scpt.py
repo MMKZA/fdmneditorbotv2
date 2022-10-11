@@ -879,6 +879,10 @@ def func_scpt(script_url):
     vcap_hsh = ''.join(e for e in vcap if e.isalnum())
     Trnl.sh2.update('P4', kind)
     Trnl.sh2.update('M4', rntm)
+    mv_gnr_lst = mv_gnr.split(',')
+    for gnr in mv_gnr_lst:
+        mv_gnr_lst[mv_gnr_lst.index(gnr)] = gnr.strip()
+    mv_gnr = '#' + ' #'.join(mv_gnr_lst)
     Trnl.sh2.update('M3', mv_gnr)
     Trnl.sh2.update('M5', year)
     Trnl.sh2.update('M6', ctry)
