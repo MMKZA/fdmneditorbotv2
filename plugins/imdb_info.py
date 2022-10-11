@@ -36,6 +36,10 @@ def imdb_info(movie_id):
     mv_gnr = '⁉️'
     if 'genres' in movie.data.keys():
         mv_gnr = ', '.join(movie.data['genres'])
+    mv_gnr_lst = mv_gnr.split(',')
+    for gnr in mv_gnr_lst:
+        mv_gnr_lst[mv_gnr_lst.index(gnr)] = gnr.strip()
+    mv_gnr = '#' + ' #'.join(mv_gnr_lst)
     rntm = '⁉️'
     if 'runtimes' in movie.data.keys():
         seconds = int(movie.data['runtimes'][0])*60
