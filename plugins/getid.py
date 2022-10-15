@@ -40,6 +40,7 @@ def setup(bot, update):
         srs_no = "{0:0=3d}".format( base + 1)
         translator = Translator()
         srs_no = translator.translate(srs_no,'my','en').text
+        srs_no = srs_no.replace('ဝ','၀')
     except:
         srs_no = '၀၀၀'
     try:
