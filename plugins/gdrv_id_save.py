@@ -68,7 +68,8 @@ def gdtot_gdrv_id_save(bot, update):
         url_lst = url_lst_txt.split('\n')
         url = url_lst[index].split('|')[0].strip()
         res = requests.get(url)
-        gdtot_lk = re.findall('https://[a-zA-Z]+\.gdtot\.[a-zA-Z]+/file/[0-9]+',res.text)[0] 
+        #gdtot_lk = re.findall('https://[a-zA-Z]+\.gdtot\.[a-zA-Z]+/file/[0-9]+',res.text)[0]
+        gdtot_lk = re.search("(?P<url>https?://[^\s]+)", re.findall('<a href="https://[A-Za-z0-9]+\.gdtot\.cfd/file/[0-9]+" class=', txt)[0]).group("url").replace('"','')
         gdtot_info = gdtot_dl(gdtot_lk)
         if gdtot_info['error'] == True:
             try:
