@@ -429,3 +429,7 @@ def poster_tool(bot, update):
         width = Trnl.sh2.acell('C5').value
         height = Trnl.sh2.acell('C6').value
         fdmn_frame(vlink,thumb_poster,width,height)
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
