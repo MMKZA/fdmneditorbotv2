@@ -49,7 +49,7 @@ from hachoir.metadata import extractMetadata
 from hachoir.parser import createParser
 # https://stackoverflow.com/a/37631799/4723940
 from PIL import Image
-from helper_funcs.help_Nekmo_ffmpeg import generate_screen_shots
+from helper_funcs.help_Nekmo_ffmpeg import generate_screen_shots, repair_moov_atom
 from helper_funcs.fdmn_frame import fdmn_frame
 from trnl import Trnl
 from plugins.scpt_auto import scpt_auto
@@ -193,7 +193,7 @@ def youtube_dl_call_back(bot, update):
     start = datetime.now()
     #process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,universal_newlines=False)
     process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,encoding="utf-8",universal_newlines=False)
-    while process.poll() is None or not os.path.exists(download_directory):
+    while process.poll() is None:
         #for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict'):
             #nline = line.rstrip()
         nline = process.stdout.readline().rstrip()
@@ -268,8 +268,7 @@ def youtube_dl_call_back(bot, update):
             #text=error_message
         #)
         #return False
-    if os.path.exists(download_directory):
-    #if download_directory is not None:
+    if download_directory is not None:
         # #logger.info(t_response)
         os.remove(save_ytdl_json_path)
         end = datetime.now()
@@ -301,24 +300,11 @@ def youtube_dl_call_back(bot, update):
                 rntm = get_duration(download_directory)
                 Trnl.sh2.update('M4',rntm)
             except:
-                repaired_directory = os.path.splitext(download_directory)[0] + '_repaired' + os.path.splitext(download_directory)[1]
-                cmd = [
-                    'ffmpeg',
-                    '-i',
-                    download_directory,
-                    '-vcodec',
-                    'copy',
-                    '-acodec',
-                    'copy',
-                    '-movflags',
-                    'faststart',
-                    repaired_directory
-                ]
-                process = subprocess.Popen(cmd)
-                process.communicate()
-                download_directory = repaired_directory
-                rntm = get_duration(download_directory)
-                Trnl.sh2.update('M4',rntm)
+                repaired_directory = async_to_sync(repair_moov_atom)(download_directory)
+                if os.path.lexists(repaired_directory):
+                    download_directory = repaired_directory
+                    rntm = get_duration(download_directory)
+                    Trnl.sh2.update('M4',rntm)
             ssimg = None
             width = 0
             height = 0
@@ -334,6 +320,8 @@ def youtube_dl_call_back(bot, update):
                 )
                 ssimg = images[random.randint(0, 2)]
             except:
+                pass
+            if ssimg is None:
                 clip = VideoFileClip(download_directory)
                 screen_time = random.randint(120,600)
                 clip.save_frame(tmp_directory_for_each_user + "/thbnl1.jpg", t = screen_time)
