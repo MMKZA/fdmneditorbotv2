@@ -835,7 +835,7 @@ def func_scpt(script_url):
         movie = imdb_data(movie_id)
         title = movie.data['title']
         kind = movie.data['kind']
-        if len(str(abs(int(''.join(re.findall(r'\b\d+\b',str(year))))))) < 4 or '⁉️' in year:
+        if len(str(abs(int(''.join(re.findall(r'\b\d+\b',str(year))))))) < 4 or '⁉️' in str(year):
             if 'series' in kind:
                 year = movie.data['series years']
                 if str(year)[-1] == '-':
