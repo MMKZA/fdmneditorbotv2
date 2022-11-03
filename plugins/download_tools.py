@@ -276,6 +276,8 @@ def poster_clean(bot, update):
 @pyrogram.Client.on_message(pyrogram.filters.command(["offimdbpy"]))
 def open_imdbpy(bot, update):
     Trnl.sh2.update('C3','open')
+    web_url = Trnl.sh2.acell('M2').value
+    func_scpt(web_url)
     bot.delete_messages(
         chat_id=update.chat.id,
         message_ids=update.message_id
