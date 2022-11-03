@@ -408,7 +408,7 @@ def final_dllk(bot, update):
                 imdb_id = imdb_lk.split('/')[4]
             except:
                 imdb_id = imdb_lk
-            Trnl.sh2.update('N7','open')
+            #Trnl.sh2.update('N7','open')
             Trnl.sh2.update('M7',imdb_id)
             movie_id = str(imdb_id).replace('tt','')
             imdb_info(movie_id)
