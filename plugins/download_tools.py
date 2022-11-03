@@ -277,8 +277,8 @@ def poster_clean(bot, update):
 def open_imdbpy(bot, update):
     Trnl.sh2.update('C3','open')
     web_url = Trnl.sh2.acell('M2').value
-    func_scpt(web_url)
-    Trnl.sh2.update('C3','close')
+    #func_scpt(web_url)
+    #Trnl.sh2.update('C3','close')
     bot.delete_messages(
         chat_id=update.chat.id,
         message_ids=update.message_id
