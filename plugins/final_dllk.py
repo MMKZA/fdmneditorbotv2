@@ -493,8 +493,14 @@ def final_dllk(bot, update):
                     )
                 
         if 'https://t.me/c' in web_url:
-            vd_id = web_url.split("/")[-1]
+            id_lst = web_url.split('/')
+            vd_id = id_lst[-1]
+            chnl_id = int('-100' + id_lst[4])
+            id_lst.pop()
+            chnl_lk = '/'.join(id_lst) + '/'
             Trnl.sh2.update('P2',vd_id)
+            Trnl.sh2.update('J2',chnl_id)
+            Trnl.sh2.update('I2',chnl_lk)
             bot.delete_messages(
                 chat_id=update.chat.id,
                 message_ids=update.message_id
