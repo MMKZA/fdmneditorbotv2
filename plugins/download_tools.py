@@ -31,7 +31,6 @@ from bs4 import BeautifulSoup
 from googletrans import Translator
 import re
 import datetime
-import time
 from channels import channels
 
 class cd:
@@ -443,7 +442,7 @@ def poster_tool(bot, update):
 def temp_invite(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         exp_date = datetime.datetime.now() + datetime.timedelta(days=1)
-        duration = time.mktime(exp_date.timetuple())
+        duration = datetime.datetime(exp_date.year,exp_date.month,exp_date.day,exp_date.hour,exp_date.minute,exp_date.second)
         #ရုပ်ရှင်စုံလင်
         gn_lk = bot.edit_chat_invite_link(
             chat_id = int(channels.gn_chnl[0]),
