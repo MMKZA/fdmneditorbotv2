@@ -30,6 +30,9 @@ import json
 from bs4 import BeautifulSoup
 from googletrans import Translator
 import re
+import datetime
+import time
+from channels import channels
 
 class cd:
     """Context manager for changing the current working directory"""
@@ -432,6 +435,54 @@ def poster_tool(bot, update):
         width = Trnl.sh2.acell('C5').value
         height = Trnl.sh2.acell('C6').value
         fdmn_frame(vlink,thumb_poster,width,height)
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
+@pyrogram.Client.on_message(pyrogram.filters.command(["invt"]))
+def temp_invite(bot, update):
+    if update.from_user.id in Config.AUTH_USERS:
+        exp_date = datetime.datetime.now() + datetime.timedelta(days=1)
+        duration = time.mktime(duration.timetuple())
+        #ရုပ်ရှင်စုံလင်
+        gn_lk = bot.edit_chat_invite_link(
+            chat_id = int(channels.gn_chnl[0]),
+            invite_link = 'https://t.me/+EFUsPIJ05bUwMzE1',
+            expire_date = duration,
+            creates_join_request = True
+        )
+        #tollywoodbollywood
+        bt_lk = bot.edit_chat_invite_link(
+            chat_id = int(channels.bt_chnl[0]),
+            invite_link = 'https://t.me/+27fJW0YzC3RmMDY9',
+            expire_date = duration,
+            creates_join_request = True
+        )
+        #ကာတွန်း
+        ani_lk = bot.edit_chat_invite_link(
+            chat_id = int(channels.ani_chnl[0]),
+            invite_link = 'https://t.me/+l_DoZlDe481hZWRl',
+            expire_date = duration,
+            creates_join_request = True
+        )
+        txt = '''
+ယာယီ invite link လေးတွေချပေးလိုက်ပါတယ်၊ bot ကနေ ကိုယ်တိုင် မ join တတ်တဲ့ သူများ မြန်မြန်လေး join ထားကြပါ။
+
+ရုပ်ရှင်စုံလင်
+{}
+
+Tollywood Bollywood
+{}
+
+ကာတွန်းကားများ
+{}
+
+warning!!! 🇲🇲 မြန်မာလူမျိုး မဟုတ်ဘူးလို ယူဆရတဲ့ အကောင့်တွေကို ဝင်ခွင့်မပေးပါဘူး။ တကယ်လို အထင်အမြင်လွဲတာမျိုးဆိုရင် Chat Group မှာ လာပြောပေးပါ။
+        '''.format(gn_lk,bt_lk,ani_lk)
+        bot.send_message(
+            chat_id="@fdmnchannel",
+            text=txt
+        )
         bot.delete_messages(
             chat_id=update.chat.id,
             message_ids=update.message_id
