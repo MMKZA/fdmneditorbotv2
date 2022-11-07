@@ -471,6 +471,7 @@ def func_scpt(script_url):
         vcap = ''
         for all in soup.select('#single > div.content.right > div.sheader > div.data > h1'):
             vcap = all.text
+        title = vcap
         year = ''
         for all in soup.select('#single > div.content.right > div.sheader > div.data > div.extra > span.date'):
             rls_date = datetime.datetime.strptime(all.text, "%b. %d, %Y")
