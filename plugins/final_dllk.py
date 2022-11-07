@@ -274,32 +274,24 @@ def final_dllk(bot, update):
                         chat_id=update.chat.id,
                         text=Trnl.sh2.acell('L3').value
                     )
-                gdrv_lst = gldchnl(web_url)
-                if web_url in Trnl.sh2.acell('H3').value:
-                    bot.send_message(
-                        chat_id=update.chat.id,
-                        text=Trnl.sh2.acell('H3').value
-                    )
-                avlb_lk = Trnl.sh2.acell('Q2').value
+                all_lst = gldchnl(web_url)
                 bot.send_message(
                     chat_id=update.chat.id,
-                    text="ရရှိနိုင်သော links များ👇\n" + avlb_lk
+                    text="Links အားလုံး👇"
                 )
                 inline_keyboard = []
-                for gdrv in gdrv_lst:
+                for al in all_lst:
                     bot.send_message(
                         chat_id=update.chat.id,
-                        text=gdrv,
+                        text=al,
                         disable_web_page_preview=True
                     )
-                    if 'drive.google.com' in gdrv:
-                        lk = gdrv.split('|')[0].strip()
-                        lk = '{}|{}'.format(lk.split('/')[2],lk.split('/')[5])
-                        qlt = gdrv.split('|')[1].strip()
-                        sz = gdrv.split('|')[2].strip()
-                        inline_keyboard.append([InlineKeyboardButton('Quality: {} ; Size: {}'.format(qlt,sz),callback_data=str(lk).encode("UTF-8"))])
+                    lk = al.split('|')[0].strip()
+                    qlt = al.split('|')[1].strip()
+                    sz = al.split('|')[2].strip()
+                    inline_keyboard.append([InlineKeyboardButton('Quality: {} ; Size: {}'.format(qlt,sz),callback_data=str(lk))])
                 reply_markup = InlineKeyboardMarkup(inline_keyboard)
-                try:
+                if len(inline_keyboard) != 0:
                     bot.send_message(
                         chat_id=update.chat.id,
                         text="တင်မယ့် Quality ရွေးပါ 👇",
@@ -307,15 +299,6 @@ def final_dllk(bot, update):
                         parse_mode="html",
                         reply_to_message_id=update.message_id
                     )
-                except:
-                    pass
-                #final_link = transloader(base, gdrv_lk)
-                #Trnl.sh2.update('L2', final_link)
-                #bot.send_message(
-                    #chat_id=update.chat.id,
-                    #text="Link မှန်ကန်ပါက ဇာတ်ကားတင်လို့ရပါပြီ 👇\n" + final_link
-                #)
-                #asyncio.run(echo_auto(bot,update,final_link))
             if "https://channelmyanmar.org/" in web_url:
                 func_scpt(web_url)
                 if web_url in Trnl.sh2.acell('L3').value:
