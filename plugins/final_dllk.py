@@ -276,10 +276,13 @@ def final_dllk(bot, update):
                     )
                 all_lst = gldchnl(web_url)
                 all_lst_txt = "Links အားလုံး👇\n" + '\n'.join(all_lst)
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text= all_lst_txt
-                )
+                try:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text= all_lst_txt
+                    )
+                except:
+                    pass
                 inline_keyboard = []
                 for al in all_lst:
                     lk = al.split('|')[0].strip()
