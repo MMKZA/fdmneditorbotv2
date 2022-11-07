@@ -51,7 +51,6 @@ def gldchnl_gdrv_id_save(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         gdrv_id = update.data.split('|')[1]
         Trnl.sh2.update('L4',gdrv_id)
-        methods(bot,update)
         if Trnl.sh2.acell('W2').value == 'manual':
             methods(bot,update)
         elif Trnl.sh2.acell('W2').value == 'auto':
