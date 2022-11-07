@@ -443,7 +443,7 @@ def poster_tool(bot, update):
 def temp_invite(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         exp_date = datetime.datetime.now() + datetime.timedelta(days=1)
-        duration = time.mktime(duration.timetuple())
+        duration = time.mktime(exp_date.timetuple())
         #ရုပ်ရှင်စုံလင်
         gn_lk = bot.edit_chat_invite_link(
             chat_id = int(channels.gn_chnl[0]),
