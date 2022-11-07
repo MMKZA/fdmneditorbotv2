@@ -49,7 +49,21 @@ def cnmm_gdrv_id_save(bot, update):
                 direct_method(bot, update)
 def gldchnl_gdrv_id_save(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        gdrv_id = update.data.split('|')[1]
+        gdrv = update.data
+        gdrv_req = requests.get(gdrv)
+        gdrv_req.encoding = gdrv_req.apparent_encoding
+        gdrv_html = gdrv_req.text
+        soup = BeautifulSoup(gdrv_html, 'html.parser')
+        href_lst = []
+        for a in soup.find_all('a', href=True):
+            href_lst.append(a['href'])
+        for h in href_lst:
+            if 'followup=' in h:
+                dllk = h.split('followup=')[1]
+                gdrv_lst.append('{} | {} | {}'.format(dllk,al.split("|", 3)[1].strip(),al.split("|", 3)[2].strip()))
+            elif ('followup=' not in h) and ('https://drive.google.com/file/d/' in h):
+                dllk = h
+        gdrv_id = dllk.split('/')[5]
         Trnl.sh2.update('L4',gdrv_id)
         if Trnl.sh2.acell('W2').value == 'manual':
             methods(bot,update)
