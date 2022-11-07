@@ -30,7 +30,7 @@ import json
 from bs4 import BeautifulSoup
 from googletrans import Translator
 import re
-import datetime
+from datetime import datetime, timedelta
 from channels import channels
 
 class cd:
@@ -441,8 +441,8 @@ def poster_tool(bot, update):
 @pyrogram.Client.on_message(pyrogram.filters.command(["invt"]))
 def temp_invite(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        exp_date = datetime.datetime.now() + datetime.timedelta(days=1)
-        duration = datetime.datetime(exp_date.year,exp_date.month,exp_date.day,exp_date.hour,exp_date.minute,exp_date.second)
+        exp_date = datetime.now() + timedelta(days=1)
+        duration = datetime(exp_date.year,exp_date.month,exp_date.day,exp_date.hour,exp_date.minute,exp_date.second)
         #ရုပ်ရှင်စုံလင်
         gn_lk = bot.edit_chat_invite_link(
             chat_id = int(channels.gn_chnl[0]),
