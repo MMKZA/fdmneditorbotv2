@@ -275,17 +275,13 @@ def final_dllk(bot, update):
                         text=Trnl.sh2.acell('L3').value
                     )
                 all_lst = gldchnl(web_url)
+                all_lst_txt = "Links အားလုံး👇\n" + '\n'.join(all_lst)
                 bot.send_message(
                     chat_id=update.chat.id,
-                    text="Links အားလုံး👇"
+                    text= all_lst_txt
                 )
                 inline_keyboard = []
                 for al in all_lst:
-                    bot.send_message(
-                        chat_id=update.chat.id,
-                        text=al,
-                        disable_web_page_preview=True
-                    )
                     lk = al.split('|')[0].strip()
                     qlt = al.split('|')[1].strip()
                     sz = al.split('|')[2].strip()
