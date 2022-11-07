@@ -9,6 +9,7 @@ from plugins.gdtot_dl import gdtot_dl
 import os
 import requests
 import re
+from bs4 import BeautifulSoup
 
 if bool(os.environ.get("WEBHOOK", False)):
     from sample_config import Config
