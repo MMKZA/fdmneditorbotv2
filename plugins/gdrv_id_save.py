@@ -61,7 +61,6 @@ def gldchnl_gdrv_id_save(bot, update):
         for h in href_lst:
             if 'followup=' in h:
                 dllk = h.split('followup=')[1]
-                gdrv_lst.append('{} | {} | {}'.format(dllk,al.split("|", 3)[1].strip(),al.split("|", 3)[2].strip()))
             elif ('followup=' not in h) and ('https://drive.google.com/file/d/' in h):
                 dllk = h
         gdrv_id = dllk.split('/')[5]
