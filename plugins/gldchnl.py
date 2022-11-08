@@ -44,7 +44,7 @@ def gldchnl(gld_url):
         indices = [v for i, v in enumerate(szgb_lst) if v < 2]
         max_sz = float("{:.2f}".format(max(indices)))
         max_lst = list(filter(lambda x: str(max_sz) + "GB" in x, all_lst))
-        qlt_kw = ['G Drive ', 'Mega ']
+        qlt_kw = ['G Drive ', 'Megaup ']
         max_qlt = ""
         for m in max_lst:
             for q in qlt_kw:
@@ -56,7 +56,7 @@ def gldchnl(gld_url):
         all_lst = list(range(0, len(sz_lst)))
         for i in all_lst:
             all_lst[i] = ("{} | {} | {}".format(url_lst[i], qlt_lst[i], str(sz_lst[i])))
-    kwd_st = ['G Drive', 'Mega']
+    kwd_st = ['G Drive', 'Megaup']
     avlb_lst = []
     for k in kwd_st:
         for a in all_lst:
@@ -73,4 +73,7 @@ def gldchnl(gld_url):
     for al in all_lst:
         if 'G Drive' in al:
             gdrv_lst.append(al)
+        if 'Megaup' in al:
+            gdrv_lst.append(al)
+    #logger.info(gdrv_lst)
     return gdrv_lst
