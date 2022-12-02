@@ -89,7 +89,7 @@ def plhh_method(bot, update):
         del req
         final_link = plhh_gdrive(gdrv_lk)
         Trnl.sh2.update('L2', final_link)
-        if 'public.php?' in final_link:
+        if 'https://api.a-u.workers.dev/download/' in final_link:
             text = "📺SVideo or 🗃️SFile မှန်ရာကိုရွေးချယ်ပါ 👇\n"
             mssg = bot.send_message(
                 chat_id=update.from_user.id,
