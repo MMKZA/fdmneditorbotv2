@@ -7,7 +7,6 @@ def plhh_gdrive(gdrv_lk):
     req = requests.get(plr_web)
     response = json.loads(req.content)
     url = 'https://api.a-u.workers.dev/download/{}'.format(gdrv_id)
-    if response['name'] is not None:
-        return url#response['url']
+    return url#response['url']
 #gdrv_lk = 'https://drive.google.com/file/d/1kAT4BdsylhdPcPK4neP40IxzKrHKZ83M/view?usp=share_link'   
 #print(plhh_gdrive(gdrv_lk))
