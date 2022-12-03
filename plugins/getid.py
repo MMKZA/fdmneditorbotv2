@@ -54,6 +54,7 @@ def setup(bot, update):
     Trnl.sh3.update('C{}'.format(index),chat['title'])
     Trnl.sh3.update('D{}'.format(index),'တင်ဆက်ဆဲ...')
     Trnl.sh3.update('E{}'.format(index),phto_url)
+    Trnl.sh3.update('F{}'.format(index),chat['id'])
 @pyrogram.Client.on_message(pyrogram.filters.command(["pic2"]))
 def setpic(bot, update):
     r = requests.get(Trnl.sh2.acell('C2').value)
@@ -106,4 +107,14 @@ def finish(bot, update):
         text=text,
         parse_mode="html",
         disable_web_page_preview=True
+    )
+@pyrogram.Client.on_message(pyrogram.filters.command(["chnlid"]))
+def chnl_id(bot, update):
+    chat = bot.get_chat(chat_id=update.chat.id)
+    srs_name = chat['title']
+    srs_row = Trnl.sh3.findall(srs_name)[0].row
+    Trnl.sh3.update('F{}'.format(srs_row),chat['id'])
+    bot.delete_messages(
+        chat_id=update.chat.id,
+        message_ids=update.message_id    
     )
