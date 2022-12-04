@@ -99,7 +99,19 @@ START သို့မဟုတ် RESTART ကိုနှိပ်ပါ၊ "/st
 ပြီးလျှင် ပေါ်လာတဲ့ လမ်းညွှန်ချက်အတိုင်းလုပ်ဆောင်ပါ။
 
 <b>မန်ဘာဝင်ပြီးပါက</b> 👇
-Private Channel တွေထဲဝင်နည်း Video ကို 👉<a href='https://t.me/fdmnchannel/4430'> ဒီနေရာမှာ</a>👈 နှိပ်ပြီး ကြည့်ပါ။</b>
+Movie Private Channel တွေထဲဝင်နည်း Video ကို 👉<a href='https://t.me/fdmnchannel/4430'> ဒီနေရာမှာ</a>👈 နှိပ်ပြီး ကြည့်ပါ။
 Video ထဲကအတိုင်း တစ်ကြိမ်လုပ်ဆောင်ပြီးသွားရင် 'ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ' ကနေတန်းကြည့်နိုင်ပါပြီ။
+
+ဇာတ်လမ်းအသစ်ကို Facebook Newfeeds ကနေစောင့်ကြည့်နိုင်ဖို့ 👉<a href='https://www.facebook.com/fdmntelegram'>FDMN Facebook Page</a>👈 ကို Like-Follow-Share လေးလုပ်ထားနိုင်ပါတယ်။'''
+
+    SERL_JOIN = '''<b>မန်ဘာမဝင်ရသေးပါက</b> 👇
+မန်ဘာကြေး ကျပ် ၈၀၀ သို့မဟုတ် ဘတ် ၁၀ တည်းနဲ့
+FDMN ကတင်ဆက်တဲ့ Series Movies အားလုံးကို ကြည့်ရှုနိုင်ပါတယ်။
+မန်ဘာဝင်ရန် 👉<a href='https://t.me/FDMN_Signup_Bot'> ဒီကို</a>👈 သွားပြီး
+START သို့မဟုတ် RESTART ကိုနှိပ်ပါ၊ "/start" လို့ရိုက်ပို့လည်းရပါတယ်။
+ပြီးလျှင် ပေါ်လာတဲ့ လမ်းညွှန်ချက်အတိုင်းလုပ်ဆောင်ပါ။
+
+<b>မန်ဘာဝင်ပြီးပါက</b> 👇
+Series Private Channel တွေထဲဝင်နည်း Video ကို 👉<a href='https://t.me/fdmnchannel/4430'> ဒီနေရာမှာ</a>👈 နှိပ်ပြီး ကြည့်ပါ။
 
 ဇာတ်လမ်းအသစ်ကို Facebook Newfeeds ကနေစောင့်ကြည့်နိုင်ဖို့ 👉<a href='https://www.facebook.com/fdmntelegram'>FDMN Facebook Page</a>👈 ကို Like-Follow-Share လေးလုပ်ထားနိုင်ပါတယ်။'''
