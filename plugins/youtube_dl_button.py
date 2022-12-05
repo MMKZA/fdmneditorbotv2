@@ -56,7 +56,7 @@ from plugins.scpt_auto import scpt_auto
 
 from helper_funcs.file_extract import file_extract
 
-from subprocess import PIPE, Popen
+import subprocess
 
 def youtube_dl_call_back(bot, update):
     if Trnl.sh2.acell('V2').value == 'auto':
@@ -190,13 +190,9 @@ def youtube_dl_call_back(bot, update):
     # command_to_exec.append("--quiet")
     #logger.info(command_to_exec)
     start = datetime.now()
-    process = Popen(
-        *command_to_exec,
-        stdout=PIPE,
-        bufsize=1
-    )
+    process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE)
     # Wait for the subprocess to finish
-    process.communicate("n\n")[0]
+    process.communicate()
     #e_response = stderr.decode().strip()
     #t_response = stdout.decode().strip()
     ##logger.info(e_response)
