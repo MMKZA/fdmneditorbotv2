@@ -57,7 +57,7 @@ from plugins.scpt_auto import scpt_auto
 
 from helper_funcs.file_extract import file_extract
 
-import subprocess
+from subprocess import PIPE, Popen
 
 def youtube_dl_call_back(bot, update):
     if Trnl.sh2.acell('V2').value == 'auto':
@@ -191,16 +191,16 @@ def youtube_dl_call_back(bot, update):
     # command_to_exec.append("--quiet")
     #logger.info(command_to_exec)
     start = datetime.now()
-    process = asyncio.create_subprocess_exec(
+    process = Popen(
         *command_to_exec,
         # stdout must a pipe to be accessible as process.stdout
-        stdout=asyncio.subprocess.PIPE,
-        stderr=asyncio.subprocess.PIPE,
+        stdout=PIPE,
+        stderr=PIPE
     )
     # Wait for the subprocess to finish
-    stdout, stderr = process.communicate()
-    e_response = stderr.decode().strip()
-    t_response = stdout.decode().strip()
+    process.communicate()
+    #e_response = stderr.decode().strip()
+    #t_response = stdout.decode().strip()
     ##logger.info(e_response)
     ##logger.info(t_response)
     #ad_string_to_replace = "please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
