@@ -192,7 +192,6 @@ def youtube_dl_call_back(bot, update):
     start = datetime.now()
     process = Popen(
         *command_to_exec,
-        stdin=PIPE,
         stdout=PIPE,
         bufsize=1
     )
