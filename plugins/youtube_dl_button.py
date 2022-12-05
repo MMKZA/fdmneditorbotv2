@@ -192,10 +192,7 @@ def youtube_dl_call_back(bot, update):
     #logger.info(command_to_exec)
     start = datetime.now()
     process = Popen(
-        *command_to_exec,
-        # stdout must a pipe to be accessible as process.stdout
-        stdout=PIPE,
-        stderr=PIPE
+        *command_to_exec
     )
     # Wait for the subprocess to finish
     process.communicate()
