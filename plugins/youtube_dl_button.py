@@ -54,7 +54,6 @@ from helper_funcs.fdmn_frame import fdmn_frame
 from trnl import Trnl
 from plugins.scpt_auto import scpt_auto
 
-
 from helper_funcs.file_extract import file_extract
 
 from subprocess import PIPE, Popen
