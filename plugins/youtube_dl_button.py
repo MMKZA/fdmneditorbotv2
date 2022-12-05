@@ -128,13 +128,13 @@ def youtube_dl_call_back(bot, update):
         description = response_json["fulltitle"][0:1021]
         # escape Markdown and special characters
     try:
-        a = bot.edit_message_text(
+        b = bot.edit_message_text(
             text=Translation.DOWNLOAD_START,
             chat_id=update.message.chat.id,
             message_id=update.message.message_id
         )
     except:
-        a = bot.send_message(
+        b = bot.send_message(
             chat_id=update.chat.id,
             text='Now Initializing...'
         )
@@ -191,72 +191,16 @@ def youtube_dl_call_back(bot, update):
     # command_to_exec.append("--quiet")
     #logger.info(command_to_exec)
     start = datetime.now()
-    #process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,universal_newlines=False)
-    process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,encoding="utf-8",universal_newlines=False)
-    while process.poll() is None or not os.path.exists(download_directory):
-        #for line in io.TextIOWrapper(process.stdout,encoding=locale.getpreferredencoding(False),errors='strict'):
-            #nline = line.rstrip()
-        nline = process.stdout.readline().rstrip()
-        if nline:
-            raw_prog = nline.replace(" ","")
-            prog = re.findall('\[download][0-9]*\.[0-9]+%of[0-9]*\.[0-9]+[a-zA-Z]+[0-9]*\.[0-9]+[a-zA-Z]+/sETA[0-9]+:[0-9]+', raw_prog)
-            if len(prog) != 0:
-                spd_kw = ['KiB/s','MiB/s','GiB/s']
-                sz_kw = ['KiBat','MiBat','GiBat']
-                prcnt = re.findall('[0-9]*\.[0-9]+%', prog[0])[0]
-                eta = re.findall('ETA[0-9]+:[0-9]+', prog[0])[0].replace('ETA','')
-                k = re.findall('[0-9]*\.[0-9]+[a-zA-Z]+/s', prog[0])[0]
-                for s in spd_kw:
-                    if s in k:
-                        spd = k.replace(s,'')
-                        spd_unt = s
-                l = re.findall('[0-9]*\.[0-9]+[a-zA-Z]+',prog[0])[0]
-                for z in sz_kw:
-                    if z in l:
-                        ttl_sz = l.replace(z,'')
-                        sz_unt = z.replace('at','')
-                dld = "{:.2f}".format(float(prcnt.strip('%'))*float(ttl_sz)/100)
-                if sz_unt == 'KiB':
-                    dld = dld
-                    dld_unit = 'KiB'
-                elif sz_unt == 'MiB':
-                    dld = dld
-                    dld_unit = 'MiB'
-                elif sz_unt == 'GiB':
-                    if float(dld) < 1:
-                        dld = float(dld)*1024
-                        dld_unit = 'MiB'
-                    elif float(dld) > 1:
-                        dld = dld
-                        dld_unit = 'GiB'
-                text = 'ပြီးစီးမှုပမာဏ: {} {} of {} {}\nအမြန်နှုန်း: {} {}\nခန့်မှန်းကြာချိန်: {} မိနစ် : {} စက္ကန့်'.format(dld,
-                                                                                                        dld_unit,
-                                                                                                        ttl_sz,
-                                                                                                        sz_unt,
-                                                                                                        spd,
-                                                                                                        spd_unt,
-                                                                                                        eta.split(':')[0],
-                                                                                                        eta.split(':')[1]
-                                                                                                        )
-                progress = "[{0}{1}] {2}%".format(
-                    ''.join(['█' for i in range(math.floor(float(prcnt.replace('%','')) / 5))]),
-                    ''.join(['░' for i in range(20 - math.floor(float(prcnt.replace('%','')) / 5))]),
-                    round(float(prcnt.replace('%','')), 2))
-                try:
-                    b = a.edit_text(Translation.DOWNLOAD_START + '\n<code>{}</code>\n{}\n{}'.format(vcap,progress,text))
-                    time.sleep(0.05)
-                except:
-                    continue
-    #process = asyncio.create_subprocess_exec(
-        #*command_to_exec,
+    process = await asyncio.create_subprocess_exec(
+        *command_to_exec,
         # stdout must a pipe to be accessible as process.stdout
-        #stdout=asyncio.subprocess.PIPE,
-        #stderr=asyncio.subprocess.PIPE,
-    #)
+        stdout=asyncio.subprocess.PIPE,
+        stderr=asyncio.subprocess.PIPE,
+    )
     # Wait for the subprocess to finish
-    #stdout, stderr = process.communicate()
-    #e_response = stderr.decode().strip()
-    #t_response = process.stdout.decode().strip()
+    stdout, stderr = await process.communicate()
+    e_response = stderr.decode().strip()
+    t_response = stdout.decode().strip()
     ##logger.info(e_response)
     ##logger.info(t_response)
     #ad_string_to_replace = "please report this issue on https://yt-dl.org/bug . Make sure you are using the latest version; see  https://yt-dl.org/update  on how to update. Be sure to call youtube-dl with the --verbose flag and include its complete output."
