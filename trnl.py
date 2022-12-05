@@ -53,6 +53,7 @@ class Trnl(object):
     sh2 = sh.worksheet("Sheet2")
     sh3 = sh.worksheet("Sheet3")
     sh4 = sh.worksheet("Sheet4")
+    sh5 = sh.worksheet("Paid Members")
     #JSDL
     dl_js_dir = Config.DOWNLOAD_LOCATION + "/myjsons"
     if not os.path.isdir(dl_js_dir):
