@@ -190,7 +190,7 @@ def youtube_dl_call_back(bot, update):
     # command_to_exec.append("--quiet")
     #logger.info(command_to_exec)
     start = datetime.now()
-    process = subprocess.Popen(command_to_exec)
+    process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,encoding="utf-8",universal_newlines=False)
     process.communicate()
     if os.path.exists(download_directory):
         # #logger.info(t_response)
