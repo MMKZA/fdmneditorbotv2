@@ -218,7 +218,7 @@ def youtube_dl_call_back(bot, update):
             file_extract(bot,update)
         if fl_ext not in arc_kw:
             c = b.edit_text(
-                text="Now Initializing..."
+                text="Preparing to Upload..."
             )
             try:
                 rntm = get_duration(download_directory)
