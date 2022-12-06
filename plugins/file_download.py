@@ -37,9 +37,11 @@ from datetime import datetime
 tmp_directory = Config.DOWNLOAD_LOCATION + "/1700943365/fdmntempvideo.mp4"
 
 def file_download(url):
-    with requests.get(url, stream=True) as r:
+    with requests.get(url, allow_redirects=True, stream=True) as r:
         with open(tmp_directory, 'wb') as f:
-            shutil.copyfileobj(r.raw, f)
+            for chunk in r.iter_content(chunk_size=128):
+                if chunk:
+                    f.write(chunk)
     return tmp_directory
 
 async def file_upload(bot, update):
