@@ -6,6 +6,7 @@ logging.basicConfig(level=logging.DEBUG,
 logger = logging.getLogger(__name__)
 
 import re
+import cfscrape
 
 def plhh_gdrive(gdrv_lk):
     try:
@@ -26,17 +27,11 @@ def plhh_gdrive(gdrv_lk):
     dl_ctry = re.findall('[^"]*',re.findall('country = "[a-zA-Z]+"', req.content.decode('utf-8'))[0])[2]
     dl_tm = re.findall('[0-9]+',re.findall('downloadtime = "[0-9]+"', req.content.decode('utf-8'))[0])[0]
     dl_wrkr = re.findall('[^"]*',re.findall('".*"',re.findall('arrayofworkers = \[[^\]]*]', req.content.decode('utf-8'))[0])[0])[1]
-    headers = {
-      'accept': '*/*',
-      'accept-encoding' : 'utf-8',
-      'accept-language' : 'en-US,en;q=0.9',
-      'origin': 'https://publiclinks.hashhackers.com',
-      'referer': 'https://publiclinks.hashhackers.com/',
-      'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62'
-    }
-    plr_web = 'https://api.{}.workers.dev/info/{}?_={}'.format(dl_wrkr, gdrv_id, dl_tm)
-    logger.info(req)
-    req = requests.get(plr_web)
+
+    scraper = cfscrape.create_scraper()
+    plr_web = 'httpcfscrapes://api.{}.workers.dev/info/{}?_={}'.format(dl_wrkr, gdrv_id, dl_tm)
+
+    req = scraper.get(plr_web)
     logger.info(req)
     #response = json.loads(req.content.decode('utf-8'))
     url = 'https://api.{}.workers.dev/download/{}?country={}'.format(dl_wrkr, gdrv_id, dl_ctry)
