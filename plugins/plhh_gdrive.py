@@ -8,7 +8,10 @@ logger = logging.getLogger(__name__)
 import re
 
 def plhh_gdrive(gdrv_lk):
-    gdrv_id = gdrv_lk.split('/')[5]
+    try:
+        gdrv_id = gdrv_lk.split('/')[5]
+    except:
+        gdrv_id = gdrv_lk.split('/')[3].split('=')[1]
     js_web = 'https://geolocation.zindex.eu.org/api.js'
     headers = {
       'accept': '*/*',
