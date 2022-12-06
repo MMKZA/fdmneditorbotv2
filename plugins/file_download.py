@@ -42,7 +42,7 @@ def file_download(url):
             shutil.copyfileobj(r.raw, f)
     return tmp_directory
 
-def file_upload(bot, update):
+async def file_upload(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         url = update.message.text
         download_directory = file_download(url)
