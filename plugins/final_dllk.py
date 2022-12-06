@@ -440,7 +440,7 @@ def final_dllk(bot, update):
                             direct_method(bot, update)
                 elif act_dlst_kw != '' and act_dlst_kw in lk:
                     if Trnl.sh2.acell('X2').value == 'open':
-                        file_upload(bot, update)
+                        asyncio.run(file_upload(bot, update))
                     elif Trnl.sh2.acell('X2').value == 'close':
                         Trnl.sh2.update('L2',lk)
                         text = "📺SVideo or 🗃️SFile မှန်ရာကိုရွေးချယ်ပါ 👇\n"
