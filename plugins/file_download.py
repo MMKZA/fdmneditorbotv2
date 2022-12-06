@@ -44,7 +44,7 @@ def file_download(url):
 
 async def file_upload(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        url = update.message.text
+        url = update.text
         download_directory = file_download(url)
         tmp_directory_for_each_user = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id)
         thumb_image_path = Config.DOWNLOAD_LOCATION + "/" + str(update.from_user.id) + ".jpg"
