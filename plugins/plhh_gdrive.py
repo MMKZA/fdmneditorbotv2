@@ -12,10 +12,11 @@ def plhh_gdrive(gdrv_lk):
     plr_web = 'https://api.a-u.workers.dev/info/{}?_=1669997773466'.format(gdrv_id)
     logger.info(plr_web)
     headers = {
-      'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+      'accept': '*/*',
       'accept-encoding' : 'utf-8',
       'accept-language' : 'en-US,en;q=0.9',
-      'cache-control' : 'max-age=0',
+      'origin': 'https://publiclinks.hashhackers.com',
+      'referer': 'https://publiclinks.hashhackers.com/',
       'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62'
     }
     req = requests.get(plr_web,headers=headers)
