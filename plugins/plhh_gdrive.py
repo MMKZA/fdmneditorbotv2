@@ -20,6 +20,7 @@ def plhh_gdrive(gdrv_lk):
       'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62'
     }
     req = requests.get(js_web, headers=headers)
+    dl_ctry = re.findall('[^"]*',re.findall('country = "[a-zA-Z]+"', req.content.decode('utf-8'))[0])[2]
     dl_tm = re.findall('[0-9]+',re.findall('downloadtime = "[0-9]+"', req.content.decode('utf-8'))[0])[0]
     dl_wrkr = re.findall('[^"]*',re.findall('".*"',re.findall('arrayofworkers = \[[^\]]*]', req.content.decode('utf-8'))[0])[0])[1]
     headers = {
@@ -34,9 +35,8 @@ def plhh_gdrive(gdrv_lk):
     logger.info(req)
     req = requests.get(plr_web)
     logger.info(req)
-    logger.info(req.content.decode('utf-8'))
     #response = json.loads(req.content.decode('utf-8'))
-    url = 'https://api.{}.workers.dev/download/{}'.format(dl_wrkr, gdrv_id)
+    url = 'https://api.{}.workers.dev/download/{}?country={}'.format(dl_wrkr, gdrv_id, dl_ctry)
     return url
 #gdrv_lk = 'https://drive.google.com/file/d/1kAT4BdsylhdPcPK4neP40IxzKrHKZ83M/view?usp=share_link'   
 #print(plhh_gdrive(gdrv_lk))
