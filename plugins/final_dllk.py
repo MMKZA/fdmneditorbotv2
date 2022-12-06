@@ -439,9 +439,9 @@ def final_dllk(bot, update):
                         elif 'method=DM' in Trnl.sh2.acell('W3').value:
                             direct_method(bot, update)
                 elif act_dlst_kw != '' and act_dlst_kw in lk:
-                    if Trnl.sh2.acell('X2').value == 'open':
+                    if Trnl.sh2.acell('X3').value == 'open':
                         asyncio.run(file_upload(bot, update))
-                    elif Trnl.sh2.acell('X2').value == 'close':
+                    elif Trnl.sh2.acell('X3').value == 'close':
                         Trnl.sh2.update('L2',lk)
                         text = "📺SVideo or 🗃️SFile မှန်ရာကိုရွေးချယ်ပါ 👇\n"
                         mssg = bot.send_message(
