@@ -6,9 +6,18 @@ logging.basicConfig(level=logging.DEBUG,
 logger = logging.getLogger(__name__)
 
 def plhh_gdrive(gdrv_lk):
+    logger.info(gdrv_lk)
     gdrv_id = gdrv_lk.split('/')[5]
+    logger.info(gdrv_id)
     plr_web = 'https://api.a-u.workers.dev/info/{}?_=1669997773466'.format(gdrv_id)
-    headers = {'accept-encoding' : 'utf-8'}
+    logger.info(plr_web)
+    headers = {
+      'accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+      'accept-encoding' : 'utf-8',
+      'accept-language' : 'en-US,en;q=0.9',
+      'cache-control' : 'max-age=0',
+      'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62'
+    }
     req = requests.get(plr_web,headers=headers)
     logger.info(req)
     logger.info(req.content.decode('utf-8'))
