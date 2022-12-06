@@ -31,11 +31,12 @@ def plhh_gdrive(gdrv_lk):
       'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Safari/537.36 Edg/107.0.1418.62'
     }
     plr_web = 'https://api.{}.workers.dev/info/{}?_={}'.format(dl_wrkr, gdrv_id, dl_tm)
-    req = requests.get(plr_web,headers=headers)
-    #print(req.content.decode('utf-8'))
-    response = json.loads(req.content.decode('utf-8'))
+    logger.info(req)
+    req = requests.get(plr_web)
+    logger.info(req)
+    logger.info(req.content.decode('utf-8'))
+    #response = json.loads(req.content.decode('utf-8'))
     url = 'https://api.{}.workers.dev/download/{}'.format(dl_wrkr, gdrv_id)
-    if response['name'] is not None:
-        return url#response['url']
+    return url
 #gdrv_lk = 'https://drive.google.com/file/d/1kAT4BdsylhdPcPK4neP40IxzKrHKZ83M/view?usp=share_link'   
 #print(plhh_gdrive(gdrv_lk))
