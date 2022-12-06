@@ -9,7 +9,7 @@ def plhh_gdrive(gdrv_lk):
     logger.info(gdrv_lk)
     gdrv_id = gdrv_lk.split('/')[5]
     logger.info(gdrv_id)
-    plr_web = 'https://api.a-u.workers.dev/info/{}?_=1669997773466'.format(gdrv_id)
+    plr_web = 'https://api.a-u.workers.dev/info/{}?_=1670312202108'.format(gdrv_id)
     logger.info(plr_web)
     headers = {
       'accept': '*/*',
