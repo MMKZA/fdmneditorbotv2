@@ -404,7 +404,7 @@ def final_dllk(bot, update):
             else:
                 lk = web_url
             if 'megaup.net' not in lk:
-                if 'rapidleech.gq' not in lk:
+                if 'rapidleech.gq' not in lk or '.workers.dev/download/' not in lk:
                     if "yoteshinportal.cc" in lk:
                         gdrv_retrn = ytsn_dllk(lk)
                         if "error" in gdrv_retrn:
