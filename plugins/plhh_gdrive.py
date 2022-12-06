@@ -29,7 +29,7 @@ def plhh_gdrive(gdrv_lk):
     dl_wrkr = re.findall('[^"]*',re.findall('".*"',re.findall('arrayofworkers = \[[^\]]*]', req.content.decode('utf-8'))[0])[0])[1]
 
     scraper = cfscrape.create_scraper()
-    plr_web = 'httpcfscrapes://api.{}.workers.dev/info/{}?_={}'.format(dl_wrkr, gdrv_id, dl_tm)
+    plr_web = 'https://api.{}.workers.dev/info/{}?_={}'.format(dl_wrkr, gdrv_id, dl_tm)
 
     req = scraper.get(plr_web)
     logger.info(req)
