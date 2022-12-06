@@ -27,6 +27,7 @@ import logging
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
+from plugins.file_download import file_upload
 
 @pyrogram.Client.on_message(pyrogram.filters.regex(pattern=".*http.*"))
 def final_dllk(bot, update):
@@ -438,13 +439,16 @@ def final_dllk(bot, update):
                         elif 'method=DM' in Trnl.sh2.acell('W3').value:
                             direct_method(bot, update)
                 elif act_dlst_kw != '' and act_dlst_kw in lk:
-                    Trnl.sh2.update('L2',lk)
-                    text = "📺SVideo or 🗃️SFile မှန်ရာကိုရွေးချယ်ပါ 👇\n"
-                    mssg = bot.send_message(
-                        chat_id=update.from_user.id,
-                        text=text + lk
-                    )
-                    echo_echo(bot,update,lk,mssg,mssg.message_id)
+                    if Trnl.sh2.acell('X2').value == 'open':
+                        file_upload(bot, update)
+                    elif Trnl.sh2.acell('X2').value == 'close':
+                        Trnl.sh2.update('L2',lk)
+                        text = "📺SVideo or 🗃️SFile မှန်ရာကိုရွေးချယ်ပါ 👇\n"
+                        mssg = bot.send_message(
+                            chat_id=update.from_user.id,
+                            text=text + lk
+                        )
+                        echo_echo(bot,update,lk,mssg,mssg.message_id)
             elif 'megaup.net' in lk and '?download_token=' in lk:
                 fl_fll_nm = lk.split('/')[4].split('?download_token')[0]
                 vd_kw = ['.mkv','.m4a','.mov','.avi']
