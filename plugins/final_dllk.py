@@ -404,7 +404,12 @@ def final_dllk(bot, update):
             else:
                 lk = web_url
             if 'megaup.net' not in lk:
-                if 'rapidleech.gq' not in lk or '.workers.dev/download/' not in lk:
+                dlst_kwd_lst = ['rapidleech.gq','workers.dev/download/']
+                act_dlst_kw = ''
+                for k in dlst_kwd_lst:
+                    if k in lk:
+                        act_dlst_kw = k
+                if act_dlst_kw != '' and act_dlst_kw not in lk:
                     if "yoteshinportal.cc" in lk:
                         gdrv_retrn = ytsn_dllk(lk)
                         if "error" in gdrv_retrn:
@@ -432,7 +437,7 @@ def final_dllk(bot, update):
                             transload_method(bot, update)
                         elif 'method=DM' in Trnl.sh2.acell('W3').value:
                             direct_method(bot, update)
-                elif 'rapidleech.gq' in lk or '.workers.dev/download/' in lk:
+                elif act_dlst_kw != '' and act_dlst_kw in lk:
                     Trnl.sh2.update('L2',lk)
                     text = "📺SVideo or 🗃️SFile မှန်ရာကိုရွေးချယ်ပါ 👇\n"
                     mssg = bot.send_message(
