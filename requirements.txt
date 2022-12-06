@@ -39,3 +39,4 @@ python-myanmar
 pyvirtualdisplay
 cinemagoer
 si_prefix
+cfscrape
