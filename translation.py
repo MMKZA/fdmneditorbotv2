@@ -92,7 +92,7 @@ URL | filename | username | password"""
     CHNL_FB = "ဇာတ်လမ်းအသစ်ကို Facebook Newfeeds ကနေစောင့်ကြည့်နိုင်ဖို့ 👉<a href='https://www.facebook.com/fdmntelegram'>FDMN Facebook Page</a>👈 ကို Like-Follow-Share လေးလုပ်ထားနိုင်ပါတယ်။"
     #CHNL_JOIN = "<b>အသစ်ရောက်လာတဲ့သူတွေက...</b>\n<b>Private Channel တွေထဲဝင်နည်း Video ကို 👉<a href='https://t.me/fdmnchannel/783'> ဒီနေရာမှာ</a>👈 နှိပ်ပြီး ကြည့်ပါ။</b>\n<b>Video ထဲကအတိုင်း တစ်ကြိမ်လုပ်ဆောင်ပြီးသွားရင် 'ဇာတ်လမ်းကြည့်ရန် နှိပ်ပါ' ကနေတန်းကြည့်နိုင်ပါပြီ။\nဝင်ကြေးပေးစရာမလို(အခမဲ့)ပါ။</b>\n\nJoin နိုင်တဲ့ လက်ရှိ Private Channel များ...\n(၁) ရုပ်ရှင်စုံလင်\n(၂) Bollywood/Tallywood ဇာတ်လမ်းများ\n(၃) ကာတွန်းဇာတ်လမ်းများ\n(၄) 18+ ဇာတ်လမ်းများ\n\nဇာတ်လမ်းအသစ်ကို Facebook Newfeeds ကနေစောင့်ကြည့်နိုင်ဖို့ 👉<a href='https://www.facebook.com/fdmntelegram'>FDMN Facebook Page</a>👈 ကို Like-Follow-Share လေးလုပ်ထားနိုင်ပါတယ်။"
     CHNL_JOIN = '''<b>မန်ဘာမဝင်ရသေးပါက</b> 👇
-မန်ဘာကြေး {} တည်းနဲ့
+တစ်သက်သာ မန်ဘာကြေး <b>{}</b> တည်းနဲ့
 FDMN ကတင်ဆက်တဲ့ Series Movies အားလုံးကို ကြည့်ရှုနိုင်ပါတယ်။
 မန်ဘာဝင်ရန် 👉<a href='https://t.me/FDMN_Signup_Bot'> ဒီကို</a>👈 သွားပြီး
 START သို့မဟုတ် RESTART ကိုနှိပ်ပါ၊ "/start" လို့ရိုက်ပို့လည်းရပါတယ်။
@@ -105,7 +105,7 @@ Video ထဲကအတိုင်း တစ်ကြိမ်လုပ်ဆေ�
 ဇာတ်လမ်းအသစ်ကို Facebook Newfeeds ကနေစောင့်ကြည့်နိုင်ဖို့ 👉<a href='https://www.facebook.com/fdmntelegram'>FDMN Facebook Page</a>👈 ကို Like-Follow-Share လေးလုပ်ထားနိုင်ပါတယ်။'''
 
     SERL_JOIN = '''<b>မန်ဘာမဝင်ရသေးပါက</b> 👇
-မန်ဘာကြေး {} တည်းနဲ့
+တစ်သက်သာ မန်ဘာကြေး <b>{}</b> တည်းနဲ့
 FDMN ကတင်ဆက်တဲ့ Series Movies အားလုံးကို ကြည့်ရှုနိုင်ပါတယ်။
 မန်ဘာဝင်ရန် 👉<a href='https://t.me/FDMN_Signup_Bot'> ဒီကို</a>👈 သွားပြီး
 START သို့မဟုတ် RESTART ကိုနှိပ်ပါ၊ "/start" လို့ရိုက်ပို့လည်းရပါတယ်။
