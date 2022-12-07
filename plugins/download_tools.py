@@ -438,51 +438,26 @@ def poster_tool(bot, update):
             chat_id=update.chat.id,
             message_ids=update.message_id
         )
-@pyrogram.Client.on_message(pyrogram.filters.command(["invt"]))
-def temp_invite(bot, update):
-    if update.from_user.id in Config.AUTH_USERS:
-        exp_date = datetime.now() + timedelta(days=1)
-        duration = datetime(exp_date.year,exp_date.month,exp_date.day,exp_date.hour,exp_date.minute,exp_date.second)
-        #ရုပ်ရှင်စုံလင်
-        gn_lk = bot.edit_chat_invite_link(
-            chat_id = int(channels.gn_chnl[0]),
-            invite_link = 'https://t.me/+EFUsPIJ05bUwMzE1',
-            expire_date = duration,
-            creates_join_request = True
-        )
-        #tollywoodbollywood
-        bt_lk = bot.edit_chat_invite_link(
-            chat_id = int(channels.bt_chnl[0]),
-            invite_link = 'https://t.me/+27fJW0YzC3RmMDY9',
-            expire_date = duration,
-            creates_join_request = True
-        )
-        #ကာတွန်း
-        ani_lk = bot.edit_chat_invite_link(
-            chat_id = int(channels.ani_chnl[0]),
-            invite_link = 'https://t.me/+l_DoZlDe481hZWRl',
-            expire_date = duration,
-            creates_join_request = True
-        )
-        txt = '''
-ယာယီ invite link လေးတွေချပေးလိုက်ပါတယ်၊ bot ကနေ ကိုယ်တိုင် မ join တတ်တဲ့ သူများ မြန်မြန်လေး join ထားကြပါ။
-
-ရုပ်ရှင်စုံလင်
-{}
-
-Tollywood Bollywood
-{}
-
-ကာတွန်းကားများ
-{}
-
-warning!!! 🇲🇲 မြန်မာလူမျိုး မဟုတ်ဘူးလို ယူဆရတဲ့ အကောင့်တွေကို ဝင်ခွင့်မပေးပါဘူး။ တကယ်လို အထင်အမြင်လွဲတာမျိုးဆိုရင် Chat Group မှာ လာပြောပေးပါ။
-        '''.format(gn_lk,bt_lk,ani_lk)
-        bot.send_message(
-            chat_id="@fdmnchannel",
-            text=txt
-        )
-        bot.delete_messages(
-            chat_id=update.chat.id,
-            message_ids=update.message_id
-        )
+        
+@pyrogram.Client.on_message(pyrogram.filters.command(["srvk2"]))
+async def srs_invt_rvk(bot, update):
+    srs_chnl_id_lst = Trnl.sh3.col_values(6)
+    srs_chnl_invt_lk_lst = Trnl.sh3.col_values(2)
+    srs_chnl_id_lst.pop(0)
+    srs_chnl_invt_lk_lst.pop(0)
+    for id in srs_chnl_id_lst:
+        try:
+            index = srs_chnl_id_lst.index(id)
+            chnl = await bot.get_chat(chat_id=int(id))
+            chnl_nm = chnl['title']
+            chnl_invt_lk = srs_chnl_invt_lk_lst[int(index)]
+            await bot.revoke_chat_invite_link(
+                chat_id = int(id),
+                invite_link = str(chnl_invt_lk)
+            )
+            await bot.send_message(
+                chat_id=update.chat.id,
+                text="<b>{}</b> movie channel မှ invite link <b>{}</b> ကို ပိတ်လိုက်ပါပြီ".format(chnl_nm, chnl_invt_lk)
+            )
+        except:
+            pass
