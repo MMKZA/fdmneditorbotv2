@@ -355,9 +355,15 @@ def youtube_dl_call_back(bot, update):
                     disable_web_page_preview=True
                 )
             if file_size < Config.TG_MAX_FILE_SIZE:
-                upmssg = c.edit_text(
-                    text=Translation.UPLOAD_START + '\n<code>{}</code>'.format(vcap)
-                )
+                try:
+                    upmssg = c.edit_text(
+                        text=Translation.UPLOAD_START + '\n<code>{}</code>'.format(vcap)
+                    )
+                except:
+                    upmssg = bot.send_message(
+                        chat_id=update.chat.id,
+                        text=Translation.UPLOAD_START + '\n<code>{}</code>'.format(vcap)
+                    )
                 duration = 0
                 if tg_send_type != "file":
                     metadata = extractMetadata(createParser(download_directory))
