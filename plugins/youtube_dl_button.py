@@ -217,9 +217,15 @@ def youtube_dl_call_back(bot, update):
             )
             file_extract(bot,update)
         if fl_ext not in arc_kw:
-            c = b.edit_text(
-                text="Preparing to Upload..."
-            )
+            try:
+                c = b.edit_text(
+                    text="Preparing to Upload..."
+                )
+            except:
+                c = bot.send_message(
+                    chat_id=update.chat.id,
+                    text="Preparing to Upload..."
+                )
             try:
                 rntm = get_duration(download_directory)
                 Trnl.sh2.update('M4',rntm)
