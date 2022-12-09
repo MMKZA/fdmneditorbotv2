@@ -475,7 +475,10 @@ def command_tool(bot, update):
             process = subprocess.Popen(cmd_lst, stdout=subprocess.PIPE,encoding="utf-8",universal_newlines=False)
             while process.poll() is None:
                 nline = process.stdout.readline().rstrip()
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text=str(nline)
-                )
+                try:
+                    bot.send_message(
+                        chat_id=update.chat.id,
+                        text=str(nline)
+                    )
+                except:
+                    pass
