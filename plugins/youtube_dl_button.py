@@ -127,13 +127,13 @@ def youtube_dl_call_back(bot, update):
         description = response_json["fulltitle"][0:1021]
         # escape Markdown and special characters
     try:
-        b = bot.edit_message_text(
+        a = bot.edit_message_text(
             text=Translation.DOWNLOAD_START,
             chat_id=update.message.chat.id,
             message_id=update.message.message_id
         )
     except:
-        b = bot.send_message(
+        a = bot.send_message(
             chat_id=update.chat.id,
             text='Now Initializing...'
         )
@@ -191,7 +191,18 @@ def youtube_dl_call_back(bot, update):
     #logger.info(command_to_exec)
     start = datetime.now()
     process = subprocess.Popen(command_to_exec, stdout=subprocess.PIPE,encoding="utf-8",universal_newlines=False)
-    process.communicate()
+    while process.poll() is None or not os.path.exists(download_directory):
+        nline = process.stdout.readline().rstrip()
+        if nline:
+            try:
+                b = a.edit_text(str(nline))
+                time.sleep(0.05)
+            except:
+                continue
+    try:
+        process.communicate()
+    except:
+        pass
     if os.path.exists(download_directory):
         # #logger.info(t_response)
         os.remove(save_ytdl_json_path)
