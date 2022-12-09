@@ -465,3 +465,17 @@ async def srs_invt_rvk(bot, update):
             )
         except:
             pass
+          
+@pyrogram.Client.on_message(pyrogram.filters.command(["cmd"]))
+def command_tool(bot, update):
+    if update.from_user.id in Config.AUTH_USERS:
+        if update.reply_to_message.text is not None:
+            cmd_txt = update.reply_to_message.text
+            cmd_lst = cmd_txt.split(' ')
+            process = subprocess.Popen(cmd_lst, stdout=subprocess.PIPE,encoding="utf-8",universal_newlines=False)
+            while process.poll() is None:
+                nline = process.stdout.readline().rstrip()
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text=str(nline)
+                )
