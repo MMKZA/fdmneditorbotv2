@@ -465,4 +465,3 @@ async def srs_invt_rvk(bot, update):
             )
         except:
             pass
-        )
