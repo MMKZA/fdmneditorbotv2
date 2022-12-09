@@ -217,15 +217,9 @@ def youtube_dl_call_back(bot, update):
             )
             file_extract(bot,update)
         if fl_ext not in arc_kw:
-            try:
-                c = b.edit_text(
-                    text="Preparing to Upload..."
-                )
-            except:
-                c = bot.send_message(
-                    chat_id=update.chat.id,
-                    text="Preparing to Upload..."
-                )
+            c = b.edit_text(
+                text="Preparing to Upload..."
+            )
             try:
                 rntm = get_duration(download_directory)
                 Trnl.sh2.update('M4',rntm)
@@ -355,15 +349,9 @@ def youtube_dl_call_back(bot, update):
                     disable_web_page_preview=True
                 )
             if file_size < Config.TG_MAX_FILE_SIZE:
-                try:
-                    upmssg = c.edit_text(
-                        text=Translation.UPLOAD_START + '\n<code>{}</code>'.format(vcap)
-                    )
-                except:
-                    upmssg = bot.send_message(
-                        chat_id=update.chat.id,
-                        text=Translation.UPLOAD_START + '\n<code>{}</code>'.format(vcap)
-                    )
+                upmssg = c.edit_text(
+                    text=Translation.UPLOAD_START + '\n<code>{}</code>'.format(vcap)
+                )
                 duration = 0
                 if tg_send_type != "file":
                     metadata = extractMetadata(createParser(download_directory))
