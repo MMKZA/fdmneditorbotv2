@@ -9,6 +9,14 @@ import rarfile
 import py7zr
 #import patoolib
 
+def list_sorter(fl_lst):
+    b = set(fl_lst)
+    numList = sorted([x for x in b if x.split(' ')[0].isdigit()],
+                 key=lambda x: int(x.split(' ')[0]))
+    alphaList = sorted([x for x in b if not x.split(' ')[0].isdigit()])
+    sortedList = numList + alphaList
+    return sortedList
+
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
 logger = logging.getLogger(__name__)
@@ -32,10 +40,18 @@ def _7z_extract(inpath,outpath):
     with py7zr.SevenZipFile(inpath, mode='r') as _7z_file:
         _7z_file.extractall(path=outpath)
 
+def list_sorter(fl_lst):
+    b = set(fl_lst)
+    numList = sorted([x for x in b if x.split(' ')[0].isdigit()],
+                 key=lambda x: int(x.split(' ')[0]))
+    alphaList = sorted([x for x in b if not x.split(' ')[0].isdigit()])
+    sortedList = numList + alphaList
+    return sortedList      
+        
 @pyrogram.Client.on_message(pyrogram.filters.command(["fldl"]))
 def file_extract(bot,update):
     if update.from_user.id in Config.AUTH_USERS:
-        inpath = Trnl.sh2.acell('I3').value
+        inpath = Trnl.sh1.acell('I3').value
         fl_ext = os.path.splitext(inpath)[1]
         outpath = os.path.splitext(inpath)[0] + '/'
         if not os.path.isdir(outpath):
@@ -56,7 +72,7 @@ def file_extract(bot,update):
                         fl_lst.append(filepath)
         try:
             if len(fl_lst) != 0:
-                for fl in fl_lst:
+                for fl in list_sorter(fl_lst):
                     bot.send_message(
                         text='<code>{}</code>'.format(fl),
                         chat_id=update.message.chat.id,
@@ -70,8 +86,7 @@ def file_extract(bot,update):
                 )
         except:
             if len(fl_lst) != 0:
-                fl_lst.sort()
-                for fl in fl_lst:
+                for fl in list_sorter(fl_lst):
                     bot.send_message(
                         text='<code>{}</code>'.format(fl),
                         chat_id=update.chat.id,
