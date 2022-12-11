@@ -70,6 +70,7 @@ def file_extract(bot,update):
                 )
         except:
             if len(fl_lst) != 0:
+                fl_lst.sort()
                 for fl in fl_lst:
                     bot.send_message(
                         text='<code>{}</code>'.format(fl),
