@@ -205,39 +205,17 @@ def youtube_dl_call_back(bot, update):
                 sz_kw = ['KiBat','MiBat','GiBat']
                 prcnt = re.findall('[0-9]*\.[0-9]+%', prog[0])[0]
                 eta = re.findall('ETA[0-9]+:[0-9]+', prog[0])[0].replace('ETA','')
-                k = re.findall('[0-9]*\.[0-9]+[a-zA-Z]+/s', prog[0])[0]
-                for s in spd_kw:
-                    if s in k:
-                        spd = k.replace(s,'')
-                        spd_unt = s
-                l = re.findall('[0-9]*\.[0-9]+[a-zA-Z]+',prog[0])[0]
-                for z in sz_kw:
-                    if z in l:
-                        ttl_sz = l.replace(z,'')
-                        sz_unt = z.replace('at','')
-                dld = "{:.2f}".format(float(prcnt.strip('%'))*float(ttl_sz)/100)
-                if sz_unt == 'KiB':
-                    dld = dld
-                    dld_unit = 'KiB'
-                elif sz_unt == 'MiB':
-                    dld = dld
-                    dld_unit = 'MiB'
-                elif sz_unt == 'GiB':
-                    if float(dld) < 1:
-                        dld = float(dld)*1024
-                        dld_unit = 'MiB'
-                    elif float(dld) > 1:
-                        dld = dld
-                        dld_unit = 'GiB'
-                text = 'ပြီးစီးမှုပမာဏ: {} {} of {} {}\nအမြန်နှုန်း: {} {}\nခန့်မှန်းကြာချိန်: {} မိနစ် : {} စက္ကန့်'.format(dld,
-                                                                                                        dld_unit,
-                                                                                                        ttl_sz,
-                                                                                                        sz_unt,
-                                                                                                        spd,
-                                                                                                        spd_unt,
-                                                                                                        eta.split(':')[0],
-                                                                                                        eta.split(':')[1]
-                                                                                                        )
+                spd = re.findall('[0-9]*\.[0-9]+[a-zA-Z]+/s', prog[0])[0]
+                ttl_sz = re.findall('[0-9]*\.[0-9]+[a-zA-Z]+',prog[0])[0].replace('at','')
+                text = '''ပြီးစီးမှုရာခိုင်နှုန်း: {} of {}
+အမြန်နှုန်း: {}
+ခန့်မှန်းကြာချိန်: {} မိနစ် : {} စက္ကန့်'''.format(
+    prcnt,
+    ttl_sz,
+    spd,
+    eta.split(':')[0],
+    eta.split(':')[1]
+    )
                 progress = "[{0}{1}] {2}%".format(
                     ''.join(['█' for i in range(math.floor(float(prcnt.replace('%','')) / 5))]),
                     ''.join(['░' for i in range(20 - math.floor(float(prcnt.replace('%','')) / 5))]),
@@ -247,6 +225,10 @@ def youtube_dl_call_back(bot, update):
                     time.sleep(0.05)
                 except:
                     continue
+    try:
+        process.communicate()
+    except:
+        pass
     #process = asyncio.create_subprocess_exec(
         #*command_to_exec,
         # stdout must a pipe to be accessible as process.stdout
