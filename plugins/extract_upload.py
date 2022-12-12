@@ -298,3 +298,8 @@ async def extract_upload(bot, update):
                 )
                 Trnl.sh2.update('C3','close')
                 Trnl.sh2.update('N7','close')
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
