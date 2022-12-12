@@ -95,13 +95,21 @@ def trsl_tool(bot, update):
                 chat_id=update.chat.id,
                 text=text + final_link
             )
-            
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )            
 @pyrogram.Client.on_message(pyrogram.filters.command(["gtsh"]))
 def gtsh_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         lk = update.reply_to_message.text
         Trnl.sh2.update('L2', lk)
- 
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        ) 
 @pyrogram.Client.on_message(pyrogram.filters.command(["srs"]))
 def srs_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -236,7 +244,11 @@ def ytdlpdl_tool(bot, update):
             chat_id=update.chat.id,
             text="လုပ်ဆောင်ချက်အောင်မြင်ပါတယ်"
         )
-
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 @pyrogram.Client.on_message(pyrogram.filters.command(["jsdl"]))
 def jsdl_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -260,7 +272,11 @@ def clean(bot, update):
             chat_id=update.chat.id,
             message_ids=update.message_id
         )
-    
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )    
 @pyrogram.Client.on_message(pyrogram.filters.command(["pstcl"]))
 def poster_clean(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -281,7 +297,11 @@ def open_imdbpy(bot, update):
             chat_id=update.chat.id,
             message_ids=update.message_id
         )
-    
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )    
 @pyrogram.Client.on_message(pyrogram.filters.command(["onimdbpy"]))
 def close_imdbpy(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -299,7 +319,11 @@ def open_imdb(bot, update):
             chat_id=update.chat.id,
             message_ids=update.message_id
         )
-    
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )    
 @pyrogram.Client.on_message(pyrogram.filters.command(["refreshimdb"]))
 def close_imdb(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -337,7 +361,11 @@ def imdb_google(bot, update):
             chat_id=update.chat.id,
             text="အဖြစ်နိုင်ဆုံး 👇"+imdb_url
         )
-
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 @pyrogram.Client.on_message(pyrogram.filters.command(["autoauto"]))
 def auto_auto(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -347,12 +375,21 @@ def auto_auto(bot, update):
             chat_id=update.chat.id,
             message_ids=update.message_id
         )
-
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 @pyrogram.Client.on_message(pyrogram.filters.command(["manualmanual"]))
 def manual_manual(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         Trnl.sh2.update('V2','manual')
         Trnl.sh2.update('W2','manual')
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
+    elif update.from_user.id not in Config.AUTH_USERS:
         bot.delete_messages(
             chat_id=update.chat.id,
             message_ids=update.message_id
@@ -366,11 +403,21 @@ def auto_plm(bot, update):
             chat_id=update.chat.id,
             message_ids=update.message_id
         )
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 @pyrogram.Client.on_message(pyrogram.filters.command(["autotm"]))
 def auto_tm(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         Trnl.sh2.update('W2','auto')
         Trnl.sh2.update('W3','method=TM')
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
+    elif update.from_user.id not in Config.AUTH_USERS:
         bot.delete_messages(
             chat_id=update.chat.id,
             message_ids=update.message_id
@@ -384,7 +431,11 @@ def auto_dm(bot, update):
             chat_id=update.chat.id,
             message_ids=update.message_id
         )
-    
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )    
 @pyrogram.Client.on_message(pyrogram.filters.command(["upld"]))
 def upld_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -413,7 +464,11 @@ def upld_tool(bot, update):
                 transload_method(bot, update)
             elif 'method=DM' in Trnl.sh2.acell('W3').value:
                 direct_method(bot, update)
-
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 @pyrogram.Client.on_message(pyrogram.filters.command(["cnmm"]))
 def cnmm_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -432,7 +487,11 @@ def cnmm_tool(bot, update):
             chat_id=update.chat.id,
             text="အဖြစ်နိုင်ဆုံး 👇\n" + cnmm_lst[0]
         )
-
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 @pyrogram.Client.on_message(pyrogram.filters.command(["poster"]))
 def poster_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -445,7 +504,11 @@ def poster_tool(bot, update):
             chat_id=update.chat.id,
             message_ids=update.message_id
         )
-        
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )        
 @pyrogram.Client.on_message(pyrogram.filters.command(["srvk1"]))
 async def srs_invt_rvk(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -469,7 +532,11 @@ async def srs_invt_rvk(bot, update):
                 )
             except:
                 pass
-          
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )          
 @pyrogram.Client.on_message(pyrogram.filters.command(["cmd"]))
 def command_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -486,8 +553,12 @@ def command_tool(bot, update):
                     )
                 except:
                     pass
-                  
-@pyrogram.Client.on_message(pyrogram.filters.command(["tmupd1"]))
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )                  
+@pyrogram.Client.on_message(pyrogram.filters.command(["tmupd2"]))
 async def fdmn_countdown(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         await bot.delete_messages(
