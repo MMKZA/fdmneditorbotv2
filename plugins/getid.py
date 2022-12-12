@@ -61,6 +61,11 @@ def setup(bot, update):
         Trnl.sh3.update('D{}'.format(index),'တင်ဆက်ဆဲ...')
         Trnl.sh3.update('E{}'.format(index),phto_url)
         Trnl.sh3.update('F{}'.format(index),chat['id'])
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 @pyrogram.Client.on_message(pyrogram.filters.command(["pic2"]))
 def setpic(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -73,6 +78,11 @@ def setpic(bot, update):
         bot.set_chat_photo(
             chat_id=update.chat.id,
             photo=inmemoryfile
+        )
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
         )
 @pyrogram.Client.on_message(pyrogram.filters.command(["id2"]))
 def sendid(bot, update):
@@ -90,6 +100,11 @@ def sendid(bot, update):
         Trnl.sh3.update('D{}'.format(srs_row),'တင်ဆက်ဆဲ...')
         phto_url = Trnl.sh3.acell('E{}'.format(srs_row)).value
         Trnl.sh2.update('C2',phto_url)
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 @pyrogram.Client.on_message(pyrogram.filters.command(["ad2"]))
 def audio(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -99,6 +114,11 @@ def audio(bot, update):
         bot.delete_messages(
             chat_id=full_id,
             message_ids=update.message_id    
+        )
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
         )
 @pyrogram.Client.on_message(pyrogram.filters.command(["ed2"]))
 def finish(bot, update):
@@ -118,6 +138,11 @@ def finish(bot, update):
             parse_mode="html",
             disable_web_page_preview=True
         )
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 @pyrogram.Client.on_message(pyrogram.filters.command(["chnlid"]))
 def chnl_id(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -128,4 +153,9 @@ def chnl_id(bot, update):
         bot.delete_messages(
             chat_id=update.chat.id,
             message_ids=update.message_id    
+        )
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
         )
