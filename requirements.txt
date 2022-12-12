@@ -40,3 +40,4 @@ pyvirtualdisplay
 cinemagoer
 si_prefix
 cfscrape
+yt-dlp
