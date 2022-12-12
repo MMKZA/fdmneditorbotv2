@@ -100,3 +100,8 @@ async def script_call_back(bot, update):
             chat_id=update.chat.id,
             text="Post တင်လိုက်သော ဇာတ်လမ်း 👇\n" + script_url
         )
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
