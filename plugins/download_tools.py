@@ -462,3 +462,32 @@ def command_tool(bot, update):
                     )
                 except:
                     pass
+                  
+@pyrogram.Client.on_message(pyrogram.filters.command(["tmupd2"]))
+async def fdmn_countdown(bot, update):
+    if update.from_user.id in Config.AUTH_USERS:
+        await bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
+        promo_txt = Trnl.sh5.acell('I2').value
+        promo_prd = Trnl.sh5.acell('J2').value
+        promo_fee = Trnl.sh5.acell('K2').value
+        time_info = Trnl.sh5.acell('L2').value
+        promo_mssg_id = int(Trnl.sh5.acell('M2').value)
+        if '-' in time_info:
+            year,month,day,hour,minute,second = int(time_info.split('-')[0]),int(time_info.split('-')[1]),int(time_info.split('-')[2]),int(time_info.split('-')[3]),int(time_info.split('-')[4]),int(time_info.split('-')[5])
+            future = datetime.datetime(year,month,day,hour,minute,second)
+            present = datetime.datetime.now()
+            t = (future - present).total_seconds()
+        elif '-' not in time_info:
+            t = int(time_info)
+        #while t:
+        timer = convert(t)
+        await bot.edit_message_text(
+            chat_id='@fdmnchannel',
+            message_id=promo_mssg_id,
+            text=promo_txt.format(timer, promo_fee, promo_prd, promo_fee)
+        )
+            #time.sleep(3600)
+            #t -= 3600
