@@ -26,7 +26,7 @@ async def get_list_dir(bot, update):
             for subdir, dirs, files in os.walk(tmp_directory_for_each_user):
                 for file in files:
                     filepath = subdir + os.sep + file
-                    vd_kw = ['.mp4','.mkv','.m4v','.mov']
+                    vd_kw = ['.mp4','.mkv','.m4v','.mov','.rar','.zip']
                     for vd in vd_kw:
                         if filepath.endswith(vd):
                             fl_lst.append(filepath)
@@ -35,6 +35,11 @@ async def get_list_dir(bot, update):
                     text=fl,
                     chat_id=update.chat.id
                 )
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 @pyrogram.Client.on_message(pyrogram.filters.command(["dirrm"]))
 async def remove_dir(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -50,7 +55,7 @@ async def remove_dir(bot, update):
             for subdir, dirs, files in os.walk(tmp_directory_for_each_user):
                 for file in files:
                     filepath = subdir + os.sep + file
-                    vd_kw = ['.mp4','.mkv','.m4v','.mov']
+                    vd_kw = ['.mp4','.mkv','.m4v','.mov','.rar','.zip']
                     for vd in vd_kw:
                         if filepath.endswith(vd):
                             fl_lst.append(filepath)
@@ -67,6 +72,11 @@ async def remove_dir(bot, update):
             except:
                 pass
             await fl_msg.edit_text("ဖိုင်အားလုံးကို ဖျက်ပြီးပါပြီ ⚠️")
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 @pyrogram.Client.on_message(pyrogram.filters.command(["flrm"]))
 async def remove_file(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -77,4 +87,8 @@ async def remove_file(bot, update):
             text="အဆိုပါဖိုင်ကို ဖျက်ပြီးပါပြီ ⚠️",
             chat_id=update.chat.id
         )
-    
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
