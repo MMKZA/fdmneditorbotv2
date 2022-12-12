@@ -33,6 +33,15 @@ import re
 from datetime import datetime, timedelta
 from channels import channels
 
+def convert(seconds):
+    day = int(seconds // (24*3600))
+    seconds %= 24 * 3600
+    hour = int(seconds // 3600)
+    seconds %= 3600
+    minutes = int(seconds // 60)
+    seconds %= 60 
+    return "{:d} ရက် : {:d} နာရီ".format(day, hour)
+
 class cd:
     """Context manager for changing the current working directory"""
     def __init__(self, newPath):
@@ -477,8 +486,8 @@ async def fdmn_countdown(bot, update):
         promo_mssg_id = int(Trnl.sh5.acell('M2').value)
         if '-' in time_info:
             year,month,day,hour,minute,second = int(time_info.split('-')[0]),int(time_info.split('-')[1]),int(time_info.split('-')[2]),int(time_info.split('-')[3]),int(time_info.split('-')[4]),int(time_info.split('-')[5])
-            future = datetime.datetime(year,month,day,hour,minute,second)
-            present = datetime.datetime.now()
+            future = datetime(year,month,day,hour,minute,second)
+            present = datetime.now()
             t = (future - present).total_seconds()
         elif '-' not in time_info:
             t = int(time_info)
