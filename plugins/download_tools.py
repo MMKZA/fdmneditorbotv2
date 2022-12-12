@@ -586,3 +586,8 @@ async def fdmn_countdown(bot, update):
         )
             #time.sleep(3600)
             #t -= 3600
+    elif update.from_user.id not in Config.AUTH_USERS:
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
