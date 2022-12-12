@@ -252,124 +252,138 @@ def jsdl_tool(bot, update):
 
 @pyrogram.Client.on_message(pyrogram.filters.command(["cl"]))
 def clean(bot, update):
-    status = "error"
-    gdrvclean(status)
-    gdtotclean(status)
-    bot.delete_messages(
-        chat_id=update.chat.id,
-        message_ids=update.message_id
-    )
+    if update.from_user.id in Config.AUTH_USERS:
+        status = "error"
+        gdrvclean(status)
+        gdtotclean(status)
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
     
 @pyrogram.Client.on_message(pyrogram.filters.command(["pstcl"]))
 def poster_clean(bot, update):
-    poster_gdrvclean()
-    bot.delete_messages(
-        chat_id=update.chat.id,
-        message_ids=update.message_id
-    )
+    if update.from_user.id in Config.AUTH_USERS:
+        poster_gdrvclean()
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 
 @pyrogram.Client.on_message(pyrogram.filters.command(["offimdbpy"]))
 def open_imdbpy(bot, update):
-    Trnl.sh2.update('C3','open')
-    web_url = Trnl.sh2.acell('M2').value
-    #func_scpt(web_url)
-    #Trnl.sh2.update('C3','close')
-    bot.delete_messages(
-        chat_id=update.chat.id,
-        message_ids=update.message_id
-    )
+    if update.from_user.id in Config.AUTH_USERS:
+        Trnl.sh2.update('C3','open')
+        web_url = Trnl.sh2.acell('M2').value
+        #func_scpt(web_url)
+        #Trnl.sh2.update('C3','close')
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
     
 @pyrogram.Client.on_message(pyrogram.filters.command(["onimdbpy"]))
 def close_imdbpy(bot, update):
-    Trnl.sh2.update('C3','close')
-    bot.delete_messages(
-        chat_id=update.chat.id,
-        message_ids=update.message_id
-    )
+    if update.from_user.id in Config.AUTH_USERS:
+        Trnl.sh2.update('C3','close')
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 
 @pyrogram.Client.on_message(pyrogram.filters.command(["deadimdbpy"]))
 def open_imdb(bot, update):
-    Trnl.sh2.update('N7','open')
-    bot.delete_messages(
-        chat_id=update.chat.id,
-        message_ids=update.message_id
-    )
+    if update.from_user.id in Config.AUTH_USERS:
+        Trnl.sh2.update('N7','open')
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
     
 @pyrogram.Client.on_message(pyrogram.filters.command(["refreshimdb"]))
 def close_imdb(bot, update):
-    Trnl.sh2.update('N7','close')
-    bot.delete_messages(
-        chat_id=update.chat.id,
-        message_ids=update.message_id
-    )
+    if update.from_user.id in Config.AUTH_USERS:
+        Trnl.sh2.update('N7','close')
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
     
 @pyrogram.Client.on_message(pyrogram.filters.command(["imdbgoogle"]))
 def imdb_google(bot, update):
-    try:
-        title = Trnl.sh2.acell('D4').value
-        year = Trnl.sh2.acell('D5').value
-    except:
-        vcap = Trnl.sh2.acell('D2').value
-        year = ''
-        year = re.findall(r'(\d+)', vcap)[len(re.findall(r'(\d+)', vcap)) - 1]
-        title = vcap.replace('(' + year + ')', '').strip()
-    imdb_rtrn = google('{} {} imdb'.format(title,year))
-    imdb_id = imdb_rtrn[0]
-    imdb_lst = imdb_rtrn[1]
-    imdb_url = 'https://www.imdb.com/title/' + imdb_id
-    bot.send_message(
-        chat_id=update.chat.id,
-        text="Result အားလုံး 👇"
-    )  
-    for imdb in imdb_lst:
+    if update.from_user.id in Config.AUTH_USERS:
+        try:
+            title = Trnl.sh2.acell('D4').value
+            year = Trnl.sh2.acell('D5').value
+        except:
+            vcap = Trnl.sh2.acell('D2').value
+            year = ''
+            year = re.findall(r'(\d+)', vcap)[len(re.findall(r'(\d+)', vcap)) - 1]
+            title = vcap.replace('(' + year + ')', '').strip()
+        imdb_rtrn = google('{} {} imdb'.format(title,year))
+        imdb_id = imdb_rtrn[0]
+        imdb_lst = imdb_rtrn[1]
+        imdb_url = 'https://www.imdb.com/title/' + imdb_id
         bot.send_message(
             chat_id=update.chat.id,
-            text=imdb
-        )        
-    bot.send_message(
-        chat_id=update.chat.id,
-        text="အဖြစ်နိုင်ဆုံး 👇"+imdb_url
-    )
+            text="Result အားလုံး 👇"
+        )  
+        for imdb in imdb_lst:
+            bot.send_message(
+                chat_id=update.chat.id,
+                text=imdb
+            )        
+        bot.send_message(
+            chat_id=update.chat.id,
+            text="အဖြစ်နိုင်ဆုံး 👇"+imdb_url
+        )
+
 @pyrogram.Client.on_message(pyrogram.filters.command(["autoauto"]))
 def auto_auto(bot, update):
-    Trnl.sh2.update('V2','auto')
-    Trnl.sh2.update('W2','auto')
-    bot.delete_messages(
-        chat_id=update.chat.id,
-        message_ids=update.message_id
-    )
+    if update.from_user.id in Config.AUTH_USERS:
+        Trnl.sh2.update('V2','auto')
+        Trnl.sh2.update('W2','auto')
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
+
 @pyrogram.Client.on_message(pyrogram.filters.command(["manualmanual"]))
 def manual_manual(bot, update):
-    Trnl.sh2.update('V2','manual')
-    Trnl.sh2.update('W2','manual')
-    bot.delete_messages(
-        chat_id=update.chat.id,
-        message_ids=update.message_id
-    )
+    if update.from_user.id in Config.AUTH_USERS:
+        Trnl.sh2.update('V2','manual')
+        Trnl.sh2.update('W2','manual')
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 @pyrogram.Client.on_message(pyrogram.filters.command(["autoplm"]))
 def auto_plm(bot, update):
-    Trnl.sh2.update('W2','auto')
-    Trnl.sh2.update('W3','method=PLM')
-    bot.delete_messages(
-        chat_id=update.chat.id,
-        message_ids=update.message_id
-    )
+    if update.from_user.id in Config.AUTH_USERS:
+        Trnl.sh2.update('W2','auto')
+        Trnl.sh2.update('W3','method=PLM')
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 @pyrogram.Client.on_message(pyrogram.filters.command(["autotm"]))
 def auto_tm(bot, update):
-    Trnl.sh2.update('W2','auto')
-    Trnl.sh2.update('W3','method=TM')
-    bot.delete_messages(
-        chat_id=update.chat.id,
-        message_ids=update.message_id
-    )
+    if update.from_user.id in Config.AUTH_USERS:
+        Trnl.sh2.update('W2','auto')
+        Trnl.sh2.update('W3','method=TM')
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
 @pyrogram.Client.on_message(pyrogram.filters.command(["autodm"]))
 def auto_dm(bot, update):
-    Trnl.sh2.update('W2','auto')
-    Trnl.sh2.update('W3','method=DM')
-    bot.delete_messages(
-        chat_id=update.chat.id,
-        message_ids=update.message_id
-    )
+    if update.from_user.id in Config.AUTH_USERS:
+        Trnl.sh2.update('W2','auto')
+        Trnl.sh2.update('W3','method=DM')
+        bot.delete_messages(
+            chat_id=update.chat.id,
+            message_ids=update.message_id
+        )
     
 @pyrogram.Client.on_message(pyrogram.filters.command(["upld"]))
 def upld_tool(bot, update):
@@ -432,28 +446,29 @@ def poster_tool(bot, update):
             message_ids=update.message_id
         )
         
-@pyrogram.Client.on_message(pyrogram.filters.command(["srvk2"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["srvk1"]))
 async def srs_invt_rvk(bot, update):
-    srs_chnl_id_lst = Trnl.sh3.col_values(6)
-    srs_chnl_invt_lk_lst = Trnl.sh3.col_values(2)
-    srs_chnl_id_lst.pop(0)
-    srs_chnl_invt_lk_lst.pop(0)
-    for id in srs_chnl_id_lst:
-        try:
-            index = srs_chnl_id_lst.index(id)
-            chnl = await bot.get_chat(chat_id=int(id))
-            chnl_nm = chnl['title']
-            chnl_invt_lk = srs_chnl_invt_lk_lst[int(index)]
-            await bot.revoke_chat_invite_link(
-                chat_id = int(id),
-                invite_link = str(chnl_invt_lk)
-            )
-            await bot.send_message(
-                chat_id=update.chat.id,
-                text="<b>{}</b> movie channel မှ invite link <b>{}</b> ကို ပိတ်လိုက်ပါပြီ".format(chnl_nm, chnl_invt_lk)
-            )
-        except:
-            pass
+    if update.from_user.id in Config.AUTH_USERS:
+        srs_chnl_id_lst = Trnl.sh3.col_values(6)
+        srs_chnl_invt_lk_lst = Trnl.sh3.col_values(2)
+        srs_chnl_id_lst.pop(0)
+        srs_chnl_invt_lk_lst.pop(0)
+        for id in srs_chnl_id_lst:
+            try:
+                index = srs_chnl_id_lst.index(id)
+                chnl = await bot.get_chat(chat_id=int(id))
+                chnl_nm = chnl['title']
+                chnl_invt_lk = srs_chnl_invt_lk_lst[int(index)]
+                await bot.revoke_chat_invite_link(
+                    chat_id = int(id),
+                    invite_link = str(chnl_invt_lk)
+                )
+                await bot.send_message(
+                    chat_id=update.chat.id,
+                    text="<b>{}</b> movie channel မှ invite link <b>{}</b> ကို ပိတ်လိုက်ပါပြီ".format(chnl_nm, chnl_invt_lk)
+                )
+            except:
+                pass
           
 @pyrogram.Client.on_message(pyrogram.filters.command(["cmd"]))
 def command_tool(bot, update):
@@ -472,7 +487,7 @@ def command_tool(bot, update):
                 except:
                     pass
                   
-@pyrogram.Client.on_message(pyrogram.filters.command(["tmupd2"]))
+@pyrogram.Client.on_message(pyrogram.filters.command(["tmupd1"]))
 async def fdmn_countdown(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
         await bot.delete_messages(
