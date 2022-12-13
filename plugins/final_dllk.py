@@ -54,7 +54,7 @@ def final_dllk(bot, update):
             if source_kw in web_url:
                 act_source_kw = source_kw
         
-        trsl_kw_lst = ['https://yoteshinportal.cc/','https://drive.google.com/','rapidleech.gq','megaup.net','workers.dev/download']
+        trsl_kw_lst = ['https://yoteshinportal.cc/','https://drive.google.com/','rapidleech.gq','megaup.net','workers.dev']
         act_trsl_kw = ''
         for trsl_kw in trsl_kw_lst:
             if trsl_kw in web_url:
@@ -405,7 +405,7 @@ def final_dllk(bot, update):
             else:
                 lk = web_url
             if 'megaup.net' not in lk:
-                dlst_kwd_lst = ['rapidleech.gq','workers.dev/download']
+                dlst_kwd_lst = ['rapidleech.gq','workers.dev']
                 act_dlst_kw = ''
                 for k in dlst_kwd_lst:
                     if k in lk:
