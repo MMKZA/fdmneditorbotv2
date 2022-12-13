@@ -22,6 +22,7 @@ from plugins.func_scpt import func_scpt
 from plugins.series import series
 from plugins.echo_auto import echo_auto
 from plugins.echo_echo import echo_echo
+from plugins.extract_list_upload import extract_list_upload
 from plugins.methods import methods,plhh_method,transload_method,direct_method
 from helper_funcs.fdmn_frame import fdmn_frame
 from helper_funcs.imdb_search import google, channelmyanmar
@@ -54,6 +55,15 @@ class cd:
 
     def __exit__(self, etype, value, traceback):
         os.chdir(self.savedPath)
+
+@pyrogram.Client.on_message(pyrogram.filters.regex(pattern="\Aဖိုင်စာရင်း"))
+def upload_from_dir(bot, update):
+    if update.from_user.id in Config.AUTH_USERS:
+        lst_txt = update.text
+        lst = lst_txt.split('\n')
+        lst.pop(0)
+        for dir in lst:
+            extract_list_upload(bot, update, dir)
         
 @pyrogram.Client.on_message(pyrogram.filters.regex(pattern="\Aတင်မယ့်စာရင်း"))
 def upload_by_list(bot, update):
