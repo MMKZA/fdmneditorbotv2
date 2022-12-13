@@ -62,7 +62,15 @@ def upload_from_dir(bot, update):
         lst_txt = update.text
         lst = lst_txt.split('\n')
         lst.pop(0)
+        ttl = len(lst)
+        mssg = bot.send_message(
+            chat_id=update.from_user.id,
+            text='စုစုပေါင်းဖိုင် {} ခုကိုတင်ဖို့ ပြင်ဆင်နေပါတယ်...'.format(ttl),
+            reply_to_message_id=update.message_id
+        )
         for dir in lst:
+            nth = lst.index(dir)
+            mssg.edit_text(text='စုစုပေါင်း {} ခုမှာ {} ခုမြောက်ကို တင်နေပါတယ်...'.format(ttl, nth))
             extract_list_upload(bot, update, dir)
         
 @pyrogram.Client.on_message(pyrogram.filters.regex(pattern="\Aတင်မယ့်စာရင်း"))
@@ -71,9 +79,17 @@ def upload_by_list(bot, update):
         lst_txt = update.text
         lst = lst_txt.split('\n')
         lst.pop(0)
+        ttl = len(lst)
+        mssg = bot.send_message(
+            chat_id=update.from_user.id,
+            text='စုစုပေါင်းဖိုင် {} ခုကိုတင်ဖို့ ပြင်ဆင်နေပါတယ်...'.format(ttl),
+            reply_to_message_id=update.message_id
+        )
         base = Trnl.sh2.acell('K2').value
         for lk in lst:
             if 'megaup.net' in lk and '?download_token=' in lk:
+                nth = lst.index(lk)
+                mssg.edit_text(text='စုစုပေါင်း {} ခုမှာ {} ခုမြောက်ကို တင်နေပါတယ်...'.format(ttl, nth))
                 fl_fll_nm = lk.split('/')[4].split('?download_token')[0]
                 vd_kw = ['.mkv','.m4a','.mov','.avi']
                 vd_ext = os.path.splitext(fl_fll_nm)[1]
