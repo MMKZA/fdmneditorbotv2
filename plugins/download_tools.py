@@ -21,6 +21,7 @@ from plugins.gdrvclean import poster_gdrvclean
 from plugins.func_scpt import func_scpt
 from plugins.series import series
 from plugins.echo_auto import echo_auto
+from plugins.echo_echo import echo_echo
 from plugins.methods import methods,plhh_method,transload_method,direct_method
 from helper_funcs.fdmn_frame import fdmn_frame
 from helper_funcs.imdb_search import google, channelmyanmar
@@ -62,25 +63,30 @@ def upload_by_list(bot, update):
         lst.pop(0)
         base = Trnl.sh2.acell('K2').value
         for lk in lst:
-            final_link = transloader(base, lk)
-            Trnl.sh2.update('L2', final_link)
-            vd_kw = ['.mp4','.mkv','.mov','.m4v']
-            fl_ext = os.path.splitext(final_link)[1]
-            if fl_ext in vd_kw:
-                text = "Video ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 📺SVideo ကိုရွေးချယ်ပါ 👇\n"
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text=text + final_link
-                )
-                asyncio.run(echo_auto(bot,update,final_link))
-            else:
-                text = "Link အမှားအယွင်းရှိနိုင်ပါတယ်၊ သေချာစစ်ကြည့်ပါ ⚠️\n"
-                bot.send_message(
-                    chat_id=update.chat.id,
-                    text=text + final_link
-                )
-                asyncio.run(echo_auto(bot,update,final_link))
-                
+            if 'megaup.net' in lk and '?download_token=' in lk:
+                fl_fll_nm = lk.split('/')[4].split('?download_token')[0]
+                vd_kw = ['.mkv','.m4a','.mov','.avi']
+                vd_ext = os.path.splitext(fl_fll_nm)[1]
+                if vd_ext != '' and vd_ext in vd_kw:
+                    fl_fll_nm = fl_fll_nm.replace(vd_ext,'.mp4')
+                Trnl.sh2.update('D6',fl_fll_nm)
+                final_link = transloader(base, lk)
+                vd_fl_kw = ['.mp4','.mkv','.mov','.m4v','.avi']
+                fl_ext = os.path.splitext(final_link)[1]
+                if fl_ext in vd_fl_kw:
+                    text = "Video ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 📺SVideo ကိုရွေးချယ်ပါ 👇\n"
+                    mssg = bot.send_message(
+                        chat_id=update.from_user.id,
+                        text=text + final_link
+                    )
+                    echo_echo(bot,update,final_link,mssg,mssg.message_id)
+                else:
+                    text = "Link အမှားအယွင်းရှိနိုင်ပါတယ်၊ သေချာစစ်ကြည့်ပါ ⚠️\n"
+                    bot.send_message(
+                        chat_id=update.from_user.id,
+                        text=text + final_link
+                    )
+                    echo_echo(bot,update,final_link,mssg,mssg.message_id)            
         
 @pyrogram.Client.on_message(pyrogram.filters.command(["trsl"]))
 def trsl_tool(bot, update):
