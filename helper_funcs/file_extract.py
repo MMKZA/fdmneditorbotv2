@@ -51,7 +51,7 @@ def list_sorter(fl_lst):
 @pyrogram.Client.on_message(pyrogram.filters.command(["fldl"]))
 def file_extract(bot,update):
     if update.from_user.id in Config.AUTH_USERS:
-        inpath = Trnl.sh1.acell('I3').value
+        inpath = Trnl.sh2.acell('I3').value
         fl_ext = os.path.splitext(inpath)[1]
         outpath = os.path.splitext(inpath)[0] + '/'
         if not os.path.isdir(outpath):
@@ -66,18 +66,28 @@ def file_extract(bot,update):
         for subdir, dirs, files in os.walk(outpath):
             for file in files:
                 filepath = subdir + os.sep + file
-                vd_kw = ['.mp4','.mkv','.m4v','.mov']
-                for vd in vd_kw:
-                    if filepath.endswith(vd):
-                        fl_lst.append(filepath)
+                filepath_ext = os.path.splitext(filepath)[1]
+                vd_kw = ['.avi','.mkv','.m4v','.mov']
+                if filepath_ext in vd_kw:
+                    filepath_mp4 = os.path.splitext(filepath)[0] + '.mp4'
+                    os.rename(filepath, filepath_mp4)
+                    filepath = filepath_mp4
+                fl_lst.append(filepath)
         try:
             if len(fl_lst) != 0:
-                for fl in list_sorter(fl_lst):
+                srtd_fl_lst = list_sorter(fl_lst)
+                fl_lst_txt = 'ဖိုင်စာရင်း\n' + '\n'.join(srtd_fl_lst)
+                for fl in srtd_fl_lst:
                     bot.send_message(
                         text='<code>{}</code>'.format(fl),
                         chat_id=update.message.chat.id,
                         parse_mode="html",
                     )
+                bot.send_message(
+                    text=fl_lst_txt,
+                    chat_id=update.message.chat.id,
+                    parse_mode="html",
+                )
             if len(fl_lst) == 0:
                 bot.send_message(
                         text='<code>{}</code>'.format("ဘာဖိုင်မှ မရှိပါ ⚠️"),
@@ -86,12 +96,19 @@ def file_extract(bot,update):
                 )
         except:
             if len(fl_lst) != 0:
-                for fl in list_sorter(fl_lst):
+                srtd_fl_lst = list_sorter(fl_lst)
+                fl_lst_txt = 'ဖိုင်စာရင်း\n' + '\n'.join(srtd_fl_lst)
+                for fl in srtd_fl_lst:
                     bot.send_message(
                         text='<code>{}</code>'.format(fl),
                         chat_id=update.chat.id,
                         parse_mode="html",
                     )
+                bot.send_message(
+                    text=fl_lst_txt,
+                    chat_id=update.chat.id,
+                    parse_mode="html",
+                )
             if len(fl_lst) == 0:
                 bot.send_message(
                         text='<code>{}</code>'.format("ဘာဖိုင်မှ မရှိပါ ⚠️"),
