@@ -53,6 +53,35 @@ class cd:
 
     def __exit__(self, etype, value, traceback):
         os.chdir(self.savedPath)
+        
+@pyrogram.Client.on_message(pyrogram.filters.regex(pattern="\Aတင်မယ့်စာရင်း"))
+def upload_by_list(bot, update):
+    if update.from_user.id in Config.AUTH_USERS:
+        lst_txt = update.message.text
+        lst = lst_txt.split('\n')
+        lst.pop(0)
+        base = Trnl.sh2.acell('K2').value
+        for lk in lst:
+            final_link = transloader(base, lk)
+            Trnl.sh2.update('L2', final_link)
+            vd_kw = ['.mp4','.mkv','.mov','.m4v']
+            fl_ext = os.path.splitext(final_link)[1]
+            if fl_ext in vd_kw:
+                text = "Video ဖိုင်အမျိုးအစားဖြစ်ပါတယ်၊ 📺SVideo ကိုရွေးချယ်ပါ 👇\n"
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text=text + final_link
+                )
+                asyncio.run(echo_auto(bot,update,final_link))
+            else:
+                text = "Link အမှားအယွင်းရှိနိုင်ပါတယ်၊ သေချာစစ်ကြည့်ပါ ⚠️\n"
+                bot.send_message(
+                    chat_id=update.chat.id,
+                    text=text + final_link
+                )
+                asyncio.run(echo_auto(bot,update,final_link))
+                
+        
 @pyrogram.Client.on_message(pyrogram.filters.command(["trsl"]))
 def trsl_tool(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
