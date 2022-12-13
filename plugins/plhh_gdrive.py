@@ -1,5 +1,6 @@
 import requests
 import json
+import urllib
 import logging
 logging.basicConfig(level=logging.DEBUG,
                     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -35,6 +36,7 @@ def plhh_gdrive(gdrv_lk):
     logger.info(req)
     #response = json.loads(req.content.decode('utf-8'))
     url = 'https://api.{}.workers.dev/download/{}?country={}'.format(dl_wrkr, gdrv_id, dl_ctry)
-    return url
+    api_url = 'https://proxy.downloadapi.workers.dev/api/download?url={}'.format(urllib.parse.quote_plus(url))
+    return api_url
 #gdrv_lk = 'https://drive.google.com/file/d/1kAT4BdsylhdPcPK4neP40IxzKrHKZ83M/view?usp=share_link'   
 #print(plhh_gdrive(gdrv_lk))
