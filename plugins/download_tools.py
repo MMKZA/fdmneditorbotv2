@@ -63,16 +63,16 @@ def upload_from_dir(bot, update):
         lst = lst_txt.split('\n')
         lst.pop(0)
         ttl = len(lst)
-        mssg = bot.send_message(
+        a = bot.send_message(
             chat_id=update.from_user.id,
             text='စုစုပေါင်းဖိုင် {} ခုကိုတင်ဖို့ ပြင်ဆင်နေပါတယ်...'.format(ttl),
             reply_to_message_id=update.message_id
         )
         for dir in lst:
             nth = lst.index(dir) + 1
-            mssg.edit_text(text='စုစုပေါင်း {} ခုမှာ {} ခုမြောက်ကို တင်နေပါတယ်...'.format(ttl, nth))
+            b = a.edit_text(text='စုစုပေါင်း {} ခုမှာ {} ခုမြောက်ကို တင်နေပါတယ်...'.format(ttl, nth))
             extract_list_upload(bot, update, dir)
-        mssg.edit_text(text='စုစုပေါင်း {} ခုကို အောင်မြင်စွာတင်ပြီးပါပြီ...'.format(ttl))
+        b.edit_text(text='စုစုပေါင်း {} ခုကို အောင်မြင်စွာတင်ပြီးပါပြီ...'.format(ttl))
 @pyrogram.Client.on_message(pyrogram.filters.regex(pattern="\Aတင်မယ့်စာရင်း"))
 def upload_by_list(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -80,7 +80,7 @@ def upload_by_list(bot, update):
         lst = lst_txt.split('\n')
         lst.pop(0)
         ttl = len(lst)
-        mssg = bot.send_message(
+        a = bot.send_message(
             chat_id=update.from_user.id,
             text='စုစုပေါင်းဖိုင် {} ခုကိုတင်ဖို့ ပြင်ဆင်နေပါတယ်...'.format(ttl),
             reply_to_message_id=update.message_id
@@ -89,7 +89,7 @@ def upload_by_list(bot, update):
         for lk in lst:
             if 'megaup.net' in lk and '?download_token=' in lk:
                 nth = lst.index(lk) + 1
-                mssg.edit_text(text='စုစုပေါင်း {} ခုမှာ {} ခုမြောက်ကို တင်နေပါတယ်...'.format(ttl, nth))
+                b = a.edit_text(text='စုစုပေါင်း {} ခုမှာ {} ခုမြောက်ကို တင်နေပါတယ်...'.format(ttl, nth))
                 fl_fll_nm = lk.split('/')[4].split('?download_token')[0]
                 vd_kw = ['.mkv','.m4a','.mov','.avi']
                 vd_ext = os.path.splitext(fl_fll_nm)[1]
@@ -114,7 +114,7 @@ def upload_by_list(bot, update):
                         text=text + final_link
                     )
                     echo_echo(bot,update,final_link,mssg,mssg.message_id)            
-        mssg.edit_text(text='စုစုပေါင်း {} ခုကို အောင်မြင်စွာတင်ပြီးပါပြီ...'.format(ttl))
+        b.edit_text(text='စုစုပေါင်း {} ခုကို အောင်မြင်စွာတင်ပြီးပါပြီ...'.format(ttl))
         
 @pyrogram.Client.on_message(pyrogram.filters.command(["trsl"]))
 def trsl_tool(bot, update):
