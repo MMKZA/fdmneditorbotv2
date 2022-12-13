@@ -59,6 +59,12 @@ from helper_funcs.file_extract import file_extract
 
 import subprocess
 
+def percent(part, whole):
+    part_num = float(re.findall("[-+]?[.]?[\d]+(?:,\d\d\d)*[\.]?\d*(?:[eE][-+]?\d+)?", part)[0])
+    whole_num = float(re.findall("[-+]?[.]?[\d]+(?:,\d\d\d)*[\.]?\d*(?:[eE][-+]?\d+)?", whole)[0])
+    answer = "{:.1f}".format((whole_num*part_num/100))
+    return answer
+
 def youtube_dl_call_back(bot, update):
     if Trnl.sh2.acell('V2').value == 'auto':
         cb_data = Trnl.sh2.acell('V3').value
@@ -207,10 +213,11 @@ def youtube_dl_call_back(bot, update):
                 eta = re.findall('ETA[0-9]+:[0-9]+', prog[0])[0].replace('ETA','')
                 spd = re.findall('[0-9]*\.[0-9]+[a-zA-Z]+/s', prog[0])[0]
                 ttl_sz = re.findall('[0-9]*\.[0-9]+[a-zA-Z]+',prog[0])[0].replace('at','')
+                dld_sz = percent(prcnt, ttl_sz)
                 text = '''ပြီးစီးမှုရာခိုင်နှုန်း: {} of {}
 အမြန်နှုန်း: {}
 ခန့်မှန်းကြာချိန်: {} မိနစ် : {} စက္ကန့်'''.format(
-    prcnt,
+    dld_sz,
     ttl_sz,
     spd,
     eta.split(':')[0],
