@@ -72,7 +72,7 @@ def upload_from_dir(bot, update):
             nth = lst.index(dir) + 1
             mssg.edit_text(text='စုစုပေါင်း {} ခုမှာ {} ခုမြောက်ကို တင်နေပါတယ်...'.format(ttl, nth))
             extract_list_upload(bot, update, dir)
-        
+        mssg.edit_text(text='စုစုပေါင်း {} ခုကို အောင်မြင်စွာတင်ပြီးပါပြီ...'.format(ttl))
 @pyrogram.Client.on_message(pyrogram.filters.regex(pattern="\Aတင်မယ့်စာရင်း"))
 def upload_by_list(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
@@ -114,6 +114,7 @@ def upload_by_list(bot, update):
                         text=text + final_link
                     )
                     echo_echo(bot,update,final_link,mssg,mssg.message_id)            
+        mssg.edit_text(text='စုစုပေါင်း {} ခုကို အောင်မြင်စွာတင်ပြီးပါပြီ...'.format(ttl))
         
 @pyrogram.Client.on_message(pyrogram.filters.command(["trsl"]))
 def trsl_tool(bot, update):
