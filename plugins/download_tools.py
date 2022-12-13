@@ -81,6 +81,7 @@ def upload_by_list(bot, update):
                     fl_fll_nm = fl_fll_nm.replace(vd_ext,'.mp4')
                 Trnl.sh2.update('D6',fl_fll_nm)
                 final_link = transloader(base, lk)
+                Trnl.sh2.update('L2', final_link)
                 vd_fl_kw = ['.mp4','.mkv','.mov','.m4v','.avi']
                 fl_ext = os.path.splitext(final_link)[1]
                 if fl_ext in vd_fl_kw:
