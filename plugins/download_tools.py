@@ -69,7 +69,7 @@ def upload_from_dir(bot, update):
             reply_to_message_id=update.message_id
         )
         for dir in lst:
-            nth = lst.index(dir)
+            nth = lst.index(dir) + 1
             mssg.edit_text(text='စုစုပေါင်း {} ခုမှာ {} ခုမြောက်ကို တင်နေပါတယ်...'.format(ttl, nth))
             extract_list_upload(bot, update, dir)
         
@@ -88,7 +88,7 @@ def upload_by_list(bot, update):
         base = Trnl.sh2.acell('K2').value
         for lk in lst:
             if 'megaup.net' in lk and '?download_token=' in lk:
-                nth = lst.index(lk)
+                nth = lst.index(lk) + 1
                 mssg.edit_text(text='စုစုပေါင်း {} ခုမှာ {} ခုမြောက်ကို တင်နေပါတယ်...'.format(ttl, nth))
                 fl_fll_nm = lk.split('/')[4].split('?download_token')[0]
                 vd_kw = ['.mkv','.m4a','.mov','.avi']
