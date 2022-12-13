@@ -51,7 +51,7 @@ def extract_list_upload(bot, update, download_directory):
     typ = Trnl.sh2.acell('P3').value
     vlink = Trnl.sh2.acell('C2').value
     vd_name = os.path.splitext(download_directory.split('/')[-1])[0]
-    upload_mssg = await bot.send_message(
+    upload_mssg = bot.send_message(
         chat_id=update.chat.id,
         text=Translation.UPLOAD_START + '\n<code>{}</code> @fdmnchannel'.format(vd_name),
         reply_to_message_id=update.message_id
@@ -130,18 +130,18 @@ def extract_list_upload(bot, update, download_directory):
         
     if file_size > Config.TG_MAX_FILE_SIZE:
         d_f_s = humanbytes(os.path.getsize(download_directory))
-        i_m_s_g = await bot.edit_message_text(
+        i_m_s_g = bot.edit_message_text(
             text="𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢 𝙎𝙪𝙥𝙥𝙤𝙧𝙩𝙨 2𝙂𝘽 𝙈𝙖𝙭\n𝘿𝙚𝙩𝙚𝙘𝙩𝙚𝙙 𝙁𝙞𝙡𝙚 𝙎𝙞𝙯𝙚: {} \n𝙩𝙧𝙮𝙞𝙣𝙜 𝙩𝙤 𝙨𝙥𝙡𝙞𝙩 𝙩𝙝𝙚 𝙛𝙞𝙡𝙚𝙨".format(d_f_s),
             chat_id=update.chat.id,
             message_id=upload_mssg.message_id
         )
-        splitted_dir = await split_large_files(download_directory)
+        splitted_dir = split_large_files(download_directory)
         totlaa_sleif = os.listdir(splitted_dir)
         totlaa_sleif.sort()
         number_of_files = len(totlaa_sleif)
         #logger.info(totlaa_sleif)
         ba_se_file_name = os.path.basename(download_directory)
-        await i_m_s_g.edit_text(
+        i_m_s_g.edit_text(
             f"𝘿𝙚𝙩𝙚𝙘𝙩𝙚𝙙 𝙁𝙞𝙡𝙚 𝙎𝙞𝙯𝙚: {d_f_s} \n"
             f"<code>{ba_se_file_name}</code> 𝙨𝙥𝙡𝙞𝙩𝙩𝙚𝙙 𝙞𝙣𝙩𝙤 {number_of_files} 𝙛𝙞𝙡𝙚𝙨.\n"
             "𝙩𝙧𝙮𝙞𝙣𝙜 𝙩𝙤 𝙪𝙥𝙡𝙤𝙖𝙙 𝙩𝙤 𝙏𝙚𝙡𝙚𝙜𝙧𝙖𝙢, 𝙣𝙤𝙬 "
@@ -149,7 +149,7 @@ def extract_list_upload(bot, update, download_directory):
         for le_file in totlaa_sleif:
             i_th = totlaa_sleif.index(le_file) + 1
             dwnl_dir = tmp_directory_for_each_user + "/fdmnsplits/" + le_file
-            upmssg = await bot.edit_message_text(
+            upmssg = bot.edit_message_text(
                 text=Translation.UPLOAD_START + f"\n<code>{ba_se_file_name} Part {i_th}</code>",
                 chat_id=update.chat.id,
                 message_id=update.message_id
@@ -167,7 +167,7 @@ def extract_list_upload(bot, update, download_directory):
                 vd_name =  "<code>{} | Part {}</code> @fdmnchannel".format(vd_name,i_th)
             start_time = time.time()
             start_one = datetime.now()
-            vdf_msg = await bot.send_video(
+            vdf_msg = bot.send_video(
                 # chat_id=update.message.chat.id,
                 chat_id=chnl_id,
                 video=dwnl_dir,
@@ -190,7 +190,7 @@ def extract_list_upload(bot, update, download_directory):
             Trnl.sh2.update('P2',str(vdf_msg.message_id-i_th+1))
         end_one = datetime.now()
         time_taken_for_upload = (end_one - start_one).seconds
-        await bot.edit_message_text(
+        bot.edit_message_text(
             text=Translation.AFTER_SUCCESSFUL_UPLOAD_MSG_WITH_TS.format(time_taken_for_download,
                                                                         time_taken_for_upload),
             chat_id=update.chat.id,
@@ -242,7 +242,7 @@ def extract_list_upload(bot, update, download_directory):
                 vd_name = '{} | {} @fdmnchannel'.format(vcap, vd_qlt)
             else:
                 vd_name = '<code>{}</code> @fdmnchannel'.format(vd_name)
-            vdf_msg = await bot.send_video(
+            vdf_msg = bot.send_video(
                 # chat_id=update.message.chat.id,
                 chat_id=chnl_id,
                 video=download_directory,
@@ -263,7 +263,7 @@ def extract_list_upload(bot, update, download_directory):
                 )
             )
             Trnl.sh2.update('P2',str(vdf_msg.message_id))
-            # vdf_msg = await bot.forward_messages(
+            # vdf_msg = bot.forward_messages(
             # chat_id=int("-1001785695486"),
             # from_chat_id=update.message.chat.id,
             # message_ids=vd_msg.message_id
@@ -272,7 +272,7 @@ def extract_list_upload(bot, update, download_directory):
             logger.info("Did this happen? :\\")
         end_one = datetime.now()
         time_taken_for_upload = (end_one - start_one).seconds
-        await bot.edit_message_text(
+        bot.edit_message_text(
             text='Upload ကြာချိန် : {} စက္ကန့်'.format(time_taken_for_upload),
             chat_id=update.chat.id,
             message_id=upload_mssg.message_id,
