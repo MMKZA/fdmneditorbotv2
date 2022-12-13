@@ -57,7 +57,7 @@ class cd:
 @pyrogram.Client.on_message(pyrogram.filters.regex(pattern="\Aတင်မယ့်စာရင်း"))
 def upload_by_list(bot, update):
     if update.from_user.id in Config.AUTH_USERS:
-        lst_txt = update.message.text
+        lst_txt = update.text
         lst = lst_txt.split('\n')
         lst.pop(0)
         base = Trnl.sh2.acell('K2').value
