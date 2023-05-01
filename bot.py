@@ -17,6 +17,13 @@ logging.getLogger("pyrogram").setLevel(logging.WARNING)
 import warnings
 warnings.filterwarnings('ignore')
 
+
+def send_status_message(app):
+    app.send_message(
+        chat_id=1700943365,
+        text='Ready to Use!✅'
+    )
+
 if __name__ == "__main__" :
     # create download directory, if not exist
     if not os.path.isdir(Config.DOWNLOAD_LOCATION):
@@ -31,4 +38,6 @@ if __name__ == "__main__" :
         api_hash=Config.API_HASH,
         plugins=plugins,
       )
+    with app:
+        send_status_message(app)
     app.run()
